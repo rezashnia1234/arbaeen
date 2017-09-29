@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>بسم الله الرحمن الرحیم</title>
+
+	<!-- Required libs -->
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/console.log.js"></script>
+    <script src="phonegap.js"></script>
+	<script src="js/persian_number_to_english.js"></script>
+	<script src="js/jquery.md5.js"></script>
+
+	<link rel="stylesheet" href="onsenui/css/onsenui.min.css">
+	<link rel="stylesheet" href="onsenui/css/onsen-css-components.min.css">
+	<link rel="stylesheet" href="css/fontiran.css">
+	
+<style>
+.rtl{direction:rtl !important;}
+.left-to-right-text,.left-to-right-text *{text-align:left !important;}
+.center-text,.center-text *{text-align:center !important;}
+div,button,.ripple,.button--material,.button--large--cta,.button,input{
+	font-family:"iranyekan",Tahoma !important;
+	font-size:14px;
+}
+p#modal-text {
+    text-align: center;
+    width: auto;
+    display: inline-block;
+    margin: auto;
+}
+p#modal-text ons-icon{
+	float: right;
+	margin-left: 10px;
+}
+p#modal-text ons-icon{
+	float: right;
+}
+
+
+.login-form {
+  text-align: center;
+  width: 80%;
+  margin2: 60px auto 0;
+  margin3: 10% auto 0;
+  margin: 40px auto 0;
+  direction:rtl;
+}
+
+
+</style>
+	<script src="onsenui/js/onsenui.min.js"></script>
+	<script>
+		function init() {		
+			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start init()');
+			document.addEventListener("deviceready", onDeviceReady, false);
+		}
+		function onDeviceReady() {
+			var networkState = navigator.connection.type;
+			//UserAgent.set("A786-110-A");
+			//if ( device.platform == 'Android' ){//Android,iOS,win7=WinCE,win8=Win32NT
+			//	document.addEventListener("backbutton", go_back_index, false);
+			//}
+			var networkState = navigator.connection.type;
+			if (networkState == Connection.NONE) {
+				need_internet();
+			}
+		}
+		function go_back_index() {
+			//StartScan();
+			navigator.notification.confirm(
+				'آیا تمایل به خروج از برنامه را دارید؟',	// message
+				onExitConfirm,								// callback
+				'توجه',										// title
+				['بله','خیر']								// buttonName
+			);
+		}
+		function onExitConfirm(buttonIndex) {
+			if(buttonIndex==1)
+				navigator.app.exitApp();
+		}
+		function need_internet() {
+			$("#need_wifi").css("display","table");
+			navigator.notification.alert(
+				'شما برای مشاهده این صفحه نیاز به اتصال به شبکه WIFI اتوبوس را دارید.',  // message
+				alertDismissed,         // callback
+				'اخطار',            // title
+				'تائید'                  // buttonName
+			);
+		}
+		function alertDismissed() {}
+
+		function fromTemplate(text) {
+			var dialog = document.getElementById('dialog-alert');
+			if (dialog) {
+				$('#dialog-text').html(text);
+				dialog.show();
+			}
+			else {
+				ons.createDialog('dialog.html')
+					.then(function (dialog) {
+					$('#dialog-text').html(text);
+					dialog.show();
+				});
+			}
+		};
+		function hideDialog(id) {
+			document.getElementById(id).hide();
+		};
+		
+	</script>
+	<!-- App -->
+	<script type="text/javascript">
+		server_url = "http://192.168.0.143/autobus/check_net.php";
+		
+		//ons.platform.select('android');
+		ons.platform.select('ios');
+		//ons.forcePlatformStyling('ios');
+		ons.disableAutoStatusBarFill();
+		ons.disableAutoStyling();
+		
+		document.addEventListener('init', function(event) {
+			//StatusBar.hide;
+			var page = event.target;
+			modal = document.querySelector('ons-modal');
+			
+			if (page.id === 'home') {
+			
+			}else if (page.id === 'setting') {
+			
+			}
+	
+		});
+		function check_server(handle_check_server) {
+			var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
+			$.ajax({
+					url: server_url,
+					type: "POST",
+					data: {
+						act: "check_net",//timeStampInMs
+					},
+					//async: true,
+					success : function(text)
+					{
+						modal.hide({animation: "fade"});
+						handle_check_server(text);
+					},
+					error: function(jqXHR, exception) {
+						$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>لطفا به شبکه WIFI اتوبوس متصل شوید.</span>');
+						modal.show({animation: "fade"});
+						setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+					},
+			});
+		}
+
+
+	</script>
+</head>
+<body onload="init();" >
+	<ons-navigator swipeable id="myNavigator" page="home.html"></ons-navigator>
+
+	<template id="home.html">
+		<ons-page id="home" on-device-backbutton="go_back_index();">
+			<ons-toolbar>
+				<div class="center" style="font-size:15px;direction: rtl;text-align: right;padding-right:10px;">نرم افزار مدیریت همراه فیلم - ویژه رانندگان</div>
+			</ons-toolbar>
+			<div class="login-form">
+				<p>لطفا گزینه مورد نظر خود را انتخاب نمایید :</p>
+				<br>
+				<ons-button id="goto-active_user-button" modifier="large--cta">فعال سازی کارت اشتراک</ons-button>
+				<br>
+				<ons-button id="goto-setting-button" modifier="large--cta">تنظیمات</ons-button>
+				<br>
+				<ons-button id="goto-contact-button" modifier="large--cta">تماس با پشتیبانی</ons-button>
+			</div>
+		</ons-page>
+	</template>
+
+	<template id="setting.html">
+		<ons-page id="setting">
+			<ons-toolbar>
+				<div class="right" style="width: 48px;max-width:11%;"><ons-back-button></ons-back-button></div>
+				<div class="center" style="width: 100%;font-size:15px;direction: rtl;text-align: right;">تنظیمات</div>
+			</ons-toolbar>
+			<div class="login-form" >
+				<ons-button id="goto-scan_box-button" modifier="large--cta" style="background-color: #4CAF50; color: #ffffff;">اسکن بارکد بر روی باکس</ons-button>
+				<br/>
+				<ons-button id="goto-get_hours-button" modifier="large--cta" style="background-color: #4CAF50; color: #ffffff;">تعیین تعداد ساعت مجاز</ons-button>
+				<br/>
+				<ons-button id="goto-enter_emergency_code-button" modifier="large--cta" style="background-color: #4CAF50; color: #ffffff;">ورود کد</ons-button>
+				<br/>
+				<br/>
+				<ons-button id="return-button" modifier="large--cta"><ons-icon icon="fa-arrow-left" size="14px" fixed-width="true"></ons-icon> بازگشت</ons-button>
+			</div>
+		</ons-page>
+	</template>
+
+
+
+	<ons-modal direction="up">
+		<div style="text-align: center">
+			<p id="modal-text" class="rtl"></p>
+		</div>
+	</ons-modal>
+	<template id="dialog.html">
+		<ons-dialog id="dialog-alert">
+			<div style="text-align: center; padding: 10px;">
+				<p id="dialog-text" class="rtl"><p>
+				<p><ons-button onclick="hideDialog('dialog-alert')">تائید</ons-button></p>
+			</div>
+		</ons-dialog>
+	</template>
+
+</body>
+</html>
+  
