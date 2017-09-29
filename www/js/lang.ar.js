@@ -11,4 +11,8 @@ lang_ar = {
 	Please_Select_Your_Login_Type : "حدد نوع تسجيل الدخول",
 	The_pilgrim : "الزایر",
 	Tent_manager : "مدير الخيمة",
+	Trip_Map : "خريطة الرحلة",
+	Tents_Positions : "موقف المواکب",
+	Missing_objects : "الكائنات المفقودة",
+	Weather : "طقس",
 };

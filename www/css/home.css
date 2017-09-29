@@ -51,7 +51,7 @@ p#modal-text ons-icon{
 	position: fixed;
 	left: 0;
 	top: 0;
-	background-image: url(../images/select_language_page/bg.png);
+	background-image: url(../images/pages/bg-select_language_page.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -133,13 +133,12 @@ p#modal-text ons-icon{
 	display: table;
 	vertical-align: bottom;
 	padding-bottom: 5%;
+	left: 0;
 }
 #goto_page_user_type_zaer{
-	left: 0;
 	top: 32%;
 }
 #goto_page_user_type_mukeb{
-	left: 0;
 	top: 58%;
 }
 .select_user_type_btn div {
@@ -209,10 +208,64 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 	color: #ffffff;
 	font-size: 29px;
 }
-
-
-
-
+#main_div_zaer_services #menu_zaer_services{
+	position:absolute;
+	/* top:0; */
+	left:0;
+	z-index:-1;
+}
+.select_service_type_btn{
+	/* background-color: rgba(0,0,0,0.5); */
+	width: 100%;
+	height: 21%;
+	cursor: pointer;
+	color: #ffffff;
+	font-size: 17px;
+	text-align: center;
+	display: table;
+	vertical-align: bottom;
+	z-index:2;
+	/* padding-top: 1%; */
+	/* box-sizing: border-box; */
+}
+#goto_page_zaer_service_map{
+	padding-top:2%;
+}
+#goto_page_zaer_service_map_mavakeb{
+	padding-top:1%;
+}
+#goto_page_zaer_service_missing_objects{
+	/* top: 58%; */
+}
+#goto_page_zaer_service_weather{
+	/* top: 58%; */
+}
+.select_service_type_btn div {
+	display: table-cell;
+	vertical-align: bottom;
+	font-size: 16px !important;
+}
+@media (min-width: 555px) {
+	.select_service_type_btn div {
+		font-size: 20px !important;
+	}
+}
+@media (min-width: 675px) {
+	.select_service_type_btn div {
+		font-size: 24px !important;
+	}
+	#goto_page_zaer_service_map{
+		padding-top:1%;
+	}
+}
+@media (min-width: 1000px) {
+	.select_service_type_btn div {
+		font-size: 31px !important;
+	}
+	#goto_page_zaer_service_map{
+		padding-top:0%;
+	}
+}
 
 
 

@@ -11,4 +11,8 @@ lang_fa = {
 	Please_Select_Your_Login_Type : "نوع ورود خود را مشخص کنید",
 	The_pilgrim : "زائر",
 	Tent_manager : "مدیر موکب",
+	Trip_Map : "نقشه سفر",
+	Tents_Positions : "موقعیت موکب ها",
+	Missing_objects : "اشیاء گمشده",
+	Weather : "آب و هوا",
 };

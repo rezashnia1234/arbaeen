@@ -25,6 +25,9 @@
 		
 	</style>
 	<script>
+		winW = 0;
+		winH = 0;
+		
 		if(window.localStorage.getItem('language') == null)
 		{
 			text_direction = "english_text";
@@ -55,7 +58,11 @@
 			{
 				$('.retina').each( function(i) {
 					if($(this).attr("src"))
-						$(this).attr('src', $(this).attr('retina'));
+					{
+						var temp_src_image = $(this).attr("src");
+						if(temp_src_image.indexOf('-xx.png') === -1 && temp_src_image.indexOf('-xx.png') === -1)
+							$(this).attr('src', temp_src_image.replace('.png' , '-xx.png').replace('.jpg' , '-xx.jpg') );
+					}
 					else
 					{
 						var temp_baclground_image = $(this).css('background-image');
@@ -69,6 +76,42 @@
 			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::	start init()');
 			document.addEventListener("deviceready", onDeviceReady, false);
 			set_body_language();
+			
+			if(window.localStorage.getItem('winH') != null)
+				winH = window.localStorage.getItem("winH");
+				
+			setTimeout(function(){
+				winW_temp = jQuery(window).width();
+				winH_temp = jQuery(window).height();
+				if(winH_temp != "" || winH_temp!=0)
+				{
+					winW = winW_temp;
+					winH = winH_temp;
+					window.localStorage.setItem("winH", winH);
+				}
+			}, 200);
+			setTimeout(function(){
+				winW_temp = jQuery(window).width();
+				winH_temp = jQuery(window).height();
+				if(winH_temp != "" || winH_temp!=0)
+				{
+					winW = winW_temp;
+					winH = winH_temp;
+					window.localStorage.setItem("winH", winH);
+				}
+			}, 300);
+			setTimeout(function(){
+				winW_temp = jQuery(window).width();
+				winH_temp = jQuery(window).height();
+				if(winH_temp != "" || winH_temp!=0)
+				{
+					winW = winW_temp;
+					winH = winH_temp;
+					window.localStorage.setItem("winH", winH);
+				}
+			}, 400);
+
+			
 		}
 		function onDeviceReady() {
 			if(window.localStorage.getItem('uuid') == null)
@@ -195,47 +238,81 @@
 			//////////////////////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////////////////////////////////////////////////
 
-			if (page.id === 'home') {
-				check_retina();
+			if (page.id === 'home')
+			{
+					check_retina();
 
-				page.querySelector('#goto_page_language_ar').onclick = function() {
-					lang = lang_ar;
-					text_direction = "arabic_text";
-					set_body_language();
-					window.localStorage.setItem('language',"lang_ar");
-					window.localStorage.setItem('text_direction',text_direction);
-					document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
-				};
-				page.querySelector('#goto_page_language_en').onclick = function() {
-					lang = lang_en;
-					text_direction = "english_text";
-					set_body_language();
-					window.localStorage.setItem('language',"lang_en");
-					window.localStorage.setItem('text_direction',text_direction);
-					document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
-				};
-				page.querySelector('#goto_page_language_fa').onclick = function() {
-					lang = lang_fa;
-					text_direction = "persian_text";
-					set_body_language();
-					window.localStorage.setItem('language',"lang_fa");
-					window.localStorage.setItem('text_direction',text_direction);
-					document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
-				};
-			}else if (page.id === 'select_user_type') {
-				check_retina();
-				need_translate();
-				
-				page.querySelector('#goto_page_user_type_zaer').onclick = function() {
-					document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
-				};
-				page.querySelector('#goto_page_user_type_mukeb').onclick = function() {
-					document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
-				};
-			}else if (page.id === 'zaer_services') {
-				check_retina();
-				need_translate();
-				
+					page.querySelector('#goto_page_language_ar').onclick = function() {
+						lang = lang_ar;
+						text_direction = "arabic_text";
+						set_body_language();
+						window.localStorage.setItem('language',"lang_ar");
+						window.localStorage.setItem('text_direction',text_direction);
+						document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_language_en').onclick = function() {
+						lang = lang_en;
+						text_direction = "english_text";
+						set_body_language();
+						window.localStorage.setItem('language',"lang_en");
+						window.localStorage.setItem('text_direction',text_direction);
+						document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_language_fa').onclick = function() {
+						lang = lang_fa;
+						text_direction = "persian_text";
+						set_body_language();
+						window.localStorage.setItem('language',"lang_fa");
+						window.localStorage.setItem('text_direction',text_direction);
+						document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+			else if (page.id === 'select_user_type')
+			{
+					check_retina();
+					need_translate();
+					
+					page.querySelector('#goto_page_user_type_zaer').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_user_type_mukeb').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+			else if (page.id === 'zaer_services')
+			{
+					check_retina();
+					need_translate();
+					
+					
+					var temp_div		= $("#main_div_zaer_services");
+					var tempH			= $("#menu_zaer_services").height();
+					//temp_div.css("margin-top",(winH-tempH)/2);
+					temp_div_css	= $("#main_div_zaer_services_css_placeholder");
+					temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+					
+					setTimeout(function(){
+						tempH		= $("#menu_zaer_services").height();
+						//temp_div.css("margin-top",(winH-tempH)/2);
+						temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+						//console.log("tempH:" + tempH);
+					}, 350);
+					
+					
+
+					page.querySelector('#goto_page_zaer_service_map').onclick = function() {
+						alert();
+						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_zaer_service_map_mavakeb').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_zaer_service_missing_objects').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_zaer_service_weather').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
 			}
 	
 		});
@@ -290,7 +367,7 @@
 	<ons-template id="homePage.html">
 		<ons-page id="homePage">
 			<!-- <ons-navigator id="myNavigator" page="home.html" swipe-target-width="50px" swipeable></ons-navigator> -->
-			<ons-navigator id="myNavigator" page="zaer_services.html" swipe-target-width="50px" swipeable></ons-navigator>
+			<ons-navigator id="myNavigator" page="home.html" swipe-target-width="50px" swipeable></ons-navigator>
 		</ons-page>
 	</ons-template>
 	
@@ -330,60 +407,30 @@
 
 	<template id="zaer_services.html">
 		<ons-page id="zaer_services" >
-			<div class="page_bg_overflow retina" >
-				<!--
-				<ons-toolbar>
-					<div class="left">
-						<ons-toolbar-button onclick="fn.open()">
-							<ons-icon icon="md-menu"></ons-icon>
-						</ons-toolbar-button>
-					</div>
-					<div class="center">Main</div>
-				</ons-toolbar>
-				-->
-				<div class="left-top-menu">
+			<!--
+			<ons-toolbar>
+				<div class="left">
 					<ons-toolbar-button onclick="fn.open()">
-						<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
+						<ons-icon icon="md-menu"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-
-				<p style="text-align: center; color:#ffffff;padding-top: 0px;">
-				  786<br>
-				  1<br>
-				  2<br>
-				  3<br>
-				  4<br>
-				  5<br>
-				  6<br>
-				  7<br>
-				  8<br>
-				  9<br>
-				  0<br>
-				  1<br>
-				  2<br>
-				  3<br>
-				  4<br>
-				  5<br>
-				  6<br>
-				  7<br>
-				  1<br>
-				  2<br>
-				  3<br>
-				  4<br>
-				  5<br>
-				  6<br>
-				  7<br>
-				  8<br>
-				  9<br>
-				  0<br>
-				  1<br>
-				  2<br>
-				  3<br>
-				  4<br>
-				  5<br>
-				  6<br>
-				  7<br>
-				</p>
+				<div class="center">Main</div>
+			</ons-toolbar>
+			-->
+			<div class="left-top-menu">
+				<ons-toolbar-button onclick="fn.open()">
+					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
+				</ons-toolbar-button>
+			</div>
+			<div class="page_bg_overflow retina" >
+				<div id="main_div_zaer_services_css_placeholder"></div>
+				<div id="main_div_zaer_services" style="text-align: center; color:#ffffff;margin-top:20%;position: relative;" >
+					<img src="images/pages/zaer_services.png" id="menu_zaer_services" class="retina" style="width:100%;" >
+					<div id="goto_page_zaer_service_map" class="select_service_type_btn" ><div class="need_translate" translate="Trip_Map">Trip Map</div></div>
+					<div id="goto_page_zaer_service_map_mavakeb" class="select_service_type_btn" ><div class="need_translate" translate="Tents_Positions">Tents Positions</div></div>
+					<div id="goto_page_zaer_service_missing_objects" class="select_service_type_btn" ><div class="need_translate" translate="Missing_objects">Missing Objects</div></div>
+					<div id="goto_page_zaer_service_weather" class="select_service_type_btn" ><div class="need_translate" translate="Weather">Weather</div></div>
+				</div>
 			</div>
 		</ons-page>
 	</template>

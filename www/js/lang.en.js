@@ -11,4 +11,8 @@ lang_en = {
 	Please_Select_Your_Login_Type : "Please Select Your Login Type",
 	The_pilgrim : "The pilgrim",
 	Tent_manager : "Tent manager",
+	Trip_Map : "Trip Map",
+	Tents_Positions : "Tents Positions",
+	Missing_objects : "Missing Objects",
+	Weather : "Weather",
 };
