@@ -1,3 +1,25 @@
+var MultiLang = function(key)
+{
+	this.get = function(key) {
+		// get key phrase
+		var str;
+
+		// check if any languages were loaded
+		//if (this.phrases[this.selectedLanguage]) str = this.phrases[this.selectedLanguage][key];
+		str = lang[key];
+		if (str == null)
+		{
+			key = key.replace(/_/g, ' ');
+			str = key;
+		}
+		// if key does not exist, return the literal key
+		//str = (str || key);
+		return str;
+	};
+}
+var multilang = new MultiLang();
+
+
 String.prototype.toEnglishDigits = function() {
 	//6٦۶
 	var num_dic = {

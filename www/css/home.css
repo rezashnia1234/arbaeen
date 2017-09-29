@@ -1,0 +1,98 @@
+.rtl{direction:rtl !important;}
+.left-to-right-text,.left-to-right-text *{text-align:left !important;}
+.center-text,.center-text *{text-align:center !important;}
+div,button,.ripple,.button--material,.button--large--cta,.button,input{
+	font-family:"iranyekan",Tahoma !important;
+	font-size:14px;
+}
+p#modal-text {
+	text-align: center;
+	width: auto;
+	display: inline-block;
+	margin: auto;
+}
+p#modal-text ons-icon{
+	float: right;
+	margin-left: 10px;
+}
+p#modal-text ons-icon{
+	float: right;
+}
+.login-form {
+  text-align: center;
+  width: 80%;
+  margin2: 60px auto 0;
+  margin3: 10% auto 0;
+  margin: 40px auto 0;
+  direction:rtl;
+}
+.select_language_page {
+  text-align: center;
+  width: 80%;
+  margin2: 60px auto 0;
+  margin3: 10% auto 0;
+  margin: 40px auto 0;
+  direction:rtl;
+}
+.select_language_page_bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: url(../images/select_language_page/bg.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.select_language_btn {
+	/* background-color: rgba(0,0,0,0.5); */
+	width: 100%;
+	position: absolute;
+	height: 8.5%;
+	cursor: pointer;
+}
+#goto_page_language_ar{
+    left: 0;
+    top: 35%;
+}
+#goto_page_language_en{
+    left: 0;
+    top: 45.5%;
+}
+#goto_page_language_fa{
+    left: 0;
+    top: 56%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
