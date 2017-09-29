@@ -18,7 +18,18 @@ var MultiLang = function(key)
 	};
 }
 var multilang = new MultiLang();
-
+function need_translate() {
+	$('.need_translate').each( function(i) {
+		var translate_temp = $(this).attr("translate");
+		if(translate_temp)
+		{
+			// $(this).css("direction",text_direction);
+			// $(this).addClass(text_direction);
+			$(this).html(multilang.get(translate_temp));
+			$(this).val(multilang.get(translate_temp));
+		}
+	});
+}
 
 String.prototype.toEnglishDigits = function() {
 	//6٦۶

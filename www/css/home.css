@@ -1,10 +1,21 @@
 .rtl{direction:rtl !important;}
 .left-to-right-text,.left-to-right-text *{text-align:left !important;}
 .center-text,.center-text *{text-align:center !important;}
-div,button,.ripple,.button--material,.button--large--cta,.button,input{
+
+.persian_text div,.persian_text button,.persian_text .ripple,.persian_text .button--material,.persian_text .button--large--cta,.persian_text .button,.persian_text input{
 	font-family:"iranyekan",Tahoma !important;
 	font-size:14px;
 }
+.arabic_text div,.arabic_text button,.arabic_text .ripple,.arabic_text .button--material,.arabic_text .button--large--cta,.arabic_text .button,.arabic_text input{
+	font-family:"Droid Arabic Kufi",Tahoma !important;
+	font-size:14px;
+}
+.just_english,.just_arabic,.just_persian{display:none;}
+.english_text .just_english{display:block;}
+.arabic_text .just_arabic{display:block;}
+.persian_text .just_persian{display:block;}
+
+
 p#modal-text {
 	text-align: center;
 	width: auto;
@@ -35,15 +46,39 @@ p#modal-text ons-icon{
   direction:rtl;
 }
 .select_language_page_bg {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-image: url(../images/select_language_page/bg.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-image: url(../images/select_language_page/bg.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+    z-index: -1;
+}
+.page_bg {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-image: url(../images/pages/bg.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+    z-index: -1;
+}
+.page_select_user_type {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-image: url(../images/pages/select_user_type.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
 }
 .select_language_btn {
 	/* background-color: rgba(0,0,0,0.5); */
@@ -53,22 +88,69 @@ p#modal-text ons-icon{
 	cursor: pointer;
 }
 #goto_page_language_ar{
-    left: 0;
-    top: 35%;
+	left: 0;
+	top: 35%;
 }
 #goto_page_language_en{
-    left: 0;
-    top: 45.5%;
+	left: 0;
+	top: 45.5%;
 }
 #goto_page_language_fa{
-    left: 0;
-    top: 56%;
+	left: 0;
+	top: 56%;
 }
-
-
-
-
-
+#top_text {
+	position: absolute;
+	top: 19%;
+	width: 100%;
+	text-align: center;
+	color: #ffffff;
+	font-size: 17px;
+}
+.select_user_type_btn {
+	/* background-color: rgba(0,0,0,0.5); */
+	width: 100%;
+	position: absolute;
+	height: 21%;
+	cursor: pointer;
+	color: #ffffff;
+	font-size: 17px;
+	text-align: center;
+	display: table;
+	vertical-align: bottom;
+	padding-bottom: 5%;
+}
+#goto_page_user_type_zaer{
+	left: 0;
+	top: 32%;
+}
+#goto_page_user_type_mukeb{
+	left: 0;
+	top: 58%;
+}
+.select_user_type_btn div {
+	display: table-cell;
+	vertical-align: bottom;
+	font-size: 17px !important;
+}
+.left-top-menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99999999;
+    /* background-color: #ffffff; */
+    height: 40px;
+    width: 40px;
+}
+/* .left-top-menu .menu-btn:before */
+ons-icon.ons-icon.zmdi.zmdi-menu {
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    padding-top: 7px;
+	color: #ffffff;
+	font-size: 29px;
+}
 
 
 
