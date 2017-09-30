@@ -6,6 +6,7 @@ lang_ar = {
 	yes : "نعم",
 	no : "كلا",
 	ok : "حسنا",
+	Cancel : "إلغاء",
 	do_you_want_to_exit_the_application : "هل حقا تريد الحروج من التطبيق؟",
 	you_must_connect_to_the_internet : "يجب عليك الاتصال بالانترنت!",
 	Please_Select_Your_Login_Type : "حدد نوع تسجيل الدخول",
@@ -27,6 +28,20 @@ lang_ar = {
 	If_you_find_your_passport_and_identity_documents_you_can_even_submit_it_to_the_pilgrim_s_centers_at_these_addresses : "إذا وجدت جواز السفر ووثائق الهوية الخاصة بك، يمكنك حتى تقديمها إلى مراكز الحاج في هذه العناوين.",
 	Fill_in_the_information_in_the_form_carefully_so_that_the_pilgrim_who_lost_it_can_easily_find_it : "ملء المعلومات في شكل بعناية بحيث الحاج الذي فقده يمكن العثور عليه بسهولة.",
 	Submit_Information : "إرسال المعلومات",
+	Enter_the_specification_of_the_found_object : "أدخل مواصفات الكائن الذي تم العثور عليه",
+	Name_of_the_device : "اسم الجهاز",
+	Select_a_category : "اختر تصنيف",
+	Finding_Location : "العثور على الموقع",
+	Contacts_Info : "معلومات الاتصال",
+	Description : "وصف",
+	Image_of_the_Object : "صور الجهاز",
+	Passport_and_identification_documents : "جواز السفر ووثائق الهوية",
+	Clothing : "ملابس",
+	Money : "مال",
+	Watch : "راقب",
+	Ring : "حلقة",
+	Jewelry : "مجوهرات",
+	Others : "الآخرين",
 };
 
 

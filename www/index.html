@@ -27,6 +27,7 @@
 	<script>
 		winW = 0;
 		winH = 0;
+		app = {};
 		
 		if(window.localStorage.getItem('language') == null)
 		{
@@ -190,6 +191,19 @@
 					},
 			});
 		}
+		
+		function show_get_location_popup() {
+			var dialog = document.getElementById('get_location_dialog');
+			if (dialog) {
+				dialog.show();
+			}
+			else {
+				ons.createDialog('get_location_dialog.html')
+					.then(function (dialog) {
+					dialog.show();
+				});
+			}
+		};
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -374,7 +388,60 @@
 					need_translate();
 
 					page.querySelector('#goto_page_zaer_service_missing_objects_found_submit_data').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+			else if (page.id === 'zaer_service_I_Found_Something_data_entry')
+			{
+					check_retina();
+					need_translate();
+					
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					app = {};
+					var	buttons = [
+							multilang.get("Passport_and_identification_documents"),
+							multilang.get("Clothing"),
+							multilang.get("Money"),
+							multilang.get("Watch"),
+							multilang.get("Ring"),
+							multilang.get("Jewelry"),
+							multilang.get("Others"),
+							multilang.get("Cancel"),
+						];
+
+					app.showFromObject = function () {
+						ons.openActionSheet({
+							title: multilang.get("Select_a_category"),
+							cancelable: true,
+							buttons: [
+								multilang.get("Passport_and_identification_documents"),
+								multilang.get("Clothing"),
+								multilang.get("Money"),
+								multilang.get("Watch"),
+								multilang.get("Ring"),
+								multilang.get("Jewelry"),
+								multilang.get("Others"),
+								{
+									label: multilang.get("Cancel"),
+									icon: 'md-close'
+								}
+							]
+						}).then(function (index) {
+							console.log('index: ', index);
+							console.log(buttons[index]);
+							if(index != -1 && index != 7)
+								$("#Select_a_category").find("input").val(buttons[index]);
+						})
+					};
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+
+
+					page.querySelector('#goto_page_zaer_service_missing_objects_found_submit_data').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 		});
@@ -428,7 +495,7 @@
 	
 	<ons-template id="homePage.html">
 		<ons-page id="homePage">
-			<ons-navigator id="myNavigator" page="zaer_service_I_Found_Something.html" swipe-target-width="50px" swipeable></ons-navigator>
+			<ons-navigator id="myNavigator" page="zaer_service_I_Found_Something_data_entry.html" swipe-target-width="50px" swipeable></ons-navigator>
 		</ons-page>
 	</ons-template>
 	
@@ -532,13 +599,13 @@
 			</div>
 			<div class="page_bg retina" ></div>
 			
-			<div class="text-65 center-text" >
+			<div class="text-65 center-text" style="margin-top: 25%;margin-bottom: 10%;" >
 				<span class="need_translate" translate="Thank_you_dear_sir"></span>
 				<br>
 				<span class="need_translate" translate="Please_pay_attention_to_the_following_points"></span>
 			</div>
 			
-			<div class="text-65" >
+			<div class="text-65" style="margin-bottom: 20%;">
 				<ul class="colored-bullets zaer_service_I_Found_Something">
 					<li class="need_translate" translate="If_you_find_your_passport_and_identity_documents_you_can_even_submit_it_to_the_pilgrim_s_centers_at_these_addresses"></li>
 					<li class="need_translate" translate="Fill_in_the_information_in_the_form_carefully_so_that_the_pilgrim_who_lost_it_can_easily_find_it"></li>
@@ -546,6 +613,49 @@
 			</div>
 			
 			<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
+			
+		</ons-page>
+	</template>
+
+	<template id="zaer_service_I_Found_Something_data_entry.html">
+		<ons-page id="zaer_service_I_Found_Something_data_entry" >
+			<div class="left-top-menu">
+				<ons-toolbar-button onclick="fn.open()">
+					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
+				</ons-toolbar-button>
+			</div>
+			<div class="page_bg retina" ></div>
+			
+			<div class="text-65 center-text" style="margin-top: 25%;margin-bottom: 10%;" >
+				<span class="need_translate" translate="Enter_the_specification_of_the_found_object"></span>
+			</div>
+			
+			<div class="text-65" style="margin-bottom: 20%;">
+			
+				<div class="input">
+					<ons-input id="Name_of_the_device" modifier="underbar" placeholder="Name_of_the_device" float class="need_translate_val" translate="Name_of_the_device"></ons-input>
+				</div>
+				<div  class="input" style="position:relative;">
+					<div class="Select_hover" onclick="app.showFromObject()" ></div>
+					<ons-input id="Select_a_category" modifier="underbar" placeholder="Select_a_category" float class="need_translate_val" translate="Select_a_category"></ons-input>
+				</div>
+				<div  class="input" style="position:relative;">
+					<div class="Select_hover" onclick="show_get_location_popup()" ></div>
+					<ons-input id="Select_a_category" modifier="underbar" placeholder="Select_a_category" float class="need_translate_val" translate="Select_a_category"></ons-input>
+				</div>
+
+
+<!--
+Finding_Location : "محل پیدا شدن",
+Contacts_Info : "اطلاعات تماس",
+Description : "توضیحات",
+Image_of_the_Object : "تصویر شی",
+-->	
+			</div>
+			
+			<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
+
+	
 			
 		</ons-page>
 	</template>
@@ -596,10 +706,9 @@
 
 
 
+	<script>
 
-
-
-
+	</script>
 
 	<ons-modal direction="up">
 		<div style="text-align: center">
@@ -611,6 +720,16 @@
 			<div style="text-align: center; padding: 10px;">
 				<p id="dialog-text" class="rtl"><p>
 				<p><ons-button onclick="hideDialog('dialog-alert')">OK</ons-button></p>
+			</div>
+		</ons-dialog>
+	</template>
+	<template id="get_location_dialog.html">
+		<ons-dialog id="get_location_dialog">
+			<div style="text-align: center; padding: 10px;">
+				<div id="dialog-text" class="rtl">
+					<ons-input id="Name_of_the_device" modifier="underbar" placeholder="Name_of_the_device" float class="need_translate_val" translate="Name_of_the_device"></ons-input>
+				</div>
+				<p><ons-button onclick="hideDialog('get_location_dialog')">OK</ons-button></p>
 			</div>
 		</ons-dialog>
 	</template>

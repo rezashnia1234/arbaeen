@@ -27,6 +27,14 @@ function need_translate() {
 			// $(this).addClass(text_direction);
 			$(this).html(multilang.get(translate_temp));
 			$(this).val(multilang.get(translate_temp));
+			// $(this).attr("placeholder",multilang.get(translate_temp));
+		}
+	});
+	$('.need_translate_val').each( function(i) {
+		var translate_temp = $(this).attr("translate");
+		if(translate_temp)
+		{
+			$(this).find("input").attr("placeholder",multilang.get(translate_temp));
 		}
 	});
 }
