@@ -163,13 +163,14 @@
 		function fromTemplate(text) {
 			var dialog = document.getElementById('dialog-alert');
 			if (dialog) {
-				$('#dialog-text').html(text);
+				$('#dialog-text-dialog-alert').html(text);
+				need_translate();
 				dialog.show();
 			}
 			else {
 				ons.createDialog('dialog.html')
 					.then(function (dialog) {
-					$('#dialog-text').html(text);
+					$('#dialog-text-dialog-alert').html(text);
 					need_translate();
 					dialog.show();
 				});
@@ -884,21 +885,36 @@
 function getCurrentPosition_onSuccess(position){
 	//alert("longitude : " + position.coords.longitude);
 	//alert("latitude  : " + position.coords.latitude );
-	navigator.notification.alert(
-		multilang.get("Location_Found!"),				// message
-		alertDismissed,									// callback
-		multilang.get("notice") ,						// title
-		multilang.get("ok")								// buttonName
-	);
-
+	if (window.cordova)
+	{
+		navigator.notification.alert(
+			multilang.get("Location_Found!"),				// message
+			alertDismissed,									// callback
+			multilang.get("notice") ,						// title
+			multilang.get("ok")								// buttonName
+		);
+	}
+	else
+	{
+		text = "longitude : " + position.coords.longitude + "<br>" + "latitude  : " + position.coords.latitude;
+		fromTemplate(text);
+	}
 }
 function getCurrentPosition_onError(){
-	navigator.notification.alert(
-		multilang.get("The_deivce_GPS_is_not_working"),	// message
-		alertDismissed,									// callback
-		multilang.get("warning") ,						// title
-		multilang.get("ok")								// buttonName
-	);
+	if (window.cordova)
+	{
+		navigator.notification.alert(
+			multilang.get("The_deivce_GPS_is_not_working"),	// message
+			alertDismissed,									// callback
+			multilang.get("warning") ,						// title
+			multilang.get("ok")								// buttonName
+		);
+	}
+	else
+	{
+		text = "<span class='need_translate' translate='The_deivce_GPS_is_not_working' >786</span>";
+		fromTemplate(text);
+	}
 }
 
 </script>
@@ -916,7 +932,7 @@ function getCurrentPosition_onError(){
 	<template id="dialog.html">
 		<ons-dialog id="dialog-alert">
 			<div style="text-align: center; padding: 10px;">
-				<p id="dialog-text" class="rtl"><p>
+				<div id="dialog-text-dialog-alert" class="rtl"></div>
 				<p><ons-button onclick="hideDialog('dialog-alert')">OK</ons-button></p>
 			</div>
 		</ons-dialog>
