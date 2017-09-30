@@ -42,6 +42,11 @@ lang_ar = {
 	Ring : "حلقة",
 	Jewelry : "مجوهرات",
 	Others : "الآخرين",
+	Record_GPS_position : "سجل موقف GPS",
+	The_place_you_are_currently_in : "المكان الذي أنت فيه حاليا",
+	City_Name : "اسم المدينة",
+	Pillar_Number : "رقم العمود",
+	Tent_Name : "اسم الموکب",
 };
 
 

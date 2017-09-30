@@ -42,6 +42,11 @@ lang_en = {
 	Ring : "Ring",
 	Jewelry : "Jewelry",
 	Others : "Others",
+	Record_GPS_position : "Record GPS position",
+	The_place_you_are_currently_in : "The place you are currently in",
+	City_Name : "City Name",
+	Pillar_Number : "Pillar Number",
+	Tent_Name : "Tent Name",
 };
 
 

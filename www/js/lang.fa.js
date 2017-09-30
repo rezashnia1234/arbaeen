@@ -42,6 +42,11 @@ lang_fa = {
 	Ring : "انگشتر",
 	Jewelry : "زیورآلات",
 	Others : "سایر",
+	Record_GPS_position : "ثبت موقعیت GPS",
+	The_place_you_are_currently_in : "مکانی که در حال حاضر هستید",
+	City_Name : "نام شهر",
+	Pillar_Number : "شماره عمود",
+	Tent_Name : "نام موکب",
 };
 
 
