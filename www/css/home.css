@@ -33,7 +33,10 @@
 .arabic_text .just_arabic{display:block;}
 .persian_text .just_persian{display:block;}
 
+.english_text ons-input .text-input{direction:ltr !important;}
 
+.dialog-container .text-input{color:#000000 !important;}
+.dialog-container .text-input::placeholder{color:#646464 !important;}
 
 ul.colored-bullets,ul.colored-bullets li{list-style: none;position: relative;padding: 0;}
 ul.colored-bullets li::before {
@@ -535,6 +538,8 @@ ons-input{
 
 .persian_text .camera_image img,.arabic_text .camera_image img{width: 22px;float: left;margin-top: 8px;margin-left: 5px;}
 .english_text .camera_image img{width: 22px;float: right;margin-top: 8px;margin-right: 5px;}
+
+
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
