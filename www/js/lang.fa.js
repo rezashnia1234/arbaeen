@@ -15,4 +15,11 @@ lang_fa = {
 	Tents_Positions : "موقعیت موکب ها",
 	Missing_objects : "اشیاء گمشده",
 	Weather : "آب و هوا",
+	Najaf : "نجف",
+	Karbala : "کربلا",
+	From_Najaf_to_Karbala : "نجف تا کربلا",
+	Nearby_Tents : "موکب های اطراف من",
+	Select_One_of_The_Options_Below : "موقعیت مورد نظر را انتخاب نمایید، موکـب ها به همــراه امکانات آنـها نمایش داده می شوند",
+	I_Found_Something : "وسیله ای را پیدا کرده ام",
+	I_Lost_Something : "وسیله ای را گم کرده ام",
 };

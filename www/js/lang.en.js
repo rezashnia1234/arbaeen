@@ -15,4 +15,11 @@ lang_en = {
 	Tents_Positions : "Tents Positions",
 	Missing_objects : "Missing Objects",
 	Weather : "Weather",
+	Najaf : "Najaf",
+	Karbala : "Karbala",
+	From_Najaf_to_Karbala : "From Najaf to Karbala",
+	Nearby_Tents : "Nearby Tents",
+	Select_One_of_The_Options_Below : "Select One of The Options Below",
+	I_Found_Something : "I Found Something",
+	I_Lost_Something : "I Lost Something",
 };

@@ -15,4 +15,11 @@ lang_ar = {
 	Tents_Positions : "موقف المواکب",
 	Missing_objects : "الكائنات المفقودة",
 	Weather : "طقس",
+	Najaf : "النجف الاشرف",
+	Karbala : "کربلاء المقدسة",
+	From_Najaf_to_Karbala : "من النجف الی الکربلاء",
+	Nearby_Tents : "المواکب القريبة",
+	Select_One_of_The_Options_Below : "اختر من أحد الخيارات في الاسفل",
+	I_Found_Something : "لقد وجدت شيئا",
+	I_Lost_Something : "لقد فقدت شيئا",
 };

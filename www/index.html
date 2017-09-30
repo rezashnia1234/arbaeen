@@ -301,17 +301,59 @@
 					
 
 					page.querySelector('#goto_page_zaer_service_map').onclick = function() {
-						alert();
 						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_zaer_service_map_mavakeb').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_zaer_service_missing_objects').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_zaer_service_weather').onclick = function() {
 						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+			else if (page.id === 'zaer_service_map_mavakeb')
+			{
+					check_retina();
+					need_translate();
+					
+					var temp_div		= $("#main_div_mukeb_map_menu");
+					var tempH			= $("#mukeb_map_menu_image").height();
+					temp_div_css		= $("#main_div_mukeb_map_menu_css_placeholder");
+					//temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:" + (winH-tempH)/2 + "px !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
+					temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:20% !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
+					
+					setTimeout(function(){
+						tempH		= $("#mukeb_map_menu_image").height();
+						//temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:" + (winH-tempH)/2 + "px !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
+						temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:20% !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
+					}, 350);
+
+			}
+			else if (page.id === 'zaer_service_missing_objects')
+			{
+					check_retina();
+					need_translate();
+					
+					setTimeout(function(){
+						tempH			= $("#zaer_service_missing_objects_menu_image").height();
+						temp_div_css	= $("#zaer_service_missing_objects_menu_css_placeholder");
+						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
+					}, 300);
+					/*
+					setTimeout(function(){
+						tempH			= $("#zaer_service_missing_objects_menu_image").height();
+						temp_div_css	= $("#zaer_service_missing_objects_menu_css_placeholder");
+						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
+					}, 350);
+					*/
+					
+					page.querySelector('#goto_page_zaer_service_missing_objects_lost').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_zaer_service_missing_objects_found').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 	
@@ -366,8 +408,7 @@
 	
 	<ons-template id="homePage.html">
 		<ons-page id="homePage">
-			<!-- <ons-navigator id="myNavigator" page="home.html" swipe-target-width="50px" swipeable></ons-navigator> -->
-			<ons-navigator id="myNavigator" page="home.html" swipe-target-width="50px" swipeable></ons-navigator>
+			<ons-navigator id="myNavigator" page="zaer_service_missing_objects.html" swipe-target-width="50px" swipeable></ons-navigator>
 		</ons-page>
 	</ons-template>
 	
@@ -398,16 +439,6 @@
 
 	<template id="zaer_services.html">
 		<ons-page id="zaer_services" >
-			<!--
-			<ons-toolbar>
-				<div class="left">
-					<ons-toolbar-button onclick="fn.open()">
-						<ons-icon icon="md-menu"></ons-icon>
-					</ons-toolbar-button>
-				</div>
-				<div class="center">Main</div>
-			</ons-toolbar>
-			-->
 			<div class="left-top-menu">
 				<ons-toolbar-button onclick="fn.open()">
 					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
@@ -422,6 +453,52 @@
 					<div id="goto_page_zaer_service_missing_objects" class="select_service_type_btn" ><div class="need_translate" translate="Missing_objects">Missing Objects</div></div>
 					<div id="goto_page_zaer_service_weather" class="select_service_type_btn" ><div class="need_translate" translate="Weather">Weather</div></div>
 				</div>
+			</div>
+		</ons-page>
+	</template>
+
+	<template id="zaer_service_map_mavakeb.html">
+		<ons-page id="zaer_service_map_mavakeb" >
+			<div class="left-top-menu">
+				<ons-toolbar-button onclick="fn.open()">
+					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
+				</ons-toolbar-button>
+			</div>
+			<div class="page_bg retina" ></div>
+			
+			<div class="mukeb_map_menu_page_bg retina" >
+				
+				<div id="mukeb_map_menu_icon_div" ><img src="images/pages/mukeb_map_menu_icon.png" id="mukeb_map_menu_icon" class="retina" style="width:100%;" ></div>
+				<div id="select_mukeb_map_type_top_text" class="need_translate" translate="Select_One_of_The_Options_Below" >Select One of The Options Below</div>
+				
+				<div id="main_div_mukeb_map_menu_css_placeholder"></div>
+				
+				<div id="main_div_mukeb_map_menu" class="select_mukeb_map_menu" style="text-align: center; color:#ffffff;margin-top:20%;position: relative;" >
+					<img src="images/pages/mukeb_map_menu1.png" id="mukeb_map_menu_image" class="retina" style="width:100%;" >
+					<div id="goto_page_mukeb_map_najaf" class="select_mukeb_map_type_btn" ><div class="need_translate" translate="Najaf">Najaf</div></div>
+					<div id="goto_page_mukeb_map_karbala" class="select_mukeb_map_type_btn" ><div class="need_translate" translate="Karbala">Karbala</div></div>
+					<div id="goto_page_mukeb_map_from_najaf_to_karbala" class="select_mukeb_map_type_btn" ><div class="need_translate" translate="From_Najaf_to_Karbala">From Najaf to Karbala</div></div>
+					<div id="goto_page_mukeb_map_nearby" class="select_mukeb_map_type_btn" ><div class="need_translate" translate="Nearby_Tents">Nearby Tents</div></div>
+				</div>
+			</div>
+		</ons-page>
+	</template>
+
+	<template id="zaer_service_missing_objects.html">
+		<ons-page id="zaer_service_missing_objects" >
+			<div class="left-top-menu">
+				<ons-toolbar-button onclick="fn.open()">
+					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
+				</ons-toolbar-button>
+			</div>
+			<div class="page_bg retina" ></div>
+			
+			<div id="zaer_service_missing_objects_menu_css_placeholder"></div>
+			
+			<div id="zaer_service_missing_objects_menu" style="text-align: center; color:#ffffff;margin-top:50%;position: relative;" >
+				<img src="images/pages/zaer_service_missing_objects_menu.png" id="zaer_service_missing_objects_menu_image" class="retina" style="width:100%;" >
+				<div id="goto_page_zaer_service_missing_objects_lost" class="zaer_service_missing_objects_btn" ><div class="need_translate" translate="I_Lost_Something">I Lost Something</div></div>
+				<div id="goto_page_zaer_service_missing_objects_found" class="zaer_service_missing_objects_btn" ><div class="need_translate" translate="I_Found_Something">I Found Something</div></div>
 			</div>
 		</ons-page>
 	</template>
