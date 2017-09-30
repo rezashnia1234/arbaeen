@@ -47,8 +47,9 @@ lang_fa = {
 	City_Name : "نام شهر",
 	Pillar_Number : "شماره عمود",
 	Tent_Name : "نام موکب",
-	Your_Data_Submited_Successfully : "اطلاعات شما با موفقیت ثبت شد",//Your Data Submited Successfully
+	Your_Data_Submited_Successfully : "اطلاعات شما با موفقیت ثبت شد",
 	Error_in_uploading_file_please_try_again_later : "خطا در بارگذاری فایل ، لطفا بعدا مجددا سعی نمایید.",
+	The_deivce_GPS_is_not_working : "متاسفانه GPS دستگاه شما کار نمی کند.",
 };
 
 

@@ -58,6 +58,7 @@
 			if(isHighDensity() || isRetina())
 			{
 				$('.retina').each( function(i) {
+					$(this).removeClass("retina");
 					if($(this).attr("src"))
 					{
 						var temp_src_image = $(this).attr("src");
@@ -169,6 +170,7 @@
 				ons.createDialog('dialog.html')
 					.then(function (dialog) {
 					$('#dialog-text').html(text);
+					need_translate();
 					dialog.show();
 				});
 			}
@@ -213,12 +215,14 @@
 		function show_get_location_popup() {
 			var dialog = document.getElementById('get_location_dialog');
 			if (dialog) {
-				dialog.show();
+				//need_translate();
+				dialog.show({animationOptions:{delay: 0.4}});
 			}
 			else {
 				ons.createDialog('get_location_dialog.html')
 					.then(function (dialog) {
-					dialog.show();
+					need_translate();
+					dialog.show({animationOptions:{delay: 0.4}});
 				});
 			}
 		};
@@ -821,8 +825,8 @@
 				</div>
 				<div  class="input" style="position:relative;">
 					<div class="Select_hover" onclick="get_image()" ></div>
-					<div class="Select_hover" onclick="get_image()">
-						<img src="images/camera.svg" style="width: 22px;float: left;margin-top: 8px;margin-left: 5px;">
+					<div class="Select_hover camera_image" onclick="get_image()">
+						<img src="images/camera.svg" >
 					</div>
 					<ons-input id="Image_of_the_Object" modifier="underbar" placeholder="Image_of_the_Object" float class="need_translate_val" translate="Image_of_the_Object"></ons-input>
 				</div>
@@ -875,7 +879,29 @@
 
 
 
+<script>
 
+function getCurrentPosition_onSuccess(position){
+	//alert("longitude : " + position.coords.longitude);
+	//alert("latitude  : " + position.coords.latitude );
+	navigator.notification.alert(
+		multilang.get("Location_Found!"),				// message
+		alertDismissed,									// callback
+		multilang.get("notice") ,						// title
+		multilang.get("ok")								// buttonName
+	);
+
+}
+function getCurrentPosition_onError(){
+	navigator.notification.alert(
+		multilang.get("The_deivce_GPS_is_not_working"),	// message
+		alertDismissed,									// callback
+		multilang.get("warning") ,						// title
+		multilang.get("ok")								// buttonName
+	);
+}
+
+</script>
 
 
 
@@ -910,15 +936,20 @@
 		<ons-dialog id="get_location_dialog">
 			<div style="text-align: center; padding: 10px;">
 				<div id="dialog-text" class="rtl">
-					<ons-input id="Name_of_the_device" modifier="underbar" placeholder="Name_of_the_device" float class="need_translate_val" translate="Name_of_the_device"></ons-input>
+					<ons-button onclick="navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess, getCurrentPosition_onError);" class="need_translate" translate="Record_GPS_position"></ons-button>
+					<br/>
+					<span class="need_translate" translate="The_place_you_are_currently_in" style="margin-top: 10px;display: block;"></span>
+				</div>
+				<div id="dialog-text" class="rtl" >
+					<ons-input id="City_Name" modifier="underbar" placeholder="City_Name" float class="need_translate_span" translate="City_Name"></ons-input>
 				</div>
 				<div id="dialog-text" class="rtl">
-					<ons-input id="Name_of_the_device" modifier="underbar" placeholder="Name_of_the_device" float class="need_translate_val" translate="Name_of_the_device"></ons-input>
+					<ons-input id="Pillar_Number" modifier="underbar" placeholder="Pillar_Number" float class="need_translate_span" translate="Pillar_Number"></ons-input>
 				</div>
 				<div id="dialog-text" class="rtl">
-					<ons-input id="Name_of_the_device" modifier="underbar" placeholder="Name_of_the_device" float class="need_translate_val" translate="Name_of_the_device"></ons-input>
+					<ons-input id="Tent_Name" modifier="underbar" placeholder="Tent_Name" float class="need_translate_span" translate="Tent_Name"></ons-input>
 				</div>
-				<p><ons-button onclick="hideDialog('get_location_dialog')">OK</ons-button></p>
+				<p><ons-button onclick="hideDialog('get_location_dialog')" class="need_translate" translate="ok">OK</ons-button></p>
 			</div>
 		</ons-dialog>
 	</template>

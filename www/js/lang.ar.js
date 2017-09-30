@@ -49,6 +49,7 @@ lang_ar = {
 	Tent_Name : "اسم الموکب",
 	Your_Data_Submited_Successfully : "تم إرسال بياناتك بنجاح",
 	Error_in_uploading_file_please_try_again_later : "حدث خطأ أثناء تحميل الملف، الرجاء إعادة المحاولة لاحقا",
+	The_deivce_GPS_is_not_working : "الجهاز GPS لا يعمل",
 };
 
 

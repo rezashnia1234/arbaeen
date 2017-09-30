@@ -528,7 +528,13 @@ ons-input{
 #zaer_service_I_Found_Something_data_entry div.input{
 	margin-bottom:10%;
 }
+#get_location_dialog .button,#dialog_progress_bar .button ,#dialog-alert .button {
+    width: 100%;
+}
+#get_location_dialog div{margin-bottom:10px;}
 
+.persian_text .camera_image img,.arabic_text .camera_image img{width: 22px;float: left;margin-top: 8px;margin-left: 5px;}
+.english_text .camera_image img{width: 22px;float: right;margin-top: 8px;margin-right: 5px;}
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */

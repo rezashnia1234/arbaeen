@@ -25,6 +25,7 @@ function need_translate() {
 		{
 			// $(this).css("direction",text_direction);
 			// $(this).addClass(text_direction);
+			$(this).removeClass("need_translate");
 			$(this).html(multilang.get(translate_temp));
 			$(this).val(multilang.get(translate_temp));
 			// $(this).attr("placeholder",multilang.get(translate_temp));
@@ -34,9 +35,21 @@ function need_translate() {
 		var translate_temp = $(this).attr("translate");
 		if(translate_temp)
 		{
+			//console.log(translate_temp);
+			$(this).removeClass("need_translate_val");
 			$(this).find("input").attr("placeholder",multilang.get(translate_temp));
 		}
 	});
+	setTimeout(function(){
+		$('.need_translate_span').each( function(i) {
+			var translate_temp = $(this).attr("translate");
+			if(translate_temp)
+			{
+				$(this).removeClass("need_translate_span");
+				$(this).find("input").attr("placeholder",multilang.get(translate_temp));
+			}
+		});
+	}, 250);
 }
 
 String.prototype.toEnglishDigits = function() {

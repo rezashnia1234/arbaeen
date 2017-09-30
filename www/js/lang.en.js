@@ -49,6 +49,7 @@ lang_en = {
 	Tent_Name : "Tent Name",
 	Your_Data_Submited_Successfully : "Your Data Submited Successfully",
 	Error_in_uploading_file_please_try_again_later : "Error in uploading file please try again later",
+	The_deivce_GPS_is_not_working : "The deivce GPS is not working",
 };
 
 
