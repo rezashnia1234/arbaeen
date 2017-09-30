@@ -22,4 +22,18 @@ lang_en = {
 	Select_One_of_The_Options_Below : "Select One of The Options Below",
 	I_Found_Something : "I Found Something",
 	I_Lost_Something : "I Lost Something",
+	Thank_you_dear_sir : "",
+	Please_pay_attention_to_the_following_points : "Please pay attention to the following points",
+	If_you_find_your_passport_and_identity_documents_you_can_even_submit_it_to_the_pilgrim_s_centers_at_these_addresses : "If you find your passport and identity documents, you can even submit it to the pilgrim's centers at these addresses.",
+	Fill_in_the_information_in_the_form_carefully_so_that_the_pilgrim_who_lost_it_can_easily_find_it : "Fill in the information in the form carefully so that the pilgrim who lost it can easily find it.",
+	Submit_Information : "Submit Information",
 };
+
+
+
+
+
+
+
+
+

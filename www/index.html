@@ -330,6 +330,18 @@
 						temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:20% !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
 					}, 350);
 
+					page.querySelector('#goto_page_mukeb_map_najaf').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_mukeb_map_karbala').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_mukeb_map_from_najaf_to_karbala').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_mukeb_map_nearby').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
 			}
 			else if (page.id === 'zaer_service_missing_objects')
 			{
@@ -353,10 +365,18 @@
 						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_zaer_service_missing_objects_found').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
-	
+			else if (page.id === 'zaer_service_I_Found_Something')
+			{
+					check_retina();
+					need_translate();
+
+					page.querySelector('#goto_page_zaer_service_missing_objects_found_submit_data').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
 		});
 	</script>
 </head>
@@ -408,7 +428,7 @@
 	
 	<ons-template id="homePage.html">
 		<ons-page id="homePage">
-			<ons-navigator id="myNavigator" page="zaer_service_missing_objects.html" swipe-target-width="50px" swipeable></ons-navigator>
+			<ons-navigator id="myNavigator" page="zaer_service_I_Found_Something.html" swipe-target-width="50px" swipeable></ons-navigator>
 		</ons-page>
 	</ons-template>
 	
@@ -500,6 +520,33 @@
 				<div id="goto_page_zaer_service_missing_objects_lost" class="zaer_service_missing_objects_btn" ><div class="need_translate" translate="I_Lost_Something">I Lost Something</div></div>
 				<div id="goto_page_zaer_service_missing_objects_found" class="zaer_service_missing_objects_btn" ><div class="need_translate" translate="I_Found_Something">I Found Something</div></div>
 			</div>
+		</ons-page>
+	</template>
+
+	<template id="zaer_service_I_Found_Something.html">
+		<ons-page id="zaer_service_I_Found_Something" >
+			<div class="left-top-menu">
+				<ons-toolbar-button onclick="fn.open()">
+					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
+				</ons-toolbar-button>
+			</div>
+			<div class="page_bg retina" ></div>
+			
+			<div class="text-65 center-text" >
+				<span class="need_translate" translate="Thank_you_dear_sir"></span>
+				<br>
+				<span class="need_translate" translate="Please_pay_attention_to_the_following_points"></span>
+			</div>
+			
+			<div class="text-65" >
+				<ul class="colored-bullets zaer_service_I_Found_Something">
+					<li class="need_translate" translate="If_you_find_your_passport_and_identity_documents_you_can_even_submit_it_to_the_pilgrim_s_centers_at_these_addresses"></li>
+					<li class="need_translate" translate="Fill_in_the_information_in_the_form_carefully_so_that_the_pilgrim_who_lost_it_can_easily_find_it"></li>
+				</ul>
+			</div>
+			
+			<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
+			
 		</ons-page>
 	</template>
 

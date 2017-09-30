@@ -2,6 +2,24 @@
 .left-to-right-text,.left-to-right-text *{text-align:left !important;}
 .center-text,.center-text *{text-align:center !important;}
 
+.text-80{
+	width:80%;
+	color:#ffffff;
+	margin:0 auto;
+}
+.text-65{
+	width:65%;
+	color:#ffffff;
+	margin:0 auto;
+}
+.persian_text .text-80,.persian_text .text-65{direction:rtl;}
+.arabic_text .text-80,.arabic_text .text-65{direction:rtl;}
+.english_text .text-80,.english_text .text-65{direction:ltr;}
+
+.persian_text ul,.persian_text li{direction:rtl;text-align:justify;}
+.arabic_text ul,.arabic_text li{direction:rtl;text-align:justify;}
+.english_text ul,.english_text li{direction:ltr;text-align:justify;}
+
 .persian_text div,.persian_text button,.persian_text .ripple,.persian_text .button--material,.persian_text .button--large--cta,.persian_text .button,.persian_text input{
 	font-family:"iranyekan",Tahoma !important;
 	font-size:14px;
@@ -14,6 +32,36 @@
 .english_text .just_english{display:block;}
 .arabic_text .just_arabic{display:block;}
 .persian_text .just_persian{display:block;}
+
+
+
+ul.colored-bullets,ul.colored-bullets li{list-style: none;position: relative;padding: 0;}
+ul.colored-bullets li::before {
+	content: "•";
+	color: #e30613;
+	display: inline-block;
+	width: 16px;
+	position: absolute;
+	right: -21px;
+	font-size: 24px;
+	top: -7px;
+}
+.english_text ul.colored-bullets li {
+	line-height: 150%;
+}
+.english_text ul.colored-bullets li::before {
+	left: -21px;
+	right: initial;
+	font-size: 37px;
+	/* top: -11px; */
+	top: 0px;
+}
+.arabic_text ul.colored-bullets li::before{
+	top:-9px;
+}
+
+
+
 p#modal-text {
 	text-align: center;
 	width: auto;
@@ -28,20 +76,20 @@ p#modal-text ons-icon{
 	float: right;
 }
 .left-top-menu {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 99999999;
-    /* background-color: #ffffff; */
-    height: 40px;
-    width: 40px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 99999999;
+	/* background-color: #ffffff; */
+	height: 40px;
+	width: 40px;
 }
 /* .left-top-menu .menu-btn:before */
 ons-icon.ons-icon.zmdi.zmdi-menu {
-    width: 40px;
-    height: 40px;
-    box-sizing: border-box;
-    padding-top: 7px;
+	width: 40px;
+	height: 40px;
+	box-sizing: border-box;
+	padding-top: 7px;
 	color: #ffffff;
 	font-size: 29px;
 }
@@ -55,7 +103,7 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-    z-index: -1;
+	z-index: -1;
 }
 .page_bg_overflow {
 	width: 100%;
@@ -71,6 +119,9 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 	overflow-x: hidden;
 	overflow-y: auto;
 }
+
+
+
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -103,7 +154,7 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-    z-index: -1;
+	z-index: -1;
 }
 .select_language_btn {
 	/* background-color: rgba(0,0,0,0.5); */
@@ -326,7 +377,7 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 	/* box-sizing: border-box; */
 }
 #goto_page_mukeb_map_najaf{
-	    margin-top: -13%;
+		margin-top: -13%;
 }
 #goto_page_mukeb_map_karbala{
 	padding-top:1%;
@@ -343,18 +394,18 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 	font-size: 16px !important;
 }
 #mukeb_map_menu_icon_div {
-    position: relative;
-    width: 80%;
-    text-align: center;
-    margin: 19% auto 0 auto;
+	position: relative;
+	width: 80%;
+	text-align: center;
+	margin: 19% auto 0 auto;
 }
 #select_mukeb_map_type_top_text {
-    position: relative;
-    width: 80%;
-    text-align: center;
-    color: #ffffff;
-    font-size: 17px;
-    margin: 0 auto;
+	position: relative;
+	width: 80%;
+	text-align: center;
+	color: #ffffff;
+	font-size: 17px;
+	margin: 0 auto;
 }
 @media (min-width: 555px) {
 	#select_mukeb_map_type_top_text,.select_mukeb_map_type_btn div{
@@ -417,6 +468,27 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 	}
 }
 
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* صفحه تذکرات اولیه ثبت شیء پیدا شده */
+#goto_page_zaer_service_missing_objects_found_submit_data{margin:0 auto;}
+ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
+.Submit_Information {
+    width: 60%;
+    color: #ffffff;
+    margin: 0 auto;
+    border-radius: 6px;
+    border: 2px solid #9293a6;
+	overflow: hidden;
+}
+.Submit_Information > div {
+    width: 100%;
+    height: 100%;
+    /* text-align: center; */
+    border-bottom: 3px solid red;
+    padding: 1.7% 0 1.5% 0;
+}
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */

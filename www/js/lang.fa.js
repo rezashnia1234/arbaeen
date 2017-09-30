@@ -22,4 +22,18 @@ lang_fa = {
 	Select_One_of_The_Options_Below : "موقعیت مورد نظر را انتخاب نمایید، موکـب ها به همــراه امکانات آنـها نمایش داده می شوند",
 	I_Found_Something : "وسیله ای را پیدا کرده ام",
 	I_Lost_Something : "وسیله ای را گم کرده ام",
+	Thank_you_dear_sir : "با تشــکر از شــما یابنده گرامی",
+	Please_pay_attention_to_the_following_points : "لطفا به نکات زیر توجه فرمایید",
+	If_you_find_your_passport_and_identity_documents_you_can_even_submit_it_to_the_pilgrim_s_centers_at_these_addresses : "در صورتی که پاسپورت و مدارک هویتی پیدا کردید حتی الامکان آن را به مراکز راهنمای زائر در این آدرس ها تحویل دهید ",
+	Fill_in_the_information_in_the_form_carefully_so_that_the_pilgrim_who_lost_it_can_easily_find_it : "اطلاعات موجود در فرم را با دقت تکمیل نمایید تا زائری که آن را گم کرده براحتی آن راپیدا  کند",
+	Submit_Information : "ثبت اطلاعات",
 };
+
+
+
+
+
+
+
+
+

@@ -22,4 +22,18 @@ lang_ar = {
 	Select_One_of_The_Options_Below : "اختر من أحد الخيارات في الاسفل",
 	I_Found_Something : "لقد وجدت شيئا",
 	I_Lost_Something : "لقد فقدت شيئا",
+	Thank_you_dear_sir : "",
+	Please_pay_attention_to_the_following_points : "يرجى الانتباه إلى النقاط التالية",
+	If_you_find_your_passport_and_identity_documents_you_can_even_submit_it_to_the_pilgrim_s_centers_at_these_addresses : "إذا وجدت جواز السفر ووثائق الهوية الخاصة بك، يمكنك حتى تقديمها إلى مراكز الحاج في هذه العناوين.",
+	Fill_in_the_information_in_the_form_carefully_so_that_the_pilgrim_who_lost_it_can_easily_find_it : "ملء المعلومات في شكل بعناية بحيث الحاج الذي فقده يمكن العثور عليه بسهولة.",
+	Submit_Information : "إرسال المعلومات",
 };
+
+
+
+
+
+
+
+
+
