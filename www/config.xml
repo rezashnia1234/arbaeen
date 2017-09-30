@@ -68,7 +68,8 @@
 	</plugin>
 	
 	<plugin spec="https://github.com/LouisT/cordova-useragent.git" source="git" />
-	<plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git" source="git" />
+	<!-- <plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git" source="git" /> -->
+	<plugin spec="https://github.com/wymsee/cordova-imagePicker" source="git" />
 	<gap:config-file platform="ios" parent="NSCameraUsageDescription" overwrite="true">
 	   <string>Access to the camera is switched off, please enable it in app settings to continue.</string>
 	</gap:config-file>

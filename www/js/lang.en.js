@@ -47,6 +47,8 @@ lang_en = {
 	City_Name : "City Name",
 	Pillar_Number : "Pillar Number",
 	Tent_Name : "Tent Name",
+	Your_Data_Submited_Successfully : "Your Data Submited Successfully",
+	Error_in_uploading_file_please_try_again_later : "Error in uploading file please try again later",
 };
 
 

@@ -47,6 +47,8 @@ lang_fa = {
 	City_Name : "نام شهر",
 	Pillar_Number : "شماره عمود",
 	Tent_Name : "نام موکب",
+	Your_Data_Submited_Successfully : "اطلاعات شما با موفقیت ثبت شد",//Your Data Submited Successfully
+	Error_in_uploading_file_please_try_again_later : "خطا در بارگذاری فایل ، لطفا بعدا مجددا سعی نمایید.",
 };
 
 
