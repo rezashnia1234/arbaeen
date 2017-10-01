@@ -7,6 +7,7 @@ lang_ar = {
 	no : "كلا",
 	ok : "حسنا",
 	Cancel : "إلغاء",
+	Data_Submitted : "البيانات المقدمة",
 	do_you_want_to_exit_the_application : "هل حقا تريد الحروج من التطبيق؟",
 	you_must_connect_to_the_internet : "يجب عليك الاتصال بالانترنت!",
 	Please_Select_Your_Login_Type : "حدد نوع تسجيل الدخول",
@@ -32,7 +33,9 @@ lang_ar = {
 	Name_of_the_device : "اسم الجهاز",
 	Select_a_category : "اختر تصنيف",
 	Finding_Location : "العثور على الموقع",
+	Finding_Location_Submitted : "العثور على وقع",
 	Contacts_Info : "معلومات الاتصال",
+	Contacts_Info_Submitted : "معلومات الاتصال وقع",
 	Description : "وصف",
 	Image_of_the_Object : "صور الجهاز",
 	Passport_and_identification_documents : "جواز السفر ووثائق الهوية",
@@ -50,6 +53,13 @@ lang_ar = {
 	Your_Data_Submited_Successfully : "تم إرسال بياناتك بنجاح",
 	Error_in_uploading_file_please_try_again_later : "حدث خطأ أثناء تحميل الملف، الرجاء إعادة المحاولة لاحقا",
 	The_deivce_GPS_is_not_working : "الجهاز GPS لا يعمل",
+	Location_Found : "تم العثور على الموقع!",
+	Please_fill_the_required_fields : "يرجى تعبئة جميع الحقول المطلوبة",
+	Phone_number : "رقم الهاتف",
+	Telegram_ID : "Telegram ID",
+	WhatsApp_ID : "WhatsApp ID",
+	Line_ID : "Line ID",
+	Imo_ID : "Imo ID",
 };
 
 

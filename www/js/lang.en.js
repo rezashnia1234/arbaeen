@@ -7,6 +7,7 @@ lang_en = {
 	no : "No",
 	ok : "OK",
 	Cancel : "Cancel",
+	Data_Submitted : "Data Submitted",
 	do_you_want_to_exit_the_application : "Do you want to exit the application?",
 	you_must_connect_to_the_internet : "You must connect to the Internet!",
 	Please_Select_Your_Login_Type : "Please Select Your Login Type",
@@ -32,7 +33,9 @@ lang_en = {
 	Name_of_the_device : "Name of the device",
 	Select_a_category : "Select a category",
 	Finding_Location : "Finding Location",
+	Finding_Location_Submitted : "Finding Location Submitted",
 	Contacts_Info : "Contacts Info",
+	Contacts_Info_Submitted : "Contacts Info Submitted",
 	Description : "Description",
 	Image_of_the_Object : "Image of the Object",
 	Passport_and_identification_documents : "Passport and identification documents",
@@ -50,6 +53,13 @@ lang_en = {
 	Your_Data_Submited_Successfully : "Your Data Submited Successfully",
 	Error_in_uploading_file_please_try_again_later : "Error in uploading file please try again later",
 	The_deivce_GPS_is_not_working : "The deivce GPS is not working",
+	Location_Found : "Location Found!",
+	Please_fill_the_required_fields : "Please fill the required fields",
+	Phone_number : "Phone Number",
+	Telegram_ID : "Telegram ID",
+	WhatsApp_ID : "WhatsApp ID",
+	Line_ID : "Line ID",
+	Imo_ID : "Imo ID",
 };
 
 

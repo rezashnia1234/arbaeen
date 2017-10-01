@@ -7,6 +7,7 @@ lang_fa = {
 	no : "خیر",
 	ok : "تائید",
 	Cancel : "لغو",
+	Data_Submitted : "اطلاعات ثبت شد",
 	do_you_want_to_exit_the_application : "آیا تمایل به خروج از برنامه را دارید؟",
 	you_must_connect_to_the_internet : "شما برای مشاهده این صفحه نیاز به اینترنت دارید!",
 	Please_Select_Your_Login_Type : "نوع ورود خود را مشخص کنید",
@@ -32,7 +33,9 @@ lang_fa = {
 	Name_of_the_device : "نام وسیله",
 	Select_a_category : "انتخاب دسته بندی",
 	Finding_Location : "محل پیدا شدن",
+	Finding_Location_Submitted : "محل پیدا شدن ثبت شد",
 	Contacts_Info : "اطلاعات تماس",
+	Contacts_Info_Submitted : "اطلاعات تماس ثبت شد",
 	Description : "توضیحات",
 	Image_of_the_Object : "تصویر شی",
 	Passport_and_identification_documents : "پاسپورت و مدارک شناسایی",
@@ -50,6 +53,13 @@ lang_fa = {
 	Your_Data_Submited_Successfully : "اطلاعات شما با موفقیت ثبت شد",
 	Error_in_uploading_file_please_try_again_later : "خطا در بارگذاری فایل ، لطفا بعدا مجددا سعی نمایید.",
 	The_deivce_GPS_is_not_working : "متاسفانه GPS دستگاه شما کار نمی کند.",
+	Location_Found : "موقعیت شما از طریق GPS با موفقیت پیدا شد",
+	Please_fill_the_required_fields : "لطفا فیلدهای مورد نیاز را پر کنید",
+	Phone_number : "شماره تماس",
+	Telegram_ID : "شناسه تلگرام",
+	WhatsApp_ID : "شناسه WhatsApp",
+	Line_ID : "شناسه Line",
+	Imo_ID : "شناسه Imo",
 };
 
 

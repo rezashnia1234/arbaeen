@@ -213,20 +213,53 @@
 			});
 		}
 		
-		function show_get_location_popup() {
-			var dialog = document.getElementById('get_location_dialog');
+		function show_get_found_location_popup() {
+			var dialog = document.getElementById('found_get_location_dialog');
 			if (dialog) {
 				//need_translate();
 				dialog.show({animationOptions:{delay: 0.4}});
 			}
 			else {
-				ons.createDialog('get_location_dialog.html')
+				ons.createDialog('found_get_location_dialog.html')
 					.then(function (dialog) {
 					need_translate();
+					if(window.localStorage.getItem('found_City_Name') != null)
+						document.getElementById('found_City_Name').value = window.localStorage.getItem("found_City_Name");
+					if(window.localStorage.getItem('found_Pillar_Number') != null)
+						document.getElementById('found_Pillar_Number').value = window.localStorage.getItem("found_Pillar_Number");
+					if(window.localStorage.getItem('found_Tent_Name') != null)
+						document.getElementById('found_Tent_Name').value = window.localStorage.getItem("found_Tent_Name");
 					dialog.show({animationOptions:{delay: 0.4}});
 				});
 			}
 		};
+		function show_get_found_Contacts_popup() {
+			var dialog = document.getElementById('found_get_Contacts_dialog');
+			if (dialog) {
+				//need_translate();
+				dialog.show({animationOptions:{delay: 0.4}});
+			}
+			else {
+				ons.createDialog('found_get_Contacts_dialog.html')
+					.then(function (dialog) {
+					need_translate();
+
+					if(window.localStorage.getItem('found_Phone_number') != null)
+						document.getElementById('found_Phone_number').value = window.localStorage.getItem("found_Phone_number");
+					if(window.localStorage.getItem('found_Telegram_ID') != null)
+						document.getElementById('found_Telegram_ID').value = window.localStorage.getItem("found_Telegram_ID");
+					if(window.localStorage.getItem('found_WhatsApp_ID') != null)
+						document.getElementById('found_WhatsApp_ID').value = window.localStorage.getItem("found_WhatsApp_ID");
+					if(window.localStorage.getItem('found_Line_ID') != null)
+						document.getElementById('found_Line_ID').value = window.localStorage.getItem("found_Line_ID");
+					if(window.localStorage.getItem('found_Imo_ID') != null)
+						document.getElementById('found_Imo_ID').value = window.localStorage.getItem("found_Imo_ID");
+						
+					dialog.show({animationOptions:{delay: 0.4}});
+				});
+			}
+		};
+		
 		function get_image() {
 			window.imagePicker.getPictures(
 				function(results) {
@@ -669,7 +702,7 @@
 	
 	<ons-template id="homePage.html">
 		<ons-page id="homePage">
-			<ons-navigator id="myNavigator" page="zaer_service_I_Found_Something_data_entry.html" swipe-target-width="50px" swipeable></ons-navigator>
+			<ons-navigator id="myNavigator" page="home.html" swipe-target-width="50px" swipeable></ons-navigator>
 		</ons-page>
 	</ons-template>
 	
@@ -815,10 +848,11 @@
 					<ons-input id="Select_a_category" modifier="underbar" placeholder="Select_a_category" float class="need_translate_val" translate="Select_a_category"></ons-input>
 				</div>
 				<div  class="input" style="position:relative;">
-					<div class="Select_hover" onclick="show_get_location_popup()" ></div>
+					<div class="Select_hover" onclick="show_get_found_location_popup()" ></div>
 					<ons-input id="Finding_Location" modifier="underbar" placeholder="Finding_Location" float class="need_translate_val" translate="Finding_Location"></ons-input>
 				</div>
 				<div  class="input" style="position:relative;">
+					<div class="Select_hover" onclick="show_get_found_Contacts_popup()" ></div>
 					<ons-input id="Contacts_Info" modifier="underbar" placeholder="Contacts_Info" float class="need_translate_val" translate="Contacts_Info"></ons-input>
 				</div>
 				<div  class="input" style="position:relative;">
@@ -834,9 +868,6 @@
 			</div>
 			
 			<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
-
-	
-			
 		</ons-page>
 	</template>
 
@@ -899,6 +930,13 @@ function getCurrentPosition_onSuccess(position){
 		text = "longitude : " + position.coords.longitude + "<br>" + "latitude  : " + position.coords.latitude;
 		fromTemplate(text);
 	}
+	var user_longitude = position.coords.longitude;
+	var user_latitude  = position.coords.latitude;
+	
+	if(user_longitude!="")
+		window.localStorage.setItem("user_longitude",user_longitude);
+	if(user_latitude!="")
+		window.localStorage.setItem("user_latitude",user_latitude);
 }
 function getCurrentPosition_onError(){
 	if (window.cordova)
@@ -916,7 +954,61 @@ function getCurrentPosition_onError(){
 		fromTemplate(text);
 	}
 }
+function found_save_current_location(){
+	var found_City_Name = document.getElementById('found_City_Name').value;
+	var found_Pillar_Number = document.getElementById('found_Pillar_Number').value;
+	var found_Tent_Name = document.getElementById('found_Tent_Name').value;
+	
+	if(found_City_Name!="")
+		window.localStorage.setItem("found_City_Name",found_City_Name);
+	else
+	{
+		ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
+		$("#found_City_Name").addClass("required_but_empty");
+		return false;
+	}
+	if(found_Pillar_Number!="")
+		window.localStorage.setItem("found_Pillar_Number",found_Pillar_Number);
+	
+	if(found_Tent_Name!="")
+		window.localStorage.setItem("found_Tent_Name",found_Tent_Name);
 
+	document.getElementById('Finding_Location').value = multilang.get("Finding_Location_Submitted");
+	hideDialog('found_get_location_dialog');
+}
+
+function found_save_Contacts(){
+
+	var found_Phone_number = document.getElementById('found_Phone_number').value;
+	var found_Telegram_ID = document.getElementById('found_Telegram_ID').value;
+	var found_WhatsApp_ID = document.getElementById('found_WhatsApp_ID').value;
+	var found_Line_ID = document.getElementById('found_Line_ID').value;
+	var found_Imo_ID = document.getElementById('found_Imo_ID').value;
+	
+	if(found_Phone_number!="")
+		window.localStorage.setItem("found_Phone_number",found_Phone_number);
+	else
+	{
+		ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
+		$("#found_Phone_number").addClass("required_but_empty");
+		return false;
+	}
+	if(found_Telegram_ID!="")
+		window.localStorage.setItem("found_Telegram_ID",found_Telegram_ID);
+	
+	if(found_WhatsApp_ID!="")
+		window.localStorage.setItem("found_WhatsApp_ID",found_WhatsApp_ID);
+	
+	if(found_Line_ID!="")
+		window.localStorage.setItem("found_Line_ID",found_Line_ID);
+	
+	if(found_Imo_ID!="")
+		window.localStorage.setItem("found_Imo_ID",found_Imo_ID);
+
+	document.getElementById('Contacts_Info').value = multilang.get("Contacts_Info_Submitted");
+
+	hideDialog('found_get_Contacts_dialog');
+}
 </script>
 
 
@@ -948,24 +1040,50 @@ function getCurrentPosition_onError(){
 		</ons-dialog>
 	</template>
 	
-	<template id="get_location_dialog.html">
-		<ons-dialog id="get_location_dialog">
+	<template id="found_get_location_dialog.html">
+		<ons-dialog id="found_get_location_dialog">
 			<div style="text-align: center; padding: 10px;">
 				<div id="dialog-text" class="rtl">
-					<ons-button onclick="navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess, getCurrentPosition_onError);" class="need_translate" translate="Record_GPS_position"></ons-button>
+					<ons-button onclick="navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess, getCurrentPosition_onError);" class="need_translate" translate="Record_GPS_position" style="background-color: #4CAF50; color: #ffffff;"></ons-button>
 					<br/>
 					<span class="need_translate" translate="The_place_you_are_currently_in" style="margin-top: 10px;display: block;"></span>
 				</div>
 				<div id="dialog-text" class="rtl" >
-					<ons-input id="City_Name" modifier="underbar" placeholder="City_Name" float class="need_translate_span" translate="City_Name"></ons-input>
+					<ons-input id="found_City_Name" modifier="underbar" placeholder="City_Name" float class="need_translate_span required" translate="City_Name"></ons-input>
 				</div>
 				<div id="dialog-text" class="rtl">
-					<ons-input id="Pillar_Number" modifier="underbar" placeholder="Pillar_Number" float class="need_translate_span" translate="Pillar_Number"></ons-input>
+					<ons-input id="found_Pillar_Number" modifier="underbar" placeholder="Pillar_Number" float class="need_translate_span" translate="Pillar_Number"></ons-input>
 				</div>
 				<div id="dialog-text" class="rtl">
-					<ons-input id="Tent_Name" modifier="underbar" placeholder="Tent_Name" float class="need_translate_span" translate="Tent_Name"></ons-input>
+					<ons-input id="found_Tent_Name" modifier="underbar" placeholder="Tent_Name" float class="need_translate_span" translate="Tent_Name"></ons-input>
 				</div>
-				<p><ons-button onclick="hideDialog('get_location_dialog')" class="need_translate" translate="ok">OK</ons-button></p>
+				<p><ons-button onclick="found_save_current_location();" class="need_translate" translate="ok">OK</ons-button></p>
+
+			</div>
+		</ons-dialog>
+	</template>
+	
+	<template id="found_get_Contacts_dialog.html">
+		<ons-dialog id="found_get_Contacts_dialog">
+			<div style="text-align: center; padding: 10px;">
+
+				<div id="dialog-text" class="rtl" >
+					<ons-input id="found_Phone_number" modifier="underbar" placeholder="Phone_number" float class="need_translate_span required" translate="Phone_number"></ons-input>
+				</div>
+				<div id="dialog-text" class="rtl">
+					<ons-input id="found_Telegram_ID" modifier="underbar" placeholder="Telegram_ID" float class="need_translate_span" translate="Telegram_ID"></ons-input>
+				</div>
+				<div id="dialog-text" class="rtl">
+					<ons-input id="found_WhatsApp_ID" modifier="underbar" placeholder="WhatsApp_ID" float class="need_translate_span" translate="WhatsApp_ID"></ons-input>
+				</div>
+				<div id="dialog-text" class="rtl">
+					<ons-input id="found_Line_ID" modifier="underbar" placeholder="Line_ID" float class="need_translate_span" translate="Line_ID"></ons-input>
+				</div>
+				<div id="dialog-text" class="rtl">
+					<ons-input id="found_Imo_ID" modifier="underbar" placeholder="Imo_ID" float class="need_translate_span" translate="Imo_ID"></ons-input>
+				</div>
+				<p><ons-button onclick="found_save_Contacts();" class="need_translate" translate="ok">OK</ons-button></p>
+
 			</div>
 		</ons-dialog>
 	</template>
