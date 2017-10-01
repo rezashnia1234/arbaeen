@@ -1,8 +1,10 @@
 
 function register_notification_home() {
+	alert("before register_notification_home");
+	
 	var networkState = navigator.connection.type;
 	if (networkState == Connection.NONE) {
-	
+alert("no internet for register_notification_home");
 	}
 	else
 	{
@@ -21,6 +23,10 @@ function register_notification_home() {
 		push.on('registration', function(data) {
 			// data.registrationId
 			alert("registration event: " + data.registrationId);
+			alert("registration uuid: " + window.localStorage.getItem('uuid'));
+			alert("registration uuid: " + window.localStorage.getItem('uuid'));
+			alert("registration platform: " + device.platform);
+			
 			$.ajax({
 				type: "POST",
 				url: "http://dlsmgroup.ir/temp/arbaeen/check_net.php", 

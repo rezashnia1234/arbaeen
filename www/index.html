@@ -126,9 +126,11 @@
 			
 		}
 		function onDeviceReady() {
+alert("onDeviceReady");
 			if(window.localStorage.getItem('uuid') == null)
 				window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
-				
+			
+alert("before register_notification_home");
 			register_notification_home();
 			
 		
