@@ -20,17 +20,23 @@ function register_notification_home() {
 
 		push.on('registration', function(data) {
 			// data.registrationId
-			// alert("registration event: " + data.registrationId);
-			$.ajax({ type: "POST",
-					url: "http://dlsmgroup.ir/temp/arbaeen/check_net.php", 
-					data: {act: "add_device",regID : data.registrationId,udid:window.localStorage.getItem('uuid'),OS:device.platform},
-					async: false,
-					success : function(text)
-					{
-						//last_articles_version = text;
-						console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    Notification registration text : ' + text);
-						window.localStorage.setItem('register_for_notifs','yes');
-					}
+			alert("registration event: " + data.registrationId);
+			$.ajax({
+				type: "POST",
+				url: "http://dlsmgroup.ir/temp/arbaeen/check_net.php", 
+				data: {
+					act: "add_device",
+					regID: data.registrationId,
+					udid: window.localStorage.getItem('uuid'),
+					OS:device.platform
+				},
+				async: false,
+				success : function(text)
+				{
+					//last_articles_version = text;
+					console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    Notification registration text : ' + text);
+					window.localStorage.setItem('register_for_notifs','yes');
+				}
 			});
 		});
 
