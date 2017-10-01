@@ -28,6 +28,7 @@
 		winW = 0;
 		winH = 0;
 		app = {};
+		FileTransfer_OBJ = "";
 		
 		if(window.localStorage.getItem('language') == null)
 		{
@@ -179,11 +180,13 @@
 		function show_progress_bar() {
 			var dialog = document.getElementById('dialog_progress_bar');
 			if (dialog) {
+				need_translate();
 				dialog.show();
 			}
 			else {
 				ons.createDialog('dialog_progress_bar.html')
 					.then(function (dialog) {
+					need_translate();
 					dialog.show();
 				});
 			}
@@ -311,7 +314,7 @@
 //alert("start_download URL: " + file);
 				console.log("start_download URL: " + file);
 				
-				var FileTransfer_OBJ = new FileTransfer();
+				FileTransfer_OBJ = new FileTransfer();
 				
 				$('.progress-bar-parent').css("display","block");
 //alert("1");
@@ -648,7 +651,8 @@
 
 
 					page.querySelector('#goto_page_zaer_service_missing_objects_found_submit_data').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					
+						//document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 		});
@@ -702,7 +706,7 @@
 	
 	<ons-template id="homePage.html">
 		<ons-page id="homePage">
-			<ons-navigator id="myNavigator" page="home.html" swipe-target-width="50px" swipeable></ons-navigator>
+			<ons-navigator id="myNavigator" page="zaer_service_I_Found_Something_data_entry.html" swipe-target-width="50px" swipeable></ons-navigator>
 		</ons-page>
 	</ons-template>
 	
@@ -1035,7 +1039,7 @@ function found_save_Contacts(){
 			<div style="text-align: center; padding: 10px;">
 				<p id="Uploading-text" class="ltr">Uploading...<p>
 				<ons-progress-bar value="10" indeterminate></ons-progress-bar>
-				<p><ons-button onclick="hideDialog('dialog_progress_bar')">OK</ons-button></p>
+				<p><ons-button onclick="found_save_current_location();" class="need_translate" translate="Cancel">Cancel</ons-button></p>
 			</div>
 		</ons-dialog>
 	</template>
