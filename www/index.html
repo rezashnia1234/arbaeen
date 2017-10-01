@@ -29,7 +29,6 @@
 		winH = 0;
 		app = {};
 		FileTransfer_OBJ = "";
-		
 		if(window.localStorage.getItem('language') == null)
 		{
 			text_direction = "english_text";
@@ -40,7 +39,17 @@
 			text_direction = window.localStorage.getItem('text_direction');
 			lang = window[window.localStorage.getItem('language')];
 		}
-		
+		lost_category_list = [
+			multilang.get("Passport_and_identification_documents"),
+			multilang.get("Clothing"),
+			multilang.get("Money"),
+			multilang.get("Watch"),
+			multilang.get("Ring"),
+			multilang.get("Jewelry"),
+			multilang.get("Others"),
+			multilang.get("Cancel"),
+		];
+
 		function set_body_language(){
 			body = $("body");
 			body.removeClass("english_text");
@@ -177,16 +186,24 @@
 				});
 			}
 		};
-		function show_progress_bar() {
+		function show_progress_bar(cancel_btn) {
 			var dialog = document.getElementById('dialog_progress_bar');
 			if (dialog) {
 				need_translate();
+				if(cancel_btn=="without_cancel_btn")
+					$("#progress_bar_cancel_btn").css("display","none");
+				else if(cancel_btn=="with_cancel_btn")
+					$("#progress_bar_cancel_btn").css("display","block");
 				dialog.show();
 			}
 			else {
 				ons.createDialog('dialog_progress_bar.html')
 					.then(function (dialog) {
 					need_translate();
+					if(cancel_btn=="without_cancel_btn")
+						$("#progress_bar_cancel_btn").css("display","none");
+					else if(cancel_btn=="with_cancel_btn")
+						$("#progress_bar_cancel_btn").css("display","block");
 					dialog.show();
 				});
 			}
@@ -390,8 +407,36 @@
 				//////////////////////////////////////////////////////////////////////////////////////////
 				//////////////////////////////////////////////////////////////////////////////////////////
 				*/
-				params.mobile = window.localStorage.getItem('mobile');
-				params.deviceid = window.localStorage.getItem('uuid');
+				params.uuid = window.localStorage.getItem('uuid');
+				
+				if(window.localStorage.getItem('found_City_Name') != null)
+					params.found_City_Name		= window.localStorage.getItem("found_City_Name");
+				if(window.localStorage.getItem('found_Pillar_Number') != null)
+					params.found_Pillar_Number	= window.localStorage.getItem("found_Pillar_Number");
+				if(window.localStorage.getItem('found_Tent_Name') != null)
+					params.found_Tent_Name		= window.localStorage.getItem("found_Tent_Name");
+				if(window.localStorage.getItem('found_Phone_number') != null)
+					params.found_Phone_number	= window.localStorage.getItem("found_Phone_number");
+				if(window.localStorage.getItem('found_Telegram_ID') != null)
+					params.found_Telegram_ID	= window.localStorage.getItem("found_Telegram_ID");
+				if(window.localStorage.getItem('found_WhatsApp_ID') != null)
+					params.found_WhatsApp_ID	= window.localStorage.getItem("found_WhatsApp_ID");
+				if(window.localStorage.getItem('found_Line_ID') != null)
+					params.found_Line_ID		= window.localStorage.getItem("found_Line_ID");
+				if(window.localStorage.getItem('found_Imo_ID') != null)
+					params.found_Imo_ID			= window.localStorage.getItem("found_Imo_ID");
+				
+				if(window.sessionStorage.getItem('user_longitude') != null)
+					params.longitude			= window.sessionStorage.getItem('user_longitude');
+				if(window.sessionStorage.getItem('user_latitude') != null)
+					params.latitude				= window.sessionStorage.getItem('user_latitude');
+				
+				params.Select_a_category_id		= document.getElementById('Select_a_category_id').value;
+				params.Name_of_the_device		= document.getElementById('Name_of_the_device').value;
+				params.Description				= document.getElementById('Description').value;
+				params.act						= "add_missing";
+				params.type						= "1";
+				
 				options.params = params;
 				
 				
@@ -422,8 +467,8 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		server_url = "http://192.168.0.143/autobus/check_net.php";
-		upload_image_url = "http://192.168.0.143/autobus/check_net.php";
+		server_url = "http://dlsmgroup.ir/temp/arbaeen/check_net.php";
+		upload_image_url = "http://dlsmgroup.ir/temp/arbaeen/submit_found_object.php";
 		
 		//ons.platform.select('android');
 		ons.platform.select('ios');
@@ -642,7 +687,11 @@
 							console.log('index: ', index);
 							console.log(buttons[index]);
 							if(index != -1 && index != 7)
-								$("#Select_a_category").find("input").val(buttons[index]);
+							{
+								//$("#Select_a_category").find("input").val(buttons[index]);
+								document.getElementById('Select_a_category').value = buttons[index];
+								document.getElementById('Select_a_category_id').value = index;
+							}
 						})
 					};
 					///////////////////////////////////////////////////////////
@@ -650,8 +699,58 @@
 					///////////////////////////////////////////////////////////
 
 
-					page.querySelector('#goto_page_zaer_service_missing_objects_found_submit_data').onclick = function() {
-					
+					page.querySelector('#goto_page_zaer_service_missing_objects_found_submit_data').onclick = function()
+					{
+						var has_error = false;
+						if(document.getElementById('Name_of_the_device').value=="")
+						{
+							$("#Name_of_the_device").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Name_of_the_device").removeClass("required_but_empty");
+						if(document.getElementById('Select_a_category').value=="")
+						{
+							$("#Select_a_category").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Select_a_category").removeClass("required_but_empty");
+						if(document.getElementById('Finding_Location').value=="")
+						{
+							$("#Finding_Location").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Finding_Location").removeClass("required_but_empty");
+						if(document.getElementById('Contacts_Info').value=="")
+						{
+							$("#Contacts_Info").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Contacts_Info").removeClass("required_but_empty");
+						if(document.getElementById('Description').value=="")
+						{
+							$("#Description").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Description").removeClass("required_but_empty");
+						if(has_error)
+						{
+							ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
+							return false;
+						}
+
+						if(window.sessionStorage.getItem('send_image_path')==null)
+						{
+							show_progress_bar("without_cancel_btn");
+						}
+						else
+						{
+							show_progress_bar("with_cancel_btn");
+						}
 						//document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
@@ -850,6 +949,9 @@
 				<div  class="input" style="position:relative;">
 					<div class="Select_hover" onclick="app.showFromObject()" ></div>
 					<ons-input id="Select_a_category" modifier="underbar" placeholder="Select_a_category" float class="need_translate_val" translate="Select_a_category"></ons-input>
+					<div style="display:none;">
+						<ons-input id="Select_a_category_id" modifier="underbar" float ></ons-input>
+					</div>
 				</div>
 				<div  class="input" style="position:relative;">
 					<div class="Select_hover" onclick="show_get_found_location_popup()" ></div>
@@ -938,9 +1040,9 @@ function getCurrentPosition_onSuccess(position){
 	var user_latitude  = position.coords.latitude;
 	
 	if(user_longitude!="")
-		window.localStorage.setItem("user_longitude",user_longitude);
+		window.sessionStorage.setItem("user_longitude",user_longitude);
 	if(user_latitude!="")
-		window.localStorage.setItem("user_latitude",user_latitude);
+		window.sessionStorage.setItem("user_latitude",user_latitude);
 }
 function getCurrentPosition_onError(){
 	if (window.cordova)
@@ -1039,7 +1141,7 @@ function found_save_Contacts(){
 			<div style="text-align: center; padding: 10px;">
 				<p id="Uploading-text" class="ltr">Uploading...<p>
 				<ons-progress-bar value="10" indeterminate></ons-progress-bar>
-				<p><ons-button onclick="found_save_current_location();" class="need_translate" translate="Cancel">Cancel</ons-button></p>
+				<p><ons-button id="progress_bar_cancel_btn" onclick="progress_bar_cancel_btn();" class="need_translate" translate="Cancel">Cancel</ons-button></p>
 			</div>
 		</ons-dialog>
 	</template>
