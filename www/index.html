@@ -776,8 +776,10 @@ alert("An error has occurred: Code = " + error.code);
 							if(index != -1 && index != 7)
 							{
 								//$("#Select_a_category").find("input").val(buttons[index]);
-								document.getElementById('Select_a_category').value = buttons[index];
-								document.getElementById('Select_a_category_id').value = index;
+								//document.getElementById('Select_a_category').value = buttons[index];
+								//document.getElementById('Select_a_category_id').value = index;
+								$("#Select_a_category input").val(buttons[index]);
+								$("#Select_a_category_id input").val(index);
 							}
 						})
 					};
