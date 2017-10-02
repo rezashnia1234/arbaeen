@@ -45,7 +45,7 @@
     <!-- Core plugins -->
 	<plugin spec="https://github.com/apache/cordova-plugin-whitelist.git" source="git" />
 	<!--<plugin spec="https://github.com/apache/cordova-plugin-battery-status.git" source="git" />-->
-	<plugin spec="https://github.com/apache/cordova-plugin-media-capture.git" source="git" />
+	<!--<plugin spec="https://github.com/apache/cordova-plugin-media-capture.git" source="git" />-->
 	<plugin spec="https://github.com/apache/cordova-plugin-console.git" source="git" />
 	<plugin spec="https://github.com/apache/cordova-plugin-device.git" source="git" />
 	<!--<plugin spec="https://github.com/apache/cordova-plugin-device-motion.git" source="git" />-->
