@@ -28,11 +28,13 @@
 		winW = 0;
 		winH = 0;
 		app = {};
-		FileTransfer_OBJ = new FileTransfer();
+		FileTransfer_OBJ = "";
 		
 		setTimeout(function(){
 			if(!window.cordova)
 				document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
+			else
+				FileTransfer_OBJ = new FileTransfer();
 		}, 1000);
 
 		
@@ -1166,7 +1168,9 @@ function found_save_current_location(){
 	if(found_Tent_Name!="")
 		window.localStorage.setItem("found_Tent_Name",found_Tent_Name);
 
-	document.getElementById('Finding_Location').value = multilang.get("Finding_Location_Submitted");
+	//document.getElementById('Finding_Location').value = multilang.get("Finding_Location_Submitted");
+	$("#Finding_Location input").val(multilang.get("Finding_Location_Submitted"));
+	
 	hideDialog('found_get_location_dialog');
 }
 
@@ -1198,8 +1202,9 @@ function found_save_Contacts(){
 	if(found_Imo_ID!="")
 		window.localStorage.setItem("found_Imo_ID",found_Imo_ID);
 
-	document.getElementById('Contacts_Info').value = multilang.get("Contacts_Info_Submitted");
-
+	//document.getElementById('Contacts_Info').value = multilang.get("Contacts_Info_Submitted");
+	$("#Contacts_Info input").val(multilang.get("Contacts_Info_Submitted"));
+	
 	hideDialog('found_get_Contacts_dialog');
 }
 </script>
