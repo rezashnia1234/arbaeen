@@ -1,10 +1,10 @@
 
 function register_notification_home() {
-	alert("before register_notification_home");
+	// alert("before register_notification_home");
 	
 	var networkState = navigator.connection.type;
 	if (networkState == Connection.NONE) {
-alert("no internet for register_notification_home");
+		// alert("no internet for register_notification_home");
 	}
 	else
 	{
@@ -22,10 +22,10 @@ alert("no internet for register_notification_home");
 
 		push.on('registration', function(data) {
 			// data.registrationId
-			alert("registration event: " + data.registrationId);
-			alert("registration uuid: " + window.localStorage.getItem('uuid'));
-			alert("registration uuid: " + window.localStorage.getItem('uuid'));
-			alert("registration platform: " + device.platform);
+			// alert("registration event: " + data.registrationId);
+			// alert("registration uuid: " + window.localStorage.getItem('uuid'));
+			// alert("registration uuid: " + window.localStorage.getItem('uuid'));
+			// alert("registration platform: " + device.platform);
 			
 			$.ajax({
 				type: "POST",
@@ -54,10 +54,10 @@ alert("no internet for register_notification_home");
 			// data.image,
 			// data.additionalData
 			navigator.notification.alert(
-				data.message,			// message
-				notif_alertDismissed,	// callback
-				'اطلاعیه',				// title
-				'تائید'					// buttonName
+				data.message,				// message
+				notif_alertDismissed,		// callback
+				multilang.get("notice"),	// title
+				multilang.get("ok")			// buttonName
 			);
 		});
 
@@ -101,10 +101,10 @@ function register_notification() {
 			// data.image,
 			// data.additionalData
 			navigator.notification.alert(
-				data.message,			// message
-				notif_alertDismissed,	// callback
-				'اطلاعیه',				// title
-				'تائید'					// buttonName
+				data.message,				// message
+				notif_alertDismissed,		// callback
+				multilang.get("notice"),	// title
+				multilang.get("ok")			// buttonName
 			);
 		});
 

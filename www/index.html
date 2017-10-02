@@ -29,6 +29,13 @@
 		winH = 0;
 		app = {};
 		FileTransfer_OBJ = "";
+		
+		setTimeout(function(){
+			if(!window.cordova)
+				document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
+		}, 1000);
+
+		
 		if(window.localStorage.getItem('language') == null)
 		{
 			text_direction = "english_text";
@@ -126,11 +133,9 @@
 			
 		}
 		function onDeviceReady() {
-alert("onDeviceReady");
 			if(window.localStorage.getItem('uuid') == null)
 				window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
 			
-alert("before register_notification_home");
 			register_notification_home();
 			
 		
@@ -239,7 +244,7 @@ alert("before register_notification_home");
 			var dialog = document.getElementById('found_get_location_dialog');
 			if (dialog) {
 				//need_translate();
-				dialog.show({animationOptions:{delay: 0.4}});
+				dialog.show({animationOptions:{delay: 0.3}});
 			}
 			else {
 				ons.createDialog('found_get_location_dialog.html')
@@ -251,7 +256,7 @@ alert("before register_notification_home");
 						document.getElementById('found_Pillar_Number').value = window.localStorage.getItem("found_Pillar_Number");
 					if(window.localStorage.getItem('found_Tent_Name') != null)
 						document.getElementById('found_Tent_Name').value = window.localStorage.getItem("found_Tent_Name");
-					dialog.show({animationOptions:{delay: 0.4}});
+					dialog.show({animationOptions:{delay: 0.3}});
 				});
 			}
 		};
@@ -259,7 +264,7 @@ alert("before register_notification_home");
 			var dialog = document.getElementById('found_get_Contacts_dialog');
 			if (dialog) {
 				//need_translate();
-				dialog.show({animationOptions:{delay: 0.4}});
+				dialog.show({animationOptions:{delay: 0.3}});
 			}
 			else {
 				ons.createDialog('found_get_Contacts_dialog.html')
@@ -277,7 +282,7 @@ alert("before register_notification_home");
 					if(window.localStorage.getItem('found_Imo_ID') != null)
 						document.getElementById('found_Imo_ID').value = window.localStorage.getItem("found_Imo_ID");
 						
-					dialog.show({animationOptions:{delay: 0.4}});
+					dialog.show({animationOptions:{delay: 0.3}});
 				});
 			}
 		};
@@ -381,7 +386,7 @@ alert("before register_notification_home");
 				});
 			}
 		}
-		function send_image_missing_data(file){
+		function submit_missing_data_by_image(){
 			file = window.sessionStorage.getItem('send_image_path');
 alert('Image URI: ' + file);
 			console.log("start_download check internet");
@@ -512,7 +517,7 @@ alert("4");
 				
 				
 				FileTransfer_OBJ.upload(file, uri, win, fail, options);
-//alert("5");
+alert("5");
 				$("#abort").click( function(i) {
 					FileTransfer_OBJ.abort();
 					$('.progress-bar-parent').find('span').css('width','2%');
@@ -552,6 +557,7 @@ alert("4");
 			var page = event.target;
 			modal = document.querySelector('ons-modal');
 			
+		
 			//////////////////////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////////////////////////////////////////////////
@@ -574,6 +580,7 @@ alert("4");
 				var content = document.getElementById('myNavigator');
 				content.popPage();
 			};
+			
 			//////////////////////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////////////////////////////////////////////////
@@ -821,7 +828,7 @@ alert("4");
 						}
 						else
 						{
-							
+							submit_missing_data_by_image();
 							show_progress_bar("with_cancel_btn");
 						}
 						//document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
@@ -878,7 +885,7 @@ alert("4");
 	
 	<ons-template id="homePage.html">
 		<ons-page id="homePage">
-			<ons-navigator id="myNavigator" page="zaer_service_I_Found_Something_data_entry.html" swipe-target-width="50px" swipeable></ons-navigator>
+			<ons-navigator id="myNavigator" page="home.html" swipe-target-width="50px" swipeable></ons-navigator>
 		</ons-page>
 	</ons-template>
 	
@@ -1212,7 +1219,7 @@ function found_save_Contacts(){
 	<template id="dialog_progress_bar.html">
 		<ons-dialog id="dialog_progress_bar">
 			<div style="text-align: center; padding: 10px;">
-				<p id="Uploading-text" class="ltr">Uploading...<p>
+				<p id="Uploading-text" class="ltr">Uploading...</p>
 				<ons-progress-bar value="10" indeterminate></ons-progress-bar>
 				<p><ons-button id="progress_bar_cancel_btn" onclick="progress_bar_cancel_btn();" class="need_translate" translate="Cancel">Cancel</ons-button></p>
 			</div>
