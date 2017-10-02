@@ -25,6 +25,7 @@
 		
 	</style>
 	<script>
+alert("1");
 		winW = 0;
 		winH = 0;
 		app = {};
@@ -36,7 +37,7 @@
 			else
 				FileTransfer_OBJ = new FileTransfer();
 		}, 1000);
-
+alert("2");
 		
 		if(window.localStorage.getItem('language') == null)
 		{
@@ -58,7 +59,7 @@
 			multilang.get("Others"),
 			multilang.get("Cancel"),
 		];
-
+alert("3");
 		function set_body_language(){
 			body = $("body");
 			body.removeClass("english_text");
@@ -93,11 +94,12 @@
 				});
 			}
 		}
-		function init() {		
+		function init() {
+alert("4");
 			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::	start init()');
 			document.addEventListener("deviceready", onDeviceReady, false);
 			set_body_language();
-			
+alert("5");
 			if(window.localStorage.getItem('winH') != null)
 				winH = window.localStorage.getItem("winH");
 				
@@ -135,11 +137,12 @@
 			
 		}
 		function onDeviceReady() {
+alert("6");
 			if(window.localStorage.getItem('udid') == null)
 				window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
-			
+alert("7");
 			register_notification_home();
-			
+alert("8");
 		
 			//if ( device.platform == 'Android' ){//Android,iOS,win7=WinCE,win8=Win32NT
 			//	document.addEventListener("backbutton", go_back_index, false);
@@ -851,7 +854,6 @@ alert("An error has occurred: Code = " + error.code);
 <body onload="init();" >
 	<ons-page>
 		<ons-splitter>
-			<!-- <ons-splitter-side id="menu" side="left" width="220px" swipe-target-width="150px" collapse swipeable> -->
 			<ons-splitter-side id="menu" side="left" width="220px" collapse>
 				<ons-page>
 					<ons-list>
