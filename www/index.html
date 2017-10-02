@@ -28,7 +28,7 @@
 		winW = 0;
 		winH = 0;
 		app = {};
-		FileTransfer_OBJ = "";
+		FileTransfer_OBJ = new FileTransfer();
 		
 		setTimeout(function(){
 			if(!window.cordova)
@@ -133,7 +133,7 @@
 			
 		}
 		function onDeviceReady() {
-			if(window.localStorage.getItem('uuid') == null)
+			if(window.localStorage.getItem('udid') == null)
 				window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
 			
 			register_notification_home();
@@ -176,7 +176,7 @@
 		function goto_page_zaer_service() {
 			document.querySelector('#myNavigator').pushPage("zaer_services.html", {animation: "slid",animationOptions:{delay: 0.4} });
 		}
-		function uniqueDeviceIDsuccess_index(uuid){window.localStorage.setItem('uuid',uuid);}
+		function uniqueDeviceIDsuccess_index(udid){window.localStorage.setItem('udid',udid);}
 		function fromTemplate(text) {
 			var dialog = document.getElementById('dialog-alert');
 			if (dialog) {
@@ -318,6 +318,12 @@
 				}
 			);
 		}
+		function progress_bar_cancel_btn(){
+			FileTransfer_OBJ.abort();
+			$(".progress-bar__primary").css("width","");
+			hideDialog('dialog_progress_bar');
+			goto_page_zaer_service();
+		}
 		function submit_missing_data_by_ajax(){
 			networkState = navigator.connection.type;
 			if (networkState == Connection.NONE) {
@@ -331,7 +337,7 @@
 			}
 			else{
 				var params = {};
-				params.uuid = window.localStorage.getItem('uuid');
+				params.udid = window.localStorage.getItem('udid');
 				
 				if(window.localStorage.getItem('found_City_Name') != null)
 					params.found_City_Name		= window.localStorage.getItem("found_City_Name");
@@ -388,7 +394,7 @@
 		}
 		function submit_missing_data_by_image(){
 			file = window.sessionStorage.getItem('send_image_path');
-alert('Image URI: ' + file);
+//alert('Image URI: ' + file);
 			console.log("start_download check internet");
 			networkState = navigator.connection.type;
 			if (networkState == Connection.NONE) {
@@ -403,13 +409,13 @@ alert('Image URI: ' + file);
 			else{
 				console.log("start_download : we have internet");
 
-alert("start_download URL: " + file);
+//alert("start_download URL: " + file);
 				console.log("start_download URL: " + file);
 				
 				FileTransfer_OBJ = new FileTransfer();
 				
 				$('.progress-bar-parent').css("display","block");
-alert("1");
+//alert("1");
 				FileTransfer_OBJ.onprogress = function(progressEvent) {
 					if (progressEvent.lengthComputable) {
 						var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
@@ -426,13 +432,13 @@ alert("1");
 						//$(".progress-bar__primary").css("width",perc + "%");
 					}
 				};
-alert("2");
+//alert("2");
 				var uri = encodeURI(upload_image_url);
 				function win(r) {
 					console.log("Code = " + r.responseCode);
 					console.log("Response = " + r.response);
 					console.log("Sent = " + r.bytesSent);
-alert("Response = " + r.response);
+//alert("Response = " + r.response);
 					
 					//$('#status').html("");
 					//$('.progress-bar-parent').find('span').css('width','2%');
@@ -448,12 +454,12 @@ alert("Response = " + r.response);
 					hideDialog('dialog_progress_bar');
 					window.sessionStorage.setItem('send_image_path',null);
 				}
-alert("3");
+//alert("3");
 				function fail(error) {
 alert("An error has occurred: Code = " + error.code);
 					//console.log("upload error source " + error.source);
 					//console.log("upload error target " + error.target);
-					alert(JSON.stringify(error));
+//alert(JSON.stringify(error));
 					navigator.notification.alert(
 						multilang.get("Error_in_uploading_file_please_try_again_later"),	// message
 						alertDismissed,														// callback
@@ -466,7 +472,7 @@ alert("An error has occurred: Code = " + error.code);
 					$(".progress-bar__primary").css("width","");
 					hideDialog('dialog_progress_bar');
 				}
-alert("4");
+//alert("4");
 				var options = new FileUploadOptions();
 				var params = {};
 				/*
@@ -483,7 +489,7 @@ alert("4");
 				//////////////////////////////////////////////////////////////////////////////////////////
 				//////////////////////////////////////////////////////////////////////////////////////////
 				*/
-				params.uuid = window.localStorage.getItem('uuid');
+				params.udid = window.localStorage.getItem('udid');
 				
 				if(window.localStorage.getItem('found_City_Name') != null)
 					params.found_City_Name		= window.localStorage.getItem("found_City_Name");
@@ -517,7 +523,8 @@ alert("4");
 				
 				
 				FileTransfer_OBJ.upload(file, uri, win, fail, options);
-alert("5");
+//alert("5");		
+				/*
 				$("#abort").click( function(i) {
 					FileTransfer_OBJ.abort();
 					$('.progress-bar-parent').find('span').css('width','2%');
@@ -529,7 +536,7 @@ alert("5");
 					//fn.load('zaer_services.html');
 					goto_page_zaer_service();
 				});
-				
+				*/
 			}
 		
 		}
@@ -823,13 +830,13 @@ alert("5");
 
 						if(window.sessionStorage.getItem('send_image_path')==null)
 						{
-							submit_missing_data_by_ajax();
 							show_progress_bar("without_cancel_btn");
+							submit_missing_data_by_ajax();
 						}
 						else
 						{
-							submit_missing_data_by_image();
 							show_progress_bar("with_cancel_btn");
+							submit_missing_data_by_image();
 						}
 						//document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
