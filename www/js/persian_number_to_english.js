@@ -1,3 +1,10 @@
+function set_body_language(){
+	body = $("body");
+	body.removeClass("english_text");
+	body.removeClass("arabic_text");
+	body.removeClass("persian_text");
+	body.addClass(text_direction);
+}
 var MultiLang = function(key)
 {
 	this.get = function(key) {
