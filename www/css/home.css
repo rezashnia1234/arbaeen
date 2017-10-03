@@ -63,10 +63,42 @@ ul.colored-bullets li::before {
 	top:-9px;
 }
 
+
+
+p#modal-text {
+	text-align: center;
+	width: auto;
+	display: inline-block;
+	margin: auto;
+}
+p#modal-text ons-icon{
+	float: right;
+	margin-left: 10px;
+}
+p#modal-text ons-icon{
+	float: right;
+}
+.left-top-menu {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 99999999;
+	/* background-color: #ffffff; */
+	height: 40px;
+	width: 40px;
+}
 .required_but_empty input {
     border-bottom: 1px solid red;
 }
-
+/* .left-top-menu .menu-btn:before */
+ons-icon.ons-icon.zmdi.zmdi-menu {
+	width: 40px;
+	height: 40px;
+	box-sizing: border-box;
+	padding-top: 7px;
+	color: #ffffff;
+	font-size: 29px;
+}
 .page_bg {
 	width: 100%;
 	height: 100%;
@@ -93,6 +125,424 @@ ul.colored-bullets li::before {
 	overflow-x: hidden;
 	overflow-y: auto;
 }
+
+
+
+
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* صفحه انتخاب زبان */
+
+.login-form {
+  text-align: center;
+  width: 80%;
+  margin2: 60px auto 0;
+  margin3: 10% auto 0;
+  margin: 40px auto 0;
+  direction:rtl;
+}
+.select_language_page {
+  text-align: center;
+  width: 80%;
+  margin2: 60px auto 0;
+  margin3: 10% auto 0;
+  margin: 40px auto 0;
+  direction:rtl;
+}
+.select_language_page_bg {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-image: url(../images/pages/language.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	z-index: -1;
+}
+.select_language_btn {
+	/* background-color: rgba(0,0,0,0.5); */
+	width: 100%;
+	position: absolute;
+	height: 8.5%;
+	cursor: pointer;
+}
+#goto_page_language_ar{
+	left: 0;
+	top: 35%;
+}
+#goto_page_language_en{
+	left: 0;
+	top: 45.5%;
+}
+#goto_page_language_fa{
+	left: 0;
+	top: 56%;
+}
+
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* صفحه انتخاب نوع کاربر - زائر - موکب دار */
+
+.page_select_user_type {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-image: url(../images/pages/select_user_type.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+#top_text {
+	position: absolute;
+	top: 19%;
+	width: 100%;
+	text-align: center;
+	color: #ffffff;
+	font-size: 17px;
+}
+.select_user_type_btn {
+	/* background-color: rgba(0,0,0,0.5); */
+	width: 100%;
+	position: absolute;
+	height: 21%;
+	cursor: pointer;
+	color: #ffffff;
+	font-size: 17px;
+	text-align: center;
+	display: table;
+	vertical-align: bottom;
+	padding-bottom: 5%;
+	left: 0;
+}
+#goto_page_user_type_zaer{
+	top: 32%;
+}
+#goto_page_user_type_mukeb{
+	top: 58%;
+}
+.select_user_type_btn div {
+	display: table-cell;
+	vertical-align: bottom;
+	font-size: 17px !important;
+}
+@media (min-width: 555px) {
+	#top_text {
+		top: 19%;
+		font-size: 17px;
+	}
+	#goto_page_user_type_zaer{
+		top: 33%;
+	}
+	#goto_page_user_type_mukeb{
+		top: 64%;
+	}
+}
+@media (min-width: 675px) {
+	#top_text {
+		top: 17%;
+		font-size: 24px;
+	}
+	#goto_page_user_type_zaer{
+		top: 33%;
+	}
+	#goto_page_user_type_mukeb{
+		top: 64%;
+	}
+	.select_user_type_btn div {
+		font-size: 24px !important;
+	}
+}
+@media (min-width: 1000px) {
+	#top_text {
+		top: 15%;
+		font-size: 31px;
+	}
+	#goto_page_user_type_zaer{
+		top: 33%;
+	}
+	#goto_page_user_type_mukeb{
+		top: 64%;
+	}
+	.select_user_type_btn div {
+		font-size: 31px !important;
+	}
+}
+
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* صفحه انتخاب سرویس ارائه شده به زائر */
+
+#main_div_zaer_services #menu_zaer_services{
+	position:absolute;
+	/* top:0; */
+	left:0;
+	z-index:-1;
+}
+.select_service_type_btn{
+	/* background-color: rgba(0,0,0,0.5); */
+	width: 100%;
+	height: 21%;
+	cursor: pointer;
+	color: #ffffff;
+	font-size: 17px;
+	text-align: center;
+	display: table;
+	vertical-align: bottom;
+	z-index:2;
+	/* padding-top: 1%; */
+	/* box-sizing: border-box; */
+}
+#goto_page_zaer_service_map{
+	padding-top:2%;
+}
+#goto_page_zaer_service_map_mavakeb{
+	padding-top:1%;
+}
+#goto_page_zaer_service_missing_objects{
+	/* top: 58%; */
+}
+#goto_page_zaer_service_weather{
+	/* top: 58%; */
+}
+.select_service_type_btn div {
+	display: table-cell;
+	vertical-align: bottom;
+	font-size: 16px !important;
+}
+@media (min-width: 555px) {
+	.select_service_type_btn div {
+		font-size: 20px !important;
+	}
+}
+@media (min-width: 675px) {
+	.select_service_type_btn div {
+		font-size: 24px !important;
+	}
+	#goto_page_zaer_service_map{
+		padding-top:1%;
+	}
+}
+@media (min-width: 1000px) {
+	.select_service_type_btn div {
+		font-size: 31px !important;
+	}
+	#goto_page_zaer_service_map{
+		padding-top:0%;
+	}
+}
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* صفحه انتخاب نوع نقشه - جانمایی موکب ها */
+#mukeb_map_menu_image{
+	position:absolute;
+	/* top:0; */
+	left:0;
+	z-index:-1;
+}
+.mukeb_map_menu_page_bg {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-image: url(../images/pages/mukeb_map_page.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	z-index: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.select_mukeb_map_menu {
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  direction:rtl;
+}
+.select_mukeb_map_type_btn{
+	/* background-color: rgba(0,0,0,0.5); */
+	width: 100%;
+	height: 21%;
+	cursor: pointer;
+	color: #ffffff;
+	font-size: 17px;
+	text-align: center;
+	display: table;
+	vertical-align: bottom;
+	z-index:2;
+	/* padding-top: 1%; */
+	/* box-sizing: border-box; */
+}
+#goto_page_mukeb_map_najaf{
+		margin-top: -13%;
+}
+#goto_page_mukeb_map_karbala{
+	padding-top:1%;
+}
+#goto_page_mukeb_map_from_najaf_to_karbala{
+	/* top: 58%; */
+}
+#goto_page_mukeb_map_nearby{
+	/* top: 58%; */
+}
+.select_mukeb_map_type_btn div {
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 16px !important;
+}
+#mukeb_map_menu_icon_div {
+	position: relative;
+	width: 80%;
+	text-align: center;
+	margin: 19% auto 0 auto;
+}
+#select_mukeb_map_type_top_text {
+	position: relative;
+	width: 80%;
+	text-align: center;
+	color: #ffffff;
+	font-size: 17px;
+	margin: 0 auto;
+}
+@media (min-width: 555px) {
+	#select_mukeb_map_type_top_text,.select_mukeb_map_type_btn div{
+		font-size: 19px !important;
+	}
+}
+@media (min-width: 675px) {
+	#select_mukeb_map_type_top_text,.select_mukeb_map_type_btn div{
+		font-size: 24px !important;
+	}
+}
+@media (min-width: 1000px) {
+	#select_mukeb_map_type_top_text,.select_mukeb_map_type_btn div{
+		font-size: 31px !important;
+	}
+}
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* صفحه انتخاب منو - گمشده و پیدا شده */
+
+#zaer_service_missing_objects_menu_image{
+	position:absolute;
+	/* top:0; */
+	left:0;
+	z-index:1;
+}
+.zaer_service_missing_objects_btn {
+	/* background-color: rgba(0,0,0,0.5); */
+	width: 100%;
+	height: 50%;
+	cursor: pointer;
+	color: #ffffff;
+	font-size: 17px;
+	text-align: center;
+	display: table;
+	vertical-align: bottom;
+	z-index: 10;
+	box-sizing: border-box;
+	padding-bottom: 2%;
+	position: relative;
+}
+.zaer_service_missing_objects_btn div {
+	display: table-cell;
+	vertical-align: bottom;
+	font-size: 16px !important;
+}
+@media (min-width: 555px) {
+	.zaer_service_missing_objects_btn div{
+		font-size: 19px !important;
+	}
+}
+@media (min-width: 675px) {
+	.zaer_service_missing_objects_btn div{
+		font-size: 24px !important;
+	}
+}
+@media (min-width: 1000px) {
+	.select_mukeb_map_type_btn div{
+		font-size: 31px !important;
+	}
+}
+
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* صفحه تذکرات اولیه ثبت شیء پیدا شده */
+#goto_page_zaer_service_missing_objects_found_submit_data{margin:0 auto;}
+ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
+.Submit_Information {
+	width: 60%;
+	color: #ffffff;
+	margin: 0 auto;
+	border-radius: 6px;
+	border: 2px solid #9293a6;
+	overflow: hidden;
+}
+.Submit_Information > div {
+	width: 100%;
+	height: 100%;
+	/* text-align: center; */
+	border-bottom: 2px solid #e30613;
+	padding: 1.7% 0 1.5% 0;
+}
+
+@media (min-width: 675px) {
+	#zaer_service_I_Found_Something div{
+		font-size: 21px !important;
+	}
+}
+@media (min-width: 1000px) {
+	#zaer_service_I_Found_Something div{
+		font-size: 24px !important;
+	}
+}
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* صفحه ورود اطلاعات مربوط به پیدا شده ها */
+ons-input{
+	width: 100%;
+	color:#ffffff;
+}
+.text-input--underbar{
+	width: 100%;
+	color:#ffffff;
+}
+.text-input--underbar::placeholder{
+	color:#c0c0c0;
+}
+.Select_hover{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	z-index:1;
+	/* background-color: rgba(0,0,0,0.5); */
+}
+#zaer_service_I_Found_Something_data_entry div.input{
+	margin-bottom:10%;
+}
+.dialog-container .button,#dialog_progress_bar .button ,#dialog-alert .button {
+    width: 100%;
+}
+.dialog-container div{margin-bottom:10px;}
+
+.persian_text .camera_image img,.arabic_text .camera_image img{width: 22px;float: left;margin-top: 8px;margin-left: 5px;}
+.english_text .camera_image img{width: 22px;float: right;margin-top: 8px;margin-right: 5px;}
+
+
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
