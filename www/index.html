@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ش<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -341,6 +341,155 @@
 			$(".progress-bar__primary").css("width","");
 			hideDialog('dialog_progress_bar');
 			goto_page_zaer_service();
+		}
+
+		function submit_missing_data_by_image(){
+			file = window.sessionStorage.getItem('send_image_path');
+//alert('Image URI: ' + file);
+			console.log("start_download check internet");
+			networkState = navigator.connection.type;
+			if (networkState == Connection.NONE) {
+				console.log("start_download : NO internet");
+				navigator.notification.alert(
+					multilang.get("you_must_connect_to_the_internet"),	// message
+					alertDismissed,										// callback
+					multilang.get("warning"),							// title
+					multilang.get("ok"),								// buttonName
+				);
+			}
+			else{
+				console.log("start_download : we have internet");
+
+//alert("start_download URL: " + file);
+				console.log("start_download URL: " + file);
+				
+				FileTransfer_OBJ = new FileTransfer();
+				
+				$('.progress-bar-parent').css("display","block");
+//alert("1");
+				FileTransfer_OBJ.onprogress = function(progressEvent) {
+					if (progressEvent.lengthComputable) {
+						var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+						//$('#status').html(perc + "% Uploading...");
+						//$('.progress-bar-percent').css('width',perc + "%");
+						$(".progress-bar__primary").css("width",perc + "%");
+						$('#Uploading-text').html(perc + "% Uploading...");
+
+						//progress_bar_element.css('width',perc);
+					} else {
+						//$('#status').html($('#status').html() + ".");
+						//progress_bar_element.css('width',progress_bar_element.width()+1);
+						//$('.progress-bar-percent').css('width',$('.progress-bar-parent').find('span').width()+1);
+						//$(".progress-bar__primary").css("width",perc + "%");
+					}
+				};
+//alert("2");
+				var uri = encodeURI(upload_image_url);
+				function win(r) {
+					console.log("Code = " + r.responseCode);
+					console.log("Response = " + r.response);
+					console.log("Sent = " + r.bytesSent);
+//alert("Response = " + r.response);
+					
+					//$('#status').html("");
+					//$('.progress-bar-parent').find('span').css('width','2%');
+					$('#Uploading-text').html("Upload is Finished");
+					console.log("start_download : done");
+					navigator.notification.alert(
+						multilang.get("Your_Data_Submited_Successfully"),	// message
+						goto_page_zaer_service,								// callback
+						multilang.get("notice"),							// title
+						multilang.get("ok")									// buttonName
+					);
+					//$('.progress-bar-parent').css("display","none");
+					hideDialog('dialog_progress_bar');
+					window.sessionStorage.setItem('send_image_path',null);
+				}
+//alert("3");
+				function fail(error) {
+alert("An error has occurred: Code = " + error.code);
+					//console.log("upload error source " + error.source);
+					//console.log("upload error target " + error.target);
+//alert(JSON.stringify(error));
+					navigator.notification.alert(
+						multilang.get("Error_in_uploading_file_please_try_again_later"),	// message
+						alertDismissed,														// callback
+						multilang.get("warning"),											// title
+						multilang.get("ok")													// buttonName
+					);
+					$('.progress-bar-parent').find('span').css('width','2%');
+					//$('.progress-bar-percent').css('width',"");
+					//$('.progress-bar-parent').css("display","none");
+					$(".progress-bar__primary").css("width","");
+					hideDialog('dialog_progress_bar');
+				}
+//alert("4");
+				var options = new FileUploadOptions();
+				var params = {};
+				/*
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				*/
+				params.udid = window.localStorage.getItem('udid');
+				
+				if(window.localStorage.getItem('found_City_Name') != null)
+					params.found_City_Name		= window.localStorage.getItem("found_City_Name");
+				if(window.localStorage.getItem('found_Pillar_Number') != null)
+					params.found_Pillar_Number	= window.localStorage.getItem("found_Pillar_Number");
+				if(window.localStorage.getItem('found_Tent_Name') != null)
+					params.found_Tent_Name		= window.localStorage.getItem("found_Tent_Name");
+				if(window.localStorage.getItem('found_Phone_number') != null)
+					params.found_Phone_number	= window.localStorage.getItem("found_Phone_number");
+				if(window.localStorage.getItem('found_Telegram_ID') != null)
+					params.found_Telegram_ID	= window.localStorage.getItem("found_Telegram_ID");
+				if(window.localStorage.getItem('found_WhatsApp_ID') != null)
+					params.found_WhatsApp_ID	= window.localStorage.getItem("found_WhatsApp_ID");
+				if(window.localStorage.getItem('found_Line_ID') != null)
+					params.found_Line_ID		= window.localStorage.getItem("found_Line_ID");
+				if(window.localStorage.getItem('found_Imo_ID') != null)
+					params.found_Imo_ID			= window.localStorage.getItem("found_Imo_ID");
+				
+				if(window.sessionStorage.getItem('user_longitude') != null)
+					params.longitude			= window.sessionStorage.getItem('user_longitude');
+				if(window.sessionStorage.getItem('user_latitude') != null)
+					params.latitude				= window.sessionStorage.getItem('user_latitude');
+				
+				params.Select_a_category_id		= document.getElementById('Select_a_category_id').value;
+				params.Name_of_the_device		= document.getElementById('Name_of_the_device').value;
+				params.Description				= document.getElementById('Description').value;
+				params.act						= "add_missing";
+				params.type						= "1";
+				
+				options.params = params;
+				
+				
+				FileTransfer_OBJ.upload(file, uri, win, fail, options);
+//alert("5");		
+				/*
+				$("#abort").click( function(i) {
+					FileTransfer_OBJ.abort();
+					$('.progress-bar-parent').find('span').css('width','2%');
+					//$('.progress-bar-percent').css('width',"");
+					//$('.progress-bar-parent').css("display","none");
+					$(".progress-bar__primary").css("width","");
+					hideDialog('dialog_progress_bar');
+					//window.location.href = "index.html";
+					//fn.load('zaer_services.html');
+					goto_page_zaer_service();
+				});
+				*/
+			}
+		
 		}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
