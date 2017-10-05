@@ -150,6 +150,7 @@
 			
 		}
 		function onDeviceReady() {
+			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::	start onDeviceReady()');
 //alert("6");
 			if(window.localStorage.getItem('udid') == null)
 				window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
