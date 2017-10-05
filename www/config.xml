@@ -90,7 +90,7 @@
 	<!-- <preference name="buildArchitecture" value="x86" /> -->
 	<plugin name="cordova-build-architecture" spec="https://github.com/MBuchalik/cordova-build-architecture.git#v1.0.2" source="git" platform="android" />
 	<plugin spec="https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview.git" source="git" platform="android" />
-	<preference name="xwalkMode" value="lite" />
+	<!-- <preference name="xwalkMode" value="lite" /> -->
 
     <!-- Define app icon      -->
     <icon src="images/splash/icon.png" />
