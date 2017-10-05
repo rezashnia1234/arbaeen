@@ -567,7 +567,10 @@ alert("An error has occurred: Code = " + error.code);
 		//ons.forcePlatformStyling('ios');
 		ons.disableAutoStatusBarFill();
 		ons.disableAutoStyling();
-		
+		ons.ready(function(){
+			if(window.cordova)
+				navigator.splashscreen.hide();
+		});
 		document.addEventListener('init', function(event) {
 			console.log("document.addEventListener init");
 			//StatusBar.hide;

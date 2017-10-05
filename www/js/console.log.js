@@ -1,4 +1,4 @@
-if(true)
+if(false)
 {
 	is_document_ready = false;
 	var originallog		= console.log;
