@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>بسم الله الرحمن الرحیم</title>
+	<meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">	
+	
+	<!-- Required libs -->
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/console.log.js"></script>
+	<script src="phonegap.js"></script>
+	<script src="js/persian_number_to_english.js"></script>
+	<script src="js/notification.js"></script>
+	<script src="js/jquery.md5.js"></script>
+	<script src="js/back_btn.js"></script>
+	<script src="js/lang.ar.js"></script>
+	<script src="js/lang.fa.js"></script>
+	<script src="js/lang.en.js"></script>
+	<script src="js/index.js"></script>
+	<link rel="stylesheet" href="onsenui/css/onsenui.min.css">
+	<link rel="stylesheet" href="onsenui/css/onsen-css-components.min.css">
+	<link rel="stylesheet" href="css/fontiran.css">
+	<link rel="stylesheet" href="css/arabic_font.css">
+	<link rel="stylesheet" href="css/home.css">
+	
+	<style>
+		
+	</style>
+	<script>
+
+		function init() {
+			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::	start init()');
+			document.addEventListener("deviceready", onDeviceReady, false);
+			set_body_language();
+			check_retina();
+		}
+		function onDeviceReady() {
+			if(window.localStorage.getItem('udid') == null)
+				window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
+			
+			register_notification_home();
+		
+			if ( device.platform == 'Android' ){//Android,iOS,win7=WinCE,win8=Win32NT
+				document.addEventListener("backbutton", go_back_index, false);
+			}
+
+		}
+		function set_language_ar() {
+			lang = lang_ar;
+			text_direction = "arabic_text";
+			set_body_language();
+			window.localStorage.setItem('language',"lang_ar");
+			window.localStorage.setItem('text_direction',text_direction);
+			goto_next_page("select_user_type.html",false);
+		}
+		function set_language_en() {
+			lang = lang_en;
+			text_direction = "english_text";
+			set_body_language();
+			window.localStorage.setItem('language',"lang_en");
+			window.localStorage.setItem('text_direction',text_direction);
+			goto_next_page("select_user_type.html",false);
+		}
+		function set_language_fa() {
+			lang = lang_fa;
+			text_direction = "persian_text";
+			set_body_language();
+			window.localStorage.setItem('language',"lang_fa");
+			window.localStorage.setItem('text_direction',text_direction);
+			goto_next_page("select_user_type.html",false);
+		}
+			
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		
+		
+		document.addEventListener('init', function(event) {
+			//StatusBar.hide;
+			var page = event.target;
+			modal = document.querySelector('ons-modal');
+			
+		
+			//////////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////
+			//مدیریت منوی همبرگری
+			window.fn = {};
+
+			window.fn.open = function() {
+				var menu = document.getElementById('menu');
+				menu.open();
+			};
+
+			window.fn.load = function(page, data) {
+				var content = document.getElementById('myNavigator');
+				var menu = document.getElementById('menu');
+				content.pushPage(page, data)
+					.then(menu.close.bind(menu));
+			};
+
+			window.fn.pop = function() {
+				var content = document.getElementById('myNavigator');
+				content.popPage();
+			};
+			
+			//////////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////
+
+			
+			else if (page.id === 'zaer_service_missing_objects')
+			{
+					check_retina();
+					need_translate();
+					
+					setTimeout(function(){
+						tempH			= $("#zaer_service_missing_objects_menu_image").height();
+						temp_div_css	= $("#zaer_service_missing_objects_menu_css_placeholder");
+						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
+					}, 300);
+					/*
+					setTimeout(function(){
+						tempH			= $("#zaer_service_missing_objects_menu_image").height();
+						temp_div_css	= $("#zaer_service_missing_objects_menu_css_placeholder");
+						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
+					}, 350);
+					*/
+					
+					page.querySelector('#goto_page_zaer_service_missing_objects_lost').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_zaer_service_missing_objects_found').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+			else if (page.id === 'zaer_service_I_Found_Something')
+			{
+					check_retina();
+					need_translate();
+
+					page.querySelector('#goto_page_zaer_service_missing_objects_found_submit_data').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+			else if (page.id === 'zaer_service_I_Found_Something_data_entry')
+			{
+					check_retina();
+					need_translate();
+					
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					app = {};
+					var	buttons = [
+							multilang.get("Passport_and_identification_documents"),
+							multilang.get("Clothing"),
+							multilang.get("Money"),
+							multilang.get("Watch"),
+							multilang.get("Ring"),
+							multilang.get("Jewelry"),
+							multilang.get("Others"),
+							multilang.get("Cancel"),
+						];
+
+					app.showFromObject = function () {
+						ons.openActionSheet({
+							title: multilang.get("Select_a_category"),
+							cancelable: true,
+							buttons: [
+								multilang.get("Passport_and_identification_documents"),
+								multilang.get("Clothing"),
+								multilang.get("Money"),
+								multilang.get("Watch"),
+								multilang.get("Ring"),
+								multilang.get("Jewelry"),
+								multilang.get("Others"),
+								{
+									label: multilang.get("Cancel"),
+									icon: 'md-close'
+								}
+							]
+						}).then(function (index) {
+							console.log('index: ', index);
+							console.log(buttons[index]);
+							if(index != -1 && index != 7)
+							{
+								//$("#Select_a_category").find("input").val(buttons[index]);
+								//document.getElementById('Select_a_category').value = buttons[index];
+								//document.getElementById('Select_a_category_id').value = index;
+								$("#Select_a_category input").val(buttons[index]);
+								$("#Select_a_category_id input").val(index);
+							}
+						})
+					};
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+
+
+					page.querySelector('#goto_page_zaer_service_missing_objects_found_submit_data').onclick = function()
+					{
+						var has_error = false;
+						if(document.getElementById('Name_of_the_device').value=="")
+						{
+							$("#Name_of_the_device").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Name_of_the_device").removeClass("required_but_empty");
+						if(document.getElementById('Select_a_category').value=="")
+						{
+							$("#Select_a_category").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Select_a_category").removeClass("required_but_empty");
+						if(document.getElementById('Finding_Location').value=="")
+						{
+							$("#Finding_Location").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Finding_Location").removeClass("required_but_empty");
+						if(document.getElementById('Contacts_Info').value=="")
+						{
+							$("#Contacts_Info").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Contacts_Info").removeClass("required_but_empty");
+						if(document.getElementById('Description').value=="")
+						{
+							$("#Description").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Description").removeClass("required_but_empty");
+						if(has_error)
+						{
+							ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
+							return false;
+						}
+
+						if(window.sessionStorage.getItem('send_image_path')==null)
+						{
+							show_progress_bar("without_cancel_btn");
+							submit_missing_data_by_ajax();
+						}
+						else
+						{
+							show_progress_bar("with_cancel_btn");
+							submit_missing_data_by_image();
+						}
+						//document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+		});
+	</script>
+</head>
+<body onload="init();" >
+
+
+	<template id="zaer_service_map_mavakeb.html">
+		<ons-page id="zaer_service_map_mavakeb" >
+
+		</ons-page>
+	</template>
+
+	<template id="zaer_service_missing_objects.html">
+		<ons-page id="zaer_service_missing_objects" >
+			<div class="left-top-menu">
+				<ons-toolbar-button onclick="fn.open()">
+					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
+				</ons-toolbar-button>
+			</div>
+			<div class="page_bg retina" ></div>
+			
+			<div id="zaer_service_missing_objects_menu_css_placeholder"></div>
+			
+			<div id="zaer_service_missing_objects_menu" style="text-align: center; color:#ffffff;margin-top:50%;position: relative;" >
+				<img src="images/pages/zaer_service_missing_objects_menu.png" id="zaer_service_missing_objects_menu_image" class="retina" style="width:100%;" >
+				<div id="goto_page_zaer_service_missing_objects_lost" class="zaer_service_missing_objects_btn" ><div class="need_translate" translate="I_Lost_Something">I Lost Something</div></div>
+				<div id="goto_page_zaer_service_missing_objects_found" class="zaer_service_missing_objects_btn" ><div class="need_translate" translate="I_Found_Something">I Found Something</div></div>
+			</div>
+		</ons-page>
+	</template>
+
+	<template id="zaer_service_I_Found_Something.html">
+		<ons-page id="zaer_service_I_Found_Something" >
+			<div class="left-top-menu">
+				<ons-toolbar-button onclick="fn.open()">
+					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
+				</ons-toolbar-button>
+			</div>
+			<div class="page_bg retina" ></div>
+			
+			<div class="text-65 center-text" style="margin-top: 25%;margin-bottom: 10%;" >
+				<span class="need_translate" translate="Thank_you_dear_sir"></span>
+				<br>
+				<span class="need_translate" translate="Please_pay_attention_to_the_following_points"></span>
+			</div>
+			
+			<div class="text-65" style="margin-bottom: 20%;">
+				<ul class="colored-bullets zaer_service_I_Found_Something">
+					<li class="need_translate" translate="If_you_find_your_passport_and_identity_documents_you_can_even_submit_it_to_the_pilgrim_s_centers_at_these_addresses"></li>
+					<li class="need_translate" translate="Fill_in_the_information_in_the_form_carefully_so_that_the_pilgrim_who_lost_it_can_easily_find_it"></li>
+				</ul>
+			</div>
+			
+			<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
+			
+		</ons-page>
+	</template>
+
+	<template id="zaer_service_I_Found_Something_data_entry.html">
+		<ons-page id="zaer_service_I_Found_Something_data_entry" >
+			<div class="left-top-menu">
+				<ons-toolbar-button onclick="fn.open()">
+					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
+				</ons-toolbar-button>
+			</div>
+			<div class="page_bg retina" ></div>
+			
+			<div class="text-65 center-text" style="margin-top: 25%;margin-bottom: 10%;" >
+				<span class="need_translate" translate="Enter_the_specification_of_the_found_object"></span>
+			</div>
+			
+			<div class="text-65" style="margin-bottom: 20%;">
+			
+				<div class="input">
+					<ons-input id="Name_of_the_device" modifier="underbar" placeholder="Name_of_the_device" float class="need_translate_val" translate="Name_of_the_device"></ons-input>
+				</div>
+				<div  class="input" style="position:relative;">
+					<div class="Select_hover" onclick="app.showFromObject()" ></div>
+					<ons-input id="Select_a_category" modifier="underbar" placeholder="Select_a_category" float class="need_translate_val" translate="Select_a_category"></ons-input>
+					<div style="display:none;">
+						<ons-input id="Select_a_category_id" modifier="underbar" float ></ons-input>
+					</div>
+				</div>
+				<div  class="input" style="position:relative;">
+					<div class="Select_hover" onclick="show_get_found_location_popup()" ></div>
+					<ons-input id="Finding_Location" modifier="underbar" placeholder="Finding_Location" float class="need_translate_val" translate="Finding_Location"></ons-input>
+				</div>
+				<div  class="input" style="position:relative;">
+					<div class="Select_hover" onclick="show_get_found_Contacts_popup()" ></div>
+					<ons-input id="Contacts_Info" modifier="underbar" placeholder="Contacts_Info" float class="need_translate_val" translate="Contacts_Info"></ons-input>
+				</div>
+				<div  class="input" style="position:relative;">
+					<ons-input id="Description" modifier="underbar" placeholder="Description" float class="need_translate_val" translate="Description"></ons-input>
+				</div>
+				<div  class="input" style="position:relative;">
+					<div class="Select_hover" onclick="get_image()" ></div>
+					<div class="Select_hover camera_image" onclick="get_image()">
+						<img src="images/camera.svg" >
+					</div>
+					<ons-input id="Image_of_the_Object" modifier="underbar" placeholder="Image_of_the_Object" float class="need_translate_val" translate="Image_of_the_Object"></ons-input>
+				</div>
+			</div>
+			
+			<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
+		</ons-page>
+	</template>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+function getCurrentPosition_onSuccess(position){
+	//alert("longitude : " + position.coords.longitude);
+	//alert("latitude  : " + position.coords.latitude );
+	if (window.cordova)
+	{
+		navigator.notification.alert(
+			multilang.get("Location_Found!"),				// message
+			alertDismissed,									// callback
+			multilang.get("notice") ,						// title
+			multilang.get("ok")								// buttonName
+		);
+	}
+	else
+	{
+		text = "longitude : " + position.coords.longitude + "<br>" + "latitude  : " + position.coords.latitude;
+		fromTemplate(text);
+	}
+	var user_longitude = position.coords.longitude;
+	var user_latitude  = position.coords.latitude;
+	
+	if(user_longitude!="")
+		window.sessionStorage.setItem("user_longitude",user_longitude);
+	if(user_latitude!="")
+		window.sessionStorage.setItem("user_latitude",user_latitude);
+}
+function getCurrentPosition_onError(){
+	if (window.cordova)
+	{
+		navigator.notification.alert(
+			multilang.get("The_deivce_GPS_is_not_working"),	// message
+			alertDismissed,									// callback
+			multilang.get("warning") ,						// title
+			multilang.get("ok")								// buttonName
+		);
+	}
+	else
+	{
+		text = "<span class='need_translate' translate='The_deivce_GPS_is_not_working' >786</span>";
+		fromTemplate(text);
+	}
+}
+function found_save_current_location(){
+	var found_City_Name = document.getElementById('found_City_Name').value;
+	var found_Pillar_Number = document.getElementById('found_Pillar_Number').value;
+	var found_Tent_Name = document.getElementById('found_Tent_Name').value;
+	
+	if(found_City_Name!="")
+		window.localStorage.setItem("found_City_Name",found_City_Name);
+	else
+	{
+		ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
+		$("#found_City_Name").addClass("required_but_empty");
+		return false;
+	}
+	if(found_Pillar_Number!="")
+		window.localStorage.setItem("found_Pillar_Number",found_Pillar_Number);
+	
+	if(found_Tent_Name!="")
+		window.localStorage.setItem("found_Tent_Name",found_Tent_Name);
+
+	//document.getElementById('Finding_Location').value = multilang.get("Finding_Location_Submitted");
+	$("#Finding_Location input").val(multilang.get("Finding_Location_Submitted"));
+	
+	hideDialog('found_get_location_dialog');
+}
+
+function found_save_Contacts(){
+
+	var found_Phone_number = document.getElementById('found_Phone_number').value;
+	var found_Telegram_ID = document.getElementById('found_Telegram_ID').value;
+	var found_WhatsApp_ID = document.getElementById('found_WhatsApp_ID').value;
+	var found_Line_ID = document.getElementById('found_Line_ID').value;
+	var found_Imo_ID = document.getElementById('found_Imo_ID').value;
+	
+	if(found_Phone_number!="")
+		window.localStorage.setItem("found_Phone_number",found_Phone_number);
+	else
+	{
+		ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
+		$("#found_Phone_number").addClass("required_but_empty");
+		return false;
+	}
+	if(found_Telegram_ID!="")
+		window.localStorage.setItem("found_Telegram_ID",found_Telegram_ID);
+	
+	if(found_WhatsApp_ID!="")
+		window.localStorage.setItem("found_WhatsApp_ID",found_WhatsApp_ID);
+	
+	if(found_Line_ID!="")
+		window.localStorage.setItem("found_Line_ID",found_Line_ID);
+	
+	if(found_Imo_ID!="")
+		window.localStorage.setItem("found_Imo_ID",found_Imo_ID);
+
+	//document.getElementById('Contacts_Info').value = multilang.get("Contacts_Info_Submitted");
+	$("#Contacts_Info input").val(multilang.get("Contacts_Info_Submitted"));
+	
+	hideDialog('found_get_Contacts_dialog');
+}
+</script>
+
+
+
+
+
+
+	<ons-modal direction="up">
+		<div style="text-align: center">
+			<p id="modal-text" class="rtl"></p>
+		</div>
+	</ons-modal>
+	<template id="dialog.html">
+		<ons-dialog id="dialog-alert">
+			<div style="text-align: center; padding: 10px;">
+				<div id="dialog-text-dialog-alert" class="rtl"></div>
+				<p><ons-button onclick="hideDialog('dialog-alert')">OK</ons-button></p>
+			</div>
+		</ons-dialog>
+	</template>
+	
+	<template id="dialog_progress_bar.html">
+		<ons-dialog id="dialog_progress_bar">
+			<div style="text-align: center; padding: 10px;">
+				<p id="Uploading-text" class="ltr">Uploading...</p>
+				<ons-progress-bar value="10" indeterminate></ons-progress-bar>
+				<p><ons-button id="progress_bar_cancel_btn" onclick="progress_bar_cancel_btn();" class="need_translate" translate="Cancel">Cancel</ons-button></p>
+			</div>
+		</ons-dialog>
+	</template>
+	
+	<template id="found_get_location_dialog.html">
+		<ons-dialog id="found_get_location_dialog">
+			<div style="text-align: center; padding: 10px;">
+				<div id="dialog-text" class="rtl">
+					<ons-button onclick="navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess, getCurrentPosition_onError);" class="need_translate" translate="Record_GPS_position" style="background-color: #4CAF50; color: #ffffff;"></ons-button>
+					<br/>
+					<span class="need_translate" translate="The_place_you_are_currently_in" style="margin-top: 10px;display: block;"></span>
+				</div>
+				<div id="dialog-text" class="rtl" >
+					<ons-input id="found_City_Name" modifier="underbar" placeholder="City_Name" float class="need_translate_span required" translate="City_Name"></ons-input>
+				</div>
+				<div id="dialog-text" class="rtl">
+					<ons-input id="found_Pillar_Number" modifier="underbar" placeholder="Pillar_Number" float class="need_translate_span" translate="Pillar_Number"></ons-input>
+				</div>
+				<div id="dialog-text" class="rtl">
+					<ons-input id="found_Tent_Name" modifier="underbar" placeholder="Tent_Name" float class="need_translate_span" translate="Tent_Name"></ons-input>
+				</div>
+				<p><ons-button onclick="found_save_current_location();" class="need_translate" translate="ok">OK</ons-button></p>
+
+			</div>
+		</ons-dialog>
+	</template>
+	
+	<template id="found_get_Contacts_dialog.html">
+		<ons-dialog id="found_get_Contacts_dialog">
+			<div style="text-align: center; padding: 10px;">
+
+				<div id="dialog-text" class="rtl" >
+					<ons-input id="found_Phone_number" modifier="underbar" placeholder="Phone_number" float class="need_translate_span required" translate="Phone_number"></ons-input>
+				</div>
+				<div id="dialog-text" class="rtl">
+					<ons-input id="found_Telegram_ID" modifier="underbar" placeholder="Telegram_ID" float class="need_translate_span" translate="Telegram_ID"></ons-input>
+				</div>
+				<div id="dialog-text" class="rtl">
+					<ons-input id="found_WhatsApp_ID" modifier="underbar" placeholder="WhatsApp_ID" float class="need_translate_span" translate="WhatsApp_ID"></ons-input>
+				</div>
+				<div id="dialog-text" class="rtl">
+					<ons-input id="found_Line_ID" modifier="underbar" placeholder="Line_ID" float class="need_translate_span" translate="Line_ID"></ons-input>
+				</div>
+				<div id="dialog-text" class="rtl">
+					<ons-input id="found_Imo_ID" modifier="underbar" placeholder="Imo_ID" float class="need_translate_span" translate="Imo_ID"></ons-input>
+				</div>
+				<p><ons-button onclick="found_save_Contacts();" class="need_translate" translate="ok">OK</ons-button></p>
+
+			</div>
+		</ons-dialog>
+	</template>
+
+</body>
+</html>
+  
