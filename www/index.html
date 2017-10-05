@@ -26,7 +26,6 @@
 		
 	</style>
 	<script>
-alert("1");
 		winW = 0;
 		winH = 0;
 		app = {};
@@ -570,7 +569,7 @@ alert("An error has occurred: Code = " + error.code);
 		ons.disableAutoStyling();
 		
 		document.addEventListener('init', function(event) {
-			alert("1");
+			console.log("document.addEventListener init");
 			//StatusBar.hide;
 			var page = event.target;
 			modal = document.querySelector('ons-modal');
@@ -606,7 +605,7 @@ alert("An error has occurred: Code = " + error.code);
 			if (page.id === 'home')
 			{
 					check_retina();
-					alert("2");
+					console.log('SMGROUP ::::::::::::::::::::::::::::::::::::	start home()');
 					page.querySelector('#goto_page_language_ar').onclick = function() {
 						lang = lang_ar;
 						text_direction = "arabic_text";
