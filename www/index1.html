@@ -19,16 +19,7 @@
 	}
 
 </script>
-<script>
-	document.addEventListener("init", function(event) {
-	  alert("1111111");
-	}, false);
-	 
-	document.addEventListener("show", function(event){
-	  alert("2222222222");
-	}, false);
-	 
-</script>
+
 </head>
 
 <body translate="no" >
@@ -77,9 +68,10 @@
 </ons-template>
 
 
-
 <script src='onsenui/js/angular.min.js'></script>
 <script src='onsenui/js/onsenui.min.js'></script>
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="js/console.log.js"></script>
 <script >
 	ons.bootstrap();
 </script>
@@ -91,7 +83,7 @@ ons.ready(function(event){
 		//var page2 = event.target;
 		//console.log(page);
 		//console.log(event.enterPage);
-		alert();
+		//alert();
 	});
 	myNavigator.on('prepop', function(event) {
 		//console.log(event);
@@ -99,7 +91,20 @@ ons.ready(function(event){
 });
 
 </script>
-
+<script>
+	console.log("2");
+	document.addEventListener("init", function(event) {
+		console.log("1111111");
+	}, false);
+	document.addEventListener("show", function(event){
+		console.log("2222222222");
+	}, false);
+	document.addEventListener('pageinit', function(event) {
+		var page = event.target;
+		console.log(page);
+		
+	});
+</script>
 
 </body>
 </html>
