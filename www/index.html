@@ -525,6 +525,7 @@ alert("An error has occurred: Code = " + error.code);
 				params.type						= "1";
 				
 				options.params = params;
+				options.httpMethod = "POST";
 				alert(JSON.stringify(params));
 				alert(JSON.stringify(options));
 				
