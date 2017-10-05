@@ -99,7 +99,7 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 	color: #ffffff;
 	font-size: 29px;
 }
-#page_bg {
+.page_bg {
 	width: 100%;
 	height: 100%;
 	position: fixed;
@@ -111,7 +111,7 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 	background-size: cover;
 	z-index: -1;
 }
-#page_bg_overflow {
+.page_bg_overflow {
 	width: 100%;
 	height: 100%;
 	position: fixed;
@@ -347,7 +347,7 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 	left:0;
 	z-index:-1;
 }
-#mukeb_map_menu_page_bg {
+.mukeb_map_menu_page_bg {
 	width: 100%;
 	height: 100%;
 	position: fixed;
