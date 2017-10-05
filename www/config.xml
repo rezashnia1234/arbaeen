@@ -61,7 +61,6 @@
 	<plugin spec="https://github.com/apache/cordova-plugin-vibration.git" source="git" />
 	
 	<plugin spec="https://github.com/apache/cordova-plugin-file-transfer.git" source="git" />
-	<!-- <plugin spec="https://github.com/gaochun/cordova-plugin-file-transfer.git" source="git" platform="android" /> -->
 
     <!-- Third party plugins -->
 	<preference name="android-build-tool" value="gradle" />
