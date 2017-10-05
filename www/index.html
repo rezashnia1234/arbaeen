@@ -1,4 +1,4 @@
-ش<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -6,30 +6,18 @@
 	<title>بسم الله الرحمن الرحیم</title>
 
 	<!-- Required libs -->
-	<script src='onsenui/js/angular.min.js'></script>
-	<script src='onsenui/js/onsenui.min.js'></script>
-
-	<script >
-		ons.bootstrap();
-	</script>
-	<script src="js/jquery-2.1.3.min.js"></script>
+	<script src="js/jquery-1.11.3.min.js"></script>
 	<script src="js/console.log.js"></script>
-	<!-- <script src="phonegap.js"></script> -->
+	<script src="cordova.js"></script>
 	<script src="js/persian_number_to_english.js"></script>
 	<script src="js/notification.js"></script>
 	<script src="js/jquery.md5.js"></script>
+	<script src="onsenui/js/onsenui.min.js"></script>
 	<script src="js/lang.ar.js"></script>
 	<script src="js/lang.fa.js"></script>
 	<script src="js/lang.en.js"></script>
-	<script>
-		window.console = window.console || function(t) {};
-
-		if (document.location.search.match(/type=embed/gi)) {
-			window.parent.postMessage("resize", "*");
-		}
-	</script>
-	<link rel='stylesheet prefetch' href='onsenui/css/onsenui.min.css'>
-	<link rel='stylesheet prefetch' href='onsenui/css/onsen-css-components.min.css'>
+	<link rel="stylesheet" href="onsenui/css/onsenui.min.css">
+	<link rel="stylesheet" href="onsenui/css/onsen-css-components.min.css">
 	<link rel="stylesheet" href="css/fontiran.css">
 	<link rel="stylesheet" href="css/arabic_font.css">
 	<link rel="stylesheet" href="css/home.css">
@@ -38,6 +26,7 @@
 		
 	</style>
 	<script>
+alert("1");
 		winW = 0;
 		winH = 0;
 		app = {};
@@ -45,9 +34,7 @@
 		
 		setTimeout(function(){
 			if(!window.cordova)
-			{
-				//myNavigator.pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
-			}
+				document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
 			else
 				FileTransfer_OBJ = new FileTransfer();
 		}, 1000);
@@ -150,6 +137,7 @@
 			
 		}
 		function onDeviceReady() {
+			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::	start onDeviceReady()');
 //alert("6");
 			if(window.localStorage.getItem('udid') == null)
 				window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
@@ -189,10 +177,10 @@
 		}
 		function alertDismissed() {}
 		function goto_page(page_name) {
-			myNavigator.pushPage(page_name, {animation: "slid",animationOptions:{delay: 0.4} });
+			document.querySelector('#myNavigator').pushPage(page_name, {animation: "slid",animationOptions:{delay: 0.4} });
 		}
 		function goto_page_zaer_service() {
-			myNavigator.pushPage("zaer_services.html", {animation: "slid",animationOptions:{delay: 0.4} });
+			document.querySelector('#myNavigator').pushPage("zaer_services.html", {animation: "slid",animationOptions:{delay: 0.4} });
 		}
 		function uniqueDeviceIDsuccess_index(udid){window.localStorage.setItem('udid',udid);}
 		function fromTemplate(text) {
@@ -343,7 +331,6 @@
 			goto_page_zaer_service();
 		}
 		function submit_missing_data_by_ajax(){
-			/**/
 			networkState = navigator.connection.type;
 			if (networkState == Connection.NONE) {
 				console.log("start_download : NO internet");
@@ -412,10 +399,8 @@
 						},
 				});
 			}
-			
 		}
 		function submit_missing_data_by_image(){
-			/**/
 			file = window.sessionStorage.getItem('send_image_path');
 //alert('Image URI: ' + file);
 			console.log("start_download check internet");
@@ -500,6 +485,20 @@ alert("An error has occurred: Code = " + error.code);
 //alert("4");
 				var options = new FileUploadOptions();
 				var params = {};
+				/*
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				*/
 				params.udid = window.localStorage.getItem('udid');
 				
 				if(window.localStorage.getItem('found_City_Name') != null)
@@ -534,8 +533,22 @@ alert("An error has occurred: Code = " + error.code);
 				
 				
 				FileTransfer_OBJ.upload(file, uri, win, fail, options);
+//alert("5");		
+				/*
+				$("#abort").click( function(i) {
+					FileTransfer_OBJ.abort();
+					$('.progress-bar-parent').find('span').css('width','2%');
+					//$('.progress-bar-percent').css('width',"");
+					//$('.progress-bar-parent').css("display","none");
+					$(".progress-bar__primary").css("width","");
+					hideDialog('dialog_progress_bar');
+					//window.location.href = "index.html";
+					//fn.load('zaer_services.html');
+					goto_page_zaer_service();
+				});
+				*/
 			}
-			
+		
 		}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -551,46 +564,73 @@ alert("An error has occurred: Code = " + error.code);
 		upload_image_url = "http://dlsmgroup.ir/temp/arbaeen/submit_found_object.php";
 		
 		//ons.platform.select('android');
-		//ons.platform.select('ios');
+		ons.platform.select('ios');
 		//ons.forcePlatformStyling('ios');
-		//ons.disableAutoStatusBarFill();
-		//ons.disableAutoStyling();
-
-		console.log("2");
-		document.addEventListener('pageinit', function(event) {
-			console.log("3");
+		ons.disableAutoStatusBarFill();
+		ons.disableAutoStyling();
+		
+		document.addEventListener('init', function(event) {
+			alert("1");
 			//StatusBar.hide;
 			var page = event.target;
 			modal = document.querySelector('ons-modal');
+			
+		
+			//////////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////
+			//مدیریت منوی همبرگری
+			window.fn = {};
+
+			window.fn.open = function() {
+				var menu = document.getElementById('menu');
+				menu.open();
+			};
+
+			window.fn.load = function(page, data) {
+				var content = document.getElementById('myNavigator');
+				var menu = document.getElementById('menu');
+				content.pushPage(page, data)
+					.then(menu.close.bind(menu));
+			};
+
+			window.fn.pop = function() {
+				var content = document.getElementById('myNavigator');
+				content.popPage();
+			};
+			
+			//////////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////////////////////////////////
 
 			if (page.id === 'home')
 			{
 					check_retina();
-					console.log("4");
+					alert("2");
 					page.querySelector('#goto_page_language_ar').onclick = function() {
 						lang = lang_ar;
 						text_direction = "arabic_text";
 						set_body_language();
 						window.localStorage.setItem('language',"lang_ar");
 						window.localStorage.setItem('text_direction',text_direction);
-						myNavigator.pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_language_en').onclick = function() {
-						console.log("5");
 						lang = lang_en;
 						text_direction = "english_text";
 						set_body_language();
 						window.localStorage.setItem('language',"lang_en");
 						window.localStorage.setItem('text_direction',text_direction);
-						myNavigator.pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_language_fa').onclick = function() {
+						alert("3");
 						lang = lang_fa;
 						text_direction = "persian_text";
 						set_body_language();
 						window.localStorage.setItem('language',"lang_fa");
 						window.localStorage.setItem('text_direction',text_direction);
-						myNavigator.pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 			else if (page.id === 'select_user_type')
@@ -599,16 +639,14 @@ alert("An error has occurred: Code = " + error.code);
 					need_translate();
 					
 					page.querySelector('#goto_page_user_type_zaer').onclick = function() {
-						myNavigator.pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_user_type_mukeb').onclick = function() {
-						myNavigator.pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 			else if (page.id === 'zaer_services')
 			{
-//menu.setMainPage('page2.html', {closeMenu: true});
-//myNavigator.pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					check_retina();
 					need_translate();
 					
@@ -629,16 +667,16 @@ alert("An error has occurred: Code = " + error.code);
 					
 
 					page.querySelector('#goto_page_zaer_service_map').onclick = function() {
-						myNavigator.pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_zaer_service_map_mavakeb').onclick = function() {
-						myNavigator.pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_zaer_service_missing_objects').onclick = function() {
-						myNavigator.pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_zaer_service_weather').onclick = function() {
-						myNavigator.pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 			else if (page.id === 'zaer_service_map_mavakeb')
@@ -659,16 +697,16 @@ alert("An error has occurred: Code = " + error.code);
 					}, 350);
 
 					page.querySelector('#goto_page_mukeb_map_najaf').onclick = function() {
-						myNavigator.pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_mukeb_map_karbala').onclick = function() {
-						myNavigator.pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_mukeb_map_from_najaf_to_karbala').onclick = function() {
-						myNavigator.pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_mukeb_map_nearby').onclick = function() {
-						myNavigator.pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 			else if (page.id === 'zaer_service_missing_objects')
@@ -690,10 +728,10 @@ alert("An error has occurred: Code = " + error.code);
 					*/
 					
 					page.querySelector('#goto_page_zaer_service_missing_objects_lost').onclick = function() {
-						myNavigator.pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_zaer_service_missing_objects_found').onclick = function() {
-						myNavigator.pushPage('zaer_service_I_Found_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 			else if (page.id === 'zaer_service_I_Found_Something')
@@ -702,7 +740,7 @@ alert("An error has occurred: Code = " + error.code);
 					need_translate();
 
 					page.querySelector('#goto_page_zaer_service_missing_objects_found_submit_data').onclick = function() {
-						myNavigator.pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 			else if (page.id === 'zaer_service_I_Found_Something_data_entry')
@@ -814,76 +852,77 @@ alert("An error has occurred: Code = " + error.code);
 							show_progress_bar("with_cancel_btn");
 							submit_missing_data_by_image();
 						}
-						//myNavigator.pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						//document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
-		}, false);
+		});
 	</script>
 </head>
 <body onload="init();" >
-
-	<ons-sliding-menu main-page="homePage.html" menu-page="menu.html" side="left" width="220px" swipe-target-width="0" max-slide-distance="220px" var="menu" ></ons-sliding-menu>
-
-	<ons-template id="menu.html">
-		<ons-list>
-			<!-- منوهای عربی -->
-			<ons-list-item tappable onclick="fn.load('home.html')" class="just_arabic">
-				تغيير اللغة
-			</ons-list-item>
-			<ons-list-item tappable onclick="fn.load('select_user_type.html')" class="just_arabic">
-				تغيير نوع المستخدم
-			</ons-list-item>
-			<ons-list-item tappable onclick="fn.load('zaer_services.html')" class="just_arabic">
-				قائمة خيارات الزائر
-			</ons-list-item>
-			
-			<!-- منوهای انگلیسی -->
-			<ons-list-item tappable onclick="fn.load('home.html')" class="just_english">
-				Change language
-			</ons-list-item>
-			<ons-list-item tappable onclick="fn.load('select_user_type.html')" class="just_english">
-				Change user type
-			</ons-list-item>
-			<ons-list-item tappable onclick="fn.load('zaer_services.html')" class="just_english">
-				List of User Options
-			</ons-list-item>
-			
-			<!-- منوهای فارسی -->
-			<ons-list-item tappable onclick="fn.load('home.html')" class="just_persian">
-				تغییر زبان
-			</ons-list-item>
-			<ons-list-item tappable onclick="fn.load('select_user_type.html')" class="just_persian">
-				تغییر نوع کاربر
-			</ons-list-item>
-			<ons-list-item tappable onclick="fn.load('zaer_services.html')" class="just_persian">
-				فهرست امکانات زائر
-			</ons-list-item>
-		</ons-list>
-	</ons-template>
-
+	<ons-page>
+		<ons-splitter>
+			<ons-splitter-side id="menu" side="left" width="220px" collapse>
+				<ons-page>
+					<ons-list>
+						<!-- منوهای عربی -->
+						<ons-list-item tappable onclick="fn.load('home.html')" class="just_arabic">
+							تغيير اللغة
+						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('select_user_type.html')" class="just_arabic">
+							تغيير نوع المستخدم
+						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('zaer_services.html')" class="just_arabic">
+							قائمة خيارات الزائر
+						</ons-list-item>
+						
+						<!-- منوهای انگلیسی -->
+						<ons-list-item tappable onclick="fn.load('home.html')" class="just_english">
+							Change language
+						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('select_user_type.html')" class="just_english">
+							Change user type
+						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('zaer_services.html')" class="just_english">
+							List of User Options
+						</ons-list-item>
+						
+						<!-- منوهای فارسی -->
+						<ons-list-item tappable onclick="fn.load('home.html')" class="just_persian">
+							تغییر زبان
+						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('select_user_type.html')" class="just_persian">
+							تغییر نوع کاربر
+						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('zaer_services.html')" class="just_persian">
+							فهرست امکانات زائر
+						</ons-list-item>
+					</ons-list>
+				</ons-page>
+			</ons-splitter-side>
+			<ons-splitter-content id="content" page="homePage.html"></ons-splitter-content>
+		</ons-splitter>
+	</ons-page>
+	
 	<ons-template id="homePage.html">
 		<ons-page id="homePage">
-			<ons-navigator id="myNavigator" page="home.html" swipe-target-width="50px" swipeable var="myNavigator"></ons-navigator>
+			<ons-navigator id="myNavigator" page="home.html" swipe-target-width="50px" swipeable></ons-navigator>
 		</ons-page>
 	</ons-template>
+	
 
-
-	<ons-template id="home.html">
+	<template id="home.html">
 		<ons-page id="home" on-device-backbutton="go_back_index();">
 			<div class="page_bg retina" ></div>
 			<div class="select_language_page_bg retina" ></div>
-			<div class="left-top-menu">
-				<a href="index1.html">00000000000000000000000000000</a>
-			</div>
 			<div class="select_language_page">
 				<div id="goto_page_language_ar" class="select_language_btn"></div>
 				<div id="goto_page_language_en" class="select_language_btn"></div>
 				<div id="goto_page_language_fa" class="select_language_btn"></div>
 			</div>
 		</ons-page>
-	</ons-template>
+	</template>
 
-	<ons-template id="select_user_type.html">
+	<template id="select_user_type.html">
 		<ons-page id="select_user_type" >
 			<div class="page_bg retina" ></div>
 			<div class="page_select_user_type retina" ></div>
@@ -893,14 +932,13 @@ alert("An error has occurred: Code = " + error.code);
 				<div id="goto_page_user_type_mukeb" class="select_user_type_btn" ><div class="need_translate" translate="Tent_manager">Tent manager</div></div>
 			</div>
 		</ons-page>
-	</ons-template>
+	</template>
 
-	<ons-template id="zaer_services.html">
+	<template id="zaer_services.html">
 		<ons-page id="zaer_services" >
 			<div class="left-top-menu">
-				<ons-toolbar-button ng-click="menu.toggleMenu()">
+				<ons-toolbar-button onclick="fn.open()">
 					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
-					<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
 				</ons-toolbar-button>
 			</div>
 			<div class="page_bg_overflow retina" >
@@ -915,12 +953,12 @@ alert("An error has occurred: Code = " + error.code);
 				</div>
 			</div>
 		</ons-page>
-	</ons-template>
+	</template>
 
-	<ons-template id="zaer_service_map_mavakeb.html">
+	<template id="zaer_service_map_mavakeb.html">
 		<ons-page id="zaer_service_map_mavakeb" >
 			<div class="left-top-menu">
-				<ons-toolbar-button ng-click="menu.toggleMenu()">
+				<ons-toolbar-button onclick="fn.open()">
 					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
 				</ons-toolbar-button>
 			</div>
@@ -942,12 +980,12 @@ alert("An error has occurred: Code = " + error.code);
 				</div>
 			</div>
 		</ons-page>
-	</ons-template>
+	</template>
 
-	<ons-template id="zaer_service_missing_objects.html">
+	<template id="zaer_service_missing_objects.html">
 		<ons-page id="zaer_service_missing_objects" >
 			<div class="left-top-menu">
-				<ons-toolbar-button ng-click="menu.toggleMenu()">
+				<ons-toolbar-button onclick="fn.open()">
 					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
 				</ons-toolbar-button>
 			</div>
@@ -961,12 +999,12 @@ alert("An error has occurred: Code = " + error.code);
 				<div id="goto_page_zaer_service_missing_objects_found" class="zaer_service_missing_objects_btn" ><div class="need_translate" translate="I_Found_Something">I Found Something</div></div>
 			</div>
 		</ons-page>
-	</ons-template>
+	</template>
 
-	<ons-template id="zaer_service_I_Found_Something.html">
+	<template id="zaer_service_I_Found_Something.html">
 		<ons-page id="zaer_service_I_Found_Something" >
 			<div class="left-top-menu">
-				<ons-toolbar-button ng-click="menu.toggleMenu()">
+				<ons-toolbar-button onclick="fn.open()">
 					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
 				</ons-toolbar-button>
 			</div>
@@ -988,12 +1026,12 @@ alert("An error has occurred: Code = " + error.code);
 			<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
 			
 		</ons-page>
-	</ons-template>
+	</template>
 
-	<ons-template id="zaer_service_I_Found_Something_data_entry.html">
+	<template id="zaer_service_I_Found_Something_data_entry.html">
 		<ons-page id="zaer_service_I_Found_Something_data_entry" >
 			<div class="left-top-menu">
-				<ons-toolbar-button ng-click="menu.toggleMenu()">
+				<ons-toolbar-button onclick="fn.open()">
 					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
 				</ons-toolbar-button>
 			</div>
@@ -1037,7 +1075,7 @@ alert("An error has occurred: Code = " + error.code);
 			
 			<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
 		</ons-page>
-	</ons-template>
+	</template>
 
 	
 
@@ -1192,16 +1230,16 @@ function found_save_Contacts(){
 			<p id="modal-text" class="rtl"></p>
 		</div>
 	</ons-modal>
-	<ons-template id="dialog.html">
+	<template id="dialog.html">
 		<ons-dialog id="dialog-alert">
 			<div style="text-align: center; padding: 10px;">
 				<div id="dialog-text-dialog-alert" class="rtl"></div>
 				<p><ons-button onclick="hideDialog('dialog-alert')">OK</ons-button></p>
 			</div>
 		</ons-dialog>
-	</ons-template>
+	</template>
 	
-	<ons-template id="dialog_progress_bar.html">
+	<template id="dialog_progress_bar.html">
 		<ons-dialog id="dialog_progress_bar">
 			<div style="text-align: center; padding: 10px;">
 				<p id="Uploading-text" class="ltr">Uploading...</p>
@@ -1209,9 +1247,9 @@ function found_save_Contacts(){
 				<p><ons-button id="progress_bar_cancel_btn" onclick="progress_bar_cancel_btn();" class="need_translate" translate="Cancel">Cancel</ons-button></p>
 			</div>
 		</ons-dialog>
-	</ons-template>
+	</template>
 	
-	<ons-template id="found_get_location_dialog.html">
+	<template id="found_get_location_dialog.html">
 		<ons-dialog id="found_get_location_dialog">
 			<div style="text-align: center; padding: 10px;">
 				<div id="dialog-text" class="rtl">
@@ -1232,9 +1270,9 @@ function found_save_Contacts(){
 
 			</div>
 		</ons-dialog>
-	</ons-template>
+	</template>
 	
-	<ons-template id="found_get_Contacts_dialog.html">
+	<template id="found_get_Contacts_dialog.html">
 		<ons-dialog id="found_get_Contacts_dialog">
 			<div style="text-align: center; padding: 10px;">
 
@@ -1257,7 +1295,8 @@ function found_save_Contacts(){
 
 			</div>
 		</ons-dialog>
-	</ons-template>
+	</template>
+
 </body>
 </html>
   
