@@ -404,14 +404,12 @@
 			networkState = navigator.connection.type;
 			if (networkState == Connection.NONE) {
 				console.log("start_download : NO internet");
-				/*
 				navigator.notification.alert(
-					multilang.get("you_must_connect_to_the_internet"),	// message
-					alertDismissed,										// callback
-					multilang.get("warning"),							// title
-					multilang.get("ok"),								// buttonName
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
 				);
-				*/
 			}
 			else{
 				console.log("start_download : we have internet");
@@ -527,7 +525,8 @@ alert("An error has occurred: Code = " + error.code);
 				params.type						= "1";
 				
 				options.params = params;
-				
+				alert(JSON.stringify(params));
+				alert(JSON.stringify(options));
 				
 				FileTransfer_OBJ.upload(file, uri, win, fail, options);
 //alert("5");		
