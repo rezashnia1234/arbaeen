@@ -584,6 +584,260 @@ alert("An error has occurred: Code = " + error.code);
 			var page = event.target;
 			modal = document.querySelector('ons-modal');
 
+			if (page.id === 'home')
+			{
+					check_retina();
+					console.log("4");
+					page.querySelector('#goto_page_language_ar').onclick = function() {
+						lang = lang_ar;
+						text_direction = "arabic_text";
+						set_body_language();
+						window.localStorage.setItem('language',"lang_ar");
+						window.localStorage.setItem('text_direction',text_direction);
+						myNavigator.pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_language_en').onclick = function() {
+						console.log("5");
+						lang = lang_en;
+						text_direction = "english_text";
+						set_body_language();
+						window.localStorage.setItem('language',"lang_en");
+						window.localStorage.setItem('text_direction',text_direction);
+						myNavigator.pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_language_fa').onclick = function() {
+						lang = lang_fa;
+						text_direction = "persian_text";
+						set_body_language();
+						window.localStorage.setItem('language',"lang_fa");
+						window.localStorage.setItem('text_direction',text_direction);
+						myNavigator.pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+			else if (page.id === 'select_user_type')
+			{
+					check_retina();
+					need_translate();
+					
+					page.querySelector('#goto_page_user_type_zaer').onclick = function() {
+						myNavigator.pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_user_type_mukeb').onclick = function() {
+						myNavigator.pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+			else if (page.id === 'zaer_services')
+			{
+//menu.setMainPage('page2.html', {closeMenu: true});
+//myNavigator.pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					check_retina();
+					need_translate();
+					
+					
+					var temp_div		= $("#main_div_zaer_services");
+					var tempH			= $("#menu_zaer_services").height();
+					//temp_div.css("margin-top",(winH-tempH)/2);
+					temp_div_css	= $("#main_div_zaer_services_css_placeholder");
+					temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+					
+					setTimeout(function(){
+						tempH		= $("#menu_zaer_services").height();
+						//temp_div.css("margin-top",(winH-tempH)/2);
+						temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+						//console.log("tempH:" + tempH);
+					}, 350);
+					
+					
+
+					page.querySelector('#goto_page_zaer_service_map').onclick = function() {
+						myNavigator.pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_zaer_service_map_mavakeb').onclick = function() {
+						myNavigator.pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_zaer_service_missing_objects').onclick = function() {
+						myNavigator.pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_zaer_service_weather').onclick = function() {
+						myNavigator.pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+			else if (page.id === 'zaer_service_map_mavakeb')
+			{
+					check_retina();
+					need_translate();
+					
+					var temp_div		= $("#main_div_mukeb_map_menu");
+					var tempH			= $("#mukeb_map_menu_image").height();
+					temp_div_css		= $("#main_div_mukeb_map_menu_css_placeholder");
+					//temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:" + (winH-tempH)/2 + "px !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
+					temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:20% !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
+					
+					setTimeout(function(){
+						tempH		= $("#mukeb_map_menu_image").height();
+						//temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:" + (winH-tempH)/2 + "px !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
+						temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:20% !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
+					}, 350);
+
+					page.querySelector('#goto_page_mukeb_map_najaf').onclick = function() {
+						myNavigator.pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_mukeb_map_karbala').onclick = function() {
+						myNavigator.pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_mukeb_map_from_najaf_to_karbala').onclick = function() {
+						myNavigator.pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_mukeb_map_nearby').onclick = function() {
+						myNavigator.pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+			else if (page.id === 'zaer_service_missing_objects')
+			{
+					check_retina();
+					need_translate();
+					
+					setTimeout(function(){
+						tempH			= $("#zaer_service_missing_objects_menu_image").height();
+						temp_div_css	= $("#zaer_service_missing_objects_menu_css_placeholder");
+						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
+					}, 300);
+					/*
+					setTimeout(function(){
+						tempH			= $("#zaer_service_missing_objects_menu_image").height();
+						temp_div_css	= $("#zaer_service_missing_objects_menu_css_placeholder");
+						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
+					}, 350);
+					*/
+					
+					page.querySelector('#goto_page_zaer_service_missing_objects_lost').onclick = function() {
+						myNavigator.pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_zaer_service_missing_objects_found').onclick = function() {
+						myNavigator.pushPage('zaer_service_I_Found_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+			else if (page.id === 'zaer_service_I_Found_Something')
+			{
+					check_retina();
+					need_translate();
+
+					page.querySelector('#goto_page_zaer_service_missing_objects_found_submit_data').onclick = function() {
+						myNavigator.pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
+			else if (page.id === 'zaer_service_I_Found_Something_data_entry')
+			{
+					check_retina();
+					need_translate();
+					
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					app = {};
+					var	buttons = [
+							multilang.get("Passport_and_identification_documents"),
+							multilang.get("Clothing"),
+							multilang.get("Money"),
+							multilang.get("Watch"),
+							multilang.get("Ring"),
+							multilang.get("Jewelry"),
+							multilang.get("Others"),
+							multilang.get("Cancel"),
+						];
+
+					app.showFromObject = function () {
+						ons.openActionSheet({
+							title: multilang.get("Select_a_category"),
+							cancelable: true,
+							buttons: [
+								multilang.get("Passport_and_identification_documents"),
+								multilang.get("Clothing"),
+								multilang.get("Money"),
+								multilang.get("Watch"),
+								multilang.get("Ring"),
+								multilang.get("Jewelry"),
+								multilang.get("Others"),
+								{
+									label: multilang.get("Cancel"),
+									icon: 'md-close'
+								}
+							]
+						}).then(function (index) {
+							console.log('index: ', index);
+							console.log(buttons[index]);
+							if(index != -1 && index != 7)
+							{
+								//$("#Select_a_category").find("input").val(buttons[index]);
+								//document.getElementById('Select_a_category').value = buttons[index];
+								//document.getElementById('Select_a_category_id').value = index;
+								$("#Select_a_category input").val(buttons[index]);
+								$("#Select_a_category_id input").val(index);
+							}
+						})
+					};
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+
+
+					page.querySelector('#goto_page_zaer_service_missing_objects_found_submit_data').onclick = function()
+					{
+						var has_error = false;
+						if(document.getElementById('Name_of_the_device').value=="")
+						{
+							$("#Name_of_the_device").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Name_of_the_device").removeClass("required_but_empty");
+						if(document.getElementById('Select_a_category').value=="")
+						{
+							$("#Select_a_category").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Select_a_category").removeClass("required_but_empty");
+						if(document.getElementById('Finding_Location').value=="")
+						{
+							$("#Finding_Location").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Finding_Location").removeClass("required_but_empty");
+						if(document.getElementById('Contacts_Info').value=="")
+						{
+							$("#Contacts_Info").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Contacts_Info").removeClass("required_but_empty");
+						if(document.getElementById('Description').value=="")
+						{
+							$("#Description").addClass("required_but_empty");
+							has_error = true;
+						}
+						else
+							$("#Description").removeClass("required_but_empty");
+						if(has_error)
+						{
+							ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
+							return false;
+						}
+
+						if(window.sessionStorage.getItem('send_image_path')==null)
+						{
+							show_progress_bar("without_cancel_btn");
+							submit_missing_data_by_ajax();
+						}
+						else
+						{
+							show_progress_bar("with_cancel_btn");
+							submit_missing_data_by_image();
+						}
+						//myNavigator.pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+			}
 		}, false);
 	</script>
 </head>
