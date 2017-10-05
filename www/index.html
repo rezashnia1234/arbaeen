@@ -576,7 +576,9 @@ alert("An error has occurred: Code = " + error.code);
 		//ons.disableAutoStatusBarFill();
 		//ons.disableAutoStyling();
 
+		alert("2");
 		document.addEventListener('pageinit', function(event) {
+			alert("3");
 			//StatusBar.hide;
 			var page = event.target;
 			modal = document.querySelector('ons-modal');
@@ -584,7 +586,7 @@ alert("An error has occurred: Code = " + error.code);
 			if (page.id === 'home')
 			{
 					check_retina();
-
+					alert("4");
 					page.querySelector('#goto_page_language_ar').onclick = function() {
 						lang = lang_ar;
 						text_direction = "arabic_text";
@@ -602,6 +604,7 @@ alert("An error has occurred: Code = " + error.code);
 						myNavigator.pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_language_fa').onclick = function() {
+						alert("5");
 						lang = lang_fa;
 						text_direction = "persian_text";
 						set_body_language();
