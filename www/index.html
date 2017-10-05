@@ -526,6 +526,8 @@ alert("An error has occurred: Code = " + error.code);
 				
 				options.params = params;
 				options.httpMethod = "POST";
+				if(device.platform == 'Android')
+					options.chunkedMode = false;
 				alert(JSON.stringify(params));
 				alert(JSON.stringify(options));
 				
@@ -624,7 +626,6 @@ alert("An error has occurred: Code = " + error.code);
 						document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_language_fa').onclick = function() {
-						alert("3");
 						lang = lang_fa;
 						text_direction = "persian_text";
 						set_body_language();
