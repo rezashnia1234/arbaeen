@@ -333,14 +333,12 @@
 			networkState = navigator.connection.type;
 			if (networkState == Connection.NONE) {
 				console.log("start_download : NO internet");
-				/*
 				navigator.notification.alert(
-					multilang.get("you_must_connect_to_the_internet"),	// message
-					alertDismissed,										// callback
-					multilang.get("warning"),							// title
-					multilang.get("ok"),								// buttonName
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
 				);
-				*/
 			}
 			else{
 				var params = {};
