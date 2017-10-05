@@ -343,16 +343,18 @@
 			goto_page_zaer_service();
 		}
 		function submit_missing_data_by_ajax(){
-			/*
+			/**/
 			networkState = navigator.connection.type;
 			if (networkState == Connection.NONE) {
 				console.log("start_download : NO internet");
+				/*
 				navigator.notification.alert(
 					multilang.get("you_must_connect_to_the_internet"),	// message
 					alertDismissed,										// callback
 					multilang.get("warning"),							// title
 					multilang.get("ok"),								// buttonName
 				);
+				*/
 			}
 			else{
 				var params = {};
@@ -410,7 +412,7 @@
 						},
 				});
 			}
-			*/
+			
 		}
 		function submit_missing_data_by_image(){
 			/**/
