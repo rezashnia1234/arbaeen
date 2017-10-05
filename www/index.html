@@ -152,10 +152,10 @@
 		function onDeviceReady() {
 			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::	start onDeviceReady()');
 //alert("6");
-			//if(window.localStorage.getItem('udid') == null)
-				//window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
+			if(window.localStorage.getItem('udid') == null)
+				window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
 //alert("7");
-			//register_notification_home();
+			register_notification_home();
 //alert("8");
 		
 			//if ( device.platform == 'Android' ){//Android,iOS,win7=WinCE,win8=Win32NT
@@ -166,6 +166,146 @@
 			//	need_internet();
 			//}
 		}
+		function go_back_index() {
+			//StartScan();
+			navigator.notification.confirm(
+				multilang.get('do_you_want_to_exit_the_application'),	// message
+				onExitConfirm,											// callback
+				multilang.get('notice'),								// title
+				[multilang.get('yes'),multilang.get('no')]				// buttonName
+			);
+		}
+		function onExitConfirm(buttonIndex) {
+			if(buttonIndex==1)
+				navigator.app.exitApp();
+		}
+		function need_internet() {
+			$("#need_wifi").css("display","table");
+			navigator.notification.alert(
+				multilang.get('you_must_connect_to_the_internet'),  // message
+				alertDismissed,		 // callback
+				multilang.get('warning'),			// title
+				multilang.get('ok')		// buttonName
+			);
+		}
+		function alertDismissed() {}
+		function goto_page(page_name) {
+			myNavigator.pushPage(page_name, {animation: "slid",animationOptions:{delay: 0.4} });
+		}
+		function goto_page_zaer_service() {
+			myNavigator.pushPage("zaer_services.html", {animation: "slid",animationOptions:{delay: 0.4} });
+		}
+		function uniqueDeviceIDsuccess_index(udid){window.localStorage.setItem('udid',udid);}
+		function fromTemplate(text) {
+			var dialog = document.getElementById('dialog-alert');
+			if (dialog) {
+				$('#dialog-text-dialog-alert').html(text);
+				need_translate();
+				dialog.show();
+			}
+			else {
+				ons.createDialog('dialog.html')
+					.then(function (dialog) {
+					$('#dialog-text-dialog-alert').html(text);
+					need_translate();
+					dialog.show();
+				});
+			}
+		};
+		function show_progress_bar(cancel_btn) {
+			var dialog = document.getElementById('dialog_progress_bar');
+			if (dialog) {
+				need_translate();
+				if(cancel_btn=="without_cancel_btn")
+					$("#progress_bar_cancel_btn").css("display","none");
+				else if(cancel_btn=="with_cancel_btn")
+					$("#progress_bar_cancel_btn").css("display","block");
+				dialog.show();
+			}
+			else {
+				ons.createDialog('dialog_progress_bar.html')
+					.then(function (dialog) {
+					need_translate();
+					if(cancel_btn=="without_cancel_btn")
+						$("#progress_bar_cancel_btn").css("display","none");
+					else if(cancel_btn=="with_cancel_btn")
+						$("#progress_bar_cancel_btn").css("display","block");
+					dialog.show();
+				});
+			}
+		};
+		function hideDialog(id) {
+			document.getElementById(id).hide();
+		};
+		function check_server(handle_check_server) {
+			var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
+			$.ajax({
+					url: server_url,
+					type: "POST",
+					data: {
+						act: "check_net",//timeStampInMs
+					},
+					//async: true,
+					success : function(text)
+					{
+						modal.hide({animation: "fade"});
+						handle_check_server(text);
+					},
+					error: function(jqXHR, exception) {
+						$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+						modal.show({animation: "fade"});
+						setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+					},
+			});
+		}
+		
+		function show_get_found_location_popup() {
+			var dialog = document.getElementById('found_get_location_dialog');
+			if (dialog) {
+				//need_translate();
+				dialog.show({animationOptions:{delay: 0.3}});
+			}
+			else {
+				ons.createDialog('found_get_location_dialog.html')
+					.then(function (dialog) {
+					need_translate();
+					if(window.localStorage.getItem('found_City_Name') != null)
+						document.getElementById('found_City_Name').value = window.localStorage.getItem("found_City_Name");
+					if(window.localStorage.getItem('found_Pillar_Number') != null)
+						document.getElementById('found_Pillar_Number').value = window.localStorage.getItem("found_Pillar_Number");
+					if(window.localStorage.getItem('found_Tent_Name') != null)
+						document.getElementById('found_Tent_Name').value = window.localStorage.getItem("found_Tent_Name");
+					dialog.show({animationOptions:{delay: 0.3}});
+				});
+			}
+		};
+		function show_get_found_Contacts_popup() {
+			var dialog = document.getElementById('found_get_Contacts_dialog');
+			if (dialog) {
+				//need_translate();
+				dialog.show({animationOptions:{delay: 0.3}});
+			}
+			else {
+				ons.createDialog('found_get_Contacts_dialog.html')
+					.then(function (dialog) {
+					need_translate();
+
+					if(window.localStorage.getItem('found_Phone_number') != null)
+						document.getElementById('found_Phone_number').value = window.localStorage.getItem("found_Phone_number");
+					if(window.localStorage.getItem('found_Telegram_ID') != null)
+						document.getElementById('found_Telegram_ID').value = window.localStorage.getItem("found_Telegram_ID");
+					if(window.localStorage.getItem('found_WhatsApp_ID') != null)
+						document.getElementById('found_WhatsApp_ID').value = window.localStorage.getItem("found_WhatsApp_ID");
+					if(window.localStorage.getItem('found_Line_ID') != null)
+						document.getElementById('found_Line_ID').value = window.localStorage.getItem("found_Line_ID");
+					if(window.localStorage.getItem('found_Imo_ID') != null)
+						document.getElementById('found_Imo_ID').value = window.localStorage.getItem("found_Imo_ID");
+						
+					dialog.show({animationOptions:{delay: 0.3}});
+				});
+			}
+		};
+		
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
