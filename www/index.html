@@ -32,10 +32,12 @@
 		FileTransfer_OBJ = "";
 		
 		setTimeout(function(){
+			/*
 			if(!window.cordova)
-				document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
+				document.querySelector('#myNavigator').pushPage('register_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 			else
 				FileTransfer_OBJ = new FileTransfer();
+			*/
 		}, 1000);
 		
 		if(window.localStorage.getItem('language') == null)
@@ -571,8 +573,14 @@ alert("An error has occurred: Code = " + error.code);
 			if(window.cordova)
 				navigator.splashscreen.hide();
 		});
+		
+		document.addEventListener('prechange', function(event) {
+			//document.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+			document.querySelector('ons-toolbar .center').innerHTML = multilang.get(event.tabItem.getAttribute('label'));
+		});
+
 		document.addEventListener('init', function(event) {
-			console.log("document.addEventListener init");
+			//console.log("document.addEventListener init");
 			//StatusBar.hide;
 			var page = event.target;
 			modal = document.querySelector('ons-modal');
@@ -643,7 +651,7 @@ alert("An error has occurred: Code = " + error.code);
 						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_user_type_mukeb').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('register_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 			else if (page.id === 'zaer_services')
@@ -654,14 +662,14 @@ alert("An error has occurred: Code = " + error.code);
 					
 					var temp_div		= $("#main_div_zaer_services");
 					var tempH			= $("#menu_zaer_services").height();
-					//temp_div.css("margin-top",(winH-tempH)/2);
+					//temp_div.css("margin-top",(winH-tempH-50)/2);
 					temp_div_css	= $("#main_div_zaer_services_css_placeholder");
-					temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+					temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH-50)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
 					
 					setTimeout(function(){
 						tempH		= $("#menu_zaer_services").height();
-						//temp_div.css("margin-top",(winH-tempH)/2);
-						temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+						//temp_div.css("margin-top",(winH-tempH-50)/2);
+						temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH-50)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
 						//console.log("tempH:" + tempH);
 					}, 350);
 					
@@ -688,12 +696,12 @@ alert("An error has occurred: Code = " + error.code);
 					var temp_div		= $("#main_div_mukeb_map_menu");
 					var tempH			= $("#mukeb_map_menu_image").height();
 					temp_div_css		= $("#main_div_mukeb_map_menu_css_placeholder");
-					//temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:" + (winH-tempH)/2 + "px !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
+					//temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:" + (winH-tempH-50)/2 + "px !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
 					temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:20% !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
 					
 					setTimeout(function(){
 						tempH		= $("#mukeb_map_menu_image").height();
-						//temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:" + (winH-tempH)/2 + "px !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
+						//temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:" + (winH-tempH-50)/2 + "px !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
 						temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:20% !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
 					}, 350);
 
@@ -718,13 +726,13 @@ alert("An error has occurred: Code = " + error.code);
 					setTimeout(function(){
 						tempH			= $("#zaer_service_missing_objects_menu_image").height();
 						temp_div_css	= $("#zaer_service_missing_objects_menu_css_placeholder");
-						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
+						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH-50)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
 					}, 300);
 					/*
 					setTimeout(function(){
 						tempH			= $("#zaer_service_missing_objects_menu_image").height();
 						temp_div_css	= $("#zaer_service_missing_objects_menu_css_placeholder");
-						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
+						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH-50)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
 					}, 350);
 					*/
 					
@@ -856,6 +864,12 @@ alert("An error has occurred: Code = " + error.code);
 						//document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
+			else if (page.id === 'register_mukeb')
+			{
+					check_retina();
+					need_translate();
+					
+			}
 		});
 	</script>
 </head>
@@ -937,12 +951,17 @@ alert("An error has occurred: Code = " + error.code);
 
 	<template id="zaer_services.html">
 		<ons-page id="zaer_services" >
-			<div class="left-top-menu">
-				<ons-toolbar-button onclick="fn.open()">
-					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
-				</ons-toolbar-button>
-			</div>
 			<div class="page_bg_overflow retina" >
+				<ons-toolbar inline modifier="transparent22">
+					<div class="left">
+						<ons-toolbar-button onclick="fn.open()">
+							<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+						</ons-toolbar-button>
+					</div>
+					<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+					<div class="center need_translate" translate="List_Of_Services">List Of Services</div>
+				</ons-toolbar>
+				
 				<div id="main_div_zaer_services_css_placeholder"></div>
 				<div id="main_div_zaer_services" style="text-align: center; color:#ffffff;margin-top:20%;position: relative;" >
 					<img src="images/pages/zaer_services.png" id="menu_zaer_services" class="retina" style="width:100%;" >
@@ -958,12 +977,17 @@ alert("An error has occurred: Code = " + error.code);
 
 	<template id="zaer_service_map_mavakeb.html">
 		<ons-page id="zaer_service_map_mavakeb" >
-			<div class="left-top-menu">
-				<ons-toolbar-button onclick="fn.open()">
-					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
-				</ons-toolbar-button>
-			</div>
 			<div class="page_bg retina" ></div>
+			
+			<ons-toolbar inline modifier="transparent22">
+				<div class="left">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+				<div class="center need_translate" translate="Tents_Positions"></div>
+			</ons-toolbar>
 			
 			<div class="mukeb_map_menu_page_bg retina" >
 				
@@ -985,16 +1009,21 @@ alert("An error has occurred: Code = " + error.code);
 
 	<template id="zaer_service_missing_objects.html">
 		<ons-page id="zaer_service_missing_objects" >
-			<div class="left-top-menu">
-				<ons-toolbar-button onclick="fn.open()">
-					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
-				</ons-toolbar-button>
-			</div>
 			<div class="page_bg retina" ></div>
+			
+			<ons-toolbar inline modifier="transparent22">
+				<div class="left">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+				<div class="center need_translate" translate="Missing_objects"></div>
+			</ons-toolbar>
 			
 			<div id="zaer_service_missing_objects_menu_css_placeholder"></div>
 			
-			<div id="zaer_service_missing_objects_menu" style="text-align: center; color:#ffffff;margin-top:50%;position: relative;" >
+			<div id="zaer_service_missing_objects_menu" style="text-align: center; color:#ffffff;margin-top:40%;position: relative;" >
 				<img src="images/pages/zaer_service_missing_objects_menu.png" id="zaer_service_missing_objects_menu_image" class="retina" style="width:100%;" >
 				<div id="goto_page_zaer_service_missing_objects_lost" class="zaer_service_missing_objects_btn" ><div class="need_translate" translate="I_Lost_Something">I Lost Something</div></div>
 				<div id="goto_page_zaer_service_missing_objects_found" class="zaer_service_missing_objects_btn" ><div class="need_translate" translate="I_Found_Something">I Found Something</div></div>
@@ -1004,12 +1033,17 @@ alert("An error has occurred: Code = " + error.code);
 
 	<template id="zaer_service_I_Found_Something.html">
 		<ons-page id="zaer_service_I_Found_Something" >
-			<div class="left-top-menu">
-				<ons-toolbar-button onclick="fn.open()">
-					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
-				</ons-toolbar-button>
-			</div>
 			<div class="page_bg retina" ></div>
+			
+			<ons-toolbar inline modifier="transparent22">
+				<div class="left">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+				<div class="center need_translate" translate="Missing_objects"></div>
+			</ons-toolbar>
 			
 			<div class="text-65 center-text" style="margin-top: 25%;margin-bottom: 10%;" >
 				<span class="need_translate" translate="Thank_you_dear_sir"></span>
@@ -1031,14 +1065,19 @@ alert("An error has occurred: Code = " + error.code);
 
 	<template id="zaer_service_I_Found_Something_data_entry.html">
 		<ons-page id="zaer_service_I_Found_Something_data_entry" >
-			<div class="left-top-menu">
-				<ons-toolbar-button onclick="fn.open()">
-					<ons-icon icon="md-menu" class="menu-btn"></ons-icon>
-				</ons-toolbar-button>
-			</div>
 			<div class="page_bg retina" ></div>
+
+			<ons-toolbar inline modifier="transparent22">
+				<div class="left">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+				<div class="center need_translate" translate="Missing_objects"></div>
+			</ons-toolbar>
 			
-			<div class="text-65 center-text" style="margin-top: 25%;margin-bottom: 10%;" >
+			<div class="text-65 center-text" style="margin-top: 8%;margin-bottom: 8%;" >
 				<span class="need_translate" translate="Enter_the_specification_of_the_found_object"></span>
 			</div>
 			
@@ -1077,7 +1116,45 @@ alert("An error has occurred: Code = " + error.code);
 			<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
 		</ons-page>
 	</template>
+	
+	<template id="register_mukeb.html">
+		<ons-page id="register_mukeb" >
+			<div class="page_bg retina" ></div>
+			<ons-toolbar inline modifier="transparent22">
+				<div class="left">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+				<div class="center need_translate" translate="Register">Register</div>
+			</ons-toolbar>
 
+			<ons-tabbar swipeable position="auto" >
+				<ons-tab page="Register_tab.html" label="Register" icon="fa-user-plus" class="need_translate_tab" translate="Register" active></ons-tab>
+				<ons-tab page="Login_tab.html" label="Login" icon="fa-user" class="need_translate_tab" translate="Login" ></ons-tab>
+			</ons-tabbar>
+			
+		</ons-page>
+	</template>
+	
+	<template id="Register_tab.html">
+		<ons-page id="Register_tab">
+			<p style="text-align: center;">
+				<br><br><br>
+				This is the first page.
+			</p>
+		</ons-page>
+	</template>
+
+	<template id="Login_tab.html">
+		<ons-page id="Login_tab">
+			<p style="text-align: center;">
+				<br><br><br>
+				This is the second page.
+			</p>
+		</ons-page>
+	</template>
 	
 
 

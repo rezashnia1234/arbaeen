@@ -125,9 +125,19 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 	overflow-x: hidden;
 	overflow-y: auto;
 }
-
-
-
+#homePage .page,#homePage .page__background,#homePage .page__content{background:none;}
+#homePage .page__content,#register_mukeb .page__content {
+    color: #ffffff;
+}
+.toolbar{background-color: rgba(256,256,256,0.7);}
+.toolbar{background-color: rgba(38,119,149,0.8);background-size:100% 0px;color:#ffffff;position:relative;z-index:99;}
+.bottom-bar, .toolbar__center, .toolbar__title{color:#ffffff;}
+.tabbar {background-color: rgba(5,81,111,0.6);background-size:100% 0px;color:#ffffff;}
+.tabbar__item:first-child {border-right: 2px solid #27214f;}
+:checked+.tabbar__button {color: rgba(256,256,256,0.9);}
+.toolbar .back-button{color:#ffffff;}
+.toolbar .back-button__icon{fill:#ffffff;transform: scale(0.5);}
+.toolbar .back-button__label {font-size: 14px;padding-right:9px;}
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -403,7 +413,7 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 	position: relative;
 	width: 80%;
 	text-align: center;
-	margin: 19% auto 0 auto;
+	margin: 24% auto 0 auto;
 }
 #select_mukeb_map_type_top_text {
 	position: relative;

@@ -7,6 +7,7 @@ lang_ar = {
 	no : "كلا",
 	ok : "حسنا",
 	Cancel : "إلغاء",
+	Back : "الى الخلف",
 	Data_Submitted : "البيانات المقدمة",
 	do_you_want_to_exit_the_application : "هل حقا تريد الحروج من التطبيق؟",
 	you_must_connect_to_the_internet : "يجب عليك الاتصال بالانترنت!",
@@ -60,6 +61,13 @@ lang_ar = {
 	WhatsApp_ID : "WhatsApp ID",
 	Line_ID : "Line ID",
 	Imo_ID : "Imo ID",
+	Register : "تسجيل",
+	Login : "تسجيل الدخول",
+	Register_New_User : "تسجيل مستخدم جديد",
+	Login_Registered_User : "تسجيل الدخول مستخدم مسجل",
+	Mobile_Number : "رقم الهاتف المحمول",
+	Password : "كلمه السر",
+	List_Of_Services : "قائمة الخدمات",
 };
 
 

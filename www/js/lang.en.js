@@ -7,6 +7,7 @@ lang_en = {
 	no : "No",
 	ok : "OK",
 	Cancel : "Cancel",
+	Back : "Back",
 	Data_Submitted : "Data Submitted",
 	do_you_want_to_exit_the_application : "Do you want to exit the application?",
 	you_must_connect_to_the_internet : "You must connect to the Internet!",
@@ -60,6 +61,13 @@ lang_en = {
 	WhatsApp_ID : "WhatsApp ID",
 	Line_ID : "Line ID",
 	Imo_ID : "Imo ID",
+	Register : "Register",
+	Login : "Login",
+	Register_New_User : "Register New User",
+	Login_Registered_User : "Login Registered User",
+	Mobile_Number : "Mobile Number",
+	Password : "Password",
+	List_Of_Services : "List of services",
 };
 
 

@@ -7,6 +7,7 @@ lang_fa = {
 	no : "خیر",
 	ok : "تائید",
 	Cancel : "لغو",
+	Back : "بازگشت",
 	Data_Submitted : "اطلاعات ثبت شد",
 	do_you_want_to_exit_the_application : "آیا تمایل به خروج از برنامه را دارید؟",
 	you_must_connect_to_the_internet : "شما برای مشاهده این صفحه نیاز به اینترنت دارید!",
@@ -60,6 +61,13 @@ lang_fa = {
 	WhatsApp_ID : "شناسه WhatsApp",
 	Line_ID : "شناسه Line",
 	Imo_ID : "شناسه Imo",
+	Register : "عضویت",
+	Login : "ورود",
+	Register_New_User : "عضویت کاربر جدید",
+	Login_Registered_User : "ورود کاربر های عضو",
+	Mobile_Number : "شماره تلفن همراه",
+	Password : "کلمه عبور",
+	List_Of_Services : "لیست خدمات",
 };
 
 
