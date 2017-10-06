@@ -61,6 +61,9 @@
 	<plugin spec="https://github.com/apache/cordova-plugin-vibration.git" source="git" />
 	
 	<plugin spec="https://github.com/apache/cordova-plugin-file-transfer.git" source="git" />
+	
+	<plugin spec="https://github.com/tkyaji/cordova-plugin-crypt-file.git" source="git" />
+	<plugin spec="https://github.com/EddyVerbruggen/SSLCertificateChecker-PhoneGap-Plugin.git" source="git" />
 
     <!-- Third party plugins -->
 	<preference name="android-build-tool" value="gradle" />
