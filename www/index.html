@@ -30,15 +30,23 @@
 		winH = 0;
 		app = {};
 		FileTransfer_OBJ = "";
-		
+
 		setTimeout(function(){
+			/*
+			*/
 			if(!window.cordova)
 				document.querySelector('#myNavigator').pushPage('register_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 			else
 				FileTransfer_OBJ = new FileTransfer();
-			/*
-			*/
-		}, 500);
+			
+			if(getParameterByName('target_page')!="")
+			{
+				document.querySelector('#myNavigator').bringPageTop(getParameterByName('target_page'), {animation: "none"});
+				setTimeout(function(){
+					$("#mypreload").css("display","none");
+				}, 300);
+			}
+		}, 300);
 		
 		if(window.localStorage.getItem('language') == null)
 		{
@@ -60,7 +68,13 @@
 			multilang.get("Others"),
 			multilang.get("Cancel"),
 		];
-
+		
+		function getParameterByName(name) {
+			name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+			var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+				results = regex.exec(location.search);
+			return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
 		function set_body_language(){
 			body = $("body");
 			body.removeClass("english_text");
@@ -101,9 +115,9 @@
 				$('.center_the_box_vertical:visible').each( function(i) {
 					tempObj = $(this);
 					tempH = tempObj.height();
-					console.log("tempH:" + tempH);
-					console.log("winH:" + winH);
-					console.log("delta:" + delta);
+					//console.log("tempH:" + tempH);
+					//console.log("winH:" + winH);
+					//console.log("delta:" + delta);
 					tempObj.css("margin-top",((winH-tempH-delta)/2));
 				});
 			}, 300);
@@ -583,7 +597,10 @@ alert("An error has occurred: Code = " + error.code);
 		//ons.forcePlatformStyling('ios');
 		ons.disableAutoStatusBarFill();
 		ons.disableAutoStyling();
+			
 		ons.ready(function(){
+			if(getParameterByName('target_page')=="")
+				$("#mypreload").css("display","none");
 			if(window.cordova)
 				navigator.splashscreen.hide();
 		});
@@ -938,7 +955,7 @@ alert("An error has occurred: Code = " + error.code);
 	
 	<ons-template id="homePage.html">
 		<ons-page id="homePage">
-			<ons-navigator id="myNavigator" page="home.html" swipe-target-width="50px" swipeable></ons-navigator>
+			<ons-navigator id="myNavigator" var="myNavigator" page="home.html" swipe-target-width="50px" swipeable></ons-navigator>
 		</ons-page>
 	</ons-template>
 	
@@ -1184,7 +1201,6 @@ alert("An error has occurred: Code = " + error.code);
 				</div>
 				<div id="register_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="pre_registration"></div></div></div>
 			</div>
-
 		</ons-page>
 	</template>
 	
@@ -1348,7 +1364,6 @@ function found_save_Contacts(){
 			</div>
 		</ons-dialog>
 	</template>
-	
 	<template id="dialog_progress_bar.html">
 		<ons-dialog id="dialog_progress_bar">
 			<div style="text-align: center; padding: 10px;">
@@ -1358,7 +1373,6 @@ function found_save_Contacts(){
 			</div>
 		</ons-dialog>
 	</template>
-	
 	<template id="found_get_location_dialog.html">
 		<ons-dialog id="found_get_location_dialog">
 			<div style="text-align: center; padding: 10px;">
@@ -1381,7 +1395,6 @@ function found_save_Contacts(){
 			</div>
 		</ons-dialog>
 	</template>
-	
 	<template id="found_get_Contacts_dialog.html">
 		<ons-dialog id="found_get_Contacts_dialog">
 			<div style="text-align: center; padding: 10px;">
@@ -1406,7 +1419,11 @@ function found_save_Contacts(){
 			</div>
 		</ons-dialog>
 	</template>
-
+	<div id="mypreload" style="display1:none;">
+		<div style="z-index: 1000; border: medium none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background-color: #1e92c4; opacity: 1; cursor: default; position: fixed;overflow:visible;" class="blockUI blockOverlay"></div>
+		<div style="z-index: 1011; position: fixed; padding: 0px; margin: 0px; width: 100%; top: 28%; left: 0%; text-align: center;border: medium none;overflow:visible;" class="blockUI blockMsg blockPage"><img src="images/preloader.gif"></div>
+		<div style="z-index: 1012; position: fixed; padding: 0px; margin: 0px; width: 100%; top: 50%; left: 0%; text-align: center;border: medium none;overflow:visible;height:500px;" class="blockUI blockMsg blockPage"><img src="images/loading.png" width="70%"></div>
+	</div>
 </body>
 </html>
   
