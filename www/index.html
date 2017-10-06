@@ -216,6 +216,9 @@
 		function goto_page_zaer_service() {
 			document.querySelector('#myNavigator').pushPage("zaer_services.html", {animation: "slid",animationOptions:{delay: 0.4} });
 		}
+		function goto_page_select_user_type() {
+			document.querySelector('#myNavigator').pushPage("select_user_type.html", {animation: "slid",animationOptions:{delay: 0.4} });
+		}
 		function uniqueDeviceIDsuccess_index(udid){
 			window.localStorage.setItem('udid',udid);
 		}
@@ -606,15 +609,44 @@ alert("An error has occurred: Code = " + error.code);
 					params.longitude			= window.sessionStorage.getItem('user_longitude');
 				if(window.sessionStorage.getItem('user_latitude') != null)
 					params.latitude				= window.sessionStorage.getItem('user_latitude');
-				
-				params.Select_a_category_id		= document.getElementById('Select_a_category_id').value;
-				params.Name_of_the_device		= document.getElementById('Name_of_the_device').value;
-				params.Description				= document.getElementById('Description').value;
-				params.act						= "add_missing";
-				params.type						= "1";
-				console.log("params");
+					
+				var has_error = false;
+				if(document.getElementById('Mobile_Number_register').value=="")
+				{
+					$("#Mobile_Number_register").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Mobile_Number_register").removeClass("required_but_empty");
+
+				if(document.getElementById('Mukeb_Name').value=="")
+				{
+					$("#Mukeb_Name").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Mukeb_Name").removeClass("required_but_empty");
+					
+				if(window.localStorage.getItem('city_name')==null || window.localStorage.getItem('city_name')=="")
+				{
+					$("#city_name").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Mukeb_Name").removeClass("required_but_empty");
+
+				if(has_error)
+				{
+					ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
+					return false;
+				}
+				params.Mobile_Number			= document.getElementById('Mobile_Number_register').value;
+				params.Mukeb_Name				= document.getElementById('Mukeb_Name').value;
+				params.city_name				= window.localStorage.getItem('city_name');
+				params.act						= "mukeb_pre_registration";
 				console.log(params);
-				return params;
+				show_progress_bar("without_cancel_btn");
+				
 				$.ajax({
 						url: upload_image_url,
 						type: "POST",
@@ -623,12 +655,16 @@ alert("An error has occurred: Code = " + error.code);
 						success : function(text)
 						{
 							hideDialog('dialog_progress_bar');
+							fromTemplate(multilang.get('Pre_registration_finished'));
+							document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
+							/*
 							navigator.notification.alert(
 								multilang.get("Your_Data_Submited_Successfully"),	// message
 								goto_page_zaer_service,								// callback
 								multilang.get("notice"),							// title
 								multilang.get("ok")									// buttonName
 							);
+							*/
 						},
 						error: function(jqXHR, exception) {
 							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
@@ -638,6 +674,125 @@ alert("An error has occurred: Code = " + error.code);
 						},
 				});
 			}
+		}
+		function submit_login(){
+			networkState = navigator.connection.type;
+			if (networkState == Connection.NONE) {
+				console.log("start_download : NO internet");
+				navigator.notification.alert(
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
+				);
+			}
+			else{
+				var params = {};
+				if(window.cordova)
+					navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess_without_alert, getCurrentPosition_onError);
+
+				params.udid = window.localStorage.getItem('udid');
+								
+				if(window.sessionStorage.getItem('user_longitude') != null)
+					params.longitude			= window.sessionStorage.getItem('user_longitude');
+				if(window.sessionStorage.getItem('user_latitude') != null)
+					params.latitude				= window.sessionStorage.getItem('user_latitude');
+					
+				var has_error = false;
+				if(document.getElementById('Mobile_Number').value=="")
+				{
+					$("#Mobile_Number").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Mobile_Number").removeClass("required_but_empty");
+
+				if(document.getElementById('Password').value=="")
+				{
+					$("#Password").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Password").removeClass("required_but_empty");
+				
+				if(has_error)
+				{
+					ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
+					return false;
+				}
+				params.Mobile_Number			= document.getElementById('Mobile_Number').value;
+				params.Password					= encrypt_by_date(document.getElementById('Password').value);
+				params.act						= "login_mukeb";
+				//return console.log(params);
+
+				show_progress_bar("without_cancel_btn");
+				
+				$.ajax({
+						url: upload_image_url,
+						type: "POST",
+						data: params,
+						//async: true,
+						success : function(text)
+						{
+							try {
+								json = $.parseJSON(text);
+								
+								if(json.answer=="Login_Invalid_password")
+								{
+									ons.notification.alert(multilang.get("Login_Invalid_password"));
+								}
+								else if(json.answer=="Login_tere_is_not_any_account")
+								{
+									ons.notification.alert(multilang.get("Login_tere_is_not_any_account"));
+								}
+								else if(json.answer=="Logined")
+								{
+									ons.notification.alert(multilang.get("Login_successfully"));
+									console.log(json.token);
+									window.localStorage.setItem('token',json.token);
+									window.localStorage.setItem('last_login_result',text);
+									document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
+								}
+								else
+								{
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									modal.show({animation: "fade"});
+									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+								}
+							} catch (e) {
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								modal.show({animation: "fade"});
+								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							}
+							hideDialog('dialog_progress_bar');
+						},
+						error: function(jqXHR, exception) {
+							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							modal.show({animation: "fade"});
+							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							hideDialog('dialog_progress_bar');
+						},
+				});
+			}
+		}
+		function editSelect_city_name(event){
+			if (event.target.value != '' && event.target.value != null && event.target.value != multilang.get("City_Name")) {
+				window.localStorage.setItem('city_name',event.target.value);
+				window.localStorage.setItem('found_City_Name',event.target.value);
+				$(event.target).addClass("selected");
+			}
+			else
+				$(event.target).removeClass("selected");				
+		}
+		function encrypt_by_date(text){
+			var d = new Date();
+			var curr_date = d.getUTCDate();
+			var curr_month = d.getUTCMonth();
+			var curr_year = d.getUTCFullYear();
+			var curr_Hour = d.getUTCHours();
+			var my_date = curr_year + "/" + curr_month + "/" + curr_date + text + curr_Hour;
+			//console.log(my_date);
+			return $.md5(my_date);
 		}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -743,6 +898,11 @@ alert("An error has occurred: Code = " + error.code);
 					page.querySelector('#goto_page_user_type_mukeb').onclick = function() {
 						document.querySelector('#myNavigator').pushPage('register_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
+			}
+			else if (page.id === 'contact_support')
+			{
+					check_retina();
+					need_translate();
 			}
 			else if (page.id === 'zaer_services')
 			{
@@ -961,6 +1121,22 @@ alert("An error has occurred: Code = " + error.code);
 					center_the_box_vertical(44+6+49);
 					setTimeout(function(){
 						need_translate();
+						page.querySelector('#register_mukeb_manager_submit_data').onclick = function()
+						{
+							submit_pre_registration();
+						};
+						page.querySelector('#login_mukeb_manager_submit_data').onclick = function()
+						{
+							submit_login();
+						};
+					}, 300);
+			}
+			else if (page.id === 'register_mukeb')
+			{
+					check_retina();
+					need_translate();
+					setTimeout(function(){
+						need_translate();
 					}, 300);
 			}
 		});
@@ -984,6 +1160,12 @@ alert("An error has occurred: Code = " + error.code);
 						<ons-list-item tappable onclick="fn.load('zaer_services.html')" class="just_arabic">
 							قائمة خيارات الزائر
 						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('contact_support.html')" class="just_arabic">
+							اتصل بالدعم
+						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('contact_support.html')" class="just_arabic">
+							اتصل بالدعم
+						</ons-list-item>
 						
 						<!-- منوهای انگلیسی -->
 						<ons-list-item tappable onclick="fn.load('home.html')" class="just_english">
@@ -995,6 +1177,9 @@ alert("An error has occurred: Code = " + error.code);
 						<ons-list-item tappable onclick="fn.load('zaer_services.html')" class="just_english">
 							List of User Options
 						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('contact_support.html')" class="just_english">
+							Contact Support
+						</ons-list-item>
 						
 						<!-- منوهای فارسی -->
 						<ons-list-item tappable onclick="fn.load('home.html')" class="just_persian">
@@ -1005,6 +1190,9 @@ alert("An error has occurred: Code = " + error.code);
 						</ons-list-item>
 						<ons-list-item tappable onclick="fn.load('zaer_services.html')" class="just_persian">
 							فهرست امکانات زائر
+						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('contact_support.html')" class="just_persian">
+							تماس با پشتیبانی
 						</ons-list-item>
 					</ons-list>
 				</ons-page>
@@ -1029,6 +1217,26 @@ alert("An error has occurred: Code = " + error.code);
 				<div id="goto_page_language_en" class="select_language_btn"></div>
 				<div id="goto_page_language_fa" class="select_language_btn"></div>
 			</div>
+		</ons-page>
+	</template>
+	
+	<template id="contact_support.html">
+		<ons-page id="contact_support" >
+			<div class="page_bg retina" ></div>
+			
+			<ons-toolbar inline modifier="transparent22">
+				<div class="left">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+				<div class="center need_translate" translate="Contact_support"></div>
+			</ons-toolbar>
+			
+			<div class="text-65" style="margin-top: 25%;margin-bottom: 10%;" >
+				<span class="need_translate" translate="Contact_support_text"></span>
+			</div>			
 		</ons-page>
 	</template>
 
@@ -1250,20 +1458,48 @@ alert("An error has occurred: Code = " + error.code);
 
 	<template id="Register_tab.html">
 		<ons-page id="Login_tab">
-			<div class="text-65 center_the_box_vertical" >
+			<div class="text-65 center_the_box_vertical justify-text" >
 				<!-- <img src="images/pages/mukeb_icon.png" style="max-width:100%;margin:0 auto 10% auto;width:70px;width:33%;display: block;"> -->
 				<span class="need_translate" translate="Register_Description"></span><br><br>
 				<div class="input">
 					<ons-input id="Mobile_Number_register" modifier="underbar" placeholder="Mobile_Number" float class="need_translate_val" translate="Mobile_Number"></ons-input>
 				</div>
-				<div class="input" style="margin-bottom: 20%;">
+				<div class="input" >
 					<ons-input id="Mukeb_Name" modifier="underbar" placeholder="Mukeb_Name" float class="need_translate_val" translate="Mukeb_Name"></ons-input>
+				</div>
+				<div class="input" style="margin-bottom: 20%;">
+					<ons-select id="city_name" onchange="editSelect_city_name(event)" modifier="underbar">
+						<option value="" class="need_translate" translate="City_Name"></option>
+						<option value="Karbala" class="need_translate need_translate_val" translate="Karbala" ></option>
+						<option value="Najaf" class="need_translate need_translate_val" translate="Najaf" ></option>
+						<option value="Kazemein" class="need_translate need_translate_val" translate="Kazemein" ></option>
+						<option value="From_Najaf_to_Karbala" class="need_translate need_translate_val" translate="From_Najaf_to_Karbala" ></option>
+					</ons-select>
 				</div>
 				<div id="register_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="pre_registration"></div></div></div>
 			</div>
 		</ons-page>
 	</template>
 	
+	<template id="logined_user.html">
+		<ons-page id="logined_user" >
+			<div class="page_bg retina" ></div>
+			
+			<ons-toolbar inline modifier="transparent22">
+				<div class="left">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+				<div class="center need_translate" translate="Tent_manager"></div>
+			</ons-toolbar>
+			
+			<div class="text-65" style="margin-top: 25%;margin-bottom: 10%;" >
+				<span class="need_translate" translate="Contact_support_text"></span>
+			</div>			
+		</ons-page>
+	</template>
 
 
 

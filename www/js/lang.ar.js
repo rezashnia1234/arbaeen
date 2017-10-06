@@ -20,6 +20,7 @@ lang_ar = {
 	Weather : "طقس",
 	Najaf : "النجف الاشرف",
 	Karbala : "کربلاء المقدسة",
+	Kazemein : "الکاظمیة المقدسة",
 	From_Najaf_to_Karbala : "من النجف الی الکربلاء",
 	Nearby_Tents : "المواکب القريبة",
 	Select_One_of_The_Options_Below : "اختر من أحد الخيارات في الاسفل",
@@ -72,6 +73,12 @@ lang_ar = {
 	Register_Description : "لتسجيل موکب، أولا إدخال معلومات الاتصال الخاصة بك ومن ثم الانتظار لخبراء الدعم في الاتصال.",
 	Mukeb_Name : "اسم الموکب",
 	pre_registration : "التسجيل المسبق",
+	Pre_registration_finished : "اكتمل التسجيل المسبق بنجاح<br>يرجى التحلي بالصبر حتى يتصل بك خبراء الدعم.",
+	Contact_support : "اتصل بالدعم",
+	Contact_support_text : "استدعاء نص الدعم<br>استدعاء نص الدعم<br>استدعاء نص الدعم<br>استدعاء نص الدعم<br>استدعاء نص الدعم<br>استدعاء نص الدعم<br>استدعاء نص الدعم<br>استدعاء نص الدعم<br>استدعاء نص الدعم<br>",
+	Login_tere_is_not_any_account : "ليس هناك حساب لهذا الرقم الجوال",
+	Login_Invalid_password : "رمز مرور خاطئ",
+	Login_successfully : "تم تسجيل الدخول بنجاح",
 };
 
 

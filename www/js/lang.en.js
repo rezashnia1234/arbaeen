@@ -20,6 +20,7 @@ lang_en = {
 	Weather : "Weather",
 	Najaf : "Najaf",
 	Karbala : "Karbala",
+	Kazemein : "Karbala",//الکاظمیه المقدسه
 	From_Najaf_to_Karbala : "From Najaf to Karbala",
 	Nearby_Tents : "Nearby Tents",
 	Select_One_of_The_Options_Below : "Select One of The Options Below",
@@ -72,6 +73,12 @@ lang_en = {
 	Register_Description : "To register a Tent, first enter your contact information and then wait for support experts to contact.",
 	Mukeb_Name : "Tent Name",
 	pre_registration : "Pre-registration",
+	Pre_registration_finished : "Your Pre-registration finished successfully<br>Please be patient until our support experts contact you.",
+	Contact_support : "Call Support",
+	Contact_support_text : "Text of Contact Support<br>Text of Contact Support<br>Text of Contact Support<br>Text of Contact Support<br>Text of Contact Support<br>Text of Contact Support<br>Text of Contact Support<br>Text of Contact Support<br>",
+	Login_tere_is_not_any_account : "There isn't an account for this mobile number",
+	Login_Invalid_password : "Invalid password",
+	Login_successfully : "Logined successfully",
 };
 
 

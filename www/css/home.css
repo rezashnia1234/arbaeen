@@ -1,6 +1,7 @@
 .rtl{direction:rtl !important;}
 .left-to-right-text,.left-to-right-text *{text-align:left !important;}
 .center-text,.center-text *{text-align:center !important;}
+.justify-text{text-align:justify !important;}
 
 .text-80{
 	width:80%;
@@ -20,11 +21,11 @@
 .arabic_text ul,.arabic_text li{direction:rtl;text-align:justify;}
 .english_text ul,.english_text li{direction:ltr;text-align:justify;}
 
-.persian_text div,.persian_text button,.persian_text .ripple,.persian_text .button--material,.persian_text .button--large--cta,.persian_text .button,.persian_text input{
+.persian_text div,.persian_text button,.persian_text .ripple,.persian_text .button--material,.persian_text .button--large--cta,.persian_text .button,.persian_text input,.persian_text select{
 	font-family:"iranyekan",Tahoma !important;
 	font-size:14px;
 }
-.arabic_text div,.arabic_text button,.arabic_text .ripple,.arabic_text .button--material,.arabic_text .button--large--cta,.arabic_text .button,.arabic_text input{
+.arabic_text div,.arabic_text button,.arabic_text .ripple,.arabic_text .button--material,.arabic_text .button--large--cta,.arabic_text .button,.arabic_text input,.arabic_text select{
 	font-family:"Droid Arabic Kufi",Tahoma !important;
 	font-size:14px;
 }
@@ -142,6 +143,27 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 .toolbar .back-button{color:#ffffff;}
 .toolbar .back-button__icon{fill:#ffffff;transform: scale(0.5);}
 .toolbar .back-button__label {font-size: 14px;padding-right:9px;}
+
+ons-input, ons-range{
+	width: 100%;
+	color:#ffffff;
+}
+ons-select, .select-input{
+	width: 100%;
+	color:#c0c0c0;
+}
+.ons-select.selected, .select-input.selected{
+	width: 100%;
+	color:#ffffff;
+}
+.text-input--underbar{
+	width: 100%;
+	color:#ffffff;
+}
+.text-input--underbar::placeholder{
+	color:#c0c0c0;
+}
+
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -525,17 +547,6 @@ ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* صفحه ورود اطلاعات مربوط به پیدا شده ها */
-ons-input{
-	width: 100%;
-	color:#ffffff;
-}
-.text-input--underbar{
-	width: 100%;
-	color:#ffffff;
-}
-.text-input--underbar::placeholder{
-	color:#c0c0c0;
-}
 .Select_hover{
 	position:absolute;
 	top:0;

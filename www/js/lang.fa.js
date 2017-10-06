@@ -20,6 +20,7 @@ lang_fa = {
 	Weather : "آب و هوا",
 	Najaf : "نجف",
 	Karbala : "کربلا",
+	Kazemein : "کاظمین",//الکاظمیه المقدسه
 	From_Najaf_to_Karbala : "نجف تا کربلا",
 	Nearby_Tents : "موکب های اطراف من",
 	Select_One_of_The_Options_Below : "موقعیت مورد نظر را انتخاب نمایید، موکـب ها به همــراه امکانات آنـها نمایش داده می شوند",
@@ -72,6 +73,12 @@ lang_fa = {
 	Register_Description : "برای ثبت اطلاعات یک موکب ، ابتدا اطلاعات تماس خود را وارد نموده و سپس منتظر تماس کارشناسان پشتیبانی باشید.",
 	Mukeb_Name : "نام موکب",
 	pre_registration : "پیش ثبت نام",
+	Pre_registration_finished : "پیش ثبت نام شما با موفقیت به پایان رسید<br>لطفا صبور باشید تا کارشناسان پشتیبانی ما با شما تماس بگیرند",
+	Contact_support : "تماس با پشتیبانی",
+	Contact_support_text : "متن تماس با پشتیبانی<br>متن تماس با پشتیبانی<br>متن تماس با پشتیبانی<br>متن تماس با پشتیبانی<br>متن تماس با پشتیبانی<br>متن تماس با پشتیبانی<br>متن تماس با پشتیبانی<br>",
+	Login_tere_is_not_any_account : "There isn't an account for this mobile number",
+	Login_Invalid_password : "Invalid password",
+	Login_successfully : "Logined successfully",
 };
 
 
