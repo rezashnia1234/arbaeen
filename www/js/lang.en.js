@@ -62,12 +62,16 @@ lang_en = {
 	Line_ID : "Line ID",
 	Imo_ID : "Imo ID",
 	Register : "Register",
+	Register_Tent_manager : "Register Tent manager",
 	Login : "Login",
 	Register_New_User : "Register New User",
 	Login_Registered_User : "Login Registered User",
 	Mobile_Number : "Mobile Number",
 	Password : "Password",
 	List_Of_Services : "List of services",
+	Register_Description : "To register a Tent, first enter your contact information and then wait for support experts to contact.",
+	Mukeb_Name : "Tent Name",
+	pre_registration : "Pre-registration",
 };
 
 

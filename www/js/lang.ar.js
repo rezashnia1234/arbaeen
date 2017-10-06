@@ -62,12 +62,16 @@ lang_ar = {
 	Line_ID : "Line ID",
 	Imo_ID : "Imo ID",
 	Register : "تسجيل",
+	Register_Tent_manager : "تسجيل مدير الخيمة",
 	Login : "تسجيل الدخول",
 	Register_New_User : "تسجيل مستخدم جديد",
 	Login_Registered_User : "تسجيل الدخول مستخدم مسجل",
 	Mobile_Number : "رقم الهاتف المحمول",
 	Password : "كلمه السر",
 	List_Of_Services : "قائمة الخدمات",
+	Register_Description : "لتسجيل موکب، أولا إدخال معلومات الاتصال الخاصة بك ومن ثم الانتظار لخبراء الدعم في الاتصال.",
+	Mukeb_Name : "اسم الموکب",
+	pre_registration : "التسجيل المسبق",
 };
 
 

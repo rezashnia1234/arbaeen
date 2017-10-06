@@ -62,12 +62,16 @@ lang_fa = {
 	Line_ID : "شناسه Line",
 	Imo_ID : "شناسه Imo",
 	Register : "عضویت",
+	Register_Tent_manager : "ثبت نام مدیر موکب",
 	Login : "ورود",
 	Register_New_User : "عضویت کاربر جدید",
 	Login_Registered_User : "ورود کاربر های عضو",
 	Mobile_Number : "شماره تلفن همراه",
 	Password : "کلمه عبور",
 	List_Of_Services : "لیست خدمات",
+	Register_Description : "برای ثبت اطلاعات یک موکب ، ابتدا اطلاعات تماس خود را وارد نموده و سپس منتظر تماس کارشناسان پشتیبانی باشید.",
+	Mukeb_Name : "نام موکب",
+	pre_registration : "پیش ثبت نام",
 };
 
 

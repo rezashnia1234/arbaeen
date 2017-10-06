@@ -62,6 +62,9 @@ ul.colored-bullets li::before {
 .arabic_text ul.colored-bullets li::before{
 	top:-9px;
 }
+div.input{
+	margin-bottom:10%;
+}
 
 
 
@@ -132,7 +135,8 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 .toolbar{background-color: rgba(256,256,256,0.7);}
 .toolbar{background-color: rgba(38,119,149,0.8);background-size:100% 0px;color:#ffffff;position:relative;z-index:99;}
 .bottom-bar, .toolbar__center, .toolbar__title{color:#ffffff;}
-.tabbar {background-color: rgba(5,81,111,0.6);background-size:100% 0px;color:#ffffff;}
+.tabbar111 {background-color: rgba(5,81,111,0.6);background-size:100% 0px;color:#ffffff;}
+.tabbar {background-color: rgba(6,83,111,0.4);background-size:100% 0px;color:#ffffff;}
 .tabbar__item:first-child {border-right: 2px solid #27214f;}
 :checked+.tabbar__button {color: rgba(256,256,256,0.9);}
 .toolbar .back-button{color:#ffffff;}

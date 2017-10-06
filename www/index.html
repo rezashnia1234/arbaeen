@@ -32,13 +32,13 @@
 		FileTransfer_OBJ = "";
 		
 		setTimeout(function(){
-			/*
 			if(!window.cordova)
 				document.querySelector('#myNavigator').pushPage('register_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 			else
 				FileTransfer_OBJ = new FileTransfer();
+			/*
 			*/
-		}, 1000);
+		}, 500);
 		
 		if(window.localStorage.getItem('language') == null)
 		{
@@ -68,7 +68,6 @@
 			body.removeClass("persian_text");
 			body.addClass(text_direction);
 		}
-		
 		function isHighDensity(){
 			return ((window.matchMedia && (window.matchMedia('only screen and (min-resolution: 124dpi), only screen and (min-resolution: 1.3dppx), only screen and (min-resolution: 48.8dpcm)').matches || window.matchMedia('only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen and (-o-min-device-pixel-ratio: 2.6/2), only screen and (min--moz-device-pixel-ratio: 1.3), only screen and (min-device-pixel-ratio: 1.3)').matches)) || (window.devicePixelRatio && window.devicePixelRatio > 1.3));
 		}
@@ -94,6 +93,20 @@
 					}
 				});
 			}
+		}
+		function center_the_box_vertical(delta){
+			if(delta=="" || delta==null)
+				delta = 50;
+			setTimeout(function(){
+				$('.center_the_box_vertical:visible').each( function(i) {
+					tempObj = $(this);
+					tempH = tempObj.height();
+					console.log("tempH:" + tempH);
+					console.log("winH:" + winH);
+					console.log("delta:" + delta);
+					tempObj.css("margin-top",((winH-tempH-delta)/2));
+				});
+			}, 300);
 		}
 		function init() {
 //alert("4");
@@ -176,14 +189,17 @@
 				multilang.get('ok')		// buttonName
 			);
 		}
-		function alertDismissed() {}
+		function alertDismissed() {
+		}
 		function goto_page(page_name) {
 			document.querySelector('#myNavigator').pushPage(page_name, {animation: "slid",animationOptions:{delay: 0.4} });
 		}
 		function goto_page_zaer_service() {
 			document.querySelector('#myNavigator').pushPage("zaer_services.html", {animation: "slid",animationOptions:{delay: 0.4} });
 		}
-		function uniqueDeviceIDsuccess_index(udid){window.localStorage.setItem('udid',udid);}
+		function uniqueDeviceIDsuccess_index(udid){
+			window.localStorage.setItem('udid',udid);
+		}
 		function fromTemplate(text) {
 			var dialog = document.getElementById('dialog-alert');
 			if (dialog) {
@@ -246,7 +262,6 @@
 					},
 			});
 		}
-		
 		function show_get_found_location_popup() {
 			var dialog = document.getElementById('found_get_location_dialog');
 			if (dialog) {
@@ -293,7 +308,6 @@
 				});
 			}
 		};
-		
 		function get_image() {
 			window.imagePicker.getPictures(
 				function(results) {
@@ -575,7 +589,6 @@ alert("An error has occurred: Code = " + error.code);
 		});
 		
 		document.addEventListener('prechange', function(event) {
-			//document.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
 			document.querySelector('ons-toolbar .center').innerHTML = multilang.get(event.tabItem.getAttribute('label'));
 		});
 
@@ -868,12 +881,17 @@ alert("An error has occurred: Code = " + error.code);
 			{
 					check_retina();
 					need_translate();
-					
+					center_the_box_vertical(44+6+49);
+					setTimeout(function(){
+						need_translate();
+					}, 300);
 			}
 		});
 	</script>
 </head>
 <body onload="init();" >
+	<div id="css_placeholder"></div>
+
 	<ons-page>
 		<ons-splitter>
 			<ons-splitter-side id="menu" side="left" width="220px" collapse>
@@ -1127,32 +1145,46 @@ alert("An error has occurred: Code = " + error.code);
 					</ons-toolbar-button>
 				</div>
 				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
-				<div class="center need_translate" translate="Register">Register</div>
+				<div class="center need_translate" translate="Login">Login</div>
 			</ons-toolbar>
 
 			<ons-tabbar swipeable position="auto" >
-				<ons-tab page="Register_tab.html" label="Register" icon="fa-user-plus" class="need_translate_tab" translate="Register" active></ons-tab>
-				<ons-tab page="Login_tab.html" label="Login" icon="fa-user" class="need_translate_tab" translate="Login" ></ons-tab>
+				<ons-tab page="Login_tab.html" label="Login" icon="fa-user" class="need_translate_tab" translate="Login" active></ons-tab>
+				<ons-tab page="Register_tab.html" label="Register_Tent_manager" icon="fa-user-plus" class="need_translate_tab" translate="Register" ></ons-tab>
 			</ons-tabbar>
 			
 		</ons-page>
 	</template>
 	
-	<template id="Register_tab.html">
+	<template id="Login_tab.html">
 		<ons-page id="Register_tab">
-			<p style="text-align: center;">
-				<br><br><br>
-				This is the first page.
-			</p>
+			<div class="text-65 center_the_box_vertical" >
+				<img src="images/pages/mukeb_icon.png" style="max-width:100%;margin:0 auto 10% auto;width:70px;width:33%;display: block;">
+				<div class="input">
+					<ons-input id="Mobile_Number" modifier="underbar" placeholder="Mobile_Number" float class="need_translate_val" translate="Mobile_Number"></ons-input>
+				</div>
+				<div class="input" style="margin-bottom: 20%;">
+					<ons-input id="Password" modifier="underbar" type="password" placeholder="Password" float class="need_translate_val" translate="Password"></ons-input>
+				</div>
+				<div id="login_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Login"></div></div></div>
+			</div>
 		</ons-page>
 	</template>
 
-	<template id="Login_tab.html">
+	<template id="Register_tab.html">
 		<ons-page id="Login_tab">
-			<p style="text-align: center;">
-				<br><br><br>
-				This is the second page.
-			</p>
+			<div class="text-65 center_the_box_vertical" >
+				<!-- <img src="images/pages/mukeb_icon.png" style="max-width:100%;margin:0 auto 10% auto;width:70px;width:33%;display: block;"> -->
+				<span class="need_translate" translate="Register_Description"></span><br><br>
+				<div class="input">
+					<ons-input id="Mobile_Number_register" modifier="underbar" placeholder="Mobile_Number" float class="need_translate_val" translate="Mobile_Number"></ons-input>
+				</div>
+				<div class="input" style="margin-bottom: 20%;">
+					<ons-input id="Mukeb_Name" modifier="underbar" placeholder="Mukeb_Name" float class="need_translate_val" translate="Mukeb_Name"></ons-input>
+				</div>
+				<div id="register_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="pre_registration"></div></div></div>
+			</div>
+
 		</ons-page>
 	</template>
 	
