@@ -23,8 +23,8 @@ function register_notification_home() {
 		push.on('registration', function(data) {
 			// data.registrationId
 			// alert("registration event: " + data.registrationId);
-			// alert("registration uuid: " + window.localStorage.getItem('uuid'));
-			// alert("registration uuid: " + window.localStorage.getItem('uuid'));
+			// alert("registration udid: " + window.localStorage.getItem('udid'));
+			// alert("registration udid: " + window.localStorage.getItem('udid'));
 			// alert("registration platform: " + device.platform);
 			
 			$.ajax({
@@ -33,7 +33,8 @@ function register_notification_home() {
 				data: {
 					act: "add_device",
 					regID: data.registrationId,
-					udid: window.localStorage.getItem('uuid'),
+					udid: window.localStorage.getItem('udid'),
+					language: window.localStorage.getItem('language'),
 					OS:device.platform
 				},
 				async: false,

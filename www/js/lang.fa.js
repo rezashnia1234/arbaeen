@@ -20,8 +20,9 @@ lang_fa = {
 	Weather : "آب و هوا",
 	Najaf : "نجف",
 	Karbala : "کربلا",
-	Kazemein : "کاظمین",//الکاظمیه المقدسه
+	Kazemein : "کاظمین",
 	From_Najaf_to_Karbala : "نجف تا کربلا",
+	From_Kazemein_to_Karbala : "کاظمین تا کربلا",
 	Nearby_Tents : "موکب های اطراف من",
 	Select_One_of_The_Options_Below : "موقعیت مورد نظر را انتخاب نمایید، موکـب ها به همــراه امکانات آنـها نمایش داده می شوند",
 	I_Found_Something : "وسیله ای را پیدا کرده ام",
@@ -85,6 +86,7 @@ lang_fa = {
 	check_sms_wrong_number : "کد وارد شده صحیح نمی باشد",
 	forgot_my_password : "رمز عبورم را فراموش کرده ام",
 	Enter_your_mobile_number : "شماره موبایل خود را وارد نمایید",
+	mukeb_already_exist : "این شماره موبایل قبلا برای مدیریت یک موکب ثبت شده است ، لطفا از صفحه لوگین استفاده نمایید.",
 };
 
 

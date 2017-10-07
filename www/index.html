@@ -45,13 +45,14 @@
 			
 			if(getParameterByName('target_page')!="")
 			{
+				console.log("we have target_page");
 				//http://localhost:55769/index.html?target_page=register_mukeb.html
 				document.querySelector('#myNavigator').bringPageTop(getParameterByName('target_page'), {animation: "none"});
 				setTimeout(function(){
 					$("#mypreload").css("display","none");
-				}, 300);
+				}, 200);
 			}
-		}, 300);
+		}, 500);
 		
 		if(window.localStorage.getItem('language') == null)
 		{
@@ -73,7 +74,15 @@
 			multilang.get("Others"),
 			multilang.get("Cancel"),
 		];
-		
+		city_name_list = [
+			multilang.get("City_Name"),
+			multilang.get("Karbala"),
+			multilang.get("Najaf"),
+			multilang.get("Kazemein"),
+			multilang.get("From_Najaf_to_Karbala"),
+			multilang.get("From_Kazemein_to_Karbala"),
+		];
+
 		function getParameterByName(name) {
 			name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 			var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -409,10 +418,11 @@
 				params.Description				= document.getElementById('Description').value;
 				params.act						= "add_missing";
 				params.type						= "1";
+				params.language					= window.localStorage.getItem('language');
 				console.log("params");
 				console.log(params);
 				$.ajax({
-						url: upload_image_url,
+						url: server_url_missing_data,
 						type: "POST",
 						data: params,
 						//async: true,
@@ -476,7 +486,7 @@
 					}
 				};
 //alert("2");
-				var uri = encodeURI(upload_image_url);
+				var uri = encodeURI(server_url_missing_data);
 				function win(r) {
 					console.log("Code = " + r.responseCode);
 					console.log("Response = " + r.response);
@@ -561,6 +571,7 @@ alert("An error has occurred: Code = " + error.code);
 				params.Description				= document.getElementById('Description').value;
 				params.act						= "add_missing";
 				params.type						= "1";
+				params.language					= window.localStorage.getItem('language');
 				
 				options.params = params;
 				options.httpMethod = "POST";
@@ -603,8 +614,9 @@ alert("An error has occurred: Code = " + error.code);
 				if(window.cordova)
 					navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess_without_alert, getCurrentPosition_onError);
 
-				params.udid = window.localStorage.getItem('udid');
-								
+				params.udid		= window.localStorage.getItem('udid');
+				params.language	= window.localStorage.getItem('language');
+				
 				if(window.sessionStorage.getItem('user_longitude') != null)
 					params.longitude			= window.sessionStorage.getItem('user_longitude');
 				if(window.sessionStorage.getItem('user_latitude') != null)
@@ -653,16 +665,24 @@ alert("An error has occurred: Code = " + error.code);
 				show_progress_bar("without_cancel_btn");
 				
 				$.ajax({
-						url: upload_image_url,
+						url: server_url,
 						type: "POST",
 						data: params,
 						//async: true,
 						success : function(text)
 						{
-							hideDialog('dialog_progress_bar');
-							fromTemplate(multilang.get('Pre_registration_finished'));
-							//window.localStorage.setItem('Pre_registration_step','1');
-							document.querySelector('#myNavigator').pushPage('confirm_mukeb_manager.html', {animation: "slid",animationOptions:{delay: 0.4} });
+							if(text=="mukeb_already_exist")
+							{
+								hideDialog('dialog_progress_bar');
+								fromTemplate(multilang.get('mukeb_already_exist'));
+							}
+							else
+							{
+								hideDialog('dialog_progress_bar');
+								fromTemplate(multilang.get('Pre_registration_finished'));
+								//window.localStorage.setItem('Pre_registration_step','1');
+								document.querySelector('#myNavigator').pushPage('confirm_mukeb_manager.html', {animation: "slid",animationOptions:{delay: 0.4} });
+							}
 						},
 						error: function(jqXHR, exception) {
 							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
@@ -705,7 +725,7 @@ alert("An error has occurred: Code = " + error.code);
 				show_progress_bar("without_cancel_btn");
 				
 				$.ajax({
-						url: upload_image_url,
+						url: server_url,
 						type: "POST",
 						data: params,
 						//async: true,
@@ -745,7 +765,7 @@ alert("An error has occurred: Code = " + error.code);
 				show_progress_bar("without_cancel_btn");
 				
 				$.ajax({
-						url: upload_image_url,
+						url: server_url,
 						type: "POST",
 						data: params,
 						//async: true,
@@ -819,7 +839,7 @@ alert("An error has occurred: Code = " + error.code);
 				show_progress_bar("without_cancel_btn");
 				
 				$.ajax({
-						url: upload_image_url,
+						url: server_url,
 						type: "POST",
 						data: params,
 						//async: true,
@@ -898,7 +918,7 @@ alert("An error has occurred: Code = " + error.code);
 				show_progress_bar("without_cancel_btn");
 				
 				$.ajax({
-						url: upload_image_url,
+						url: server_url,
 						type: "POST",
 						data: params,
 						//async: true,
@@ -998,7 +1018,7 @@ alert("An error has occurred: Code = " + error.code);
 				show_progress_bar("without_cancel_btn");
 				
 				$.ajax({
-						url: upload_image_url,
+						url: server_url,
 						type: "POST",
 						data: params,
 						//async: true,
@@ -1075,7 +1095,7 @@ alert("An error has occurred: Code = " + error.code);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		server_url = "http://dlsmgroup.ir/temp/arbaeen/check_net.php";
-		upload_image_url = "http://dlsmgroup.ir/temp/arbaeen/submit_found_object.php";
+		server_url_missing_data = "http://dlsmgroup.ir/temp/arbaeen/submit_found_object.php";
 		
 		//ons.platform.select('android');
 		ons.platform.select('ios');
@@ -1810,11 +1830,12 @@ alert("An error has occurred: Code = " + error.code);
 				</div>
 				<div class="input" style="margin-bottom: 20%;">
 					<ons-select id="city_name" onchange="editSelect_city_name(event)" modifier="underbar">
-						<option value="" class="need_translate" translate="City_Name"></option>
-						<option value="Karbala" class="need_translate need_translate_val" translate="Karbala" ></option>
-						<option value="Najaf" class="need_translate need_translate_val" translate="Najaf" ></option>
-						<option value="Kazemein" class="need_translate need_translate_val" translate="Kazemein" ></option>
-						<option value="From_Najaf_to_Karbala" class="need_translate need_translate_val" translate="From_Najaf_to_Karbala" ></option>
+						<option value=""  class="need_translate_just_html" translate="City_Name"></option>
+						<option value="1" class="need_translate_just_html" translate="Karbala" ></option>
+						<option value="2" class="need_translate_just_html" translate="Najaf" ></option>
+						<option value="3" class="need_translate_just_html" translate="Kazemein" ></option>
+						<option value="4" class="need_translate_just_html" translate="From_Najaf_to_Karbala" ></option>
+						<option value="5" class="need_translate_just_html" translate="From_Kazemein_to_Karbala" ></option>
 					</ons-select>
 				</div>
 				<div id="register_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="pre_registration"></div></div></div>

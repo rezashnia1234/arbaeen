@@ -20,8 +20,9 @@ lang_en = {
 	Weather : "Weather",
 	Najaf : "Najaf",
 	Karbala : "Karbala",
-	Kazemein : "Karbala",//الکاظمیه المقدسه
+	Kazemein : "Kazemein",
 	From_Najaf_to_Karbala : "From Najaf to Karbala",
+	From_Kazemein_to_Karbala : "From Kazemein to Karbala",
 	Nearby_Tents : "Nearby Tents",
 	Select_One_of_The_Options_Below : "Select One of The Options Below",
 	I_Found_Something : "I Found Something",
@@ -81,10 +82,11 @@ lang_en = {
 	Login_successfully : "Logined successfully",
 	Send_SMS_again : "Send SMS again",
 	Correction_of_information : "Correction of information",
-	Code_in_SMS : "رمز في SMS",
+	Code_in_SMS : "Code in SMS",
 	check_sms_wrong_number : "The code entered is not correct",
 	forgot_my_password : "forgot my password",
 	Enter_your_mobile_number : "Enter Your Mobile Number",
+	mukeb_already_exist : "This mobile number has already been registered to manage an Mukeb, please use the login page.",
 };
 
 

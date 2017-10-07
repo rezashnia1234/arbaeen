@@ -22,6 +22,7 @@ lang_ar = {
 	Karbala : "کربلاء المقدسة",
 	Kazemein : "الکاظمیة المقدسة",
 	From_Najaf_to_Karbala : "من النجف الی الکربلاء",
+	From_Kazemein_to_Karbala : "من الکاظمیة الی الکربلاء",
 	Nearby_Tents : "المواکب القريبة",
 	Select_One_of_The_Options_Below : "اختر من أحد الخيارات في الاسفل",
 	I_Found_Something : "لقد وجدت شيئا",
@@ -81,10 +82,13 @@ lang_ar = {
 	Login_successfully : "تم تسجيل الدخول بنجاح",
 	Send_SMS_again : "إرسال SMS مرة أخرى",
 	Correction_of_information : "تصحيح المعلومات",
+	Code_in_SMS : "رمز في SMS",
 	check_sms_wrong_number : "الرمز الذي تم إدخاله غير صحيح",
 	forgot_my_password : "نسيت كلمة المرور",
 	Enter_your_mobile_number : "أدخل رقم هاتفك المحمول",
+	mukeb_already_exist : "وقد تم بالفعل تسجيل هذا الرقم المحمول لإدارة موكب، يرجى استخدام صفحة تسجيل الدخول.",
 };
+
 
 
 

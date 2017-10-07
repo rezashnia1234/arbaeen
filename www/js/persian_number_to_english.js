@@ -58,6 +58,14 @@ function need_translate() {
 			$(this).find(".back-button__label").html(multilang.get(translate_temp));
 		}
 	});
+	$('.need_translate_just_html').each( function(i) {
+		var translate_temp = $(this).attr("translate");
+		if(translate_temp)
+		{
+			$(this).removeClass("need_translate_just_html");
+			$(this).html(multilang.get(translate_temp));
+		}
+	});
 	setTimeout(function(){
 		$('.need_translate_span').each( function(i) {
 			var translate_temp = $(this).attr("translate");
