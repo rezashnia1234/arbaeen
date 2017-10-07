@@ -79,6 +79,12 @@ lang_en = {
 	Login_tere_is_not_any_account : "There isn't an account for this mobile number",
 	Login_Invalid_password : "Invalid password",
 	Login_successfully : "Logined successfully",
+	Send_SMS_again : "Send SMS again",
+	Correction_of_information : "Correction of information",
+	Code_in_SMS : "رمز في SMS",
+	check_sms_wrong_number : "The code entered is not correct",
+	forgot_my_password : "forgot my password",
+	Enter_your_mobile_number : "Enter Your Mobile Number",
 };
 
 

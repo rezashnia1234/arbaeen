@@ -79,6 +79,11 @@ lang_ar = {
 	Login_tere_is_not_any_account : "ليس هناك حساب لهذا الرقم الجوال",
 	Login_Invalid_password : "رمز مرور خاطئ",
 	Login_successfully : "تم تسجيل الدخول بنجاح",
+	Send_SMS_again : "إرسال SMS مرة أخرى",
+	Correction_of_information : "تصحيح المعلومات",
+	check_sms_wrong_number : "الرمز الذي تم إدخاله غير صحيح",
+	forgot_my_password : "نسيت كلمة المرور",
+	Enter_your_mobile_number : "أدخل رقم هاتفك المحمول",
 };
 
 

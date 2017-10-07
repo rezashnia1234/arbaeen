@@ -76,9 +76,15 @@ lang_fa = {
 	Pre_registration_finished : "پیش ثبت نام شما با موفقیت به پایان رسید<br>لطفا صبور باشید تا کارشناسان پشتیبانی ما با شما تماس بگیرند",
 	Contact_support : "تماس با پشتیبانی",
 	Contact_support_text : "متن تماس با پشتیبانی<br>متن تماس با پشتیبانی<br>متن تماس با پشتیبانی<br>متن تماس با پشتیبانی<br>متن تماس با پشتیبانی<br>متن تماس با پشتیبانی<br>متن تماس با پشتیبانی<br>",
-	Login_tere_is_not_any_account : "There isn't an account for this mobile number",
-	Login_Invalid_password : "Invalid password",
-	Login_successfully : "Logined successfully",
+	Login_tere_is_not_any_account : "اکانتی برای شماره موبایل شما در سامانه ثبت نشده است",
+	Login_Invalid_password : "پسورد غلط است",
+	Login_successfully : "با موفقیت وارد شدید",
+	Send_SMS_again : "ارسال مجدد پیامک",
+	Correction_of_information : "اصلاح اطلاعات",
+	Code_in_SMS : "کد موجود در پیامک",
+	check_sms_wrong_number : "کد وارد شده صحیح نمی باشد",
+	forgot_my_password : "رمز عبورم را فراموش کرده ام",
+	Enter_your_mobile_number : "شماره موبایل خود را وارد نمایید",
 };
 
 

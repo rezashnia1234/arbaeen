@@ -140,7 +140,7 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 .tabbar {background-color: rgba(6,83,111,0.4);background-size:100% 0px;color:#ffffff;}
 .tabbar__item:first-child {border-right: 2px solid #27214f;}
 :checked+.tabbar__button {color: rgba(256,256,256,0.9);}
-.toolbar .back-button{color:#ffffff;}
+.toolbar .back-button{color:#ffffff;padding-left: 0px !important;}
 .toolbar .back-button__icon{fill:#ffffff;transform: scale(0.5);}
 .toolbar .back-button__label {font-size: 14px;padding-right:9px;}
 
@@ -163,7 +163,9 @@ ons-select, .select-input{
 .text-input--underbar::placeholder{
 	color:#c0c0c0;
 }
-
+.alert-dialog-content input {
+    color: #000000 !important;
+}
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */

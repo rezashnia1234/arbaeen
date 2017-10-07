@@ -643,6 +643,11 @@ alert("An error has occurred: Code = " + error.code);
 				params.Mobile_Number			= document.getElementById('Mobile_Number_register').value;
 				params.Mukeb_Name				= document.getElementById('Mukeb_Name').value;
 				params.city_name				= window.localStorage.getItem('city_name');
+				
+				window.sessionStorage.setItem('Mobile_Number_register',document.getElementById('Mobile_Number_register').value);
+				window.sessionStorage.setItem('Mukeb_Name',document.getElementById('Mukeb_Name').value);
+				window.sessionStorage.setItem('city_name',window.localStorage.getItem('city_name'));
+				
 				params.act						= "mukeb_pre_registration";
 				console.log(params);
 				show_progress_bar("without_cancel_btn");
@@ -656,22 +661,287 @@ alert("An error has occurred: Code = " + error.code);
 						{
 							hideDialog('dialog_progress_bar');
 							fromTemplate(multilang.get('Pre_registration_finished'));
-							document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
-							/*
-							navigator.notification.alert(
-								multilang.get("Your_Data_Submited_Successfully"),	// message
-								goto_page_zaer_service,								// callback
-								multilang.get("notice"),							// title
-								multilang.get("ok")									// buttonName
-							);
-							*/
+							//window.localStorage.setItem('Pre_registration_step','1');
+							document.querySelector('#myNavigator').pushPage('confirm_mukeb_manager.html', {animation: "slid",animationOptions:{delay: 0.4} });
 						},
 						error: function(jqXHR, exception) {
 							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
 							modal.show({animation: "fade"});
 							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 							hideDialog('dialog_progress_bar');
+						}
+				});
+			}
+		}
+		function submit_pre_registration_resend_sms(){
+			networkState = navigator.connection.type;
+			if (networkState == Connection.NONE) {
+				console.log("start_download : NO internet");
+				navigator.notification.alert(
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
+				);
+			}
+			else{
+				var params = {};
+				if(window.cordova)
+					navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess_without_alert, getCurrentPosition_onError);
+
+				params.udid = window.localStorage.getItem('udid');
+								
+				if(window.sessionStorage.getItem('user_longitude') != null)
+					params.longitude			= window.sessionStorage.getItem('user_longitude');
+				if(window.sessionStorage.getItem('user_latitude') != null)
+					params.latitude				= window.sessionStorage.getItem('user_latitude');
+
+				params.Mobile_Number			= window.sessionStorage.getItem('Mobile_Number_register');
+				params.Mukeb_Name				= window.sessionStorage.getItem('Mukeb_Name');
+				params.city_name				= window.sessionStorage.getItem('city_name');
+				
+				params.act						= "mukeb_pre_registration";
+				//console.log(params);
+				show_progress_bar("without_cancel_btn");
+				
+				$.ajax({
+						url: upload_image_url,
+						type: "POST",
+						data: params,
+						//async: true,
+						success : function(text)
+						{
+							hideDialog('dialog_progress_bar');
+							fromTemplate(multilang.get('Pre_registration_finished'));
+							//document.querySelector('#myNavigator').pushPage('confirm_mukeb_manager.html', {animation: "slid",animationOptions:{delay: 0.4} });
 						},
+						error: function(jqXHR, exception) {
+							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							modal.show({animation: "fade"});
+							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							hideDialog('dialog_progress_bar');
+						}
+				});
+			}
+		}
+		function submit_forgot_pasword_mukeb_manager_login_send_sms(mobile_number){
+			networkState = navigator.connection.type;
+			if (networkState == Connection.NONE) {
+				console.log("start_download : NO internet");
+				navigator.notification.alert(
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
+				);
+			}
+			else{
+				var params = {};
+
+				params.udid = window.localStorage.getItem('udid');
+				params.Mobile_Number			= mobile_number;
+				params.act						= "mukeb_forgot_password";
+				//console.log(params);
+				show_progress_bar("without_cancel_btn");
+				
+				$.ajax({
+						url: upload_image_url,
+						type: "POST",
+						data: params,
+						//async: true,
+						success : function(text)
+						{
+							try {
+								json = $.parseJSON(text);
+								
+								if(json.answer=="Login_tere_is_not_any_account")
+								{
+									ons.notification.alert(multilang.get("Login_tere_is_not_any_account"));
+								}
+								else if(json.answer=="we_will_send_sms")
+								{
+									document.querySelector('#myNavigator').pushPage('forgot_pasword_mukeb_manager_login.html', {animation: "slid",animationOptions:{delay: 0.4} });
+								}
+								else
+								{
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									modal.show({animation: "fade"});
+									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+								}
+							} catch (e) {
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								modal.show({animation: "fade"});
+								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							}
+							hideDialog('dialog_progress_bar');
+						},
+						error: function(jqXHR, exception) {
+							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							modal.show({animation: "fade"});
+							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							hideDialog('dialog_progress_bar');
+						}
+				});
+			}
+		}
+		function submit_pre_registration_check_sms(){
+			networkState = navigator.connection.type;
+			if (networkState == Connection.NONE) {
+				console.log("start_download : NO internet");
+				navigator.notification.alert(
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
+				);
+			}
+			else{
+				var params = {};
+				params.udid = window.localStorage.getItem('udid');
+				
+				var has_error = false;
+				if(document.getElementById('Code_in_SMS').value=="")
+				{
+					$("#Code_in_SMS").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Code_in_SMS").removeClass("required_but_empty");
+
+				if(has_error)
+				{
+					ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
+					return false;
+				}
+				params.Code_in_SMS				= document.getElementById('Code_in_SMS').value;
+				params.act						= "mukeb_check_sms";
+				//console.log(params);
+				show_progress_bar("without_cancel_btn");
+				
+				$.ajax({
+						url: upload_image_url,
+						type: "POST",
+						data: params,
+						//async: true,
+						success : function(text)
+						{
+							try {
+								json = $.parseJSON(text);
+								
+								if(json.answer=="Login_Invalid_password")
+								{
+									ons.notification.alert(multilang.get("check_sms_wrong_number"));
+								}
+								else if(json.answer=="Logined")
+								{
+									ons.notification.alert(multilang.get("Login_successfully"));
+									console.log(json.token);
+									window.localStorage.setItem('token',json.token);
+									window.localStorage.setItem('last_login_result',text);
+									document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
+								}
+								else
+								{
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									modal.show({animation: "fade"});
+									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+								}
+							} catch (e) {
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								modal.show({animation: "fade"});
+								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							}
+							hideDialog('dialog_progress_bar');
+						},
+						error: function(jqXHR, exception) {
+							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							modal.show({animation: "fade"});
+							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							hideDialog('dialog_progress_bar');
+						}
+				});
+			}
+		}
+		function submit_forgot_pasword_mukeb_manager_login_check_sms(){
+			networkState = navigator.connection.type;
+			if (networkState == Connection.NONE) {
+				console.log("start_download : NO internet");
+				navigator.notification.alert(
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
+				);
+			}
+			else{
+				var params = {};
+				params.udid = window.localStorage.getItem('udid');
+				
+				var has_error = false;
+				if(document.getElementById('Code_in_SMS').value=="")
+				{
+					$("#Code_in_SMS").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Code_in_SMS").removeClass("required_but_empty");
+
+				if(has_error)
+				{
+					ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
+					return false;
+				}
+				params.Code_in_SMS				= document.getElementById('Code_in_SMS').value;
+				params.mobile_number			= window.sessionStorage.getItem('mobile_number');
+				params.act						= "mukeb_login_check_sms";
+				//console.log(params);
+				show_progress_bar("without_cancel_btn");
+				
+				$.ajax({
+						url: upload_image_url,
+						type: "POST",
+						data: params,
+						//async: true,
+						success : function(text)
+						{
+							try {
+								json = $.parseJSON(text);
+								
+								if(json.answer=="Login_Invalid_password")
+								{
+									ons.notification.alert(multilang.get("check_sms_wrong_number"));
+								}
+								else if(json.answer=="Login_tere_is_not_any_account")
+								{
+									ons.notification.alert(multilang.get("Login_tere_is_not_any_account"));
+								}
+								else if(json.answer=="Logined")
+								{
+									ons.notification.alert(multilang.get("Login_successfully"));
+									console.log(json.token);
+									window.localStorage.setItem('token',json.token);
+									window.localStorage.setItem('last_login_result',text);
+									document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
+								}
+								else
+								{
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									modal.show({animation: "fade"});
+									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+								}
+							} catch (e) {
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								modal.show({animation: "fade"});
+								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							}
+							hideDialog('dialog_progress_bar');
+						},
+						error: function(jqXHR, exception) {
+							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							modal.show({animation: "fade"});
+							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							hideDialog('dialog_progress_bar');
+						}
 				});
 			}
 		}
@@ -923,6 +1193,13 @@ alert("An error has occurred: Code = " + error.code);
 						//console.log("tempH:" + tempH);
 					}, 350);
 					
+					setTimeout(function(){
+						tempH		= $("#menu_zaer_services").height();
+						//temp_div.css("margin-top",(winH-tempH-50)/2);
+						temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH-50)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+						//console.log("tempH:" + tempH);
+					}, 650);
+					
 					
 
 					page.querySelector('#goto_page_zaer_service_map').onclick = function() {
@@ -954,6 +1231,12 @@ alert("An error has occurred: Code = " + error.code);
 						//temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:" + (winH-tempH-50)/2 + "px !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
 						temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:20% !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
 					}, 350);
+					
+					setTimeout(function(){
+						tempH		= $("#mukeb_map_menu_image").height();
+						//temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:" + (winH-tempH-50)/2 + "px !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
+						temp_div_css.html("<style>#main_div_mukeb_map_menu{margin-top:20% !important}.select_mukeb_map_type_btn{height: " + (tempH/4) + "px;}</style>");
+					}, 650);
 
 					page.querySelector('#goto_page_mukeb_map_najaf').onclick = function() {
 						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
@@ -978,6 +1261,12 @@ alert("An error has occurred: Code = " + error.code);
 						temp_div_css	= $("#zaer_service_missing_objects_menu_css_placeholder");
 						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH-50)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
 					}, 300);
+					
+					setTimeout(function(){
+						tempH			= $("#zaer_service_missing_objects_menu_image").height();
+						temp_div_css	= $("#zaer_service_missing_objects_menu_css_placeholder");
+						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH-50)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
+					}, 600);
 					/*
 					setTimeout(function(){
 						tempH			= $("#zaer_service_missing_objects_menu_image").height();
@@ -1119,8 +1408,11 @@ alert("An error has occurred: Code = " + error.code);
 					check_retina();
 					need_translate();
 					center_the_box_vertical(44+6+49);
+						
 					setTimeout(function(){
+						check_retina();
 						need_translate();
+						
 						page.querySelector('#register_mukeb_manager_submit_data').onclick = function()
 						{
 							submit_pre_registration();
@@ -1129,9 +1421,54 @@ alert("An error has occurred: Code = " + error.code);
 						{
 							submit_login();
 						};
+						page.querySelector('#forgot_pasword_mukeb_manager_login_btn').onclick = function()
+						{
+							options = {};
+							options.message = multilang.get("Enter_your_mobile_number");
+							options.callback = forgot_pasword_mukeb_manager_login_get_number;
+							console.log(ons.notification.prompt(options));
+							function forgot_pasword_mukeb_manager_login_get_number(event)
+							{
+								console.log(event);
+								if(event!="" && event!=null)
+								{
+									window.sessionStorage.setItem('mobile_number',event);
+									submit_forgot_pasword_mukeb_manager_login_send_sms(event);
+								}
+							}
+							//document.querySelector('#myNavigator').pushPage('forgot_pasword_mukeb_manager_login.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						};
 					}, 300);
 			}
-			else if (page.id === 'register_mukeb')
+			else if (page.id === 'forgot_pasword_mukeb_manager_login')
+			{
+					check_retina();
+					need_translate();
+					center_the_box_vertical(44+6+49);
+					page.querySelector('#register_mukeb_manager_resend_sms').onclick = function()
+					{
+						submit_forgot_pasword_mukeb_manager_login_send_sms(window.sessionStorage.getItem('mobile_number'));
+					};
+					page.querySelector('#register_mukeb_manager_check_sms').onclick = function()
+					{
+						submit_forgot_pasword_mukeb_manager_login_check_sms();
+					};
+			}
+			else if (page.id === 'confirm_mukeb_manager')
+			{
+					check_retina();
+					need_translate();
+					center_the_box_vertical(44+6+49);
+					page.querySelector('#register_mukeb_manager_resend_sms').onclick = function()
+					{
+						submit_pre_registration_resend_sms();
+					};
+					page.querySelector('#register_mukeb_manager_check_sms').onclick = function()
+					{
+						submit_pre_registration_check_sms();
+					};
+			}
+			else if (page.id === 'logined_user')
 			{
 					check_retina();
 					need_translate();
@@ -1448,10 +1785,14 @@ alert("An error has occurred: Code = " + error.code);
 				<div class="input">
 					<ons-input id="Mobile_Number" modifier="underbar" placeholder="Mobile_Number" float class="need_translate_val" translate="Mobile_Number"></ons-input>
 				</div>
+
 				<div class="input" style="margin-bottom: 20%;">
 					<ons-input id="Password" modifier="underbar" type="password" placeholder="Password" float class="need_translate_val" translate="Password"></ons-input>
 				</div>
-				<div id="login_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Login"></div></div></div>
+				
+				<div id="login_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Login" ></div></div></div>
+				<br>
+				<div id="forgot_pasword_mukeb_manager_login_btn" class="center-text" ><div class="Submit_Information2" ><div class="need_translate" translate="forgot_my_password" style="color: #ccc;font-size: 11px;margin-top: -3%;" ></div></div></div>
 			</div>
 		</ons-page>
 	</template>
@@ -1477,6 +1818,58 @@ alert("An error has occurred: Code = " + error.code);
 					</ons-select>
 				</div>
 				<div id="register_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="pre_registration"></div></div></div>
+			</div>
+		</ons-page>
+	</template>
+
+	<template id="confirm_mukeb_manager.html">
+		<ons-page id="confirm_mukeb_manager" >
+			<div class="page_bg retina" ></div>
+			
+			<ons-toolbar inline modifier="transparent22">
+				<div class="left">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+				<div class="center need_translate" translate="Tent_manager"></div>
+			</ons-toolbar>
+			
+			<div class="text-65 center_the_box_vertical justify-text" >
+				<div class="input">
+					<ons-input id="Code_in_SMS" modifier="underbar" placeholder="Code_in_SMS" float class="need_translate_val center-text" translate="Code_in_SMS"></ons-input>
+				</div>
+
+				<div id="register_mukeb_manager_check_sms" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="ok"></div></div></div>
+				<br>
+				<div id="register_mukeb_manager_resend_sms" class="center-text" ><div class="Submit_Information2" ><div class="need_translate" translate="Send_SMS_again"></div></div></div>
+			</div>
+		</ons-page>
+	</template>
+
+	<template id="forgot_pasword_mukeb_manager_login.html">
+		<ons-page id="confirm_mukeb_manager" >
+			<div class="page_bg retina" ></div>
+			
+			<ons-toolbar inline modifier="transparent22">
+				<div class="left">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+				<div class="center need_translate" translate="Login" ></div>
+			</ons-toolbar>
+			
+			<div class="text-65 center_the_box_vertical justify-text" >
+				<div class="input">
+					<ons-input id="Code_in_SMS" modifier="underbar" placeholder="Code_in_SMS" float class="need_translate_val center-text" translate="Code_in_SMS"></ons-input>
+				</div>
+
+				<div id="register_mukeb_manager_check_sms" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="ok"></div></div></div>
+				<br>
+				<div id="register_mukeb_manager_resend_sms" class="center-text" ><div class="Submit_Information2" ><div class="need_translate" translate="Send_SMS_again"></div></div></div>
 			</div>
 		</ons-page>
 	</template>
