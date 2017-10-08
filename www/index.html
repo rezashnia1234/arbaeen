@@ -719,6 +719,7 @@ alert("An error has occurred: Code = " + error.code);
 				params.Mobile_Number			= window.sessionStorage.getItem('Mobile_Number_register');
 				params.Mukeb_Name				= window.sessionStorage.getItem('Mukeb_Name');
 				params.city_name				= window.sessionStorage.getItem('city_name');
+				params.language					= window.localStorage.getItem('language');
 				
 				params.act						= "mukeb_pre_registration";
 				//console.log(params);
@@ -760,6 +761,7 @@ alert("An error has occurred: Code = " + error.code);
 
 				params.udid = window.localStorage.getItem('udid');
 				params.Mobile_Number			= mobile_number;
+				params.language					= window.localStorage.getItem('language');
 				params.act						= "mukeb_forgot_password";
 				//console.log(params);
 				show_progress_bar("without_cancel_btn");
@@ -781,6 +783,67 @@ alert("An error has occurred: Code = " + error.code);
 								else if(json.answer=="we_will_send_sms")
 								{
 									document.querySelector('#myNavigator').pushPage('forgot_pasword_mukeb_manager_login.html', {animation: "slid",animationOptions:{delay: 0.4} });
+								}
+								else
+								{
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									modal.show({animation: "fade"});
+									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+								}
+							} catch (e) {
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								modal.show({animation: "fade"});
+								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							}
+							hideDialog('dialog_progress_bar');
+						},
+						error: function(jqXHR, exception) {
+							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							modal.show({animation: "fade"});
+							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							hideDialog('dialog_progress_bar');
+						}
+				});
+			}
+		}
+		function submit_forgot_pasword_mukeb_manager_login_resend_sms(mobile_number){
+			networkState = navigator.connection.type;
+			if (networkState == Connection.NONE) {
+				console.log("start_download : NO internet");
+				navigator.notification.alert(
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
+				);
+			}
+			else{
+				var params = {};
+
+				params.udid = window.localStorage.getItem('udid');
+				params.Mobile_Number			= mobile_number;
+				params.language					= window.localStorage.getItem('language');
+				params.act						= "mukeb_forgot_password";
+				//console.log(params);
+				show_progress_bar("without_cancel_btn");
+				
+				$.ajax({
+						url: server_url,
+						type: "POST",
+						data: params,
+						//async: true,
+						success : function(text)
+						{
+							try {
+								json = $.parseJSON(text);
+								
+								if(json.answer=="Login_tere_is_not_any_account")
+								{
+									ons.notification.alert(multilang.get("Login_tere_is_not_any_account"));
+								}
+								else if(json.answer=="we_will_send_sms")
+								{
+									//document.querySelector('#myNavigator').pushPage('forgot_pasword_mukeb_manager_login.html', {animation: "slid",animationOptions:{delay: 0.4} });
 								}
 								else
 								{
@@ -834,6 +897,8 @@ alert("An error has occurred: Code = " + error.code);
 					return false;
 				}
 				params.Code_in_SMS				= document.getElementById('Code_in_SMS').value;
+				params.Mobile_Number			= window.sessionStorage.getItem('Mobile_Number_register');
+				params.language					= window.localStorage.getItem('language');
 				params.act						= "mukeb_check_sms";
 				//console.log(params);
 				show_progress_bar("without_cancel_btn");
@@ -912,7 +977,7 @@ alert("An error has occurred: Code = " + error.code);
 					return false;
 				}
 				params.Code_in_SMS				= document.getElementById('Code_in_SMS').value;
-				params.mobile_number			= window.sessionStorage.getItem('mobile_number');
+				params.Mobile_Number			= window.sessionStorage.getItem('mobile_number');
 				params.act						= "mukeb_login_check_sms";
 				//console.log(params);
 				show_progress_bar("without_cancel_btn");
@@ -1460,32 +1525,32 @@ alert("An error has occurred: Code = " + error.code);
 						};
 					}, 300);
 			}
-			else if (page.id === 'forgot_pasword_mukeb_manager_login')
-			{
-					check_retina();
-					need_translate();
-					center_the_box_vertical(44+6+49);
-					page.querySelector('#register_mukeb_manager_resend_sms').onclick = function()
-					{
-						submit_forgot_pasword_mukeb_manager_login_send_sms(window.sessionStorage.getItem('mobile_number'));
-					};
-					page.querySelector('#register_mukeb_manager_check_sms').onclick = function()
-					{
-						submit_forgot_pasword_mukeb_manager_login_check_sms();
-					};
-			}
 			else if (page.id === 'confirm_mukeb_manager')
 			{
 					check_retina();
 					need_translate();
 					center_the_box_vertical(44+6+49);
+					page.querySelector('#register_mukeb_manager_check_sms').onclick = function()
+					{
+						submit_pre_registration_check_sms();
+					};
 					page.querySelector('#register_mukeb_manager_resend_sms').onclick = function()
 					{
 						submit_pre_registration_resend_sms();
 					};
-					page.querySelector('#register_mukeb_manager_check_sms').onclick = function()
+			}
+			else if (page.id === 'forgot_pasword_mukeb_manager_login')
+			{
+					check_retina();
+					need_translate();
+					center_the_box_vertical(44+6+49);
+					page.querySelector('#forgot_pasword_mukeb_manager_check_sms').onclick = function()
 					{
-						submit_pre_registration_check_sms();
+						submit_forgot_pasword_mukeb_manager_login_check_sms();
+					};
+					page.querySelector('#forgot_pasword_mukeb_manager_resend_sms').onclick = function()
+					{
+						submit_forgot_pasword_mukeb_manager_login_resend_sms(window.sessionStorage.getItem('mobile_number'));
 					};
 			}
 			else if (page.id === 'logined_user')
@@ -1870,7 +1935,7 @@ alert("An error has occurred: Code = " + error.code);
 	</template>
 
 	<template id="forgot_pasword_mukeb_manager_login.html">
-		<ons-page id="confirm_mukeb_manager" >
+		<ons-page id="forgot_pasword_mukeb_manager_login" >
 			<div class="page_bg retina" ></div>
 			
 			<ons-toolbar inline modifier="transparent22">
@@ -1888,9 +1953,9 @@ alert("An error has occurred: Code = " + error.code);
 					<ons-input id="Code_in_SMS" modifier="underbar" placeholder="Code_in_SMS" float class="need_translate_val center-text" translate="Code_in_SMS"></ons-input>
 				</div>
 
-				<div id="register_mukeb_manager_check_sms" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="ok"></div></div></div>
+				<div id="forgot_pasword_mukeb_manager_check_sms" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="ok"></div></div></div>
 				<br>
-				<div id="register_mukeb_manager_resend_sms" class="center-text" ><div class="Submit_Information2" ><div class="need_translate" translate="Send_SMS_again"></div></div></div>
+				<div id="forgot_pasword_mukeb_manager_resend_sms" class="center-text" ><div class="Submit_Information2" ><div class="need_translate" translate="Send_SMS_again"></div></div></div>
 			</div>
 		</ons-page>
 	</template>
