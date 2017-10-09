@@ -23,7 +23,7 @@
 
 .persian_text #menu .center.list-item__center{direction: rtl;}
 .arabic_text #menu .center.list-item__center{direction:rtl;}
-.english_text #menu .center.list-item__center{direction:ltr;}
+.english_text #menu .center.list-item__center{direction:ltr;padding-left: 10px;}
 #menu .list-item{padding:0;}
 
 .persian_text div,.persian_text button,.persian_text .ripple,.persian_text .button--material,.persian_text .button--large--cta,.persian_text .button,.persian_text input,.persian_text select{
@@ -69,7 +69,8 @@ ul.colored-bullets li::before {
 	top:-9px;
 }
 div.input{
-	margin-bottom:10%;
+	/* margin-bottom:10%; */
+	margin-bottom: 20px;
 }
 
 
@@ -577,6 +578,126 @@ ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
 .persian_text .camera_image img,.arabic_text .camera_image img{width: 22px;float: left;margin-top: 8px;margin-left: 5px;}
 .english_text .camera_image img{width: 22px;float: right;margin-top: 8px;margin-right: 5px;}
 
+
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* صفحه ثبت اطلاعات موکب */
+#edit_mukeb_data fieldset {
+    margin: 0 -20px 12px -20px;
+    border-color: #ccc;
+    padding: 10px 17px;
+}
+#edit_mukeb_data legend::after {
+    content: ":";
+    padding: 0px 6px 0px 6px;
+}
+#edit_mukeb_data legend {
+    padding-right:6px;
+}
+#edit_mukeb_data div.goto_mukeb {
+	color: #e30613 !important;
+	font-size: 13px !important;
+	text-align: center !important;
+	text-shadow: none !important;
+	background-color: rgba(256,256,256,0.8) !important;
+	border-radius: 3px !important;
+	margin-top: 2px !important;
+	padding-bottom: 2px !important;
+}
+#fieldset_for_upload_images{display:none;}
+.persian_text .woman_image img, .arabic_text .woman_image img {
+    /* width: 51px; */
+    width: 36px;
+    float: left;
+    margin-top: -12px;
+    margin-left: -2px;
+}
+.persian_text .man_image img, .arabic_text .man_image img {
+    width: 47px;
+    float: left;
+    margin-top: -12px;
+    margin-left: -2px;
+}
+.english_text .woman_image img{
+    /* width: 51px; */
+    width: 36px;
+    float: right;
+    margin-top: -12px;
+    margin-right: -2px;
+}
+.english_text .man_image img{
+    width: 47px;
+    float: right;
+    margin-top: -12px;
+    margin-right: -2px;
+}
+.english_text #edit_mukeb_data .Select_hover{right: 0;left: auto;}
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* صفحه امکانات مدیر موکب */
+
+#main_div_mukeb_manager_menu #menu_mukeb_manager_menu{
+	position:absolute;
+	/* top:0; */
+	left:0;
+	z-index:-1;
+}
+.select_mukeb_manager_service_type_btn{
+	/* background-color: rgba(0,0,0,0.5); */
+	width: 100%;
+	height: 21%;
+	cursor: pointer;
+	color: #ffffff;
+	font-size: 17px;
+	text-align: center;
+	display: table;
+	vertical-align: bottom;
+	z-index:2;
+	/* padding-top: 1%; */
+	/* box-sizing: border-box; */
+}
+#goto_page_mukeb_update_zaer_count{
+	padding-top:2%;
+}
+#goto_page_mukeb_found_object {
+    padding-top: 1%;
+    padding-bottom: 3%;
+    box-sizing: border-box;
+}
+#goto_page_mukeb_edit_data{
+	/* top: 58%; */
+}
+#goto_page_mukeb_service_weather{
+	/* top: 58%; */
+}
+.select_mukeb_manager_service_type_btn div {
+	display: table-cell;
+	vertical-align: bottom;
+	font-size: 16px !important;
+}
+@media (min-width: 555px) {
+	.select_mukeb_manager_service_type_btn div {
+		font-size: 20px !important;
+	}
+}
+@media (min-width: 675px) {
+	.select_mukeb_manager_service_type_btn div {
+		font-size: 24px !important;
+	}
+	#goto_page_mukeb_update_zaer_count{
+		padding-top:1%;
+	}
+}
+@media (min-width: 1000px) {
+	.select_mukeb_manager_service_type_btn div {
+		font-size: 31px !important;
+	}
+	#goto_page_mukeb_update_zaer_count{
+		padding-top:0%;
+	}
+}
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */

@@ -37,7 +37,8 @@
 			{
 				Connection = {};
 				Connection.NONE = "0000";
-				//document.querySelector('#myNavigator').pushPage('register_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+				document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "none"});
+				//document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "none"});
 			}
 			else
 				FileTransfer_OBJ = new FileTransfer();
@@ -923,7 +924,14 @@ alert("An error has occurred: Code = " + error.code);
 									window.localStorage.setItem('token',json.token);
 									window.localStorage.setItem('last_login_result',text);
 									window.sessionStorage.setItem('he_is_logined',"true");
-									document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									
+									window.localStorage.setItem('capacity_woman',json.mukeb_data.capacity_woman);
+									window.localStorage.setItem('capacity_man',json.mukeb_data.capacity_man);
+									
+									if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
+										document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									else
+										document.querySelector('#myNavigator').pushPage('logined_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 								}
 								else
 								{
@@ -1008,7 +1016,14 @@ alert("An error has occurred: Code = " + error.code);
 									window.localStorage.setItem('token',json.token);
 									window.localStorage.setItem('last_login_result',text);
 									window.sessionStorage.setItem('he_is_logined',"true");
-									document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									
+									window.localStorage.setItem('capacity_woman',json.mukeb_data.capacity_woman);
+									window.localStorage.setItem('capacity_man',json.mukeb_data.capacity_man);
+									
+									if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
+										document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									else
+										document.querySelector('#myNavigator').pushPage('logined_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 								}
 								else
 								{
@@ -1110,7 +1125,14 @@ alert("An error has occurred: Code = " + error.code);
 									window.localStorage.setItem('token',json.token);
 									window.localStorage.setItem('last_login_result',text);
 									window.sessionStorage.setItem('he_is_logined',"true");
-									document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									
+									window.localStorage.setItem('capacity_woman',json.mukeb_data.capacity_woman);
+									window.localStorage.setItem('capacity_man',json.mukeb_data.capacity_man);
+									
+									if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
+										document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									else
+										document.querySelector('#myNavigator').pushPage('logined_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 								}
 								else
 								{
@@ -1190,9 +1212,19 @@ alert("An error has occurred: Code = " + error.code);
 									//console.log(json.token);
 									window.localStorage.setItem('token',json.token);
 									window.localStorage.setItem('last_login_result',text);
+									window.localStorage.setItem('capacity_woman',json.mukeb_data.capacity_woman);
+									window.localStorage.setItem('capacity_man',json.mukeb_data.capacity_man);
+									
 									window.sessionStorage.setItem('he_is_logined',"true");
+									
+										
 									if(act_type=="change_page")
-										document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									{
+										if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
+											document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
+										else
+											document.querySelector('#myNavigator').pushPage('logined_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									}
 								}
 								else
 								{
@@ -1216,6 +1248,11 @@ alert("An error has occurred: Code = " + error.code);
 				});
 			}
 		}
+		function LogOut(){
+			window.localStorage.clear();
+			window.sessionStorage.clear();
+			document.querySelector('#myNavigator').pushPage('home.html', {animation: "slid",animationOptions:{delay: 0.4} });
+		}
 		function editSelect_city_name(event){
 			if (event.target.value != '' && event.target.value != null && event.target.value != multilang.get("City_Name")) {
 				window.localStorage.setItem('city_name',event.target.value);
@@ -1232,7 +1269,7 @@ alert("An error has occurred: Code = " + error.code);
 			var curr_year = d.getUTCFullYear()+0;
 			var curr_Hour = d.getUTCHours()+0;
 			var my_date = curr_year + "/" + curr_month + "/" + curr_date + text + curr_Hour;
-			console.log(my_date);
+			//console.log(my_date);
 			return $.md5(my_date);
 		}
 
@@ -1257,8 +1294,20 @@ alert("An error has occurred: Code = " + error.code);
 		ons.ready(function(){
 			if(getParameterByName('target_page')=="")
 				$("#mypreload").css("display","none");
+				
 			if(window.cordova)
-				navigator.splashscreen.hide();
+			{
+				if(window.localStorage.getItem('language') != null)
+				{
+					setTimeout(function(){
+						set_body_language();
+						document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "none" });
+					}, 500);
+					navigator.splashscreen.hide();
+				}
+				else
+					navigator.splashscreen.hide();
+			}
 		});
 		
 		document.addEventListener('prechange', function(event) {
@@ -1302,7 +1351,7 @@ alert("An error has occurred: Code = " + error.code);
 			if (page.id === 'home')
 			{
 					check_retina();
-					auto_login();
+					//auto_login();
 					console.log('SMGROUP ::::::::::::::::::::::::::::::::::::	start home()');
 					page.querySelector('#goto_page_language_ar').onclick = function() {
 						lang = lang_ar;
@@ -1350,7 +1399,12 @@ alert("An error has occurred: Code = " + error.code);
 						}
 						else{
 							if(window.sessionStorage.getItem('he_is_logined') == "true")
-								document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
+							{
+								if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
+									document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
+								else
+									document.querySelector('#myNavigator').pushPage('logined_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+							}
 							else
 								document.querySelector('#myNavigator').pushPage('register_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 						}
@@ -1597,7 +1651,12 @@ alert("An error has occurred: Code = " + error.code);
 					center_the_box_vertical(44+6+49);
 					
 					if(window.sessionStorage.getItem('he_is_logined') == "true")
-						document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					{
+						if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
+							document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						else
+							document.querySelector('#myNavigator').pushPage('logined_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					}
 					else
 						auto_login("change_page");
 
@@ -1661,14 +1720,68 @@ alert("An error has occurred: Code = " + error.code);
 						submit_forgot_pasword_mukeb_manager_login_resend_sms(window.sessionStorage.getItem('mobile_number'));
 					};
 			}
-			else if (page.id === 'logined_user')
+			else if (page.id === 'logined_mukeb')
 			{
 					check_retina();
 					need_translate();
-					setTimeout(function(){
-						need_translate();
-					}, 300);
 			}
+			else if (page.id === 'edit_mukeb_data')
+			{
+					check_retina();
+					need_translate();
+					/*
+					if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
+					{
+					}
+					else
+						(document.querySelector('#fieldset_for_upload_images')).css("display","block");
+					*/
+					//document.getElementById('Food').checked=true
+
+			}
+			else if (page.id === 'mukeb_manager_menu')
+			{
+					check_retina();
+					need_translate();
+					
+					
+					var temp_div		= $("#main_div_mukeb_manager_menu");
+					var tempH			= $("#menu_mukeb_manager_menu").height();
+					//temp_div.css("margin-top",(winH-tempH-50)/2);
+					temp_div_css	= $("#main_div_mukeb_manager_menu_css_placeholder");
+					temp_div_css.html("<style>#main_div_mukeb_manager_menu{margin-top:" + (winH-tempH-50)/2 + "px !important} .select_mukeb_manager_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+					
+					setTimeout(function(){
+						tempH		= $("#menu_mukeb_manager_menu").height();
+						//temp_div.css("margin-top",(winH-tempH-50)/2);
+						temp_div_css.html("<style>#main_div_mukeb_manager_menu{margin-top:" + (winH-tempH-50)/2 + "px !important} .select_mukeb_manager_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+						//console.log("tempH:" + tempH);
+					}, 350);
+					
+					setTimeout(function(){
+						tempH		= $("#menu_mukeb_manager_menu").height();
+						//temp_div.css("margin-top",(winH-tempH-50)/2);
+						temp_div_css.html("<style>#main_div_mukeb_manager_menu{margin-top:" + (winH-tempH-50)/2 + "px !important} .select_mukeb_manager_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+						//console.log("tempH:" + tempH);
+					}, 650);
+					
+					
+					/*
+					page.querySelector('#goto_page_mukeb_update_zaer_count').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_mukeb_found_object').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_mukeb_edit_data').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					page.querySelector('#goto_page_mukeb_service_weather').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					};
+					*/
+			}
+
 		});
 	</script>
 </head>
@@ -1693,9 +1806,12 @@ alert("An error has occurred: Code = " + error.code);
 						<ons-list-item tappable onclick="fn.load('contact_support.html')" class="just_arabic">
 							اتصل بالدعم
 						</ons-list-item>
-						<ons-list-item tappable onclick="fn.load('contact_support.html')" class="just_arabic">
-							اتصل بالدعم
+						<ons-list-item tappable onclick="LogOut()" class="just_arabic">
+							الخروج من الحساب
 						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('home.html')" class="just_arabic">
+							Change language
+						</ons-list-item>						
 						
 						<!-- منوهای انگلیسی -->
 						<ons-list-item tappable onclick="fn.load('home.html')" class="just_english">
@@ -1707,10 +1823,13 @@ alert("An error has occurred: Code = " + error.code);
 						<ons-list-item tappable onclick="fn.load('zaer_services.html')" class="just_english">
 							List of User Options
 						</ons-list-item>
-						<ons-list-item tappable onclick="fn.load('contact_support.html')" class="just_english">
-							Contact Support
+						<ons-list-item tappable onclick="LogOut()" class="just_english">
+							Log Out
 						</ons-list-item>
-						
+						<ons-list-item tappable onclick="fn.load('home.html')" class="just_english">
+							تغيير اللغة
+						</ons-list-item>
+
 						<!-- منوهای فارسی -->
 						<ons-list-item tappable onclick="fn.load('home.html')" class="just_persian">
 							تغییر زبان
@@ -1724,6 +1843,12 @@ alert("An error has occurred: Code = " + error.code);
 						<ons-list-item tappable onclick="fn.load('contact_support.html')" class="just_persian">
 							تماس با پشتیبانی
 						</ons-list-item>
+						<ons-list-item tappable onclick="LogOut()" class="just_persian">
+							خروج از سیستم
+						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('home.html')" class="just_persian">
+							Change language
+						</ons-list-item>						
 					</ons-list>
 				</ons-page>
 			</ons-splitter-side>
@@ -1737,7 +1862,6 @@ alert("An error has occurred: Code = " + error.code);
 		</ons-page>
 	</ons-template>
 	
-
 	<template id="home.html">
 		<ons-page id="home" on-device-backbutton="go_back_index();">
 			<div class="page_bg retina" ></div>
@@ -2068,8 +2192,8 @@ alert("An error has occurred: Code = " + error.code);
 		</ons-page>
 	</template>
 	
-	<template id="logined_user.html">
-		<ons-page id="logined_user" >
+	<template id="logined_mukeb.html">
+		<ons-page id="logined_mukeb" >
 			<div class="page_bg retina" ></div>
 			
 			<ons-toolbar inline modifier="transparent22">
@@ -2087,7 +2211,161 @@ alert("An error has occurred: Code = " + error.code);
 			</div>			
 		</ons-page>
 	</template>
+	
+	<template id="edit_mukeb_data.html">
+		<ons-page id="edit_mukeb_data" >
+			<div class="page_bg retina" ></div>
 
+			<ons-toolbar inline modifier="transparent22">
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="center need_translate" translate="mukeb_information"></div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+			</ons-toolbar>
+			
+			<div class="text-65" style="margin-bottom: 10%;margin-top:25px;">
+				<fieldset>
+					<legend class="need_translate" translate="General_Information"></legend>
+						<div class="input">
+							<ons-input id="Mukeb_Name" modifier="underbar" placeholder="Mukeb_Name" float class="need_translate_val" translate="Mukeb_Name"></ons-input>
+						</div>
+						<div  class="input" style="position:relative;">
+							<div class="Select_hover man_image" style="width: 51px;">
+								<img src="images/man.svg" >
+							</div>
+							<ons-input id="Mukeb_NMan_capacityame" modifier="underbar" placeholder="Man_capacity" float class="need_translate_val" translate="Man_capacity"></ons-input>
+						</div>
+						<div  class="input" style="position:relative;">
+							<div class="Select_hover woman_image" style="width: 51px;">
+								<img src="images/woman.svg" >
+							</div>
+							<ons-input id="Woman_capacity" modifier="underbar" placeholder="Woman_capacity" float class="need_translate_val" translate="Woman_capacity"></ons-input>
+						</div>
+				</fieldset>
+				<fieldset>
+					<legend class="need_translate" translate="Location"></legend>
+					<div class="input" >
+						<ons-select id="city_name" onchange="editSelect_city_name(event)" modifier="underbar">
+							<option value=""  class="need_translate_just_html" translate="City_Name"></option>
+							<option value="1" class="need_translate_just_html" translate="Karbala" ></option>
+							<option value="2" class="need_translate_just_html" translate="Najaf" ></option>
+							<option value="3" class="need_translate_just_html" translate="Kazemein" ></option>
+							<option value="4" class="need_translate_just_html" translate="From_Najaf_to_Karbala" ></option>
+							<option value="5" class="need_translate_just_html" translate="From_Kazemein_to_Karbala" ></option>
+						</ons-select>
+					</div>
+					<div class="input">
+						<ons-input id="Pillar_Number" modifier="underbar" placeholder="Pillar_Number" float class="need_translate_val" translate="Pillar_Number"></ons-input>
+					</div>
+					<div class="input">
+						<ons-input id="Address" modifier="underbar" placeholder="Address" float class="need_translate_val" translate="Address"></ons-input>
+					</div>
+					<ons-button onclick="navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess_with_alert, getCurrentPosition_onError);" class="need_translate" translate="Record_GPS_position" style="background-color: #4CAF50; color: #ffffff;width:100%;text-align:center;"></ons-button>
+					<div class="need_translate goto_mukeb" translate="If_you_are_in_tent" ></div>
+				</fieldset>
+				
+				<fieldset>
+					<legend class="need_translate" translate="Contacts_Info"></legend>
+					<div class="input">
+						<ons-input id="found_Phone_number" modifier="underbar" placeholder="Phone_number" float class="need_translate_span required" translate="Phone_number"></ons-input>
+					</div>
+					<div class="input">
+						<ons-input id="found_Telegram_ID" modifier="underbar" placeholder="Telegram_ID" float class="need_translate_span" translate="Telegram_ID"></ons-input>
+					</div>
+					<div class="input">
+						<ons-input id="found_WhatsApp_ID" modifier="underbar" placeholder="WhatsApp_ID" float class="need_translate_span" translate="WhatsApp_ID"></ons-input>
+					</div>
+					<div class="input">
+						<ons-input id="found_Line_ID" modifier="underbar" placeholder="Line_ID" float class="need_translate_span" translate="Line_ID"></ons-input>
+					</div>
+					<div class="input">
+						<ons-input id="found_Imo_ID" modifier="underbar" placeholder="Imo_ID" float class="need_translate_span" translate="Imo_ID"></ons-input>
+					</div>
+				</fieldset>
+				
+				<fieldset>
+					<legend class="need_translate" translate="Features"></legend>
+					<div class="input">
+						<label class="left">
+							<ons-checkbox input-id="Food"></ons-checkbox>
+						</label>
+						<label for="Food" class="center need_translate" translate="Food">Food</label>
+					</div>
+					<div class="input">
+						<label class="left">
+							<ons-checkbox input-id="Blanket"></ons-checkbox>
+						</label>
+						<label for="Blanket" class="center need_translate" translate="Blanket">Blanket</label>
+					</div>
+					<div class="input">
+						<label class="left">
+							<ons-checkbox input-id="Internet"></ons-checkbox>
+						</label>
+						<label for="Internet" class="center need_translate" translate="Internet">Internet</label>
+					</div>
+					<div class="input">
+						<label class="left">
+							<ons-checkbox input-id="WC"></ons-checkbox>
+						</label>
+						<label for="WC" class="center need_translate" translate="WC">WC</label>
+					</div>
+					<div class="input">
+						<label class="left">
+							<ons-checkbox input-id="Washing_Machine"></ons-checkbox>
+						</label>
+						<label for="Washing_Machine center" class="need_translate" translate="Washing_Machine">Washing Machine</label>
+					</div>
+					<div class="input" style="margin-bottom:1%;">
+						<label class="left">
+							<ons-checkbox input-id="Bathroom"></ons-checkbox>
+						</label>
+						<label for="Bathroom" class="center need_translate" translate="Bathroom">Bathroom</label>
+					</div>
+				</fieldset>
+				
+				<fieldset id="fieldset_for_upload_images">
+					<legend class="need_translate" translate="Images"></legend>
+					<ons-button onclick="get_image()" class="need_translate" translate="Add_Image" style="background-color: #4CAF50; color: #ffffff;width:100%;text-align:center;"></ons-button>
+				</fieldset>
+				
+				<div  class="input" style="position:relative;">
+					<ons-input id="Description" modifier="underbar" placeholder="Description" float class="need_translate_val" translate="Description"></ons-input>
+				</div>
+
+			</div>
+			
+			<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text"  style="margin-bottom: 10%;"><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
+		</ons-page>
+	</template>
+
+	<template id="mukeb_manager_menu.html">
+		<ons-page id="mukeb_manager_menu" >
+			<div class="page_bg_overflow retina" >
+				<ons-toolbar inline modifier="transparent22">
+					<div class="right">
+						<ons-toolbar-button onclick="fn.open()">
+							<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+						</ons-toolbar-button>
+					</div>
+					<div class="center need_translate" translate=""></div>
+					<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+				</ons-toolbar>
+				
+				<div id="main_div_mukeb_manager_menu_css_placeholder"></div>
+				<div id="main_div_mukeb_manager_menu" style="text-align: center; color:#ffffff;margin-top:20%;position: relative;" >
+					<img src="images/pages/mukeb_manager_page.png" id="menu_mukeb_manager_menu" class="retina" style="width:100%;" >
+					
+					<div id="goto_page_mukeb_update_zaer_count" class="select_mukeb_manager_service_type_btn" ><div class="need_translate" translate="Updating_the_number_of_pilgrims"></div></div>
+					<div id="goto_page_mukeb_found_object" class="select_mukeb_manager_service_type_btn" ><div class="need_translate" translate="found_Objects"></div></div>
+					<div id="goto_page_mukeb_edit_data" class="select_mukeb_manager_service_type_btn" ><div class="need_translate" translate="Edit_mukeb_data"></div></div>
+					<div id="goto_page_mukeb_service_weather" class="select_mukeb_manager_service_type_btn" ><div class="need_translate" translate="Weather"></div></div>
+				</div>
+			</div>
+		</ons-page>
+	</template>
 
 
 

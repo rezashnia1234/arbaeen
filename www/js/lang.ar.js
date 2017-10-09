@@ -87,8 +87,27 @@ lang_ar = {
 	forgot_my_password : "نسيت كلمة المرور",
 	Enter_your_mobile_number : "أدخل رقم هاتفك المحمول",
 	mukeb_already_exist : "وقد تم بالفعل تسجيل هذا الرقم المحمول لإدارة موكب، يرجى استخدام صفحة تسجيل الدخول.",
+	log_out : "الخروج من الحساب",
+	mukeb_information : "موکب المعلومات",
+	Location : "موقع",
+	General_Information : "معلومات عامة",
+	Address : "عنوان",
+	Images : "صور",
+	Add_Image : "إضافة صورة",
+	If_you_are_in_tent : "(إذا كنت في موكب)",
+	Features : "الميزات",
+	Food : "طعام",
+	Blanket : "بطانية",
+	Internet : "الإنترنت",
+	WC : "مرحاض",
+	Washing_Machine : "غسالة",
+	Bathroom : "حمام",
+	Man_capacity : "قدرة الرجال",
+	Woman_capacity : "قدرة المرأة",
+	Updating_the_number_of_pilgrims : "تحديث عدد الزائر",
+	found_Objects : "العثور على كائنات",
+	Edit_mukeb_data : "تحرير بيانات موکب",
 };
-
 
 
 
