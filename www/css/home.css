@@ -21,6 +21,11 @@
 .arabic_text ul,.arabic_text li{direction:rtl;text-align:justify;}
 .english_text ul,.english_text li{direction:ltr;text-align:justify;}
 
+.persian_text #menu .center.list-item__center{direction: rtl;}
+.arabic_text #menu .center.list-item__center{direction:rtl;}
+.english_text #menu .center.list-item__center{direction:ltr;}
+#menu .list-item{padding:0;}
+
 .persian_text div,.persian_text button,.persian_text .ripple,.persian_text .button--material,.persian_text .button--large--cta,.persian_text .button,.persian_text input,.persian_text select{
 	font-family:"iranyekan",Tahoma !important;
 	font-size:14px;
@@ -143,6 +148,9 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 .toolbar .back-button{color:#ffffff;padding-left: 0px !important;}
 .toolbar .back-button__icon{fill:#ffffff;transform: scale(0.5);}
 .toolbar .back-button__label {font-size: 14px;padding-right:9px;}
+#menu .center.list-item__center {
+    text-align: right !important;
+}
 
 ons-input, ons-range{
 	width: 100%;

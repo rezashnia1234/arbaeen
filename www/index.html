@@ -29,16 +29,15 @@
 		winW = 0;
 		winH = 0;
 		app = {};
+		Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
 		FileTransfer_OBJ = "";
 
 		setTimeout(function(){
-			/*
-			*/
 			if(!window.cordova)
 			{
 				Connection = {};
 				Connection.NONE = "0000";
-				document.querySelector('#myNavigator').pushPage('register_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+				//document.querySelector('#myNavigator').pushPage('register_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 			}
 			else
 				FileTransfer_OBJ = new FileTransfer();
@@ -923,6 +922,7 @@ alert("An error has occurred: Code = " + error.code);
 									console.log(json.token);
 									window.localStorage.setItem('token',json.token);
 									window.localStorage.setItem('last_login_result',text);
+									window.sessionStorage.setItem('he_is_logined',"true");
 									document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
 								}
 								else
@@ -978,6 +978,7 @@ alert("An error has occurred: Code = " + error.code);
 				}
 				params.Code_in_SMS				= document.getElementById('Code_in_SMS').value;
 				params.Mobile_Number			= window.sessionStorage.getItem('mobile_number');
+				params.language					= window.localStorage.getItem('language');
 				params.act						= "mukeb_login_check_sms";
 				//console.log(params);
 				show_progress_bar("without_cancel_btn");
@@ -1006,6 +1007,7 @@ alert("An error has occurred: Code = " + error.code);
 									console.log(json.token);
 									window.localStorage.setItem('token',json.token);
 									window.localStorage.setItem('last_login_result',text);
+									window.sessionStorage.setItem('he_is_logined',"true");
 									document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
 								}
 								else
@@ -1076,7 +1078,8 @@ alert("An error has occurred: Code = " + error.code);
 					return false;
 				}
 				params.Mobile_Number			= document.getElementById('Mobile_Number').value;
-				params.Password					= encrypt_by_date(document.getElementById('Password').value);
+				params.Password					= encrypt_by_date($.md5($.md5(Base64.encode(document.getElementById('Password').value))));
+				params.language					= window.localStorage.getItem('language');
 				params.act						= "login_mukeb";
 				//return console.log(params);
 
@@ -1106,6 +1109,7 @@ alert("An error has occurred: Code = " + error.code);
 									console.log(json.token);
 									window.localStorage.setItem('token',json.token);
 									window.localStorage.setItem('last_login_result',text);
+									window.sessionStorage.setItem('he_is_logined',"true");
 									document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
 								}
 								else
@@ -1130,6 +1134,88 @@ alert("An error has occurred: Code = " + error.code);
 				});
 			}
 		}
+		function auto_login(act_type){//"change_page"
+			if(window.localStorage.getItem('token') == null || window.localStorage.getItem('token') == "")
+				return false;
+			networkState = navigator.connection.type;
+			if (window.cordova && networkState == Connection.NONE) {
+				/*
+				console.log("start_download : NO internet");
+				navigator.notification.alert(
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
+				);
+				*/
+			}
+			else{
+				var params = {};
+				if(window.cordova)
+					navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess_without_alert, getCurrentPosition_onError);
+
+				params.udid			= window.localStorage.getItem('udid');			
+				params.token		= encrypt_by_date(window.localStorage.getItem('token'));
+				params.language		= window.localStorage.getItem('language');
+				params.act			= "autologin_mukeb";
+				//return console.log(params);
+
+				//show_progress_bar("without_cancel_btn");
+				
+				$.ajax({
+						url: server_url,
+						type: "POST",
+						data: params,
+						//async: true,
+						success : function(text)
+						{
+							try {
+								json = $.parseJSON(text);
+								
+								if(json.answer=="Login_Invalid_password")
+								{
+									//ons.notification.alert(multilang.get("Login_Invalid_password"));
+									window.sessionStorage.setItem('he_is_logined',"false");
+									//window.localStorage.setItem('token',"");
+								}
+								else if(json.answer=="Login_tere_is_not_any_account")
+								{
+									//ons.notification.alert(multilang.get("Login_tere_is_not_any_account"));
+									window.sessionStorage.setItem('he_is_logined',"false");
+									//window.localStorage.setItem('token',"");
+								}
+								else if(json.answer=="Logined")
+								{
+									//ons.notification.alert(multilang.get("Login_successfully"));
+									//console.log(json.token);
+									window.localStorage.setItem('token',json.token);
+									window.localStorage.setItem('last_login_result',text);
+									window.sessionStorage.setItem('he_is_logined',"true");
+									if(act_type=="change_page")
+										document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
+								}
+								else
+								{
+									//$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									//modal.show({animation: "fade"});
+									//setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+								}
+							} catch (e) {
+								//$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								//modal.show({animation: "fade"});
+								//setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							}
+							//hideDialog('dialog_progress_bar');
+						},
+						error: function(jqXHR, exception) {
+							//$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							//modal.show({animation: "fade"});
+							//setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							//hideDialog('dialog_progress_bar');
+						},
+				});
+			}
+		}
 		function editSelect_city_name(event){
 			if (event.target.value != '' && event.target.value != null && event.target.value != multilang.get("City_Name")) {
 				window.localStorage.setItem('city_name',event.target.value);
@@ -1141,12 +1227,12 @@ alert("An error has occurred: Code = " + error.code);
 		}
 		function encrypt_by_date(text){
 			var d = new Date();
-			var curr_date = d.getUTCDate();
-			var curr_month = d.getUTCMonth();
-			var curr_year = d.getUTCFullYear();
-			var curr_Hour = d.getUTCHours();
+			var curr_date = d.getUTCDate()+0;
+			var curr_month = d.getUTCMonth()+1;
+			var curr_year = d.getUTCFullYear()+0;
+			var curr_Hour = d.getUTCHours()+0;
 			var my_date = curr_year + "/" + curr_month + "/" + curr_date + text + curr_Hour;
-			//console.log(my_date);
+			console.log(my_date);
 			return $.md5(my_date);
 		}
 
@@ -1216,6 +1302,7 @@ alert("An error has occurred: Code = " + error.code);
 			if (page.id === 'home')
 			{
 					check_retina();
+					auto_login();
 					console.log('SMGROUP ::::::::::::::::::::::::::::::::::::	start home()');
 					page.querySelector('#goto_page_language_ar').onclick = function() {
 						lang = lang_ar;
@@ -1246,12 +1333,27 @@ alert("An error has occurred: Code = " + error.code);
 			{
 					check_retina();
 					need_translate();
+					auto_login();
 					
 					page.querySelector('#goto_page_user_type_zaer').onclick = function() {
 						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_user_type_mukeb').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('register_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						networkState = navigator.connection.type;
+						if (networkState == Connection.NONE) {
+							navigator.notification.alert(
+								multilang.get('you_must_connect_to_the_internet'),  // message
+								alertDismissed,		 // callback
+								multilang.get('warning'),			// title
+								multilang.get('ok')		// buttonName
+							);
+						}
+						else{
+							if(window.sessionStorage.getItem('he_is_logined') == "true")
+								document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
+							else
+								document.querySelector('#myNavigator').pushPage('register_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						}
 					};
 			}
 			else if (page.id === 'contact_support')
@@ -1493,7 +1595,13 @@ alert("An error has occurred: Code = " + error.code);
 					check_retina();
 					need_translate();
 					center_the_box_vertical(44+6+49);
-						
+					
+					if(window.sessionStorage.getItem('he_is_logined') == "true")
+						document.querySelector('#myNavigator').pushPage('logined_user.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					else
+						auto_login("change_page");
+
+					
 					setTimeout(function(){
 						check_retina();
 						need_translate();
@@ -1569,7 +1677,7 @@ alert("An error has occurred: Code = " + error.code);
 
 	<ons-page>
 		<ons-splitter>
-			<ons-splitter-side id="menu" side="left" width="220px" collapse>
+			<ons-splitter-side id="menu" side="right" width="220px" collapse>
 				<ons-page>
 					<ons-list>
 						<!-- منوهای عربی -->
@@ -1642,26 +1750,6 @@ alert("An error has occurred: Code = " + error.code);
 		</ons-page>
 	</template>
 	
-	<template id="contact_support.html">
-		<ons-page id="contact_support" >
-			<div class="page_bg retina" ></div>
-			
-			<ons-toolbar inline modifier="transparent22">
-				<div class="left">
-					<ons-toolbar-button onclick="fn.open()">
-						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
-					</ons-toolbar-button>
-				</div>
-				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
-				<div class="center need_translate" translate="Contact_support"></div>
-			</ons-toolbar>
-			
-			<div class="text-65" style="margin-top: 25%;margin-bottom: 10%;" >
-				<span class="need_translate" translate="Contact_support_text"></span>
-			</div>			
-		</ons-page>
-	</template>
-
 	<template id="select_user_type.html">
 		<ons-page id="select_user_type" >
 			<div class="page_bg retina" ></div>
@@ -1674,17 +1762,37 @@ alert("An error has occurred: Code = " + error.code);
 		</ons-page>
 	</template>
 
+	<template id="contact_support.html">
+		<ons-page id="contact_support" >
+			<div class="page_bg retina" ></div>
+			
+			<ons-toolbar inline modifier="transparent22">
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="center need_translate" translate="Contact_support"></div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+			</ons-toolbar>
+			
+			<div class="text-65" style="margin-top: 25%;margin-bottom: 10%;" >
+				<span class="need_translate" translate="Contact_support_text"></span>
+			</div>			
+		</ons-page>
+	</template>
+
 	<template id="zaer_services.html">
 		<ons-page id="zaer_services" >
 			<div class="page_bg_overflow retina" >
 				<ons-toolbar inline modifier="transparent22">
-					<div class="left">
+					<div class="right">
 						<ons-toolbar-button onclick="fn.open()">
 							<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 						</ons-toolbar-button>
 					</div>
-					<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 					<div class="center need_translate" translate="List_Of_Services">List Of Services</div>
+					<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 				</ons-toolbar>
 				
 				<div id="main_div_zaer_services_css_placeholder"></div>
@@ -1705,13 +1813,13 @@ alert("An error has occurred: Code = " + error.code);
 			<div class="page_bg retina" ></div>
 			
 			<ons-toolbar inline modifier="transparent22">
-				<div class="left">
+				<div class="right">
 					<ons-toolbar-button onclick="fn.open()">
 						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 				<div class="center need_translate" translate="Tents_Positions"></div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 			</ons-toolbar>
 			
 			<div class="mukeb_map_menu_page_bg retina" >
@@ -1737,13 +1845,13 @@ alert("An error has occurred: Code = " + error.code);
 			<div class="page_bg retina" ></div>
 			
 			<ons-toolbar inline modifier="transparent22">
-				<div class="left">
+				<div class="right">
 					<ons-toolbar-button onclick="fn.open()">
 						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 				<div class="center need_translate" translate="Missing_objects"></div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 			</ons-toolbar>
 			
 			<div id="zaer_service_missing_objects_menu_css_placeholder"></div>
@@ -1761,13 +1869,13 @@ alert("An error has occurred: Code = " + error.code);
 			<div class="page_bg retina" ></div>
 			
 			<ons-toolbar inline modifier="transparent22">
-				<div class="left">
+				<div class="right">
 					<ons-toolbar-button onclick="fn.open()">
 						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 				<div class="center need_translate" translate="Missing_objects"></div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 			</ons-toolbar>
 			
 			<div class="text-65 center-text" style="margin-top: 25%;margin-bottom: 10%;" >
@@ -1793,13 +1901,13 @@ alert("An error has occurred: Code = " + error.code);
 			<div class="page_bg retina" ></div>
 
 			<ons-toolbar inline modifier="transparent22">
-				<div class="left">
+				<div class="right">
 					<ons-toolbar-button onclick="fn.open()">
 						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 				<div class="center need_translate" translate="Missing_objects"></div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 			</ons-toolbar>
 			
 			<div class="text-65 center-text" style="margin-top: 8%;margin-bottom: 8%;" >
@@ -1846,13 +1954,13 @@ alert("An error has occurred: Code = " + error.code);
 		<ons-page id="register_mukeb" >
 			<div class="page_bg retina" ></div>
 			<ons-toolbar inline modifier="transparent22">
-				<div class="left">
+				<div class="right">
 					<ons-toolbar-button onclick="fn.open()">
 						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 				<div class="center need_translate" translate="Login">Login</div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 			</ons-toolbar>
 
 			<ons-tabbar swipeable position="auto" >
@@ -1913,13 +2021,13 @@ alert("An error has occurred: Code = " + error.code);
 			<div class="page_bg retina" ></div>
 			
 			<ons-toolbar inline modifier="transparent22">
-				<div class="left">
+				<div class="right">
 					<ons-toolbar-button onclick="fn.open()">
 						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 				<div class="center need_translate" translate="Tent_manager"></div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 			</ons-toolbar>
 			
 			<div class="text-65 center_the_box_vertical justify-text" >
@@ -1939,13 +2047,13 @@ alert("An error has occurred: Code = " + error.code);
 			<div class="page_bg retina" ></div>
 			
 			<ons-toolbar inline modifier="transparent22">
-				<div class="left">
+				<div class="right">
 					<ons-toolbar-button onclick="fn.open()">
 						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 				<div class="center need_translate" translate="Login" ></div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 			</ons-toolbar>
 			
 			<div class="text-65 center_the_box_vertical justify-text" >
@@ -1965,13 +2073,13 @@ alert("An error has occurred: Code = " + error.code);
 			<div class="page_bg retina" ></div>
 			
 			<ons-toolbar inline modifier="transparent22">
-				<div class="left">
+				<div class="right">
 					<ons-toolbar-button onclick="fn.open()">
 						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="right"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 				<div class="center need_translate" translate="Tent_manager"></div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 			</ons-toolbar>
 			
 			<div class="text-65" style="margin-top: 25%;margin-bottom: 10%;" >
