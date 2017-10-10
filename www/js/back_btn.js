@@ -23,6 +23,11 @@
 		}
 	}
 	
+	function go_back_from_map() {
+		window.location.href = "index.html?target_page=zaer_services.html";
+	}
+
+	
 	$( document ).ready(function() {
 		if(window.localStorage.getItem('favorite_URL') == null)
 		{

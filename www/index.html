@@ -37,7 +37,7 @@
 			{
 				Connection = {};
 				Connection.NONE = "0000";
-				document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "none"});
+				//document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "none"});
 			}
 			else
 				FileTransfer_OBJ = new FileTransfer();
@@ -49,7 +49,7 @@
 				document.querySelector('#myNavigator').bringPageTop(getParameterByName('target_page'), {animation: "none"});
 				setTimeout(function(){
 					$("#mypreload").css("display","none");
-				}, 200);
+				}, 500);
 			}
 		}, 500);
 		
@@ -2103,16 +2103,16 @@ alert("An error has occurred: Code = " + error.code);
 					}, 650);
 
 					page.querySelector('#goto_page_mukeb_map_najaf').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						window.location.href = "map_najaf-online-fuze.html";
 					};
 					page.querySelector('#goto_page_mukeb_map_karbala').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115";
 					};
 					page.querySelector('#goto_page_mukeb_map_from_najaf_to_karbala').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						window.location.href = "map_najaf-online-fuze-road.html";
 					};
 					page.querySelector('#goto_page_mukeb_map_nearby').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						window.location.href = "map_najaf-online-fuze.html?goto_my_locatoion=yes";
 					};
 			}
 			else if (page.id === 'zaer_service_missing_objects')
