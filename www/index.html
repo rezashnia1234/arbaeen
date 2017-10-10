@@ -670,7 +670,7 @@ alert("An error has occurred: Code = " + error.code);
 					}
 				};
 				//alert("2");
-				var uri = encodeURI(server_url_missing_data);
+				var uri = encodeURI(server_url_mukeb_image);
 				function win(r) {
 					console.log("Code = " + r.responseCode);
 					console.log("Response = " + r.response);
@@ -1731,6 +1731,7 @@ alert("An error has occurred: Code = " + error.code);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		server_url = "http://dlsmgroup.ir/temp/arbaeen/check_net.php";
 		server_url_missing_data = "http://dlsmgroup.ir/temp/arbaeen/submit_found_object.php";
+		server_url_mukeb_image = "http://dlsmgroup.ir/temp/arbaeen/submit_mekeb_image.php";
 		
 		//ons.platform.select('android');
 		ons.platform.select('ios');
@@ -1750,7 +1751,9 @@ alert("An error has occurred: Code = " + error.code);
 						set_body_language();
 						document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "none" });
 					}, 500);
-					navigator.splashscreen.hide();
+					setTimeout(function(){
+						navigator.splashscreen.hide();
+					}, 900);
 				}
 				else
 					navigator.splashscreen.hide();
@@ -2569,11 +2572,11 @@ alert("An error has occurred: Code = " + error.code);
 			<div class="text-65 center_the_box_vertical" >
 				<img src="images/pages/mukeb_icon.png" style="max-width:100%;margin:0 auto 10% auto;width:70px;width:33%;display: block;">
 				<div class="input">
-					<ons-input id="Mobile_Number" modifier="underbar" placeholder="Mobile_Number" float class="need_translate_val" translate="Mobile_Number"></ons-input>
+					<ons-input id="Mobile_Number" pattern="\d*" modifier="underbar" placeholder="Mobile_Number" float class="need_translate_val" translate="Mobile_Number"></ons-input>
 				</div>
 
 				<div class="input" style="margin-bottom: 20%;">
-					<ons-input id="Password" modifier="underbar" type="password" placeholder="Password" float class="need_translate_val" translate="Password"></ons-input>
+					<ons-input id="Password" pattern="\d*" modifier="underbar" type="password" placeholder="Password" float class="need_translate_val" translate="Password"></ons-input>
 				</div>
 				
 				<div id="login_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Login" ></div></div></div>
@@ -2589,7 +2592,7 @@ alert("An error has occurred: Code = " + error.code);
 				<!-- <img src="images/pages/mukeb_icon.png" style="max-width:100%;margin:0 auto 10% auto;width:70px;width:33%;display: block;"> -->
 				<span class="need_translate" translate="Register_Description"></span><br><br>
 				<div class="input">
-					<ons-input id="Mobile_Number_register" modifier="underbar" placeholder="Mobile_Number" float class="need_translate_val" translate="Mobile_Number"></ons-input>
+					<ons-input id="Mobile_Number_register" pattern="\d*" modifier="underbar" placeholder="Mobile_Number" float class="need_translate_val" translate="Mobile_Number"></ons-input>
 				</div>
 				<div class="input" >
 					<ons-input id="Mukeb_Name" modifier="underbar" placeholder="Mukeb_Name" float class="need_translate_val" translate="Mukeb_Name"></ons-input>
@@ -2713,13 +2716,13 @@ alert("An error has occurred: Code = " + error.code);
 							<div class="Select_hover man_image" style="width: 51px;">
 								<img src="images/man.svg" >
 							</div>
-							<ons-input id="Man_capacity" modifier="underbar" placeholder="Man_capacity" float class="need_translate_val" translate="Man_capacity"></ons-input>
+							<ons-input id="Man_capacity" pattern="\d*" modifier="underbar" placeholder="Man_capacity" float class="need_translate_val" translate="Man_capacity"></ons-input>
 						</div>
 						<div  class="input" style="position:relative;">
 							<div class="Select_hover woman_image" style="width: 51px;">
 								<img src="images/woman.svg" >
 							</div>
-							<ons-input id="Woman_capacity" modifier="underbar" placeholder="Woman_capacity" float class="need_translate_val" translate="Woman_capacity"></ons-input>
+							<ons-input id="Woman_capacity" pattern="\d*" modifier="underbar" placeholder="Woman_capacity" float class="need_translate_val" translate="Woman_capacity"></ons-input>
 						</div>
 				</fieldset>
 				<fieldset>
