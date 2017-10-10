@@ -110,6 +110,8 @@ lang_ar = {
 	Phone_number_1 : "رقم الهاتف 1",
 	Phone_number_2 : "رقم الهاتف 2",
 	bad_data : "المعلومات المدخلة غير صحيحة",
+	Applying_Changes : "تطبيق التغييرات",
+	Will_be_active_in_the_next_version : "سوف تكون نشطة في الإصدار التالي",
 };
 
 

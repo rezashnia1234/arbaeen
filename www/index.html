@@ -37,8 +37,7 @@
 			{
 				Connection = {};
 				Connection.NONE = "0000";
-				document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "none"});
-				//document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "none"});
+				document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "none"});
 			}
 			else
 				FileTransfer_OBJ = new FileTransfer();
@@ -251,6 +250,7 @@
 			var dialog = document.getElementById('dialog_progress_bar');
 			if (dialog) {
 				need_translate();
+				$('#Uploading-text').html(multilang.get('Applying_Changes'));
 				if(cancel_btn=="without_cancel_btn")
 					$("#progress_bar_cancel_btn").css("display","none");
 				else if(cancel_btn=="with_cancel_btn")
@@ -261,6 +261,7 @@
 				ons.createDialog('dialog_progress_bar.html')
 					.then(function (dialog) {
 					need_translate();
+					$('#Uploading-text').html(multilang.get('Applying_Changes'));
 					if(cancel_btn=="without_cancel_btn")
 						$("#progress_bar_cancel_btn").css("display","none");
 					else if(cancel_btn=="with_cancel_btn")
@@ -337,6 +338,52 @@
 						
 					dialog.show({animationOptions:{delay: 0.3}});
 				});
+			}
+		};
+		function show_get_remaining_capacity_popup() {
+			networkState = navigator.connection.type;
+			if (networkState == Connection.NONE) {
+				navigator.notification.alert(
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
+				);
+			}
+			else{
+				var text = window.localStorage.getItem('last_login_result');
+				try {
+					var json = $.parseJSON(text);
+					//
+					//json.mukeb_data.capacity_woman_remaining
+					var dialog = document.getElementById('get_remaining_capacity');
+					if (dialog) {
+						need_translate();
+						
+						if(json.mukeb_data.capacity_man_remaining != null && json.mukeb_data.capacity_man_remaining != "null" && json.mukeb_data.capacity_man_remaining != "")
+							document.getElementById('Man_capacity_remaining').value = json.mukeb_data.capacity_man_remaining;
+						if(json.mukeb_data.capacity_woman_remaining != null && json.mukeb_data.capacity_woman_remaining != "null" && json.mukeb_data.capacity_woman_remaining != "")
+							document.getElementById('Woman_capacity_remaining').value = json.mukeb_data.capacity_woman_remaining;
+						
+						dialog.show({animationOptions:{delay: 0.3}});
+					}
+					else {
+						ons.createDialog('get_remaining_capacity.html')
+							.then(function (dialog) {
+							need_translate();
+
+							if(json.mukeb_data.capacity_man_remaining != null && json.mukeb_data.capacity_man_remaining != "null" && json.mukeb_data.capacity_man_remaining != "")
+								document.getElementById('Man_capacity_remaining').value = json.mukeb_data.capacity_man_remaining;
+							if(json.mukeb_data.capacity_woman_remaining != null && json.mukeb_data.capacity_woman_remaining != "null" && json.mukeb_data.capacity_woman_remaining != "")
+								document.getElementById('Woman_capacity_remaining').value = json.mukeb_data.capacity_woman_remaining;
+							
+							dialog.show({animationOptions:{delay: 0.3}});
+						});
+					}
+				} catch (e) {
+					//LogOut();
+					console.log("NOT JSON");
+				}
 			}
 		};
 		function get_image() {
@@ -1354,10 +1401,10 @@ alert("An error has occurred: Code = " + error.code);
 			}
 		}
 		function auto_login(act_type){//"change_page"
-alert("auto_login - udid:" + window.localStorage.getItem('udid'));
+//alert("auto_login - udid:" + window.localStorage.getItem('udid'));
 			if(window.localStorage.getItem('token') == null || window.localStorage.getItem('token') == "")
 				return false;
-alert("auto_login - token:" + window.localStorage.getItem('token'));
+//alert("auto_login - token:" + window.localStorage.getItem('token'));
 			networkState = navigator.connection.type;
 			if (window.cordova && networkState == Connection.NONE) {
 				/*
@@ -1371,7 +1418,7 @@ alert("auto_login - token:" + window.localStorage.getItem('token'));
 				*/
 			}
 			else{
-alert("auto_login - we have net");
+//alert("auto_login - we have net");
 				var params = {};
 				if(window.cordova)
 					navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess_without_alert, getCurrentPosition_onError);
@@ -1396,7 +1443,7 @@ alert("auto_login - we have net");
 						//async: true,
 						success : function(text)
 						{
-alert("auto_login - text:" + window.localStorage.getItem('text'));
+//alert("auto_login - text:" + window.localStorage.getItem('text'));
 							try {
 								json = $.parseJSON(text);
 								
@@ -1414,7 +1461,7 @@ alert("auto_login - text:" + window.localStorage.getItem('text'));
 								}
 								else if(json.answer=="Logined")
 								{
-alert("auto_login - answer:" + json.answer);
+//alert("auto_login - answer:" + json.answer);
 									//ons.notification.alert(multilang.get("Login_successfully"));
 									//console.log(json.token);
 									window.localStorage.setItem('token',json.token);
@@ -1983,19 +2030,19 @@ alert("auto_login - answer:" + json.answer);
 					var tempH			= $("#menu_zaer_services").height();
 					//temp_div.css("margin-top",(winH-tempH-50)/2);
 					temp_div_css	= $("#main_div_zaer_services_css_placeholder");
-					temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH-50)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+					temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH-100)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
 					
 					setTimeout(function(){
 						tempH		= $("#menu_zaer_services").height();
 						//temp_div.css("margin-top",(winH-tempH-50)/2);
-						temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH-50)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+						temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH-100)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
 						//console.log("tempH:" + tempH);
 					}, 350);
 					
 					setTimeout(function(){
 						tempH		= $("#menu_zaer_services").height();
 						//temp_div.css("margin-top",(winH-tempH-50)/2);
-						temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH-50)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+						temp_div_css.html("<style>#main_div_zaer_services{margin-top:" + (winH-tempH-100)/2 + "px !important}.select_service_type_btn{height: " + (tempH/4) + "px;}</style>");
 						//console.log("tempH:" + tempH);
 					}, 650);
 					
@@ -2011,7 +2058,12 @@ alert("auto_login - answer:" + json.answer);
 						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_zaer_service_weather').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						navigator.notification.alert(
+							multilang.get('Will_be_active_in_the_next_version'),  // message
+							alertDismissed,		 // callback
+							multilang.get('warning'),			// title
+							multilang.get('ok')		// buttonName
+						);
 					};
 			}
 			else if (page.id === 'zaer_service_map_mavakeb')
@@ -2058,13 +2110,13 @@ alert("auto_login - answer:" + json.answer);
 					setTimeout(function(){
 						tempH			= $("#zaer_service_missing_objects_menu_image").height();
 						temp_div_css	= $("#zaer_service_missing_objects_menu_css_placeholder");
-						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH-50)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
+						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH-100)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
 					}, 300);
 					
 					setTimeout(function(){
 						tempH			= $("#zaer_service_missing_objects_menu_image").height();
 						temp_div_css	= $("#zaer_service_missing_objects_menu_css_placeholder");
-						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH-50)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
+						temp_div_css.html("<style>#zaer_service_missing_objects_menu{margin-top:" + (winH-tempH-100)/2 + "px !important}.zaer_service_missing_objects_btn{height: " + (tempH/2) + "px;}</style>");
 					}, 600);
 					/*
 					setTimeout(function(){
@@ -2331,34 +2383,40 @@ alert("auto_login - answer:" + json.answer);
 					var tempH			= $("#menu_mukeb_manager_menu").height();
 					//temp_div.css("margin-top",(winH-tempH-50)/2);
 					temp_div_css	= $("#main_div_mukeb_manager_menu_css_placeholder");
-					temp_div_css.html("<style>#main_div_mukeb_manager_menu{margin-top:" + (winH-tempH-50)/2 + "px !important} .select_mukeb_manager_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+					temp_div_css.html("<style>#main_div_mukeb_manager_menu{margin-top:" + (winH-tempH-100)/2 + "px !important} .select_mukeb_manager_service_type_btn{height: " + (tempH/4) + "px;}</style>");
 					
 					setTimeout(function(){
 						tempH		= $("#menu_mukeb_manager_menu").height();
 						//temp_div.css("margin-top",(winH-tempH-50)/2);
-						temp_div_css.html("<style>#main_div_mukeb_manager_menu{margin-top:" + (winH-tempH-50)/2 + "px !important} .select_mukeb_manager_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+						temp_div_css.html("<style>#main_div_mukeb_manager_menu{margin-top:" + (winH-tempH-100)/2 + "px !important} .select_mukeb_manager_service_type_btn{height: " + (tempH/4) + "px;}</style>");
 						//console.log("tempH:" + tempH);
 					}, 350);
 					
 					setTimeout(function(){
 						tempH		= $("#menu_mukeb_manager_menu").height();
 						//temp_div.css("margin-top",(winH-tempH-50)/2);
-						temp_div_css.html("<style>#main_div_mukeb_manager_menu{margin-top:" + (winH-tempH-50)/2 + "px !important} .select_mukeb_manager_service_type_btn{height: " + (tempH/4) + "px;}</style>");
+						temp_div_css.html("<style>#main_div_mukeb_manager_menu{margin-top:" + (winH-tempH-100)/2 + "px !important} .select_mukeb_manager_service_type_btn{height: " + (tempH/4) + "px;}</style>");
 						//console.log("tempH:" + tempH);
 					}, 650);
 					
 					
 					page.querySelector('#goto_page_mukeb_update_zaer_count').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						show_get_remaining_capacity_popup();
 					};
 					page.querySelector('#goto_page_mukeb_found_object').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_mukeb_edit_data').onclick = function() {
 						document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_mukeb_service_weather').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						//document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						navigator.notification.alert(
+							multilang.get('Will_be_active_in_the_next_version'),  // message
+							alertDismissed,		 // callback
+							multilang.get('warning'),			// title
+							multilang.get('ok')		// buttonName
+						);
 					};
 			}
 
@@ -2495,12 +2553,19 @@ alert("auto_login - answer:" + json.answer);
 							<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 						</ons-toolbar-button>
 					</div>
-					<div class="center need_translate" translate="List_Of_Services">List Of Services</div>
-					<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+					<div class="center need_translate" translate="mukeb_information"></div>
+					<div class="left">
+						<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
+							<span class="back-button__icon">
+								<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
+							</span>
+							<span class="back-button__label mukeb_edit_page need_translate" translate="Back">بازگشت</span>
+						</ons-button>
+					</div>
 				</ons-toolbar>
 				
 				<div id="main_div_zaer_services_css_placeholder"></div>
-				<div id="main_div_zaer_services" style="text-align: center; color:#ffffff;margin-top:20%;position: relative;" >
+				<div id="main_div_zaer_services" style="text-align: center; color:#ffffff;margin-top:10%;position: relative;" >
 					<img src="images/pages/zaer_services.png" id="menu_zaer_services" class="retina" style="width:100%;" >
 					
 					<div id="goto_page_zaer_service_map" class="select_service_type_btn" ><div class="need_translate" translate="Trip_Map">Trip Map</div></div>
@@ -2560,7 +2625,7 @@ alert("auto_login - answer:" + json.answer);
 			
 			<div id="zaer_service_missing_objects_menu_css_placeholder"></div>
 			
-			<div id="zaer_service_missing_objects_menu" style="text-align: center; color:#ffffff;margin-top:40%;position: relative;" >
+			<div id="zaer_service_missing_objects_menu" style="text-align: center; color:#ffffff;margin-top:20%;position: relative;" >
 				<img src="images/pages/zaer_service_missing_objects_menu.png" id="zaer_service_missing_objects_menu_image" class="retina" style="width:100%;" >
 				<div id="goto_page_zaer_service_missing_objects_lost" class="zaer_service_missing_objects_btn" ><div class="need_translate" translate="I_Lost_Something">I Lost Something</div></div>
 				<div id="goto_page_zaer_service_missing_objects_found" class="zaer_service_missing_objects_btn" ><div class="need_translate" translate="I_Found_Something">I Found Something</div></div>
@@ -2602,55 +2667,63 @@ alert("auto_login - answer:" + json.answer);
 
 	<template id="zaer_service_I_Found_Something_data_entry.html">
 		<ons-page id="zaer_service_I_Found_Something_data_entry" >
-			<div class="page_bg retina" ></div>
-
 			<ons-toolbar inline modifier="transparent22">
 				<div class="right">
 					<ons-toolbar-button onclick="fn.open()">
 						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="center need_translate" translate="Missing_objects"></div>
-				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+				<div class="center need_translate" translate="mukeb_information"></div>
+				<div class="left">
+					<!--<ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button>-->
+					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
+						<span class="back-button__icon">
+							<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
+						</span>
+						<span class="back-button__label mukeb_edit_page need_translate" translate="Back">بازگشت</span>
+					</ons-button>
+				</div>
 			</ons-toolbar>
-			
-			<div class="text-65 center-text" style="margin-top: 8%;margin-bottom: 8%;" >
-				<span class="need_translate" translate="Enter_the_specification_of_the_found_object"></span>
-			</div>
-			
-			<div class="text-65" style="margin-bottom: 20%;">
-			
-				<div class="input">
-					<ons-input id="Name_of_the_device" modifier="underbar" placeholder="Name_of_the_device" float class="need_translate_val" translate="Name_of_the_device"></ons-input>
+
+			<div class="page_bg_overflow retina" >
+				<div class="text-65 center-text" style="margin-bottom: 10%;margin-top:65px;">
+					<span class="need_translate" translate="Enter_the_specification_of_the_found_object"></span>
 				</div>
-				<div  class="input" style="position:relative;">
-					<div class="Select_hover" onclick="app.showFromObject()" ></div>
-					<ons-input id="Select_a_category" modifier="underbar" placeholder="Select_a_category" float class="need_translate_val" translate="Select_a_category"></ons-input>
-					<div style="display:none;">
-						<ons-input id="Select_a_category_id" modifier="underbar" float ></ons-input>
+				
+				<div class="text-65" style="margin-bottom: 20%;">
+				
+					<div class="input">
+						<ons-input id="Name_of_the_device" modifier="underbar" placeholder="Name_of_the_device" float class="need_translate_val" translate="Name_of_the_device"></ons-input>
+					</div>
+					<div  class="input" style="position:relative;">
+						<div class="Select_hover" onclick="app.showFromObject()" ></div>
+						<ons-input id="Select_a_category" modifier="underbar" placeholder="Select_a_category" float class="need_translate_val" translate="Select_a_category"></ons-input>
+						<div style="display:none;">
+							<ons-input id="Select_a_category_id" modifier="underbar" float ></ons-input>
+						</div>
+					</div>
+					<div  class="input" style="position:relative;">
+						<div class="Select_hover" onclick="show_get_found_location_popup()" ></div>
+						<ons-input id="Finding_Location" modifier="underbar" placeholder="Finding_Location" float class="need_translate_val" translate="Finding_Location"></ons-input>
+					</div>
+					<div  class="input" style="position:relative;">
+						<div class="Select_hover" onclick="show_get_found_Contacts_popup()" ></div>
+						<ons-input id="Contacts_Info" modifier="underbar" placeholder="Contacts_Info" float class="need_translate_val" translate="Contacts_Info"></ons-input>
+					</div>
+					<div  class="input" style="position:relative;">
+						<ons-input id="Description" modifier="underbar" placeholder="Description" float class="need_translate_val" translate="Description"></ons-input>
+					</div>
+					<div  class="input" style="position:relative;">
+						<div class="Select_hover" onclick="get_image()" ></div>
+						<div class="Select_hover camera_image" onclick="get_image()">
+							<img src="images/camera.svg" >
+						</div>
+						<ons-input id="Image_of_the_Object" modifier="underbar" placeholder="Image_of_the_Object" float class="need_translate_val" translate="Image_of_the_Object"></ons-input>
 					</div>
 				</div>
-				<div  class="input" style="position:relative;">
-					<div class="Select_hover" onclick="show_get_found_location_popup()" ></div>
-					<ons-input id="Finding_Location" modifier="underbar" placeholder="Finding_Location" float class="need_translate_val" translate="Finding_Location"></ons-input>
-				</div>
-				<div  class="input" style="position:relative;">
-					<div class="Select_hover" onclick="show_get_found_Contacts_popup()" ></div>
-					<ons-input id="Contacts_Info" modifier="underbar" placeholder="Contacts_Info" float class="need_translate_val" translate="Contacts_Info"></ons-input>
-				</div>
-				<div  class="input" style="position:relative;">
-					<ons-input id="Description" modifier="underbar" placeholder="Description" float class="need_translate_val" translate="Description"></ons-input>
-				</div>
-				<div  class="input" style="position:relative;">
-					<div class="Select_hover" onclick="get_image()" ></div>
-					<div class="Select_hover camera_image" onclick="get_image()">
-						<img src="images/camera.svg" >
-					</div>
-					<ons-input id="Image_of_the_Object" modifier="underbar" placeholder="Image_of_the_Object" float class="need_translate_val" translate="Image_of_the_Object"></ons-input>
-				</div>
+				
+				<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
 			</div>
-			
-			<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
 		</ons-page>
 	</template>
 	
@@ -2813,7 +2886,7 @@ alert("auto_login - answer:" + json.answer);
 			</ons-toolbar>
 			<div class="page_bg_overflow retina" >
 				<!-- <div class="page_bg retina" ></div> -->
-				<div class="text-65" style="margin-bottom: 10%;margin-top:25px;">
+				<div class="text-65" style="margin-bottom: 10%;margin-top:65px;">
 					<fieldset>
 						<legend class="need_translate" translate="General_Information"></legend>
 							<div class="input">
@@ -3051,7 +3124,15 @@ function getCurrentPosition_onSuccess_without_alert(position){
 function getCurrentPosition_onSuccess_for_mukeb(position){
 	var user_longitude = position.coords.longitude;
 	var user_latitude  = position.coords.latitude;
-	
+	if (window.cordova)
+	{
+		navigator.notification.alert(
+			multilang.get("Location_Found!"),				// message
+			alertDismissed,									// callback
+			multilang.get("notice") ,						// title
+			multilang.get("ok")								// buttonName
+		);
+	}
 	if(user_longitude!="")
 		window.sessionStorage.setItem("mukeb_longitude",user_longitude);
 	if(user_latitude!="")
@@ -3130,6 +3211,95 @@ function found_save_Contacts(){
 	
 	hideDialog('found_get_Contacts_dialog');
 }
+function update_remaining_capacity(){
+	var has_error = false;
+	
+	if(document.getElementById('Man_capacity_remaining').value=="")
+	{
+		$("#Man_capacity_remaining").addClass("required_but_empty");
+		has_error = true;
+	}
+	else
+		$("#Man_capacity_remaining").removeClass("required_but_empty");
+		
+	if(document.getElementById('Woman_capacity_remaining').value=="")
+	{
+		$("#Woman_capacity_remaining").addClass("required_but_empty");
+		has_error = true;
+	}
+	else
+		$("#Woman_capacity_remaining").removeClass("required_but_empty");
+
+
+	networkState = navigator.connection.type;
+	if (networkState == Connection.NONE) {
+		console.log("start_download : NO internet");
+		navigator.notification.alert(
+			multilang.get('you_must_connect_to_the_internet'),  // message
+			alertDismissed,		 // callback
+			multilang.get('warning'),			// title
+			multilang.get('ok')		// buttonName
+		);
+		hideDialog('get_remaining_capacity');
+	}
+	else{
+		var params = {};
+
+		params.Man_capacity_remaining	= document.getElementById('Man_capacity_remaining').value;			
+		params.Woman_capacity_remaining	= document.getElementById('Woman_capacity_remaining').value;			
+		params.udid						= window.localStorage.getItem('udid');			
+		params.token					= encrypt_by_date(window.localStorage.getItem('token'));
+		params.act						= "update_remaining_capacity";
+		//return console.log(params);
+		hideDialog('get_remaining_capacity');
+		show_progress_bar("without_cancel_btn");
+		
+		$.ajax({
+				url: server_url,
+				type: "POST",
+				data: params,
+				//async: true,
+				success : function(text)
+				{
+					try {
+						json = $.parseJSON(text);
+						
+						if(json.answer=="Login_tere_is_not_any_account")
+						{
+							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							modal.show({animation: "fade"});
+							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+						}
+						else if(json.answer=="updated")
+						{
+							window.localStorage.setItem('token',json.token);
+							window.localStorage.setItem('last_login_result',text);
+							window.localStorage.setItem('capacity_woman',json.mukeb_data.capacity_woman);
+							window.localStorage.setItem('capacity_man',json.mukeb_data.capacity_man);
+							window.sessionStorage.setItem('he_is_logined',"true");
+						}
+						else
+						{
+							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							modal.show({animation: "fade"});
+							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+						}
+					} catch (e) {
+						$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+						modal.show({animation: "fade"});
+						setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+					}
+					hideDialog('dialog_progress_bar');
+				},
+				error: function(jqXHR, exception) {
+					$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+					modal.show({animation: "fade"});
+					setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+					hideDialog('dialog_progress_bar');
+				},
+		});
+	}
+}
 </script>
 
 
@@ -3201,6 +3371,27 @@ function found_save_Contacts(){
 					<ons-input id="found_Imo_ID" modifier="underbar" placeholder="Imo_ID" float class="need_translate_span" translate="Imo_ID"></ons-input>
 				</div>
 				<p><ons-button onclick="found_save_Contacts();" class="need_translate" translate="ok">OK</ons-button></p>
+
+			</div>
+		</ons-dialog>
+	</template>
+	<template id="get_remaining_capacity.html">
+		<ons-dialog id="get_remaining_capacity">
+			<div style="text-align: center; padding: 10px;">
+				<br>
+				<div class="input" style="position:relative;margin-bottom: 17px;">
+					<div class="Select_hover man_image" style="width: 51px;">
+						<img src="images/man_b.svg" style="margin-top:-10px;margin-left: -3px;" >
+					</div>
+					<ons-input id="Man_capacity_remaining" pattern="\d*" modifier="underbar" placeholder="Man_capacity" float class="need_translate_span" translate="Man_capacity"></ons-input>
+				</div>
+				<div class="input" style="position:relative;margin-bottom: 20px;">
+					<div class="Select_hover woman_image" style="width: 51px;">
+						<img src="images/woman_b.svg" style="margin-top:-7px;margin-left: -3px;" >
+					</div>
+					<ons-input id="Woman_capacity_remaining" pattern="\d*" modifier="underbar" placeholder="Woman_capacity" float class="need_translate_span" translate="Woman_capacity"></ons-input>
+				</div>
+				<p><ons-button onclick="update_remaining_capacity();" class="need_translate" translate="ok">OK</ons-button></p>
 
 			</div>
 		</ons-dialog>

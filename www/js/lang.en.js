@@ -110,6 +110,8 @@ lang_en = {
 	Phone_number_1 : "Phone Number 1",
 	Phone_number_2 : "Phone Number 2",
 	bad_data : "The information entered is not correct",
+	Applying_Changes : "Applying Changes",
+	Will_be_active_in_the_next_version : "Will be active in the next version.",
 };
 
 

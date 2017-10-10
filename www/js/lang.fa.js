@@ -110,6 +110,8 @@ lang_fa = {
 	Phone_number_1 : "شماره تماس 1",
 	Phone_number_2 : "شماره تماس 2",
 	bad_data : "اطلاعات وارد شده صحیح نمی باشد",
+	Applying_Changes : "درحال اعمال تغییرات",
+	Will_be_active_in_the_next_version : "در نسخه بعد فعال خواهد شد",
 };
 
 
