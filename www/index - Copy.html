@@ -477,9 +477,6 @@
 			}
 		}
 		function submit_missing_data_by_image(){
-			if(window.sessionStorage.getItem('send_image_path')==null)
-				return false;
-			$('#Uploading-text').html("Uploading...");
 			file = window.sessionStorage.getItem('send_image_path');
 //alert('Image URI: ' + file);
 			console.log("start_download check internet");
@@ -539,7 +536,7 @@
 					);
 					//$('.progress-bar-parent').css("display","none");
 					hideDialog('dialog_progress_bar');
-					window.sessionStorage.removeItem('send_image_path');
+					window.sessionStorage.setItem('send_image_path',null);
 				}
 //alert("3");
 				function fail(error) {
@@ -558,7 +555,6 @@ alert("An error has occurred: Code = " + error.code);
 					//$('.progress-bar-parent').css("display","none");
 					$(".progress-bar__primary").css("width","");
 					hideDialog('dialog_progress_bar');
-					window.sessionStorage.removeItem('send_image_path');
 				}
 //alert("4");
 				var options = new FileUploadOptions();
@@ -634,9 +630,6 @@ alert("An error has occurred: Code = " + error.code);
 		
 		}
 		function send_image_for_mukeb(){
-			if(window.sessionStorage.getItem('send_image_path')==null)
-				return false;
-			$('#Uploading-text').html("Uploading...");
 			file = window.sessionStorage.getItem('send_image_path');
 			//alert('Image URI: ' + file);
 			console.log("start_download check internet");
@@ -651,7 +644,7 @@ alert("An error has occurred: Code = " + error.code);
 				);
 			}
 			else{
-				show_progress_bar("with_cancel_btn");
+				show_progress_bar("without_cancel_btn");
 				
 				console.log("start_download : we have internet");
 
@@ -726,7 +719,7 @@ alert("An error has occurred: Code = " + error.code);
 					);
 					//$('.progress-bar-parent').css("display","none");
 					hideDialog('dialog_progress_bar');
-					window.sessionStorage.removeItem('send_image_path');
+					window.sessionStorage.setItem('send_image_path',null);
 				}
 				//alert("3");
 				function fail(error) {
@@ -745,7 +738,6 @@ alert("An error has occurred: Code = " + error.code);
 					//$('.progress-bar-parent').css("display","none");
 					$(".progress-bar__primary").css("width","");
 					hideDialog('dialog_progress_bar');
-					window.sessionStorage.removeItem('send_image_path');
 				}
 				//alert("4");
 				var options = new FileUploadOptions();

@@ -712,7 +712,39 @@ ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
 .arabic_text .toolbar .back-button__label.mukeb_edit_page {color: #ffffff;font-family:"Droid Arabic Kufi",Tahoma !important;}
 .persian_text .toolbar .back-button__label.mukeb_edit_page {color: #ffffff;font-family:"iranyekan",Tahoma !important;}
 .english_text .toolbar .back-button__label.mukeb_edit_page {color: #ffffff;}
-
+#images_place_holder div {
+	width: 50px;
+	border: 1px solid #f2f2f2;
+	border-radius: 3px;
+	margin: 0 0 10px 10px;
+	overflow:hidden;
+	height: 50px;
+	position:relative;
+	display:inline-block;
+}
+#images_place_holder div img {
+	width: 50px;
+}
+div#images_place_holder {
+    text-align: center;
+}
+#images_place_holder div::after {
+    content: "\f00d";
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 13px;
+    top: 13px;
+    font: normal normal normal 14px/1 FontAwesome;
+    color: red;
+    background: rgba(256,256,256,0.7);
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding-top: 5px;
+    text-align: center;
+    padding-left: 1px;
+}
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
