@@ -37,7 +37,7 @@
 			{
 				Connection = {};
 				Connection.NONE = "0000";
-				document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "none"});
+				//console.log(document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "none"}));
 				//document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "none"});
 			}
 			else
@@ -645,7 +645,7 @@ alert("An error has occurred: Code = " + error.code);
 					has_error = true;
 				}
 				else
-					$("#Mukeb_Name").removeClass("required_but_empty");
+					$("#city_name").removeClass("required_but_empty");
 
 				if(has_error)
 				{
@@ -931,7 +931,7 @@ alert("An error has occurred: Code = " + error.code);
 									if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
 										document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
 									else
-										document.querySelector('#myNavigator').pushPage('logined_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+										document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
 								}
 								else
 								{
@@ -1023,7 +1023,7 @@ alert("An error has occurred: Code = " + error.code);
 									if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
 										document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
 									else
-										document.querySelector('#myNavigator').pushPage('logined_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+										document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
 								}
 								else
 								{
@@ -1132,7 +1132,7 @@ alert("An error has occurred: Code = " + error.code);
 									if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
 										document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
 									else
-										document.querySelector('#myNavigator').pushPage('logined_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+										document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
 								}
 								else
 								{
@@ -1176,6 +1176,11 @@ alert("An error has occurred: Code = " + error.code);
 				if(window.cordova)
 					navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess_without_alert, getCurrentPosition_onError);
 
+				if(window.sessionStorage.getItem('user_longitude') != null)
+					params.longitude			= window.sessionStorage.getItem('user_longitude');
+				if(window.sessionStorage.getItem('user_latitude') != null)
+					params.latitude				= window.sessionStorage.getItem('user_latitude');
+					
 				params.udid			= window.localStorage.getItem('udid');			
 				params.token		= encrypt_by_date(window.localStorage.getItem('token'));
 				params.language		= window.localStorage.getItem('language');
@@ -1223,7 +1228,7 @@ alert("An error has occurred: Code = " + error.code);
 										if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
 											document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
 										else
-											document.querySelector('#myNavigator').pushPage('logined_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+											document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
 									}
 								}
 								else
@@ -1272,7 +1277,295 @@ alert("An error has occurred: Code = " + error.code);
 			//console.log(my_date);
 			return $.md5(my_date);
 		}
+		function edit_mukeb_data_submit(){
+			networkState = navigator.connection.type;
+			if (networkState == Connection.NONE) {
+				console.log("start_download : NO internet");
+				navigator.notification.alert(
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
+				);
+			}
+			else{
+				var params = {};
+				//if(window.cordova)
+				//	navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess_without_alert, getCurrentPosition_onError);
 
+				params.udid = window.localStorage.getItem('udid');
+
+				if(window.sessionStorage.getItem('mukeb_longitude') != null)
+					params.longitude			= window.sessionStorage.getItem('mukeb_longitude');
+				if(window.sessionStorage.getItem('mukeb_latitude') != null)
+					params.latitude				= window.sessionStorage.getItem('mukeb_latitude');
+
+				var has_error = false;
+				if(document.getElementById('Mukeb_Name').value=="")
+				{
+					$("#Mukeb_Name").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Mukeb_Name").removeClass("required_but_empty");
+					
+				if(document.getElementById('Man_capacity').value=="")
+				{
+					$("#Man_capacity").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Man_capacity").removeClass("required_but_empty");
+					
+				if(document.getElementById('Woman_capacity').value=="")
+				{
+					$("#Woman_capacity").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Woman_capacity").removeClass("required_but_empty");
+
+				if(document.getElementById('city_name_mukeb_manager').value=="")
+				{
+					$("#city_name_mukeb_manager").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#city_name_mukeb_manager").removeClass("required_but_empty");
+				
+				if(document.getElementById('Address').value=="")
+				{
+					$("#Address").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Address").removeClass("required_but_empty");
+					
+				if(document.getElementById('Phone_number_1').value=="")
+				{
+					$("#Phone_number_1").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Phone_number_1").removeClass("required_but_empty");
+
+				if(has_error)
+				{
+					ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
+					return false;
+				}
+				
+				params.Mukeb_Name				= document.getElementById('Mukeb_Name').value;
+				params.Man_capacity				= document.getElementById('Man_capacity').value;
+				params.Woman_capacity			= document.getElementById('Woman_capacity').value;
+				
+				params.city_name				= document.getElementById('city_name_mukeb_manager').value;//window.localStorage.getItem('city_name');
+				params.Pillar_Number			= document.getElementById('Pillar_Number').value;
+				params.Address					= document.getElementById('Address').value;
+				params.Description				= document.getElementById('Description').value;
+				
+				params.Phone_number_1			= document.getElementById('Phone_number_1').value;
+				params.Phone_number_2			= document.getElementById('Phone_number_2').value;
+				params.Telegram_ID				= document.getElementById('Telegram_ID').value;
+				params.WhatsApp_ID				= document.getElementById('WhatsApp_ID').value;
+				params.Line_ID					= document.getElementById('Line_ID').value;
+				params.Imo_ID					= document.getElementById('Imo_ID').value;
+				
+				if(document.getElementById('Food').checked)
+					params.Food					= 1;
+				else
+					params.Food					= 0;
+					
+				if(document.getElementById('Blanket').checked)
+					params.Blanket				= 1;
+				else
+					params.Blanket				= 0;
+					
+				if(document.getElementById('Internet').checked)
+					params.Internet				= 1;
+				else
+					params.Internet				= 0;
+					
+				if(document.getElementById('WC').checked)
+					params.WC					= 1;
+				else
+					params.WC					= 0;
+					
+				if(document.getElementById('Washing_Machine').checked)
+					params.Washing_Machine		= 1;
+				else
+					params.Washing_Machine		= 0;
+					
+				if(document.getElementById('Bathroom').checked)
+					params.Bathroom				= 1;
+				else
+					params.Bathroom				= 0;					
+				
+				params.udid						= window.localStorage.getItem('udid');			
+				params.token					= encrypt_by_date(window.localStorage.getItem('token'));
+				params.language					= window.localStorage.getItem('language');
+				params.act						= "edit_mukeb_data";
+				//return console.log(params);
+
+				show_progress_bar("without_cancel_btn");
+				
+				$.ajax({
+						url: server_url,
+						type: "POST",
+						data: params,
+						//async: true,
+						success : function(text)
+						{
+							try {
+								json = $.parseJSON(text);
+								
+								if(json.answer=="bad_data")
+								{
+									ons.notification.alert(multilang.get("bad_data"));
+								}
+								else if(json.answer=="Login_tere_is_not_any_account")
+								{
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									modal.show({animation: "fade"});
+									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+								}
+								else if(json.answer=="saved")
+								{
+									ons.notification.alert(multilang.get("Your_Data_Submited_Successfully"));
+									//console.log(json.token);
+									console.log(json.mukeb_data);
+									
+									window.localStorage.setItem('token',json.token);
+									window.localStorage.setItem('last_login_result',text);
+									window.localStorage.setItem('capacity_woman',json.mukeb_data.capacity_woman);
+									window.localStorage.setItem('capacity_man',json.mukeb_data.capacity_man);
+									window.sessionStorage.setItem('he_is_logined',"true");
+									
+									
+									//console.log("*******************************************");
+									//console.log("*******************************************");
+									//console.log("*******************************************");
+									//console.log(myNavigator.pages.length-1);
+									//console.log(myNavigator.pages);
+									//var temp_index = myNavigator.pages.length-1;
+									//myNavigator.removePage(temp_index);
+
+									document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
+								}
+								else
+								{
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									modal.show({animation: "fade"});
+									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+								}
+							} catch (e) {
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								modal.show({animation: "fade"});
+								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							}
+							hideDialog('dialog_progress_bar');
+						},
+						error: function(jqXHR, exception) {
+							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							modal.show({animation: "fade"});
+							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							hideDialog('dialog_progress_bar');
+						},
+				});
+			}
+		}
+		function mukeb_manager_load_data_to_edit_page(){
+			var text = window.localStorage.getItem('last_login_result');
+			try {
+				var json = $.parseJSON(text);
+				console.log("==================================================");
+				console.log("==================================================");
+				console.log("==================================================");
+				console.log("mukeb_manager_load_data_to_edit_page :");
+				console.log(json.mukeb_data);
+				
+				$("#Mukeb_Name input").val(json.mukeb_data.title);
+				$("#Woman_capacity input").val(json.mukeb_data.capacity_woman);
+				$("#Man_capacity input").val(json.mukeb_data.capacity_man);
+				$("#Phone_number_1 input").val(json.mukeb_data.Phone_number_1);
+				$("#Phone_number_2 input").val(json.mukeb_data.Phone_number_2);
+				$("#Address input").val(json.mukeb_data.address);
+				$("#Pillar_Number input").val(json.mukeb_data.amud);
+				$("#Description input").val(json.mukeb_data.Description);
+				
+				$("#Telegram_ID input").val(json.mukeb_data.Telegram_ID);
+				$("#WhatsApp_ID input").val(json.mukeb_data.WhatsApp_ID);
+				$("#Line_ID input").val(json.mukeb_data.Line_ID);
+				$("#Imo_ID input").val(json.mukeb_data.Imo_ID);
+				
+				if(json.mukeb_data.food=="1")
+					$('#Food').prop('checked', true);
+				if(json.mukeb_data.blanket=="1")
+					$('#Blanket').prop('checked', true);
+				if(json.mukeb_data.internet=="1")
+					$('#Internet').prop('checked', true);
+				if(json.mukeb_data.wc=="1")
+					$('#WC').prop('checked', true);
+				if(json.mukeb_data.washing_machine=="1")
+					$('#Washing_Machine').prop('checked', true);
+				if(json.mukeb_data.bathroom=="1")
+					$('#Bathroom').prop('checked', true);
+
+				$("#city_name_mukeb_manager select").val(json.mukeb_data.city_name);
+				if(json.mukeb_data.city_name!="")
+				{
+					$("#city_name_mukeb_manager select").addClass("selected");
+				}
+				else if(window.localStorage.getItem('city_name')!=null)
+				{
+					$("#city_name_mukeb_manager select").val(window.localStorage.getItem('city_name'));
+					$("#city_name_mukeb_manager select").addClass("selected");
+				}
+				/*
+				document.getElementById('Mukeb_Name').value					= json.mukeb_data.title;
+				document.getElementById('Woman_capacity').value				= json.mukeb_data.capacity_woman;
+				document.getElementById('Man_capacity').value				= json.mukeb_data.capacity_man;
+				document.getElementById('Phone_number_1').value				= json.mukeb_data.Phone_number_1;
+				document.getElementById('Phone_number_2').value				= json.mukeb_data.Phone_number_2;
+				document.getElementById('Address').value					= json.mukeb_data.address;
+				document.getElementById('Pillar_Number').value				= json.mukeb_data.amud;
+				document.getElementById('Description').value				= json.mukeb_data.Description;
+				
+				document.getElementById('Telegram_ID').value				= json.mukeb_data.Telegram_ID;
+				document.getElementById('WhatsApp_ID').value				= json.mukeb_data.WhatsApp_ID;
+				document.getElementById('Line_ID').value					= json.mukeb_data.Line_ID;
+				document.getElementById('Imo_ID').value						= json.mukeb_data.Imo_ID;
+				
+				if(json.mukeb_data.food=="1")
+					document.getElementById('Food').checked=1;
+				if(json.mukeb_data.blanket=="1")
+					document.getElementById('Blanket').checked=1;
+				if(json.mukeb_data.internet=="1")
+					document.getElementById('Internet').checked=1;
+				if(json.mukeb_data.wc=="1")
+					document.getElementById('WC').checked=1;
+				if(json.mukeb_data.washing_machine=="1")
+					document.getElementById('Washing_Machine').checked=1;
+				if(json.mukeb_data.bathroom=="1")
+					document.getElementById('Bathroom').checked=1;
+				
+				document.getElementById('city_name_mukeb_manager').value	= json.mukeb_data.city_name;
+				if(json.mukeb_data.city_name!="")
+				{
+					$("#city_name_mukeb_manager select").addClass("selected");
+				}
+				else if(window.localStorage.getItem('city_name')!=null)
+				{
+					window.localStorage.setItem('city_name')				= window.localStorage.getItem('city_name');
+					$("#city_name_mukeb_manager select").addClass("selected");
+				}
+				*/
+			} catch (e) {
+				//LogOut();
+				console.log("NOT JSON");
+			}
+		
+		}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1403,7 +1696,7 @@ alert("An error has occurred: Code = " + error.code);
 								if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
 									document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
 								else
-									document.querySelector('#myNavigator').pushPage('logined_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
 							}
 							else
 								document.querySelector('#myNavigator').pushPage('register_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
@@ -1655,7 +1948,7 @@ alert("An error has occurred: Code = " + error.code);
 						if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
 							document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
 						else
-							document.querySelector('#myNavigator').pushPage('logined_mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+							document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					}
 					else
 						auto_login("change_page");
@@ -1727,23 +2020,47 @@ alert("An error has occurred: Code = " + error.code);
 			}
 			else if (page.id === 'edit_mukeb_data')
 			{
+					setTimeout(function(){
+						//console.log("*******************************************");
+						//console.log("*******************************************");
+						//console.log("*******************************************");
+						//console.log(myNavigator.pages.length-1);
+						//console.log(myNavigator.pages);
+						window.sessionStorage.setItem("edit_mukeb_data_index_number",(myNavigator.pages.length-1));
+					}, 350);
+					
 					check_retina();
+					mukeb_manager_load_data_to_edit_page();
 					need_translate();
-					/*
-					if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
-					{
-					}
-					else
-						(document.querySelector('#fieldset_for_upload_images')).css("display","block");
-					*/
-					//document.getElementById('Food').checked=true
+					//console.log(event);
+					//console.log(myNavigator.getCurrentPage());
+					
+					setTimeout(function(){
+						//mukeb_manager_load_data_to_edit_page();
+					}, 1350);
 
+					page.querySelector('#edit_mukeb_data_submit_btn').onclick = function()
+					{
+						edit_mukeb_data_submit();
+					};
 			}
 			else if (page.id === 'mukeb_manager_menu')
 			{
+					setTimeout(function(){
+						if(window.sessionStorage.getItem("edit_mukeb_data_index_number")!=null)
+						{
+							console.log("deeeeeeeeeeeeeelete");
+							//console.log(window.sessionStorage.getItem("edit_mukeb_data_index_number"));
+							myNavigator.removePage(window.sessionStorage.getItem("edit_mukeb_data_index_number"));
+							window.sessionStorage.removeItem("edit_mukeb_data_index_number");
+						}
+
+						if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
+							document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
+					}, 350);
+					
 					check_retina();
 					need_translate();
-					
 					
 					var temp_div		= $("#main_div_mukeb_manager_menu");
 					var tempH			= $("#menu_mukeb_manager_menu").height();
@@ -1766,20 +2083,18 @@ alert("An error has occurred: Code = " + error.code);
 					}, 650);
 					
 					
-					/*
 					page.querySelector('#goto_page_mukeb_update_zaer_count').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_mukeb_found_object').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_service_map_mavakeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_mukeb_edit_data').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_mukeb_service_weather').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
-					*/
 			}
 
 		});
@@ -2236,7 +2551,7 @@ alert("An error has occurred: Code = " + error.code);
 							<div class="Select_hover man_image" style="width: 51px;">
 								<img src="images/man.svg" >
 							</div>
-							<ons-input id="Mukeb_NMan_capacityame" modifier="underbar" placeholder="Man_capacity" float class="need_translate_val" translate="Man_capacity"></ons-input>
+							<ons-input id="Man_capacity" modifier="underbar" placeholder="Man_capacity" float class="need_translate_val" translate="Man_capacity"></ons-input>
 						</div>
 						<div  class="input" style="position:relative;">
 							<div class="Select_hover woman_image" style="width: 51px;">
@@ -2248,7 +2563,7 @@ alert("An error has occurred: Code = " + error.code);
 				<fieldset>
 					<legend class="need_translate" translate="Location"></legend>
 					<div class="input" >
-						<ons-select id="city_name" onchange="editSelect_city_name(event)" modifier="underbar">
+						<ons-select id="city_name_mukeb_manager" onchange="editSelect_city_name(event)" modifier="underbar">
 							<option value=""  class="need_translate_just_html" translate="City_Name"></option>
 							<option value="1" class="need_translate_just_html" translate="Karbala" ></option>
 							<option value="2" class="need_translate_just_html" translate="Najaf" ></option>
@@ -2263,34 +2578,35 @@ alert("An error has occurred: Code = " + error.code);
 					<div class="input">
 						<ons-input id="Address" modifier="underbar" placeholder="Address" float class="need_translate_val" translate="Address"></ons-input>
 					</div>
-					<ons-button onclick="navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess_with_alert, getCurrentPosition_onError);" class="need_translate" translate="Record_GPS_position" style="background-color: #4CAF50; color: #ffffff;width:100%;text-align:center;"></ons-button>
+					<ons-button onclick="navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess_for_mukeb, getCurrentPosition_onError);" class="need_translate" translate="Record_GPS_position" style="background-color: #4CAF50; color: #ffffff;width:100%;text-align:center;"></ons-button>
 					<div class="need_translate goto_mukeb" translate="If_you_are_in_tent" ></div>
 				</fieldset>
-				
 				<fieldset>
 					<legend class="need_translate" translate="Contacts_Info"></legend>
 					<div class="input">
-						<ons-input id="found_Phone_number" modifier="underbar" placeholder="Phone_number" float class="need_translate_span required" translate="Phone_number"></ons-input>
+						<ons-input id="Phone_number_1" modifier="underbar" placeholder="Phone_number_1" float class="need_translate_span required" translate="Phone_number_1"></ons-input>
 					</div>
 					<div class="input">
-						<ons-input id="found_Telegram_ID" modifier="underbar" placeholder="Telegram_ID" float class="need_translate_span" translate="Telegram_ID"></ons-input>
+						<ons-input id="Phone_number_2" modifier="underbar" placeholder="Phone_number_2" float class="need_translate_span required" translate="Phone_number_2"></ons-input>
 					</div>
 					<div class="input">
-						<ons-input id="found_WhatsApp_ID" modifier="underbar" placeholder="WhatsApp_ID" float class="need_translate_span" translate="WhatsApp_ID"></ons-input>
+						<ons-input id="Telegram_ID" modifier="underbar" placeholder="Telegram_ID" float class="need_translate_span" translate="Telegram_ID"></ons-input>
 					</div>
 					<div class="input">
-						<ons-input id="found_Line_ID" modifier="underbar" placeholder="Line_ID" float class="need_translate_span" translate="Line_ID"></ons-input>
+						<ons-input id="WhatsApp_ID" modifier="underbar" placeholder="WhatsApp_ID" float class="need_translate_span" translate="WhatsApp_ID"></ons-input>
 					</div>
 					<div class="input">
-						<ons-input id="found_Imo_ID" modifier="underbar" placeholder="Imo_ID" float class="need_translate_span" translate="Imo_ID"></ons-input>
+						<ons-input id="Line_ID" modifier="underbar" placeholder="Line_ID" float class="need_translate_span" translate="Line_ID"></ons-input>
+					</div>
+					<div class="input">
+						<ons-input id="Imo_ID" modifier="underbar" placeholder="Imo_ID" float class="need_translate_span" translate="Imo_ID"></ons-input>
 					</div>
 				</fieldset>
-				
 				<fieldset>
 					<legend class="need_translate" translate="Features"></legend>
 					<div class="input">
 						<label class="left">
-							<ons-checkbox input-id="Food"></ons-checkbox>
+							<ons-checkbox input-id="Food" ></ons-checkbox>
 						</label>
 						<label for="Food" class="center need_translate" translate="Food">Food</label>
 					</div>
@@ -2330,14 +2646,13 @@ alert("An error has occurred: Code = " + error.code);
 					<legend class="need_translate" translate="Images"></legend>
 					<ons-button onclick="get_image()" class="need_translate" translate="Add_Image" style="background-color: #4CAF50; color: #ffffff;width:100%;text-align:center;"></ons-button>
 				</fieldset>
-				
 				<div  class="input" style="position:relative;">
 					<ons-input id="Description" modifier="underbar" placeholder="Description" float class="need_translate_val" translate="Description"></ons-input>
 				</div>
 
 			</div>
 			
-			<div id="goto_page_zaer_service_missing_objects_found_submit_data" class="center-text"  style="margin-bottom: 10%;"><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
+			<div id="edit_mukeb_data_submit_btn" class="center-text"  style="margin-bottom: 10%;"><div class="Submit_Information" ><div class="need_translate" translate="Submit_Information"></div></div></div>
 		</ons-page>
 	</template>
 
@@ -2450,6 +2765,15 @@ function getCurrentPosition_onSuccess_without_alert(position){
 		window.sessionStorage.setItem("user_longitude",user_longitude);
 	if(user_latitude!="")
 		window.sessionStorage.setItem("user_latitude",user_latitude);
+}
+function getCurrentPosition_onSuccess_for_mukeb(position){
+	var user_longitude = position.coords.longitude;
+	var user_latitude  = position.coords.latitude;
+	
+	if(user_longitude!="")
+		window.sessionStorage.setItem("mukeb_longitude",user_longitude);
+	if(user_latitude!="")
+		window.sessionStorage.setItem("mukeb_latitude",user_latitude);
 }
 function getCurrentPosition_onError(){
 	if (window.cordova)

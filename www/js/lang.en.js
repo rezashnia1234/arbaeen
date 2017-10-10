@@ -107,6 +107,9 @@ lang_en = {
 	Updating_the_number_of_pilgrims : "Updating the number of pilgrims",
 	found_Objects : "Found Objects",
 	Edit_mukeb_data : "Edit Mukeb Data",
+	Phone_number_1 : "Phone Number 1",
+	Phone_number_2 : "Phone Number 2",
+	bad_data : "The information entered is not correct",
 };
 
 

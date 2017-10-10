@@ -107,6 +107,9 @@ lang_ar = {
 	Updating_the_number_of_pilgrims : "تحديث عدد الزائر",
 	found_Objects : "العثور على كائنات",
 	Edit_mukeb_data : "تحرير بيانات موکب",
+	Phone_number_1 : "رقم الهاتف 1",
+	Phone_number_2 : "رقم الهاتف 2",
+	bad_data : "المعلومات المدخلة غير صحيحة",
 };
 
 

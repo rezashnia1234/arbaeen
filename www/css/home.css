@@ -97,7 +97,7 @@ p#modal-text ons-icon{
 	height: 40px;
 	width: 40px;
 }
-.required_but_empty input {
+.required_but_empty input ,.required_but_empty select {
     border-bottom: 1px solid red;
 }
 /* .left-top-menu .menu-btn:before */
@@ -585,8 +585,10 @@ ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
 /* صفحه ثبت اطلاعات موکب */
 #edit_mukeb_data fieldset {
     margin: 0 -20px 12px -20px;
-    border-color: #ccc;
+    border-color: #5cb2c1;
     padding: 10px 17px;
+    border-style: dotted;
+    border-width: 1px;
 }
 #edit_mukeb_data legend::after {
     content: ":";
@@ -605,7 +607,7 @@ ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
 	margin-top: 2px !important;
 	padding-bottom: 2px !important;
 }
-#fieldset_for_upload_images{display:none;}
+/* #fieldset_for_upload_images{display:none;} */
 .persian_text .woman_image img, .arabic_text .woman_image img {
     /* width: 51px; */
     width: 36px;
@@ -633,6 +635,10 @@ ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
     margin-right: -2px;
 }
 .english_text #edit_mukeb_data .Select_hover{right: 0;left: auto;}
+#edit_mukeb_data .input label.center {
+    width: calc(100% - 40px);
+    display: inline-block;
+}
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */

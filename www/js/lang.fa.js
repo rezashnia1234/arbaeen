@@ -107,6 +107,9 @@ lang_fa = {
 	Updating_the_number_of_pilgrims : "بروزرسانی تعداد زائر",
 	found_Objects : "اشیاء پیدا شده",
 	Edit_mukeb_data : "ویرایش اطلاعات موکب",
+	Phone_number_1 : "شماره تماس 1",
+	Phone_number_2 : "شماره تماس 2",
+	bad_data : "اطلاعات وارد شده صحیح نمی باشد",
 };
 
 
