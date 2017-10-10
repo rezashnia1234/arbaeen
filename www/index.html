@@ -2686,27 +2686,25 @@ alert("An error has occurred: Code = " + error.code);
 	
 	<template id="edit_mukeb_data.html">
 		<ons-page id="edit_mukeb_data" >
+			<ons-toolbar inline modifier="transparent22">
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="center need_translate" translate="mukeb_information"></div>
+				<div class="left">
+					<!--<ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button>-->
+					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
+						<span class="back-button__icon">
+							<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
+						</span>
+						<span class="back-button__label mukeb_edit_page need_translate" translate="Back">بازگشت</span>
+					</ons-button>
+				</div>
+			</ons-toolbar>
 			<div class="page_bg_overflow retina" >
 				<!-- <div class="page_bg retina" ></div> -->
-
-				<ons-toolbar inline modifier="transparent22">
-					<div class="right">
-						<ons-toolbar-button onclick="fn.open()">
-							<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
-						</ons-toolbar-button>
-					</div>
-					<div class="center need_translate" translate="mukeb_information"></div>
-					<div class="left">
-						<!--<ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button>-->
-						<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
-							<span class="back-button__icon">
-								<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
-							</span>
-							<span class="back-button__label mukeb_edit_page need_translate" translate="Back">بازگشت</span>
-						</ons-button>
-					</div>
-				</ons-toolbar>
-				
 				<div class="text-65" style="margin-bottom: 10%;margin-top:25px;">
 					<fieldset>
 						<legend class="need_translate" translate="General_Information"></legend>
@@ -2825,23 +2823,23 @@ alert("An error has occurred: Code = " + error.code);
 
 	<template id="mukeb_manager_menu.html">
 		<ons-page id="mukeb_manager_menu" >
-			<ons-toolbar inline modifier="transparent22">
-				<div class="right">
-					<ons-toolbar-button onclick="fn.open()">
-						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
-					</ons-toolbar-button>
-				</div>
-				<div class="center need_translate" translate="mukeb_information"></div>
-				<div class="left">
-					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
-						<span class="back-button__icon">
-							<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
-						</span>
-						<span class="back-button__label mukeb_edit_page need_translate" translate="Back">بازگشت</span>
-					</ons-button>
-				</div>
-			</ons-toolbar>
 			<div class="page_bg_overflow retina" >
+				<ons-toolbar inline modifier="transparent22">
+					<div class="right">
+						<ons-toolbar-button onclick="fn.open()">
+							<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+						</ons-toolbar-button>
+					</div>
+					<div class="center need_translate" translate="mukeb_information"></div>
+					<div class="left">
+						<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
+							<span class="back-button__icon">
+								<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
+							</span>
+							<span class="back-button__label mukeb_edit_page need_translate" translate="Back">بازگشت</span>
+						</ons-button>
+					</div>
+				</ons-toolbar>
 
 				
 				<div id="main_div_mukeb_manager_menu_css_placeholder"></div>
