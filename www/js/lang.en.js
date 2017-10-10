@@ -112,6 +112,7 @@ lang_en = {
 	bad_data : "The information entered is not correct",
 	Applying_Changes : "Applying Changes",
 	Will_be_active_in_the_next_version : "Will be active in the next version.",
+	Please_Login_Again : "Please Login Again",
 };
 
 

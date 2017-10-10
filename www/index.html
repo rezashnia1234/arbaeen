@@ -380,6 +380,9 @@
 							dialog.show({animationOptions:{delay: 0.3}});
 						});
 					}
+					setTimeout(function(){
+						$("#get_remaining_capacity #Man_capacity_remaining input")[0].focus();
+					}, 350);
 				} catch (e) {
 					//LogOut();
 					console.log("NOT JSON");
@@ -717,6 +720,7 @@ alert("An error has occurred: Code = " + error.code);
 
 						//progress_bar_element.css('width',perc);
 					} else {
+						$('#Uploading-text').html("Uploading...");
 						//$('#status').html($('#status').html() + ".");
 						//progress_bar_element.css('width',progress_bar_element.width()+1);
 						//$('.progress-bar-percent').css('width',$('.progress-bar-parent').find('span').width()+1);
@@ -736,9 +740,7 @@ alert("An error has occurred: Code = " + error.code);
 						
 						if(json.answer=="Login_tere_is_not_any_account")
 						{
-							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
-							modal.show({animation: "fade"});
-							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							LogOut_and_notif();
 						}
 						else if(json.answer=="uplaoded")
 						{
@@ -751,12 +753,12 @@ alert("An error has occurred: Code = " + error.code);
 						}
 						else
 						{
-							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
 							modal.show({animation: "fade"});
 							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 						}
 					} catch (e) {
-						$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+						$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 						modal.show({animation: "fade"});
 						setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 					}
@@ -1030,12 +1032,12 @@ alert("An error has occurred: Code = " + error.code);
 								}
 								else
 								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
 									modal.show({animation: "fade"});
 									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 								}
 							} catch (e) {
-								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 								modal.show({animation: "fade"});
 								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 							}
@@ -1091,12 +1093,12 @@ alert("An error has occurred: Code = " + error.code);
 								}
 								else
 								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
 									modal.show({animation: "fade"});
 									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 								}
 							} catch (e) {
-								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 								modal.show({animation: "fade"});
 								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 							}
@@ -1179,12 +1181,12 @@ alert("An error has occurred: Code = " + error.code);
 								}
 								else
 								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
 									modal.show({animation: "fade"});
 									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 								}
 							} catch (e) {
-								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 								modal.show({animation: "fade"});
 								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 							}
@@ -1271,12 +1273,12 @@ alert("An error has occurred: Code = " + error.code);
 								}
 								else
 								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
 									modal.show({animation: "fade"});
 									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 								}
 							} catch (e) {
-								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 								modal.show({animation: "fade"});
 								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 							}
@@ -1380,12 +1382,12 @@ alert("An error has occurred: Code = " + error.code);
 								}
 								else
 								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
 									modal.show({animation: "fade"});
 									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 								}
 							} catch (e) {
-								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 								modal.show({animation: "fade"});
 								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 							}
@@ -1457,6 +1459,7 @@ alert("An error has occurred: Code = " + error.code);
 								{
 									//ons.notification.alert(multilang.get("Login_tere_is_not_any_account"));
 									window.sessionStorage.setItem('he_is_logined',"false");
+									window.localStorage.removeItem('token');
 									//window.localStorage.setItem('token',"");
 								}
 								else if(json.answer=="Logined")
@@ -1482,12 +1485,12 @@ alert("An error has occurred: Code = " + error.code);
 								}
 								else
 								{
-									//$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									//$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
 									//modal.show({animation: "fade"});
 									//setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 								}
 							} catch (e) {
-								//$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								//$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 								//modal.show({animation: "fade"});
 								//setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 							}
@@ -1506,6 +1509,12 @@ alert("An error has occurred: Code = " + error.code);
 			window.localStorage.clear();
 			window.sessionStorage.clear();
 			document.querySelector('#myNavigator').pushPage('home.html', {animation: "slid",animationOptions:{delay: 0.4} });
+		}
+		function LogOut_and_notif(){
+			ons.notification.alert(multilang.get('Please_Login_Again'));
+			window.sessionStorage.setItem('he_is_logined',"false");
+			window.localStorage.removeItem('token');
+			document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
 		}
 		function editSelect_city_name(event){
 			if (event.target.value != '' && event.target.value != null && event.target.value != multilang.get("City_Name")) {
@@ -1674,9 +1683,7 @@ alert("An error has occurred: Code = " + error.code);
 								}
 								else if(json.answer=="Login_tere_is_not_any_account")
 								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
-									modal.show({animation: "fade"});
-									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+									LogOut_and_notif();
 								}
 								else if(json.answer=="saved")
 								{
@@ -1703,12 +1710,12 @@ alert("An error has occurred: Code = " + error.code);
 								}
 								else
 								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
 									modal.show({animation: "fade"});
 									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 								}
 							} catch (e) {
-								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 								modal.show({animation: "fade"});
 								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 							}
@@ -1840,9 +1847,7 @@ alert("An error has occurred: Code = " + error.code);
 								
 								if(json.answer=="Login_tere_is_not_any_account")
 								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
-									modal.show({animation: "fade"});
-									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+									LogOut_and_notif();
 								}
 								else if(json.answer=="removed")
 								{
@@ -1855,12 +1860,12 @@ alert("An error has occurred: Code = " + error.code);
 								}
 								else
 								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
 									modal.show({animation: "fade"});
 									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 								}
 							} catch (e) {
-								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 								modal.show({animation: "fade"});
 								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 							}
@@ -1913,6 +1918,13 @@ alert("An error has occurred: Code = " + error.code);
 				else
 					navigator.splashscreen.hide();
 			}
+			
+
+			window.setInterval(function(){
+				if(window.sessionStorage.getItem('he_is_logined') != "true")
+					auto_login();
+			}, 1000);
+
 		});
 		
 		document.addEventListener('prechange', function(event) {
@@ -2003,7 +2015,8 @@ alert("An error has occurred: Code = " + error.code);
 							);
 						}
 						else{
-							if(window.sessionStorage.getItem('he_is_logined') == "true")
+							//if(window.sessionStorage.getItem('he_is_logined') == "true")
+							if(window.localStorage.getItem('token') != null)
 							{
 								if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
 									document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
@@ -2260,7 +2273,8 @@ alert("An error has occurred: Code = " + error.code);
 					need_translate();
 					center_the_box_vertical(44+6+49);
 					
-					if(window.sessionStorage.getItem('he_is_logined') == "true")
+					//if(window.sessionStorage.getItem('he_is_logined') == "true")
+					if(window.localStorage.getItem('token') != null)
 					{
 						if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
 							document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
@@ -2288,7 +2302,11 @@ alert("An error has occurred: Code = " + error.code);
 							options = {};
 							options.message = multilang.get("Enter_your_mobile_number");
 							options.callback = forgot_pasword_mukeb_manager_login_get_number;
-							console.log(ons.notification.prompt(options));
+							ons.notification.prompt(options);
+							setTimeout(function(){
+								//$(".alert-dialog-content input").focus();
+								$(".alert-dialog-content input")[0].focus();
+							}, 300);
 							function forgot_pasword_mukeb_manager_login_get_number(event)
 							{
 								console.log(event);
@@ -2362,7 +2380,7 @@ alert("An error has occurred: Code = " + error.code);
 					};
 			}
 			else if (page.id === 'mukeb_manager_menu')
-			{
+			{			
 					setTimeout(function(){
 						if(window.sessionStorage.getItem("edit_mukeb_data_index_number")!=null)
 						{
@@ -3266,9 +3284,7 @@ function update_remaining_capacity(){
 						
 						if(json.answer=="Login_tere_is_not_any_account")
 						{
-							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
-							modal.show({animation: "fade"});
-							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							LogOut_and_notif();
 						}
 						else if(json.answer=="updated")
 						{
@@ -3280,12 +3296,12 @@ function update_remaining_capacity(){
 						}
 						else
 						{
-							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
 							modal.show({animation: "fade"});
 							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 						}
 					} catch (e) {
-						$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+						$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 						modal.show({animation: "fade"});
 						setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 					}

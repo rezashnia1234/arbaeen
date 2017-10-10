@@ -112,6 +112,7 @@ lang_fa = {
 	bad_data : "اطلاعات وارد شده صحیح نمی باشد",
 	Applying_Changes : "درحال اعمال تغییرات",
 	Will_be_active_in_the_next_version : "در نسخه بعد فعال خواهد شد",
+	Please_Login_Again : "لطفا دوباره وارد سامانه بشوید",
 };
 
 

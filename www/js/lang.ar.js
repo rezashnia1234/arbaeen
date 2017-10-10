@@ -112,6 +112,7 @@ lang_ar = {
 	bad_data : "المعلومات المدخلة غير صحيحة",
 	Applying_Changes : "تطبيق التغييرات",
 	Will_be_active_in_the_next_version : "سوف تكون نشطة في الإصدار التالي",
+	Please_Login_Again : "الرجاد الدخول على الحساب من جديد",
 };
 
 
