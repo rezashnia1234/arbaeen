@@ -512,7 +512,7 @@
 							hideDialog('dialog_progress_bar');
 							navigator.notification.alert(
 								multilang.get("Your_Data_Submited_Successfully"),	// message
-								goto_page_zaer_service,								// callback
+								go_back_from_missing_object_data_entry,								// callback
 								multilang.get("notice"),							// title
 								multilang.get("ok")									// buttonName
 							);
@@ -563,6 +563,7 @@
 
 						//progress_bar_element.css('width',perc);
 					} else {
+						$('#Uploading-text').html("Uploading...");
 						//$('#status').html($('#status').html() + ".");
 						//progress_bar_element.css('width',progress_bar_element.width()+1);
 						//$('.progress-bar-percent').css('width',$('.progress-bar-parent').find('span').width()+1);
@@ -583,7 +584,7 @@
 					console.log("start_download : done");
 					navigator.notification.alert(
 						multilang.get("Your_Data_Submited_Successfully"),	// message
-						goto_page_zaer_service,								// callback
+						go_back_from_missing_object_data_entry,			// callback
 						multilang.get("notice"),							// title
 						multilang.get("ok")									// buttonName
 					);
@@ -1880,6 +1881,23 @@ alert("An error has occurred: Code = " + error.code);
 				});
 			}
 		}
+		function go_back_from_missing_object_data_entry(){
+			if(window.sessionStorage.getItem("goto_missing_objects_from")=="zaer")
+			{
+				window.sessionStorage.removeItem("goto_missing_objects_from");
+				document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+			}
+			else if(window.sessionStorage.getItem("goto_missing_objects_from")=="mukeb")
+			{
+				window.sessionStorage.removeItem("goto_missing_objects_from");
+				document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
+			}
+			else
+			{
+				window.sessionStorage.removeItem("goto_missing_objects_from");
+				document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+			}
+		}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2035,6 +2053,16 @@ alert("An error has occurred: Code = " + error.code);
 			}
 			else if (page.id === 'zaer_services')
 			{
+					setTimeout(function(){
+						if(window.sessionStorage.getItem("zaer_service_I_Found_Something_data_entry_index_number")!=null)
+						{
+							console.log("deeeeeeeeeeeeeelete");
+							//console.log(window.sessionStorage.getItem("zaer_service_I_Found_Something_data_entry_index_number"));
+							myNavigator.removePage(window.sessionStorage.getItem("zaer_service_I_Found_Something_data_entry_index_number"));
+							window.sessionStorage.removeItem("zaer_service_I_Found_Something_data_entry_index_number");
+						}
+					}, 350);
+
 					check_retina();
 					need_translate();
 					
@@ -2074,7 +2102,7 @@ alert("An error has occurred: Code = " + error.code);
 						navigator.notification.alert(
 							multilang.get('Will_be_active_in_the_next_version'),  // message
 							alertDismissed,		 // callback
-							multilang.get('warning'),			// title
+							multilang.get('notice'),			// title
 							multilang.get('ok')		// buttonName
 						);
 					};
@@ -2152,14 +2180,24 @@ alert("An error has occurred: Code = " + error.code);
 					need_translate();
 
 					page.querySelector('#goto_page_zaer_service_missing_objects_found_submit_data').onclick = function() {
+						window.sessionStorage.setItem("goto_missing_objects_from","zaer");
 						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 			else if (page.id === 'zaer_service_I_Found_Something_data_entry')
 			{
+					setTimeout(function(){
+						//console.log("*******************************************");
+						//console.log("*******************************************");
+						//console.log("*******************************************");
+						//console.log(myNavigator.pages.length-1);
+						//console.log(myNavigator.pages);
+						window.sessionStorage.setItem("zaer_service_I_Found_Something_data_entry_index_number",(myNavigator.pages.length-1));
+					}, 350);
 					check_retina();
 					need_translate();
 					
+					window.sessionStorage.removeItem('send_image_path');
 					///////////////////////////////////////////////////////////
 					///////////////////////////////////////////////////////////
 					///////////////////////////////////////////////////////////
@@ -2367,6 +2405,7 @@ alert("An error has occurred: Code = " + error.code);
 					check_retina();
 					mukeb_manager_load_data_to_edit_page();
 					need_translate();
+					window.sessionStorage.removeItem('send_image_path');
 					//console.log(event);
 					//console.log(myNavigator.getCurrentPage());
 					
@@ -2388,6 +2427,14 @@ alert("An error has occurred: Code = " + error.code);
 							//console.log(window.sessionStorage.getItem("edit_mukeb_data_index_number"));
 							myNavigator.removePage(window.sessionStorage.getItem("edit_mukeb_data_index_number"));
 							window.sessionStorage.removeItem("edit_mukeb_data_index_number");
+						}
+						
+						if(window.sessionStorage.getItem("zaer_service_I_Found_Something_data_entry_index_number")!=null)
+						{
+							console.log("deeeeeeeeeeeeeelete");
+							//console.log(window.sessionStorage.getItem("zaer_service_I_Found_Something_data_entry_index_number"));
+							myNavigator.removePage(window.sessionStorage.getItem("zaer_service_I_Found_Something_data_entry_index_number"));
+							window.sessionStorage.removeItem("zaer_service_I_Found_Something_data_entry_index_number");
 						}
 
 						if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
@@ -2422,6 +2469,7 @@ alert("An error has occurred: Code = " + error.code);
 						show_get_remaining_capacity_popup();
 					};
 					page.querySelector('#goto_page_mukeb_found_object').onclick = function() {
+						window.sessionStorage.setItem("goto_missing_objects_from","mukeb");
 						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something_data_entry.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_mukeb_edit_data').onclick = function() {
@@ -2432,7 +2480,7 @@ alert("An error has occurred: Code = " + error.code);
 						navigator.notification.alert(
 							multilang.get('Will_be_active_in_the_next_version'),  // message
 							alertDismissed,		 // callback
-							multilang.get('warning'),			// title
+							multilang.get('notice'),			// title
 							multilang.get('ok')		// buttonName
 						);
 					};
@@ -2694,7 +2742,8 @@ alert("An error has occurred: Code = " + error.code);
 				<div class="center need_translate" translate="mukeb_information"></div>
 				<div class="left">
 					<!--<ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button>-->
-					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
+					<!-- <ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: 'slid',animationOptions:{delay: 0.4} });"> -->
+					<ons-toolbar-button onclick="go_back_from_missing_object_data_entry();">
 						<span class="back-button__icon">
 							<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
 						</span>
