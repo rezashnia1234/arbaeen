@@ -37,7 +37,7 @@
 			{
 				Connection = {};
 				Connection.NONE = "0000";
-				//console.log(document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "none"}));
+				document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "none"});
 				//document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "none"});
 			}
 			else
@@ -370,6 +370,37 @@
 				}
 			);
 		}
+		function get_image_for_mukeb() {
+			window.imagePicker.getPictures(
+				function(results) {
+					for (var i = 0; i < results.length; i++) {
+						console.log('Image URI: ' + results[i]);
+						//alert('Image URI: ' + results[i]);
+						window.sessionStorage.setItem('send_image_path',results[i]);
+						/*
+						//send_image(results[i]);
+						setTimeout(function(){
+							onConfirm();
+						}, 600);
+						function onConfirm(buttonIndex) {
+							if(window.sessionStorage.getItem('send_image_path') != "")
+							{
+								//alert("2" + window.sessionStorage.getItem('send_image_path'));
+							}
+						}
+						*/
+						send_image_for_mukeb();
+					}
+				}, function (error) {
+					console.log('Error: ' + error);
+					//alert('Error: ' + error);
+				}, {
+					maximumImagesCount: 1,
+					width: 800,
+					quality:75
+				}
+			);
+		}
 		function progress_bar_cancel_btn(){
 			FileTransfer_OBJ.abort();
 			$(".progress-bar__primary").css("width","");
@@ -577,11 +608,139 @@ alert("An error has occurred: Code = " + error.code);
 				options.httpMethod = "POST";
 				if(device.platform == 'Android')
 					options.chunkedMode = false;
-				alert(JSON.stringify(params));
-				alert(JSON.stringify(options));
+				//alert(JSON.stringify(params));
+				//alert(JSON.stringify(options));
 				
 				FileTransfer_OBJ.upload(file, uri, win, fail, options);
 //alert("5");		
+				/*
+				$("#abort").click( function(i) {
+					FileTransfer_OBJ.abort();
+					$('.progress-bar-parent').find('span').css('width','2%');
+					//$('.progress-bar-percent').css('width',"");
+					//$('.progress-bar-parent').css("display","none");
+					$(".progress-bar__primary").css("width","");
+					hideDialog('dialog_progress_bar');
+					//window.location.href = "index.html";
+					//fn.load('zaer_services.html');
+					goto_page_zaer_service();
+				});
+				*/
+			}
+		
+		}
+		function send_image_for_mukeb(){
+			file = window.sessionStorage.getItem('send_image_path');
+			//alert('Image URI: ' + file);
+			console.log("start_download check internet");
+			networkState = navigator.connection.type;
+			if (networkState == Connection.NONE) {
+				console.log("start_download : NO internet");
+				navigator.notification.alert(
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
+				);
+			}
+			else{
+				show_progress_bar("without_cancel_btn");
+				
+				console.log("start_download : we have internet");
+
+				//alert("start_download URL: " + file);
+				console.log("start_download URL: " + file);
+				FileTransfer_OBJ = new FileTransfer();
+				
+				//alert("1");
+				FileTransfer_OBJ.onprogress = function(progressEvent) {
+					if (progressEvent.lengthComputable) {
+						var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+						//$('#status').html(perc + "% Uploading...");
+						//$('.progress-bar-percent').css('width',perc + "%");
+						$(".progress-bar__primary").css("width",perc + "%");
+						$('#Uploading-text').html(perc + "% Uploading...");
+
+						//progress_bar_element.css('width',perc);
+					} else {
+						//$('#status').html($('#status').html() + ".");
+						//progress_bar_element.css('width',progress_bar_element.width()+1);
+						//$('.progress-bar-percent').css('width',$('.progress-bar-parent').find('span').width()+1);
+						//$(".progress-bar__primary").css("width",perc + "%");
+					}
+				};
+				//alert("2");
+				var uri = encodeURI(server_url_missing_data);
+				function win(r) {
+					console.log("Code = " + r.responseCode);
+					console.log("Response = " + r.response);
+					console.log("Sent = " + r.bytesSent);
+					alert("Response = " + r.response);
+					
+					//$('#status').html("");
+					//$('.progress-bar-parent').find('span').css('width','2%');
+					$('#Uploading-text').html("Upload is Finished");
+					console.log("start_download : done");
+					navigator.notification.alert(
+						multilang.get("Your_Data_Submited_Successfully"),	// message
+						alertDismissed,										// callback
+						multilang.get("notice"),							// title
+						multilang.get("ok")									// buttonName
+					);
+					//$('.progress-bar-parent').css("display","none");
+					hideDialog('dialog_progress_bar');
+					window.sessionStorage.setItem('send_image_path',null);
+				}
+				//alert("3");
+				function fail(error) {
+					alert("An error has occurred: Code = " + error.code);
+					//console.log("upload error source " + error.source);
+					//console.log("upload error target " + error.target);
+					//alert(JSON.stringify(error));
+					navigator.notification.alert(
+						multilang.get("Error_in_uploading_file_please_try_again_later"),	// message
+						alertDismissed,														// callback
+						multilang.get("warning"),											// title
+						multilang.get("ok")													// buttonName
+					);
+					$('.progress-bar-parent').find('span').css('width','2%');
+					//$('.progress-bar-percent').css('width',"");
+					//$('.progress-bar-parent').css("display","none");
+					$(".progress-bar__primary").css("width","");
+					hideDialog('dialog_progress_bar');
+				}
+				//alert("4");
+				var options = new FileUploadOptions();
+				var params = {};
+				/*
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////////////////////
+				*/
+				
+				params.udid						= window.localStorage.getItem('udid');			
+				params.token					= encrypt_by_date(window.localStorage.getItem('token'));
+				params.language					= window.localStorage.getItem('language');
+				params.act						= "edit_mukeb_data_add_image";
+				
+				options.params = params;
+				options.httpMethod = "POST";
+				if(device.platform == 'Android')
+					options.chunkedMode = false;
+				//alert(JSON.stringify(params));
+				//alert(JSON.stringify(options));
+				
+				FileTransfer_OBJ.upload(file, uri, win, fail, options);
+				//alert("5");		
 				/*
 				$("#abort").click( function(i) {
 					FileTransfer_OBJ.abort();
@@ -1433,7 +1592,7 @@ alert("An error has occurred: Code = " + error.code);
 								{
 									ons.notification.alert(multilang.get("Your_Data_Submited_Successfully"));
 									//console.log(json.token);
-									console.log(json.mukeb_data);
+									//console.log(json.mukeb_data);
 									
 									window.localStorage.setItem('token',json.token);
 									window.localStorage.setItem('last_login_result',text);
@@ -1478,11 +1637,6 @@ alert("An error has occurred: Code = " + error.code);
 			var text = window.localStorage.getItem('last_login_result');
 			try {
 				var json = $.parseJSON(text);
-				console.log("==================================================");
-				console.log("==================================================");
-				console.log("==================================================");
-				console.log("mukeb_manager_load_data_to_edit_page :");
-				console.log(json.mukeb_data);
 				
 				$("#Mukeb_Name input").val(json.mukeb_data.title);
 				$("#Woman_capacity input").val(json.mukeb_data.capacity_woman);
@@ -2538,7 +2692,15 @@ alert("An error has occurred: Code = " + error.code);
 					</ons-toolbar-button>
 				</div>
 				<div class="center need_translate" translate="mukeb_information"></div>
-				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+				<div class="left">
+					<!--<ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button>-->
+					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
+						<span class="back-button__icon">
+							<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
+						</span>
+						<span class="back-button__label mukeb_edit_page need_translate" translate="Back">بازگشت</span>
+					</ons-button>
+				</div>
 			</ons-toolbar>
 			
 			<div class="text-65" style="margin-bottom: 10%;margin-top:25px;">
@@ -2644,7 +2806,7 @@ alert("An error has occurred: Code = " + error.code);
 				
 				<fieldset id="fieldset_for_upload_images">
 					<legend class="need_translate" translate="Images"></legend>
-					<ons-button onclick="get_image()" class="need_translate" translate="Add_Image" style="background-color: #4CAF50; color: #ffffff;width:100%;text-align:center;"></ons-button>
+					<ons-button onclick="get_image_for_mukeb()" class="need_translate" translate="Add_Image" style="background-color: #4CAF50; color: #ffffff;width:100%;text-align:center;"></ons-button>
 				</fieldset>
 				<div  class="input" style="position:relative;">
 					<ons-input id="Description" modifier="underbar" placeholder="Description" float class="need_translate_val" translate="Description"></ons-input>
