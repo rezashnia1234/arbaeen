@@ -556,6 +556,16 @@ var restaurant500_fa = {
 
 
 
+{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "United States Embassy",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.389994,33.298094]}},
+{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "Indian Embassy",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.372933,33.364148]}},
+{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "Russian Embassy",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.347085,33.318509]}},
+{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "British Embassy",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.39632,33.311269]}},
+{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "Romanian Embassy",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.422205,33.293449]}},
+{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "Italian Embassy",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.371836,33.295228]}},
+{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "Dutch embassy",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.43002,33.314301]}},
+{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "Chinese Embassy",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.310348,33.29766]}},
+{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "Greek Embassy",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.387683,33.281924]}},
+{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "French Embassy",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.420711,33.308698]}},
 
 { "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "کنسولگری جمهوری اسلامی ایران",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.33634475707925,31.99969789780743]}},
 { "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "کنسولگری جمهوری اسلامی ایران",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.02948021388499,32.60835727605914]}},

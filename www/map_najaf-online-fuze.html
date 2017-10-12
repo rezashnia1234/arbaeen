@@ -197,6 +197,17 @@
 			body.removeClass("persian_text");
 			body.addClass(text_direction);
 		}
+		//set_body_language();
+		if(window.localStorage.getItem('language') == null)
+		{
+			text_direction = "english_text";
+			lang = lang_en;
+		}
+		else
+		{
+			text_direction = window.localStorage.getItem('text_direction');
+			lang = window[window.localStorage.getItem('language')];
+		}
 	}
 	var my_location_gps;
 	function getParameterByName(name) {
@@ -252,7 +263,7 @@
 		//my_location_marker = L.marker([position.coords.latitude,position.coords.longitude], {icon: user_location_icon}).addTo(map).bindPopup("شما در شعاع " + radius + " متری این نقطه هستید");//.openPopup();
 		//my_location_circle = L.circle([position.coords.latitude,position.coords.longitude], radius).addTo(map);
 		my_location_marker.setLatLng([position.coords.latitude,position.coords.longitude]);
-		my_location_marker.bindPopup("شما در شعاع " + radius + " متری این نقطه هستید");
+		my_location_marker.bindPopup("");//"شما در شعاع " + radius + " متری این نقطه هستید"
 		my_location_circle.setLatLng([position.coords.latitude,position.coords.longitude]);
 		my_location_circle.setRadius(radius);
 		//console.log("00000:" + position.coords);
@@ -276,10 +287,10 @@
 
 	<div class="cd-popup is-visible0 favorites" role="alert">
 		<div class="cd-popup-container">
-			<p><input id="favorite_title" id="favorite_title" placeholder="لطفا عنوان نقطه مورد نظر را وارد نمایید" /></p>
+			<p class="need_translate_val" translate="Please_enter_the_title_of_the_point"><input id="favorite_title" id="favorite_title" placeholder="لطفا عنوان نقطه مورد نظر را وارد نمایید" /></p>
 			<ul class="cd-buttons">
-				<li><a href="#" onclick="add_to_favorites();">تاييد</a></li>
-				<li><a href="#" onclick="add_to_favorites_open();">لغو</a></li>
+				<li><a href="#" onclick="add_to_favorites();" class="need_translate" translate="ok" ></a></li>
+				<li><a href="#" onclick="add_to_favorites_open();" class="need_translate" translate="Cancel"></a></li>
 			</ul>
 			<!--<a href="#0" class="cd-popup-close img-replace">Close</a>-->
 		</div> <!-- cd-popup-container -->
@@ -287,10 +298,10 @@
 
 	<div class="cd-popup is-visible0 route_from" role="alert">
 		<div class="cd-popup-container">
-			<p>لطفا مبدا حرکت را انتخاب نمایید</p>
+			<p class="need_translate" translate="Please_select_the_starting_point_of_the_move" class="need_translate" translate="Please_select_the_starting_point_of_the_move">لطفا مبدا حرکت را انتخاب نمایید</p>
 			<ul class="cd-buttons">
-				<li><a href="#" onclick="routing_to_open();" style="background-color:#247dc9;">تاييد</a></li>
-				<li><a href="#" onclick="routing_open();">لغو</a></li>
+				<li><a href="#" onclick="routing_to_open();" style="background-color:#247dc9;" class="need_translate" translate="ok">تاييد</a></li>
+				<li><a href="#" onclick="routing_open();" class="need_translate" translate="Cancel">لغو</a></li>
 			</ul>
 			<!--<a href="#0" class="cd-popup-close img-replace">Close</a>-->
 		</div> <!-- cd-popup-container -->
@@ -298,10 +309,10 @@
 
 	<div class="cd-popup is-visible0 route_to" role="alert">
 		<div class="cd-popup-container">
-			<p>لطفا مقصد را انتخاب نمایید</p>
+			<p class="need_translate" translate="Please_select_the_destination">لطفا مقصد را انتخاب نمایید</p>
 			<ul class="cd-buttons">
-				<li><a href="#" onclick="routinging_start();" style="background-color:#ce3b39;">تاييد</a></li>
-				<li><a href="#" onclick="routing_open();">لغو</a></li>
+				<li><a href="#" onclick="routinging_start();" style="background-color:#ce3b39;" class="need_translate" translate="ok">تاييد</a></li>
+				<li><a href="#" onclick="routing_open();" class="need_translate" translate="Cancel">لغو</a></li>
 			</ul>
 			<!--<a href="#0" class="cd-popup-close img-replace">Close</a>-->
 		</div> <!-- cd-popup-container -->
@@ -421,16 +432,17 @@ else
 //console.log("**************************************************************************************");
 
 	var categories = {
-		101 : {desc: "مکان های زیارتی", icon:"zearati"},/////////////
-		102 : {desc: "نقاط مورد علاقه", icon:"fav"},
-		103 : {desc: "مراکز درمانی", icon:"hospetal"},///////////////////////////////
-		106 : {desc: "هتل ها", icon:"hotel"},///////////////////////////////
-		107 : {desc: "عمود ها", icon:"mil"},//////////////////////////////////
-		108 : {desc: "حمل و نقل", icon:"hamlonaghl"},/////////////////////////////
-		109 : {desc: "محل های گمشدگان", icon:"gomshodeghan"},
-		110 : {desc: "کنسولگری", icon:"edari"},
-		111 : {desc: "خدمات اداری به زائرین", icon:"service"},
-		112 : {desc: "موکب ها", icon:"mukeb"},
+		101 : {desc: multilang.get("Holy_places"), icon:"zearati"},/////////////
+		102 : {desc: multilang.get("Points_of_interest"), icon:"fav"},
+		103 : {desc: multilang.get("Health_centers"), icon:"hospetal"},///////////////////////////////
+		//104 : {desc: multilang.get("Health_centers"), icon:"hospetal"},///////////////////////////////
+		106 : {desc: multilang.get("Hotels"), icon:"hotel"},///////////////////////////////
+		107 : {desc: multilang.get("Pillars"), icon:"mil"},//////////////////////////////////
+		108 : {desc: multilang.get("Transportation"), icon:"hamlonaghl"},/////////////////////////////
+		109 : {desc: multilang.get("Lost_Found"), icon:"gomshodeghan"},
+		110 : {desc: multilang.get("Consular_Services"), icon:"consular"},
+		111 : {desc: multilang.get("Official_Services"), icon:"edari"},
+		112 : {desc: multilang.get("Tents"), icon:"mukeb"},
 	};
 
 	
@@ -546,11 +558,11 @@ else
 				capacity_last_update = jQuery.timeago(capacity_last_update); 
 			}
 			var popup_temp_string			 = "<div onclick='show_mukeb_info(" + counter +");'>";
-			popup_temp_string				+= "<h3>نام موکب : " + name + "</h3>";
-			popup_temp_string				+= ((capacity_man_remaining != "") ? "ظرفیت آقایان : " + capacity_man_remaining + "<br>" : "");
-			popup_temp_string				+= ((capacity_woman_remaining != "") ? "ظرفیت خانم ها : " + capacity_woman_remaining + "<br>" : "");
-			popup_temp_string				+= ((capacity_last_update != "") ? "<span class='show_date_dec'>تاریخ اعلام ظرفیت: </span><br>" + capacity_last_update + "" : "");
-			popup_temp_string				+= "<br><span class='clickable'>اطلاعات تکمیلی</span>";
+			popup_temp_string				+= "<h3>" + multilang.get("Mukeb_Name") + " : " + name + "</h3>";
+			popup_temp_string				+= ((capacity_man_remaining != "") ? multilang.get("Remaining_Man_capacity") + " : " + capacity_man_remaining + "<br>" : "");
+			popup_temp_string				+= ((capacity_woman_remaining != "") ? multilang.get("Remaining_Woman_capacity") + " : " + capacity_woman_remaining + "<br>" : "");
+			popup_temp_string				+= ((capacity_last_update != "") ? "<span class='show_date_dec'>" + multilang.get("Last_update") + ": </span><br>" + capacity_last_update + "" : "");
+			popup_temp_string				+= "<br><span class='clickable'>" + multilang.get("More_Details") + "</span>";
 			popup_temp_string			 	+= "</div>";
 			
 			
@@ -651,9 +663,9 @@ else
 	L.control.search({
 		layer: restLayers,
 		propertyName: 'name',
-		textErr: 'نقطه ای یافت نشد',	//error message
-		textCancel: 'لغو',		    //title in cancel button		
-		textPlaceholder: 'جستجو در میان نقاط...',   //placeholder value		 // 'جستجو در میان نقاط...'//		'البحث في المواقع...'
+		textErr: multilang.get("No_location_found"),	//error message
+		textCancel: multilang.get("Cancel"),		    //title in cancel button		
+		textPlaceholder: multilang.get("Search_among_places"),   //placeholder value		 // 'جستجو در میان نقاط...'//		'البحث في المواقع...'
 		markerLocation: true,
 		filterData: function(text, records) {
 			var jsons = fuse.search(text),
@@ -748,6 +760,14 @@ else
 	
 	
 	function route_function(point1th_lat,point1th_long,point2th_lat,point2th_long) {
+		var temp_language = "ar";
+		if(window.localStorage.getItem('language') == "lang_fa")
+			temp_language = "fa";
+		else if(window.localStorage.getItem('language') == "lang_en")
+			temp_language = "en";
+		else
+			temp_language = "ar";
+
 		/*** start routing ***/
 		//new_favorite_marker = L.marker(map.getCenter(), {icon: from_icon} ).addTo(map);
 		waypoints = [
@@ -776,7 +796,7 @@ else
 									{color: 'blue', opacity: 0.5, weight: 2}
 								]
 							},
-							language: "fa",
+							language: temp_language,
 							position:'bottomleft'
 						}).addTo(map);
 		/*
@@ -821,6 +841,7 @@ else
 	}(jQuery));
 	
 	$(document).ready(function(){
+		need_translate();
 		$("#routing_btn").click(function(){
 			//route_function(31.99564047,44.31262563,32.6171,44.0362);
 			routing_open();
@@ -1142,6 +1163,27 @@ a:hover.slidesjs-stop {
 	top: 1px;
 	-webkit-appearance: checkbox;
 	appearance: checkbox;
+}
+
+.arabic_text div.leaflet-control-layers.leaflet-control form.leaflet-control-layers-list div.leaflet-control-layers-overlays label:nth-child(9) div,
+.english_text div.leaflet-control-layers.leaflet-control form.leaflet-control-layers-list div.leaflet-control-layers-overlays label:nth-child(9) div {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+textarea, input, textarea, button, select, a, img { outline: none; }
+.persian_text div,.persian_text button,.persian_text .ripple,.persian_text .button--material,.persian_text .button--large--cta,.persian_text .button,.persian_text input,.persian_text select{
+	font-family:"iranyekan",Tahoma !important;
+	font-size:14px;
+}
+.arabic_text div,.arabic_text button,.arabic_text .ripple,.arabic_text .button--material,.arabic_text .button--large--cta,.arabic_text .button,.arabic_text input,.arabic_text select{
+	font-family:"Droid Arabic Kufi",Tahoma !important;
+	font-size:14px;
+}
+.english_text div,.english_text button,.english_text .ripple,.english_text .button--material,.english_text .button--large--cta,.english_text .button,.english_text input,.english_text select{
+	font-family:Tahoma !important;
+	font-size:14px;
 }
 </style>
 </body>

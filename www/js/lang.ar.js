@@ -113,6 +113,29 @@ lang_ar = {
 	Applying_Changes : "تطبيق التغييرات",
 	Will_be_active_in_the_next_version : "سوف تكون نشطة في الإصدار التالي",
 	Please_Login_Again : "الرجاد الدخول على الحساب من جديد",
+	Total_Man_capacity : "القدرة الكاملة للرجل",
+	Total_Woman_capacity : "القدرة الكلية للسيدة",
+	Remaining_Man_capacity : "القدرة المتبقية للرجال",
+	Remaining_Woman_capacity : "السعة المتبقية مفقودة",
+	Last_update_time : "آخر المعلومات التي تم تحديثها",
+	Last_update : "وقت التحديث",//Last update
+	More_Details : "مزيد من التفاصيل",//More Details
+	Holy_places : "الاماكن المقدسة",//Holy Places
+	Points_of_interest : "الأماكن المفضلة",//Points of Interest
+	Health_centers : "مراكز صحية",//Health Centers
+	Hotels : "الفنادق",//Hotels
+	Pillars : "الاعمدة",//Pillars
+	Rest_Place : "استراحات الزائرين",//Rest_Place
+	Transportation : "محطات النقل",//Transportation
+	Lost_Found : "مراكز المفقودين",//Lost & Found
+	Consular_Services : "القنصليات",//Consular Services
+	Official_Services : "",//official services
+	Tents : "موکب",//Mukeb
+	Please_enter_the_title_of_the_point : "عنوان النقطة الجديدة",//Please enter the title of the point
+	Please_select_the_starting_point_of_the_move : "اختر مبدأ الرحلة",//Please select the starting point of the move
+	Please_select_the_destination : "اختر مقصد الرحلة",//Please select the destination
+	No_location_found : "لم يتم الحصول على الموقع",//No location found
+	Search_among_places : "البحث في المواقع...",//Search among places ...//
 };
 
 

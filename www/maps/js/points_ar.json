@@ -538,12 +538,6 @@ var restaurant500_ar = {
 
 
 
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "استراحة مدخل سيطرة النجف جهة المقبرة",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.328272,32.002337]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "استراحة الحولي للزائرين",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.306466,	31.995545]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "قاعة سيد الاوصياء للزائرين قرب الحرم باب الطوسي",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.315473,	31.996754]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "مدينة الزائرين على طريق طويريج مقابل جامعة كربلاء	",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.095382,32.605079]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "مدينة الحسن للزائرين	",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.135577,32.504502]}},
-
 
 
 { "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "الولايات المتحدة الامريكية",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.389994,33.298094]}},
