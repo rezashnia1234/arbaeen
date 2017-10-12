@@ -41,7 +41,7 @@
 					if(window.localStorage.getItem("udid")==null)
 						window.localStorage.setItem("udid","test");
 				}, 1500);
-				document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "none"});
+				document.querySelector('#myNavigator').pushPage('zaer_service_I_Lost_Something.html', {animation: "none"});
 			}
 			else
 				FileTransfer_OBJ = new FileTransfer();
@@ -1965,6 +1965,10 @@ alert("An error has occurred: Code = " + error.code);
 				document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
 			}
 		}
+		function show_category_list(){
+			console.log("show_category_list()");
+			app.showFromObject2();
+		}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2016,7 +2020,21 @@ alert("An error has occurred: Code = " + error.code);
 		});
 		
 		document.addEventListener('prechange', function(event) {
+			//console.log(event);
 			document.querySelector('ons-toolbar .center').innerHTML = multilang.get(event.tabItem.getAttribute('label'));
+			if(event.tabItem.getAttribute('label')=="filter")
+			{
+				//$(document.querySelector('ons-toolbar .center')).onclick
+				document.querySelector('ons-toolbar .center').onclick = function() {
+					show_category_list();
+				};
+			}
+			else
+			{
+				document.querySelector('ons-toolbar .center').onclick = function() {
+					
+				};
+			}
 		});
 
 		document.addEventListener('init', function(event) {
@@ -2290,7 +2308,7 @@ alert("An error has occurred: Code = " + error.code);
 					*/
 					
 					page.querySelector('#goto_page_zaer_service_missing_objects_lost').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						document.querySelector('#myNavigator').pushPage('zaer_service_I_Lost_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_zaer_service_missing_objects_found').onclick = function() {
 						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
@@ -2606,6 +2624,83 @@ alert("An error has occurred: Code = " + error.code);
 							multilang.get('ok')		// buttonName
 						);
 					};
+			}
+			else if (page.id === 'zaer_service_I_Lost_Something')
+			{
+					check_retina();
+					need_translate();
+
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					app = {};
+					var	buttons = [
+							multilang.get("Passport_and_identification_documents"),
+							multilang.get("Clothing"),
+							multilang.get("Money"),
+							multilang.get("Watch"),
+							multilang.get("Ring"),
+							multilang.get("Jewelry"),
+							multilang.get("Others"),
+							multilang.get("Cancel"),
+						];
+
+					app.showFromObject2 = function () {
+						ons.openActionSheet({
+							title: multilang.get("Select_a_category"),
+							cancelable: true,
+							buttons: [
+								multilang.get("Passport_and_identification_documents"),
+								multilang.get("Clothing"),
+								multilang.get("Money"),
+								multilang.get("Watch"),
+								multilang.get("Ring"),
+								multilang.get("Jewelry"),
+								multilang.get("Others"),
+								{
+									label: multilang.get("Cancel"),
+									icon: 'md-close'
+								}
+							]
+						}).then(function (index) {
+							console.log('index: ', index);
+							console.log(buttons[index]);
+							if(index != -1 && index != 7)
+							{
+								//$("#Select_a_category").find("input").val(buttons[index]);
+								//document.getElementById('Select_a_category').value = buttons[index];
+								//document.getElementById('Select_a_category_id').value = index;
+								//$("#Select_a_category input").val(buttons[index]);
+								//$("#Select_a_category_id input").val(index);
+							}
+						})
+					};
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					
+					setTimeout(function(){
+						check_retina();
+						need_translate();
+						
+						document.querySelector('#zaer_service_I_Lost_Something ons-toolbar .center').onclick = function() {
+							show_category_list();
+						};
+
+var infiniteList = document.getElementById('infinite-list');
+infiniteList.delegate = {
+	createItemContent: function(i) {
+		return ons.createElement('<ons-list-item>Item ' + i + '</ons-list-item>');
+	},
+	countItems: function() {
+		return 10000;
+	}
+};
+infiniteList.refresh();
+
+
+	
+					}, 300);
 			}
 
 		});
@@ -3272,6 +3367,60 @@ alert("An error has occurred: Code = " + error.code);
 		</ons-page>
 	</template>
 
+	<template id="zaer_service_I_Lost_Something.html">
+		<ons-page id="zaer_service_I_Lost_Something" >
+			<div class="page_bg retina" ></div>
+			<ons-toolbar inline modifier="transparent22">
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="center need_translate" translate="filter" translate2="Found_List">Found List</div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+			</ons-toolbar>
+
+			<ons-tabbar swipeable position="auto" >
+				<ons-tab page="zaer_service_I_Lost_Something_favorite_tab.html"  filter_the_list="true"  label="filter" icon="fa-search" class="need_translate_tab" translate="Found_List" active></ons-tab>
+				<ons-tab page="zaer_service_I_Lost_Something_list_tab.html" label="Maybe_This" icon="fa-star" class="need_translate_tab" translate="Maybe_This" ></ons-tab>
+			</ons-tabbar>
+			
+		</ons-page>
+	</template>
+	
+	<template id="zaer_service_I_Lost_Something_favorite_tab.html">
+		<ons-page id="zaer_service_I_Lost_Something_favorite_tab">
+			<ons-toolbar>
+				<div class="center"></div>
+			</ons-toolbar>
+						
+			<ons-list>
+				<ons-lazy-repeat id="infinite-list"></ons-lazy-repeat>
+			</ons-list>
+		</ons-page>
+	</template>
+
+	<template id="zaer_service_I_Lost_Something_list_tab.html">
+		<ons-page id="zaer_service_I_Lost_Something_list_tab">
+			<ons-toolbar>
+				<div class="center"></div>
+			</ons-toolbar>
+			<ons-card>
+				<img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
+				<div class="title">
+					Awesome framework
+				</div>
+				<div class="content">
+					<ons-list>
+						<ons-list-header>Bindings</ons-list-header>
+						<ons-list-item>Vue</ons-list-item>
+						<ons-list-item>Angular</ons-list-item>
+						<ons-list-item>React</ons-list-item>
+					</ons-list>
+				</div>
+			</ons-card>
+		</ons-page>
+	</template>
 
 
 

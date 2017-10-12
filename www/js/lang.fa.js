@@ -118,24 +118,28 @@ lang_fa = {
 	Remaining_Man_capacity : "ظرفیت باقیمانده آقا",
 	Remaining_Woman_capacity : "ظرفیت باقیمانده خانم",
 	Last_update_time : "زمان آخرین بروزرسانی اطلاعات",
-	Last_update : "زمان بروزرسانی",//Last update
-	More_Details : "جزئیات بیشتر",//More Details
-	Holy_places : "مکان های زیارتی",//Holy Places
-	Points_of_interest : "نقاط مورد علاقه",//Points of Interest
-	Health_centers : "مراکز درمانی",//Health Centers
-	Hotels : "هتل ها",//Hotels
-	Pillars : "عمود ها",//Pillars
-	Rest_Place : "استراحتگاه",//Rest_Place
-	Transportation : "حمل و نقل",//Transportation
-	Lost_Found : "محل های گمشدگان",//Lost & Found
-	Consular_Services : "کنسولگری",//Consular Services
-	Official_Services : "خدمات اداری",//official services
-	Tents : "موکب ها",//Mukeb
-	Please_enter_the_title_of_the_point : "لطفا عنوان نقطه مورد نظر را وارد نمایید",//Please enter the title of the point
-	Please_select_the_starting_point_of_the_move : "لطفا مبدا حرکت را انتخاب نمایید",//Please select the starting point of the move
-	Please_select_the_destination : "لطفا مقصد را انتخاب نمایید",//Please select the destination
-	No_location_found : "نقطه ای یافت نشد",//No location found
-	Search_among_places : "جستجو در میان نقاط...",//Search among places ...//البحث في المواقع...
+	Last_update : "زمان بروزرسانی",
+	More_Details : "جزئیات بیشتر",
+	Holy_places : "مکان های زیارتی",
+	Points_of_interest : "نقاط مورد علاقه",
+	Health_centers : "مراکز درمانی",
+	Hotels : "هتل ها",
+	Pillars : "عمود ها",
+	Rest_Place : "استراحتگاه",
+	Transportation : "حمل و نقل",
+	Lost_Found : "محل های گمشدگان",
+	Consular_Services : "کنسولگری",
+	Official_Services : "خدمات اداری",
+	Tents : "موکب ها",
+	Please_enter_the_title_of_the_point : "لطفا عنوان نقطه مورد نظر را وارد نمایید",
+	Please_select_the_starting_point_of_the_move : "لطفا مبدا حرکت را انتخاب نمایید",
+	Please_select_the_destination : "لطفا مقصد را انتخاب نمایید",
+	No_location_found : "نقطه ای یافت نشد",
+	Search_among_places : "جستجو در میان نقاط...",
+	
+	Found_List : "پیدا شده ها",
+	Maybe_This : "شاید این",
+	filter : "تعیین نوع <ons-icon icon='fa-filter' class='ons-icon fa-filter fa'></ons-icon>",
 };
 
 
