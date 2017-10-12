@@ -17,7 +17,16 @@
 	}
 	
 	function go_back_from_map() {
-		window.location.href = "index.html?target_page=zaer_services.html";
+		if(window.sessionStorage.getItem("come_from_which_page")=="zaer_service_map")
+		{
+			window.sessionStorage.removeItem('come_from_which_page');
+			window.location.href = "index.html?target_page=zaer_service_map.html";
+		}
+		else
+		{
+			window.sessionStorage.removeItem('come_from_which_page');
+			window.location.href = "index.html?target_page=zaer_service_map_mavakeb.html";
+		}
 	}
 	function go_back_from_map_mukeb() {
 		window.location.href = "index.html?target_page=zaer_service_map_mavakeb.html";

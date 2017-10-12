@@ -32,7 +32,7 @@
 .clickable{text-decoration:underline;color:#3F51B5;}
 </style>
 <script>
-	
+
 	city_name_list = [];
 	if(true)
 	{
@@ -315,9 +315,16 @@
 <script src="maps/js/Control.Geocoder.js"></script>
 
 <script src="maps/js/fuse.min.js"></script>
-<script src="maps/js/points.json"></script>
-
+<script src="maps/js/points_fa.json"></script>
+<script src="maps/js/points_en.json"></script>
+<script src="maps/js/points_ar.json"></script>
 <script>
+if(window.localStorage.getItem('language') == "lang_fa")
+	restaurant500 = restaurant500_fa;
+else if(window.localStorage.getItem('language') == "lang_en")
+	restaurant500 = restaurant500_en;
+else
+	restaurant500 = restaurant500_ar;
 //console.log("**************************************************************************************");
 //console.log("**************************************************************************************");
 //console.log("**************************************************************************************");
