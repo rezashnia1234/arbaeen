@@ -555,23 +555,6 @@ var restaurant500 = {
 
 
 
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "مختار ثقفی ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.32264229,32.09553636]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "ستاد بازسازی عتبات ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.3220367,32.15205588]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "امام رضا ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.30900859,32.18764503]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "جابر بن عبدالله ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.30898279,32.18793055]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "هیئت رزمندگان قزوین ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.2918741,32.23928522]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "علی بن موسی الرضا ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.24559581,32.34393754]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "صاحب الزمان ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.22525655,32.37143616]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "رزمندگان اسلام ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.2187713,32.38091489]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "شباب رضوی ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.21763088,32.38223656]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "دانشجویی مازندران ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.21135736,32.39062094]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "خیرین تهران ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.19762056,32.40978929]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "هیئت رزمندگان ورامین ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.19430872,32.41437167]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "خیرین شیراز ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.18365317,32.42931588]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "شباب قاسم-اهالی هرمزگان ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.18028427,32.43387941]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "شباب امیرالمومنین ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.14293766,32.49408667]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "مسجد جمکران ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.12976284,32.50905503]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "خدام الحسین ",				"theme": 1.0, "libtheme": "CULTURE", "categorie":104.0 }, "geometry": { "type": "Point", "coordinates": [44.11770874,32.52195446]}},
 
 
 { "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "کنسولگری جمهوری اسلامی ایران",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.33634475707925,31.99969789780743]}},

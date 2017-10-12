@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="css/reset.css">
 <link rel="stylesheet" type="text/css" href="css/fontiran.css">
 <link rel="stylesheet" type="text/css" href="css/arabic_font.css">
+<link rel="stylesheet" type="text/css" href="css/magnific-popup.css">
 
 <link rel="stylesheet" href="maps/js/leaflet.css" />
 <link rel="stylesheet" href="maps/js/leaflet-search.css" />
@@ -16,9 +17,187 @@
 <script src="js/jquery-3.0.0.min.js"></script>
 <script src="js/fastclick.js"></script>
 <script src="js/back_btn.js"></script>
+<script src="js/persian_number_to_english.js"></script>
+<script src="js/lang.ar.js"></script>
+<script src="js/lang.fa.js"></script>
+<script src="js/lang.en.js"></script>
+<script src="js/jquery.timeago.js"></script>
+<script src="js/jquery.magnific-popup.js"></script>
+<script src="js/jquery.slides.min.js"></script>
 <!--<script src="js/console.log.js"></script>-->
 <script src="cordova.js"></script>
+<style>
+.show_date{display:inline-block;direction:ltr;}
+.show_date_dec{display:inline-block;/*direction:ltr;*/}
+.clickable{text-decoration:underline;color:#3F51B5;}
+</style>
 <script>
+	
+	city_name_list = [];
+	if(true)
+	{
+		if(window.localStorage.getItem('language') == "lang_fa")
+		{
+				(function (factory) {
+					if (typeof define === 'function' && define.amd) {
+						define(['jquery'], factory);
+					} else if (typeof module === 'object' && typeof module.exports === 'object') {
+						factory(require('jquery'));
+					} else {
+						factory(jQuery);
+					}
+				}(function (jQuery) {
+					jQuery.timeago.settings.strings = {
+						prefixAgo: null,
+						prefixFromNow: null,
+						suffixAgo: "پیش",
+						suffixFromNow: "از حال",
+						seconds: "کمتر از یک دقیقه",
+						minute: "حدود یک دقیقه",
+						minutes: "%d دقیقه",
+						hour: "حدود یک ساعت",
+						hours: "حدود %d ساعت",
+						day: "یک روز",
+						days: "%d روز",
+						month: "حدود یک ماه",
+						months: "%d ماه",
+						year: "حدود یک سال",
+						years: "%d سال",
+						wordSeparator: " ",
+						numbers: ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹']
+					};
+				}));
+		}
+		else if(window.localStorage.getItem('language') == "lang_ar")
+		{
+				(function (factory) {
+				  if (typeof define === 'function' && define.amd) {
+					define(['jquery'], factory);
+				  } else if (typeof module === 'object' && typeof module.exports === 'object') {
+					factory(require('jquery'));
+				  } else {
+					factory(jQuery);
+				  }
+				}(function (jQuery) {
+				  function numpf(n, a) {
+					return a[plural=n===0 ? 0 : n===1 ? 1 : n===2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5];
+				  }
+				  
+				  jQuery.timeago.settings.strings = {
+					prefixAgo: "منذ",
+					prefixFromNow: "بعد",
+					suffixAgo: null,
+					suffixFromNow: null, // null OR "من الآن"
+					second: function(value) { return numpf(value, [
+					  'أقل من ثانية',
+					   'ثانية واحدة',
+					   'ثانيتين',
+					   '%d ثوانٍ',
+					   '%d ثانية',
+					   '%d ثانية']); },
+					seconds: function(value) { return numpf(value, [
+					  'أقل من ثانية',
+					   'ثانية واحدة',
+					   'ثانيتين',
+					   '%d ثوانٍ',
+					   '%d ثانية',
+					   '%d ثانية']); },
+					minute: function(value) { return numpf(value, [
+					  'أقل من دقيقة',
+					   'دقيقة واحدة',
+					   'دقيقتين',
+					   '%d دقائق',
+					   '%d دقيقة',
+					   'دقيقة']); },
+					minutes: function(value) { return numpf(value, [
+					  'أقل من دقيقة',
+					   'دقيقة واحدة',
+					   'دقيقتين',
+					   '%d دقائق',
+					   '%d دقيقة',
+					   'دقيقة']); },
+					hour:  function(value) { return numpf(value, [
+					  'أقل من ساعة',
+					   'ساعة واحدة',
+					   'ساعتين',
+					   '%d ساعات',
+					   '%d ساعة',
+					   '%d ساعة']); },
+					hours: function(value) { return numpf(value, [
+					  'أقل من ساعة',
+					   'ساعة واحدة',
+					   'ساعتين',
+					   '%d ساعات',
+					   '%d ساعة',
+					   '%d ساعة']); },
+					day:  function(value) { return numpf(value, [
+					  'أقل من يوم',
+					   'يوم واحد',
+					   'يومين',
+					   '%d أيام',
+					   '%d يومًا',
+					   '%d يوم']); },
+					days: function(value) { return numpf(value, [
+					  'أقل من يوم',
+					   'يوم واحد',
+					   'يومين',
+					   '%d أيام',
+					   '%d يومًا',
+					   '%d يوم']); },
+					month:  function(value) { return numpf(value, [
+					  'أقل من شهر',
+					   'شهر واحد',
+					   'شهرين',
+					   '%d أشهر',
+					   '%d شهرًا',
+					   '%d شهر']); },
+					months: function(value) { return numpf(value, [
+					  'أقل من شهر',
+					   'شهر واحد',
+					   'شهرين',
+					   '%d أشهر',
+					   '%d شهرًا',
+					   '%d شهر']); },
+					year:  function(value) { return numpf(value,  [
+					  'أقل من عام',
+					   'عام واحد',
+					   '%d عامين',
+					   '%d أعوام',
+					   '%d عامًا']);
+					 },
+					years: function(value) { return numpf(value,  [
+					  'أقل من عام',
+					   'عام واحد',
+					   'عامين',
+					   '%d أعوام',
+					   '%d عامًا',
+					   '%d عام']);}
+				  };
+				}));
+		}
+		function set_body_language(){
+			if(window.localStorage.getItem("language")=="lang_ar")
+			{
+				lang = lang_ar;
+				text_direction = "arabic_text";
+			}
+			else if(window.localStorage.getItem("language")=="lang_en")
+			{
+				lang = lang_en;
+				text_direction = "english_text";
+			}
+			else if(window.localStorage.getItem("language")=="lang_fa")
+			{
+				lang = lang_fa;
+				text_direction = "persian_text";
+			}
+			body = $("body");
+			body.removeClass("english_text");
+			body.removeClass("arabic_text");
+			body.removeClass("persian_text");
+			body.addClass(text_direction);
+		}
+	}
 	var my_location_gps;
 	function getParameterByName(name) {
 		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -28,7 +207,15 @@
 	}
     $( document ).ready(function() {
         console.log( "document loaded" );
-		
+		set_body_language();
+		city_name_list = [
+			multilang.get("City_Name"),
+			multilang.get("Karbala"),
+			multilang.get("Najaf"),
+			multilang.get("Kazemein"),
+			multilang.get("From_Najaf_to_Karbala"),
+			multilang.get("From_Kazemein_to_Karbala")
+		];
     });
 	function init() {		
 		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start init()');
@@ -131,17 +318,112 @@
 <script src="maps/js/points.json"></script>
 
 <script>
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+	if(window.localStorage.getItem('json_mukeb_list_for_map') != null)
+	{
+		try {
+			//console.log(restaurant500);
+			var mukeb_item = $.parseJSON(window.localStorage.getItem('json_mukeb_list_for_map'));
+			//console.log(mukeb_item.length);
+			for (i = 0; i < mukeb_item.length; ++i) {
+				//console.log(mukeb_item[i]);
+				restaurant500.features.push(mukeb_item[i]);
+			}
+			//console.log(restaurant500);
+			console.log("JSON IS READY");
+		} catch (e) {
+			console.log("NOT JSON");
+		}
+	}
+	function show_mukeb_info(counter)
+	{
+		console.log(counter);
+		//try {
+			var mukeb_item = $.parseJSON(window.localStorage.getItem('json_mukeb_list_for_map'));
+			//console.log(mukeb_item[counter]);
+			
+			if(mukeb_item[counter].properties.capacity_last_update	!= "")
+			{
+				var capacity_last_update = mukeb_item[counter].properties.capacity_last_update;
+				capacity_last_update = new Date(capacity_last_update*1000);
+				capacity_last_update = jQuery.timeago(capacity_last_update); 
+			}
+			var text = "";
+			
+			if(mukeb_item[counter].properties.images.length > 0)
+			{
+				server_url_image = window.localStorage.getItem("server_url_image");
+				text += "<div id='slides'>"
+				for (i = 0; i < mukeb_item[counter].properties.images.length; ++i) {
+					text += "<img src='" + server_url_image + "640x480-" + mukeb_item[counter].properties.images[i] + "?parameters=@width=640@height=480@cropratio=true@quality=85@image=/uploads_mukeb/" + mukeb_item[counter].properties.images[i] + "'>";
+				}
+				text += "</div>";
+				text += "<script>$(function(){$('#slides').slidesjs({width: 640,height: 480,play: {active: true,auto: true,interval: 4000,swap: true}});});<\/script>";
+			}
+			text += multilang.get("Mukeb_Name") + " : " + mukeb_item[counter].properties.name + "<br>";
+			text += ((mukeb_item[counter].properties.capacity_man				!= "")  ? multilang.get("Total_Man_capacity") + " : " + mukeb_item[counter].properties.capacity_man + "<br>" : "");
+			text += ((mukeb_item[counter].properties.capacity_woman				!= "")  ? multilang.get("Total_Woman_capacity") + " : " + mukeb_item[counter].properties.capacity_woman + "<br>" : "");
+			text += ((mukeb_item[counter].properties.capacity_man_remaining		!= "")  ? multilang.get("Remaining_Man_capacity") + " : " + mukeb_item[counter].properties.capacity_man_remaining + "<br>" : "");
+			text += ((mukeb_item[counter].properties.capacity_woman_remaining	!= "")  ? multilang.get("Remaining_Woman_capacity") + " : " + mukeb_item[counter].properties.capacity_woman_remaining + "<br>" : "");
+			text += ((mukeb_item[counter].properties.capacity_last_update		!= "")  ? multilang.get("Last_update_time") + " : " + capacity_last_update + "<br>" : "");
+			text +=  "<hr>";
+			text += ((mukeb_item[counter].properties.city_name					!= "")  ? multilang.get("City_Name") + " : " + city_name_list[mukeb_item[counter].properties.city_name] + "<br>" : "");
+			text += ((mukeb_item[counter].properties.address					!= "")  ? multilang.get("Address") + " : " + mukeb_item[counter].properties.address + "<br>" : "");
+			text += ((mukeb_item[counter].properties.amud						!= "")  ? multilang.get("Pillar_Number") + " : " + mukeb_item[counter].properties.amud + "<br>" : "");
+			text += ((mukeb_item[counter].properties.Phone_number_1				!= "")  ? multilang.get("Phone_number_1") + " : " + mukeb_item[counter].properties.Phone_number_2 + "<br>" : "");
+			text += ((mukeb_item[counter].properties.Phone_number_2				!= "")  ? multilang.get("Phone_number_2") + " : " + mukeb_item[counter].properties.Phone_number_2 + "<br>" : "");
+			text += ((mukeb_item[counter].properties.Telegram_ID				!= "")  ? multilang.get("Telegram_ID") + " : " + mukeb_item[counter].properties.Telegram_ID + "<br>" : "");
+			text += ((mukeb_item[counter].properties.WhatsApp_ID				!= "")  ? multilang.get("WhatsApp_ID") + " : " + mukeb_item[counter].properties.WhatsApp_ID + "<br>" : "");
+			text += ((mukeb_item[counter].properties.Line_ID					!= "")  ? multilang.get("Line_ID") + " : " + mukeb_item[counter].properties.Line_ID + "<br>" : "");
+			text += ((mukeb_item[counter].properties.Imo_ID						!= "")  ? multilang.get("Imo_ID") + " : " + mukeb_item[counter].properties.Imo_ID + "<br>" : "");
+			text +=  "<hr>";
+			text +=  multilang.get("Features") + " : " + "<br>";
+			text += ((mukeb_item[counter].properties.food						== "1") ? multilang.get("Food") + " : " + multilang.get("yes") + "<br>" : "");
+			text += ((mukeb_item[counter].properties.internet					== "1") ? multilang.get("Internet") + " : " + multilang.get("yes") + "<br>" : "");
+			text += ((mukeb_item[counter].properties.blanket					== "1") ? multilang.get("Blanket") + " : " + multilang.get("yes") + "<br>" : "");
+			text += ((mukeb_item[counter].properties.wc							== "1") ? multilang.get("WC") + " : " + multilang.get("yes") + "<br>" : "");
+			text += ((mukeb_item[counter].properties.washing_machine			== "1") ? multilang.get("Washing_Machine") + " : " + multilang.get("yes") + "<br>" : "");
+			text += ((mukeb_item[counter].properties.bathroom					== "1") ? multilang.get("Bathroom") + " : " + multilang.get("yes") + "<br>" : "");
+			text +=  "<hr>";
+			text += ((mukeb_item[counter].properties.Description				!= "")  ? multilang.get("Description") + " : " + mukeb_item[counter].properties.Description + "<br>" : "");
+
+			jQuery.magnificPopup.open({
+				items: {
+					src: '<div class="white-popup">' + text + '</div>', // can be a HTML string, jQuery object, or CSS selector
+					type: 'inline'
+				}
+			});
+		//} catch (e) {
+		//	console.log("NOT JSON");
+		//}
+	}
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+//console.log("**************************************************************************************");
+
 	var categories = {
 		101 : {desc: "مکان های زیارتی", icon:"zearati"},/////////////
 		102 : {desc: "نقاط مورد علاقه", icon:"fav"},
 		103 : {desc: "مراکز درمانی", icon:"hospetal"},///////////////////////////////
-		104 : {desc: "موکب های در اختیار ایرانی ها", icon:"mukeb-iran"},
 		106 : {desc: "هتل ها", icon:"hotel"},///////////////////////////////
 		107 : {desc: "عمود ها", icon:"mil"},//////////////////////////////////
 		108 : {desc: "حمل و نقل", icon:"hamlonaghl"},/////////////////////////////
 		109 : {desc: "محل های گمشدگان", icon:"gomshodeghan"},
 		110 : {desc: "کنسولگری", icon:"edari"},
 		111 : {desc: "خدمات اداری به زائرین", icon:"service"},
+		112 : {desc: "موکب ها", icon:"mukeb"},
 	};
 
 	
@@ -208,13 +490,16 @@
 	//karbala//lat=32.6073&long=44.0115
 	var lat_center = getParameterByName('lat');
 	var long_center = getParameterByName('long');
+	var zoom = getParameterByName('zoom');
 	if(lat_center=="")
 		lat_center=32.0192;
 	if(long_center=="")
 		long_center=44.3298;
+	if(zoom=="")
+		long_center=14;
 	var map_center = new L.latLng(lat_center,long_center);
 	var map = L.map('map', {
-		zoom: 14,
+		zoom: zoom,
 		maxZoom: 17,//17
 		minZoom:1,
 		center: map_center,
@@ -241,23 +526,61 @@
 /**/
 	var restLayers = L.geoJson(restaurant500, {
 		pointToLayer: function(feature, latlng) {
-			var cat = feature.properties.categorie;
-			var icon = icons[cat];
+			var cat							= feature.properties.categorie;
+			var name						= feature.properties.name;
+			var counter						= feature.properties.counter;
+			var capacity_man_remaining		= feature.properties.capacity_man_remaining;
+			var capacity_woman_remaining	= feature.properties.capacity_woman_remaining;
+			var capacity_last_update		= feature.properties.capacity_last_update;
+			if(capacity_last_update!="")
+			{
+				capacity_last_update = new Date(capacity_last_update*1000);
+				//capacity_last_update = "<span class='show_date'>" + capacity_last_update.getFullYear() + "-" + (capacity_last_update.getMonth()+1) + "-" + capacity_last_update.getDate() + " " + capacity_last_update.getHours() + ":" + capacity_last_update.getMinutes() + "</span>";
+				capacity_last_update = jQuery.timeago(capacity_last_update); 
+			}
+			var popup_temp_string			 = "<div onclick='show_mukeb_info(" + counter +");'>";
+			popup_temp_string				+= "<h3>نام موکب : " + name + "</h3>";
+			popup_temp_string				+= ((capacity_man_remaining != "") ? "ظرفیت آقایان : " + capacity_man_remaining + "<br>" : "");
+			popup_temp_string				+= ((capacity_woman_remaining != "") ? "ظرفیت خانم ها : " + capacity_woman_remaining + "<br>" : "");
+			popup_temp_string				+= ((capacity_last_update != "") ? "<span class='show_date_dec'>تاریخ اعلام ظرفیت: </span><br>" + capacity_last_update + "" : "");
+			popup_temp_string				+= "<br><span class='clickable'>اطلاعات تکمیلی</span>";
+			popup_temp_string			 	+= "</div>";
 			
-			var props = L.Util.extend({
-						'name': '',
-						'cuisine': '',
-						'website': '',
-						'phone': ''
-					},feature.properties),
-				textPopup = L.Util.template("<h3>{name}</h3>", props),
-				style = {
-					radius: 5,
-					opacity: 0.8,
-					fillColor: '#ddd',
-					fillOpacity: 0.8
-				};
-
+			
+			
+			var icon = icons[cat];
+			if(cat==112)
+			{
+				var props = L.Util.extend({
+								'name': '',
+								'cuisine': '',
+								'website': '',
+								'phone': ''
+							},feature.properties),
+							textPopup = L.Util.template(popup_temp_string, props),
+							style = {
+								radius: 5,
+								opacity: 0.8,
+								fillColor: '#ddd',
+								fillOpacity: 0.8
+							};
+			}
+			else
+			{
+				var props = L.Util.extend({
+								'name': '',
+								'cuisine': '',
+								'website': '',
+								'phone': ''
+							},feature.properties),
+							textPopup = L.Util.template("<h3>{name}</h3>", props),
+							style = {
+								radius: 5,
+								opacity: 0.8,
+								fillColor: '#ddd',
+								fillOpacity: 0.8
+							};
+			}
 			//return L.circleMarker(latlng, style).bindPopup(textPopup);
 			/**/
 			var my_marker = L.marker(latlng, {icon: icon,keyboard: false,riseOnHover: true}).bindPopup(textPopup);
@@ -383,14 +706,34 @@
 
 	
 	setTimeout(function(){
-		$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').slice(2).prop('checked', true);
-		//$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector:not(:first)').prop('checked', true);
-		//$('.leaflet-control-layers-list .leaflet-control-layers-overlays .layer-control-img.zearati').parent().parent().find('input[type=checkbox]').prop('checked', false);
-		//$('.leaflet-control-layers-list .leaflet-control-layers-overlays .layer-control-img.fav').parent().parent().find('input[type=checkbox]').prop('checked', false);
-		//$('.leaflet-control-layers-list .leaflet-control-layers-overlays .layer-control-img.hospetal').parent().parent().find('input[type=checkbox]').prop('checked', false);
+		var show_mukeb = getParameterByName('show_mukeb');
+		var show_amud = getParameterByName('show_amud');
+		
+		$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').prop('checked', true);
+		if(show_mukeb=="yes" && show_amud!="yes")
+		{
+			$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').slice(0,2).prop('checked', false);
+			$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').slice(9,10).prop('checked', false);
+		}
+		else if(show_mukeb!="yes" && show_amud!="yes")
+		{
+			$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').slice(0,2).prop('checked', false);
+		}
+		else if(show_mukeb!="yes" && show_amud=="yes")
+		{
+			$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').slice(1,2).prop('checked', false);
+			$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').slice(4,5).prop('checked', false);
+		}
+		else if(show_mukeb=="yes" && show_amud=="yes")
+		{
+			$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').slice(1,2).prop('checked', false);
+			$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').slice(4,5).prop('checked', false);
+			$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').slice(9,10).prop('checked', false);
+		}
+		else
+			$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').slice(2).prop('checked', false);
+			
 		$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').trigger('click');
-		
-		
 	}, 1000);
 	
 
@@ -624,11 +967,175 @@
 	}
 	//console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    fihish()');
 </script>
+<div id="test-popup" class="white-popup mfp-hide">
+  Popup content
+</div>
+<!-- ////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////// -->
+<!-- popup plugin init////////////////////////////////////////////////////////////////////// -->
 <style>
-
-
+.white-popup {
+	position: relative;
+	background: #FFF;
+	padding: 20px;
+	width: 80%;
+	max-width: 500px;
+	margin: 20px auto;
+}
+.white-popup {
+    position: absolute;
+    background: #FFF;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    margin: 20px auto;
+    overflow-x: auto;
+    /*height: 80%;*/
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.arabic_text .white-popup,.persian_text .white-popup{direction:rtl !important;text-align: right !important;}
+.arabic_text .mfp-close,.persian_text .mfp-close{right:auto;left:0;}
+.english_text .white-popup{direction:ltr;text-align: left;}
+.mfp-content {
+    height: 100%;
+    top: 0px;
+}
+button.mfp-close {
+    background-color: rgba(256,256,256,0.65);
+    border-radius: 50%;
+    color: red !important;
+    opacity: 1;
+}
 </style>
+<a href="#test-popup" class="open-popup-link">Show inline popup</a>
 
+<script>
+$('.open-popup-link').magnificPopup({
+	type:'inline',
+	midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
+});
+</script>
+<!-- popup plugin init///////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////// -->
 
+<!-- ////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////// -->
+<!-- slider plugin init//////////////////////////////////////////////////// -->
+<style>
+#slides {
+	display: none
+}
+
+#slides .slidesjs-navigation {
+	margin-top:5px;
+}
+
+a.slidesjs-next,
+a.slidesjs-previous,
+a.slidesjs-play,
+a.slidesjs-stop {
+	background-image: url(images/slider/btns-next-prev.png);
+	background-repeat: no-repeat;
+	display:block;
+	width:12px;
+	height:18px;
+	overflow: hidden;
+	text-indent: -9999px;
+	float: left;
+	margin-right:5px;
+}
+
+a.slidesjs-next {
+	margin-right:10px;
+	background-position: -12px 0;
+}
+
+a:hover.slidesjs-next {
+	background-position: -12px -18px;
+}
+
+a.slidesjs-previous {
+	background-position: 0 0;
+}
+
+a:hover.slidesjs-previous {
+	background-position: 0 -18px;
+}
+
+a.slidesjs-play {
+	width:15px;
+	background-position: -25px 0;
+}
+
+a:hover.slidesjs-play {
+	background-position: -25px -18px;
+}
+
+a.slidesjs-stop {
+	width:18px;
+	background-position: -41px 0;
+}
+
+a:hover.slidesjs-stop {
+	background-position: -41px -18px;
+}
+
+.slidesjs-pagination {
+	margin: 7px 0 0;
+	float: right;
+	list-style: none;
+}
+
+.slidesjs-pagination li {
+	float: left;
+	margin: 0 1px;
+}
+
+.slidesjs-pagination li a {
+	display: block;
+	width: 13px;
+	height: 0;
+	padding-top: 13px;
+	background-image: url(images/slider/pagination.png);
+	background-position: 0 0;
+	float: left;
+	overflow: hidden;
+}
+
+.slidesjs-pagination li a.active,
+.slidesjs-pagination li a:hover.active {
+	background-position: 0 -13px
+}
+
+.slidesjs-pagination li a:hover {
+	background-position: 0 -26px
+}
+
+#slides a:link,
+#slides a:visited {
+	color: #333
+}
+
+#slides a:hover,
+#slides a:active {
+	color: #9e2020
+}
+</style>
+<!-- slider plugin init//////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////// -->
+<style>
+.leaflet-control-layers-selector {
+	margin-top: 2px;
+	position: relative;
+	top: 1px;
+	-webkit-appearance: checkbox;
+	appearance: checkbox;
+}
+</style>
 </body>
 </html>

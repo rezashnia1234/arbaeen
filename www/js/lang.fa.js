@@ -113,6 +113,12 @@ lang_fa = {
 	Applying_Changes : "درحال اعمال تغییرات",
 	Will_be_active_in_the_next_version : "در نسخه بعد فعال خواهد شد",
 	Please_Login_Again : "لطفا دوباره وارد سامانه بشوید",
+	
+	Total_Man_capacity : "کل ظرفیت آقا",
+	Total_Woman_capacity : "کل ظرفیت خانم",
+	Remaining_Man_capacity : "ظرفیت باقیمانده آقا",
+	Remaining_Woman_capacity : "ظرفیت باقیمانده خانم",
+	Last_update_time : "زمان آخرین بروزرسانی اطلاعات",
 };
 
 

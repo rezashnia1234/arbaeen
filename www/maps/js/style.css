@@ -91,7 +91,10 @@ li {
 	clear:both;
 }
 
-
+.leaflet-popup-content {
+	direction: rtl;
+    text-align: center;
+}
 
 
 
@@ -483,6 +486,7 @@ input[type=checkbox].leaflet-control-layers-selector {
 	top:169px;
 	background-color:#039d85;
 	background-image:url('../../maps/images/routing.png');
+	display:none;
 }
 #wifi_btn.top_left_smcms_btn{
 	top:118px;
@@ -490,9 +494,10 @@ input[type=checkbox].leaflet-control-layers-selector {
 	background-image:url('../../maps/images/wifi.png');
 }
 #share_location_btn.top_left_smcms_btn{
-	top:220px;
+	top:169px;
 	background-color:#039d85;
 	background-image:url('../../maps/images/share_location.png');
+	display:none;
 }
 #location_btn.top_left_smcms_btn{
 	background-color:#c1c1c1;
