@@ -255,8 +255,8 @@
 			text = found_list[text];
 			var card_template = "";
 			<!-- card_template += '<ons-card>'; -->
-			card_template += '<img src="' + (text.images==""? "images/no-image2.png" : server_url_image + '400x200-' + text.images + '?parameters=@width=600@height=300@cropratio=true@quality=85@image=/uploads_found/' + text.images) + '" alt="" style="width: 100%;border: 1px solid #c2c2c2;border-radius: 5px;">';
-			card_template += '<div class="title">' + text.Name_of_the_device + '</div>';
+			card_template += '<img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">';
+			card_template += '<div class="title">' + text.name + '</div>';
 			card_template += '<div class="content">';
 			card_template += '<ons-list>';
 			card_template += '<ons-list-header>Bindings</ons-list-header>';
@@ -1619,15 +1619,12 @@ alert("An error has occurred: Code = " + error.code);
 					params.last_id		= last_id;
 				if(category_id != null && category_id != "")
 					params.category_id	= category_id;
-				if(category_id === 0)
-					params.category_id	= category_id;
-
+				
 				params.udid				= window.localStorage.getItem('udid');
 				params.language			= window.localStorage.getItem('language');
 				params.act				= "get_missing_objects_list";
 				//return console.log(params);
 
-				show_progress_bar("without_cancel_btn");
 				
 				$.ajax({
 						url: server_url,
@@ -1644,108 +1641,20 @@ alert("An error has occurred: Code = " + error.code);
 								{
 									handle_get_list(json);
 									//console.log("json 0000000000000");
-									hideDialog('dialog_progress_bar');
+									//hideDialog('dialog_progress_bar');
 								}
 								else
 								{
 									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span><br>code:5');
 									modal.show({animation: "fade"});
 									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
-									hideDialog('dialog_progress_bar');
+									//hideDialog('dialog_progress_bar');
 								}
 								//window.localStorage.setItem('json_mukeb_list_for_map',text);
 								//window.sessionStorage.setItem('json_mukeb_list_for_map',text);
 							} catch (e) {
 								console.log("is not json");
 								console.log(text);
-								hideDialog('dialog_progress_bar');
-							}
-						},
-						error: function(jqXHR, exception) {
-							$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>code:6');
-							modal.show({animation: "fade"});
-							setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
-							hideDialog('dialog_progress_bar');
-						},
-				});
-			}
-		}
-		function loadmore_for_list(last_id,category_id,handle_get_list){
-			console.log("loadmore_for_list(last_id:" + last_id + ",category_id:" + category_id + ");");
-			//return true;
-			networkState = navigator.connection.type;
-			if (window.cordova && networkState == Connection.NONE) {
-				/*
-				*/
-				navigator.notification.alert(
-					multilang.get('you_must_connect_to_the_internet'),  // message
-					alertDismissed,		 // callback
-					multilang.get('warning'),			// title
-					multilang.get('ok')		// buttonName
-				);
-			}
-			else{
-				var params = {};
-				
-				if(last_id != null && last_id != "")
-					params.last_id		= last_id;
-				if(category_id != null && category_id != "")
-					params.category_id	= category_id;
-				if(category_id === 0)
-					params.category_id	= category_id;
-
-				params.udid				= window.localStorage.getItem('udid');
-				params.language			= window.localStorage.getItem('language');
-				params.act				= "get_missing_objects_list";
-				//return console.log(params);
-				
-				show_progress_bar("without_cancel_btn");
-				
-				$.ajax({
-						url: server_url,
-						type: "POST",
-						data: params,
-						//async: true,
-						success : function(text)
-						{
-							try {
-								json = $.parseJSON(text);
-								//console.log("json");
-								//console.log(json);
-								if(json.answer=="missing_objects_list")
-								{
-									found_list = $.merge(found_list, json.list);
-									
-									if(found_list.length<json.total_count)
-									{
-										var temp_attr = $("#load_more_ons_list_container").attr("onclick").split("'");
-										if(temp_attr[3]==null)
-											temp_attr = "";
-										else
-											temp_attr = temp_attr[3];
-										//console.log(temp_attr[3]);
-										$("#load_more_ons_list_container").attr("onclick","loadmore_for_list('" + found_list[(found_list.length-1)].id + "','" + temp_attr + "','');");
-										$("#load_more_ons_list_container").css("display","block");
-									}
-									else
-										$("#load_more_ons_list_container").css("display","none");
-									//handle_get_list(json);
-									//console.log("json 0000000000000");
-									hideDialog('dialog_progress_bar');
-								}
-								else
-								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span><br>code:5');
-									modal.show({animation: "fade"});
-									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
-									hideDialog('dialog_progress_bar');
-								}
-								//window.localStorage.setItem('json_mukeb_list_for_map',text);
-								//window.sessionStorage.setItem('json_mukeb_list_for_map',text);
-							} catch (e) {
-								console.log("is not json");
-								console.log(text);
-								hideDialog('dialog_progress_bar');
 							}
 						},
 						error: function(jqXHR, exception) {
@@ -2170,7 +2079,6 @@ alert("An error has occurred: Code = " + error.code);
 		server_url = "http://dlsmgroup.ir/temp/arbaeen/check_net.php";
 		server_url_missing_data = "http://dlsmgroup.ir/temp/arbaeen/submit_found_object.php";
 		server_url_mukeb_image = "http://dlsmgroup.ir/temp/arbaeen/submit_mekeb_image.php";
-		server_url_image = "http://dlsmgroup.ir/temp/arbaeen/image.php/";
 		window.localStorage.setItem("server_url_image","http://dlsmgroup.ir/temp/arbaeen/image.php/");
 			
 		//ons.platform.select('android');
@@ -2199,21 +2107,21 @@ alert("An error has occurred: Code = " + error.code);
 					navigator.splashscreen.hide();
 			}
 			
-			/*
-			*/
+
 			window.setInterval(function(){
 				if(window.sessionStorage.getItem('he_is_logined') != "true")
 					auto_login();
 				if(window.sessionStorage.getItem('json_mukeb_list_for_map') == null)
 					get_mukeb_list_for_map();
 			}, 1000);
+
 		});
 		
 		document.addEventListener('prechange', function(event) {
 			//console.log(event);
+			document.querySelector('ons-toolbar .center').innerHTML = multilang.get(event.tabItem.getAttribute('label'));
 			if(event.tabItem.getAttribute('label')=="filter")
 			{
-				document.querySelector('ons-toolbar .center').innerHTML = multilang.get("filter");
 				//$(document.querySelector('ons-toolbar .center')).onclick
 				document.querySelector('ons-toolbar .center').onclick = function() {
 					show_category_list();
@@ -2221,7 +2129,6 @@ alert("An error has occurred: Code = " + error.code);
 			}
 			else
 			{
-				document.querySelector('ons-toolbar .center').innerHTML = multilang.get(event.tabItem.getAttribute('label'));
 				document.querySelector('ons-toolbar .center').onclick = function() {
 					
 				};
@@ -2849,58 +2756,20 @@ alert("An error has occurred: Code = " + error.code);
 								multilang.get("Jewelry"),
 								multilang.get("Others"),
 								{
-									label: multilang.get("Cancel_Filter"),
+									label: multilang.get("Cancel"),
 									icon: 'md-close'
 								}
 							]
 						}).then(function (index) {
 							console.log('index: ', index);
 							console.log(buttons[index]);
-							if(index != -1)
+							if(index != -1 && index != 7)
 							{
-								if(index == 7)
-									index="";
-								
-								get_missing_objects_list("",index,function(json){
-									//console.log("0000000000000000000000000000000000000000000000000000000");
-									//console.log("0000000000000000000000000000000000000000000000000000000");
-									//console.log("0000000000000000000000000000000000000000000000000000000");
-									console.log(json.list.length);
-									console.log(json.total_count);
-									
-									//found_list = $.merge(found_list, json.list);
-									if(json.list.length==0)
-									{
-										fromTemplate(multilang.get("Nothing_Found"));
-										return false;
-									}
-									found_list = json.list;
-									
-									if(found_list.length<json.total_count)
-									{
-										$("#load_more_ons_list_container").attr("onclick","loadmore_for_list('" + found_list[(found_list.length-1)].id + "','" + index + "','');");
-										$("#load_more_ons_list_container").css("display","block");
-									}
-									else
-										$("#load_more_ons_list_container").css("display","none");
-									
-									infiniteList.delegate = {
-										createItemContent: function(i) {
-											var element_template = "";
-											element_template += '<ons-list-item onclick="show_card(' + i + ');"><div class="left">';
-											element_template += '<img class="list-item__thumbnail" src="' + (found_list[i].images==""? "images/no-image.png" : server_url_image + '100x100-' + found_list[i].images + '?parameters=@width=100@height=100@cropratio=true@quality=85@image=/uploads_found/' + found_list[i].images) + '">';
-											element_template += '</div>';
-											element_template += '<div class="center">';
-											element_template += '<span class="list-item__title">' + found_list[i].Name_of_the_device + '</span><span class="list-item__subtitle">' + lost_category_list[found_list[i].category_id] +'</span>';
-											element_template += '</div></ons-list-item>';
-											return ons.createElement(element_template);
-										},
-										countItems: function() {
-											return found_list.length;
-										}
-									};
-									infiniteList.refresh();
-								});
+								//$("#Select_a_category").find("input").val(buttons[index]);
+								//document.getElementById('Select_a_category').value = buttons[index];
+								//document.getElementById('Select_a_category_id').value = index;
+								//$("#Select_a_category input").val(buttons[index]);
+								//$("#Select_a_category_id input").val(index);
 							}
 						})
 					};
@@ -2916,42 +2785,61 @@ alert("An error has occurred: Code = " + error.code);
 							show_category_list();
 						};
 						
-						found_list = {};
-						infiniteList = document.getElementById('infinite-list');
-						get_missing_objects_list("","",function(json){
-							//console.log("0000000000000000000000000000000000000000000000000000000");
-							//console.log("0000000000000000000000000000000000000000000000000000000");
-							//console.log("0000000000000000000000000000000000000000000000000000000");
-							console.log(json.list.length);
-							console.log(json.total_count);
-							found_list = json.list;
-							if(found_list.length<json.total_count)
-							{
-								$("#load_more_ons_list_container").attr("onclick","loadmore_for_list('" + found_list[(found_list.length-1)].id + "','','');");
-								$("#load_more_ons_list_container").css("display","block");
-							}
-							else
-								$("#load_more_ons_list_container").css("display","none");
-							//found_list = $.merge(found_list, json.list);
-							
-							infiniteList.delegate = {
-								createItemContent: function(i) {
-									var element_template = "";
-									element_template += '<ons-list-item onclick="show_card(' + i + ');"><div class="left">';
-									element_template += '<img class="list-item__thumbnail" src="' + (found_list[i].images==""? "images/no-image.png" : server_url_image + '100x100-' + found_list[i].images + '?parameters=@width=100@height=100@cropratio=true@quality=85@image=/uploads_found/' + found_list[i].images) + '">';
-									element_template += '</div>';
-									element_template += '<div class="center">';
-									element_template += '<span class="list-item__title">' + found_list[i].Name_of_the_device + '</span><span class="list-item__subtitle">' + lost_category_list[found_list[i].category_id] +'</span>';
-									element_template += '</div></ons-list-item>';
-									return ons.createElement(element_template);
-								},
-								countItems: function() {
-									return found_list.length;
-								}
-							};
-							infiniteList.refresh();
-						});
+//get_missing_objects_list(last_id,category_id,function(text){
+get_missing_objects_list("","",function(json){
+	console.log("0000000000000000000000000000000000000000000000000000000");
+	console.log("0000000000000000000000000000000000000000000000000000000");
+	console.log("0000000000000000000000000000000000000000000000000000000");
+	console.log(json.list);
+});
 						
+						
+//var found_list = [["name":"hamid1","family":"shakiba"],["name":"hamid2","family":"shakiba"],["name":"hamid3","family":"shakiba"],["name":"hamid4","family":"shakiba"],["name":"hamid5","family":"shakiba"],["name":"hamid6","family":"shakiba"],["name":"hamid7","family":"shakiba"],["name":"hamid8","family":"shakiba"],["name":"hamid9","family":"shakiba"],["name":"hamid10","family":"shakiba"]]
+found_list = {};
+found_list = [{name : 'hamid1',family : 'shakiba1'}];
+found_list.push({name : 'hamid2',family : 'shakiba2'});
+found_list.push({name : 'hamid3',family : 'shakiba3'});
+found_list.push({name : 'hamid4',family : 'shakiba4'});
+found_list.push({name : 'hamid5',family : 'shakiba5'});
+found_list.push({name : 'hamid6',family : 'shakiba6'});
+found_list.push({name : 'hamid7',family : 'shakiba7'});
+found_list.push({name : 'hamid8',family : 'shakiba8'});
+found_list.push({name : 'hamid9',family : 'shakiba9'});
+found_list.push({name : 'hamid10',family : 'shakiba10'});
+found_list.push({name : 'hamid11',family : 'shakiba11'});
+found_list.push({name : 'hamid12',family : 'shakiba12'});
+found_list.push({name : 'hamid13',family : 'shakiba13'});
+found_list.push({name : 'hamid14',family : 'shakiba14'});
+found_list.push({name : 'hamid15',family : 'shakiba15'});
+found_list.push({name : 'hamid16',family : 'shakiba16'});
+found_list.push({name : 'hamid17',family : 'shakiba17'});
+found_list.push({name : 'hamid18',family : 'shakiba18'});
+found_list.push({name : 'hamid19',family : 'shakiba19'});
+found_list.push({name : 'hamid20',family : 'shakiba20'});
+found_list.push({name : 'hamid21',family : 'shakiba21'});
+console.log(found_list);
+
+var infiniteList = document.getElementById('infinite-list');
+infiniteList.delegate = {
+	createItemContent: function(i) {
+		var element_template = "";
+		element_template += '<ons-list-item onclick="show_card(' + i + ');"><div class="left">';
+		element_template += '<img class="list-item__thumbnail" src="http://placekitten.com/g/40/40">';
+		element_template += '</div>';
+		element_template += '<div class="center">';
+		element_template += '<span class="list-item__title">' + found_list[i].name + '</span><span class="list-item__subtitle">' + found_list[i].family +'</span>';
+		element_template += '</div></ons-list-item>';
+		return ons.createElement(element_template);
+		//return ons.createElement('<ons-list-item>' + found_list[i].name + '</ons-list-item>');
+	},
+	countItems: function() {
+		return found_list.length;
+	}
+};
+infiniteList.refresh();
+
+
+	
 					}, 300);
 			}
 
@@ -3633,7 +3521,7 @@ alert("An error has occurred: Code = " + error.code);
 			</ons-toolbar>
 
 			<ons-tabbar swipeable position="auto" >
-				<ons-tab page="zaer_service_I_Lost_Something_list_tab.html" label="filter" icon="fa-search" class="need_translate_tab" translate="Found_List" active></ons-tab>
+				<ons-tab page="zaer_service_I_Lost_Something_list_tab.html" label="filter" icon="fa-search" class="need_translate_tab" translate="filter" active></ons-tab>
 				<ons-tab page="zaer_service_I_Lost_Something_favorite_tab.html"  label="Maybe_This" icon="fa-star" class="need_translate_tab" translate="Maybe_This" ></ons-tab>
 			</ons-tabbar>
 			
@@ -3646,13 +3534,8 @@ alert("An error has occurred: Code = " + error.code);
 				<div class="center"></div>
 			</ons-toolbar>
 						
-			<ons-list >
+			<ons-list>
 				<ons-lazy-repeat id="infinite-list"></ons-lazy-repeat>
-			</ons-list>
-			<ons-list id="load_more_ons_list_container" style="display:none;">
-				<ons-list-item id="load_more_ons_list" onclick2="loadmore_for_list('','','');">
-					<div class="margin-auto need_translate" translate="Load_More"></div>
-				</ons-list-item>
 			</ons-list>
 		</ons-page>
 	</template>
