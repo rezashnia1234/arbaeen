@@ -27,11 +27,11 @@
 .english_text #menu .center.list-item__center{direction:ltr;padding-left: 10px;}
 #menu .list-item{padding:0;}
 
-.persian_text div,.persian_text button,.persian_text .ripple,.persian_text .button--material,.persian_text .button--large--cta,.persian_text .button,.persian_text input,.persian_text select{
+.persian_text div,.persian_text button,.persian_text .ripple,.persian_text .button--material,.persian_text .button--large--cta,.persian_text .button,.persian_text input,.persian_text select,.persian_text .list-header{
 	font-family:"iranyekan",Tahoma !important;
 	font-size:14px;
 }
-.arabic_text div,.arabic_text button,.arabic_text .ripple,.arabic_text .button--material,.arabic_text .button--large--cta,.arabic_text .button,.arabic_text input,.arabic_text select{
+.arabic_text div,.arabic_text button,.arabic_text .ripple,.arabic_text .button--material,.arabic_text .button--large--cta,.arabic_text .button,.arabic_text input,.arabic_text select,.arabic_text .list-header{
 	font-family:"Droid Arabic Kufi",Tahoma !important;
 	font-size:14px;
 }
@@ -99,7 +99,7 @@ p#modal-text ons-icon{
 	width: 40px;
 }
 .required_but_empty input ,.required_but_empty select {
-    border-bottom: 1px solid red;
+	border-bottom: 1px solid red;
 }
 /* .left-top-menu .menu-btn:before */
 ons-icon.ons-icon.zmdi.zmdi-menu {
@@ -138,7 +138,7 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 }
 #homePage .page,#homePage .page__background,#homePage .page__content{background:none;}
 #homePage .page__content,#register_mukeb .page__content {
-    color: #ffffff;
+	color: #ffffff;
 }
 .toolbar{background-color: rgba(256,256,256,0.7);}
 .toolbar{background-color: rgba(38,119,149,0.8);background-size:100% 0px;color:#ffffff;position:relative;z-index:99;}
@@ -151,7 +151,7 @@ ons-icon.ons-icon.zmdi.zmdi-menu {
 .toolbar .back-button__icon{fill:#ffffff;transform: scale(0.5);}
 .toolbar .back-button__label {font-size: 14px;padding-right:9px;}
 #menu .center.list-item__center {
-    text-align: right !important;
+	text-align: right !important;
 }
 
 ons-input, ons-range{
@@ -174,7 +174,7 @@ ons-select, .select-input{
 	color:#c0c0c0;
 }
 .alert-dialog-content input {
-    color: #000000 !important;
+	color: #000000 !important;
 }
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -572,7 +572,7 @@ ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
 	margin-bottom:10%;
 }
 .dialog-container .button,#dialog_progress_bar .button ,#dialog-alert .button {
-    width: 100%;
+	width: 100%;
 }
 .dialog-container div{margin-bottom:10px;}
 
@@ -585,18 +585,18 @@ ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* صفحه ثبت اطلاعات موکب */
 #edit_mukeb_data fieldset {
-    margin: 0 -20px 12px -20px;
-    border-color: #5cb2c1;
-    padding: 10px 17px;
-    border-style: dotted;
-    border-width: 1px;
+	margin: 0 -20px 12px -20px;
+	border-color: #5cb2c1;
+	padding: 10px 17px;
+	border-style: dotted;
+	border-width: 1px;
 }
 #edit_mukeb_data legend::after {
-    content: ":";
-    padding: 0px 6px 0px 6px;
+	content: ":";
+	padding: 0px 6px 0px 6px;
 }
 #edit_mukeb_data legend {
-    padding-right:6px;
+	padding-right:6px;
 }
 #edit_mukeb_data div.goto_mukeb {
 	color: #e30613 !important;
@@ -610,35 +610,35 @@ ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
 }
 /* #fieldset_for_upload_images{display:none;} */
 .persian_text .woman_image img, .arabic_text .woman_image img {
-    /* width: 51px; */
-    width: 36px;
-    float: left;
-    margin-top: -12px;
-    margin-left: -2px;
+	/* width: 51px; */
+	width: 36px;
+	float: left;
+	margin-top: -12px;
+	margin-left: -2px;
 }
 .persian_text .man_image img, .arabic_text .man_image img {
-    width: 47px;
-    float: left;
-    margin-top: -12px;
-    margin-left: -2px;
+	width: 47px;
+	float: left;
+	margin-top: -12px;
+	margin-left: -2px;
 }
 .english_text .woman_image img{
-    /* width: 51px; */
-    width: 36px;
-    float: right;
-    margin-top: -12px;
-    margin-right: -2px;
+	/* width: 51px; */
+	width: 36px;
+	float: right;
+	margin-top: -12px;
+	margin-right: -2px;
 }
 .english_text .man_image img{
-    width: 47px;
-    float: right;
-    margin-top: -12px;
-    margin-right: -2px;
+	width: 47px;
+	float: right;
+	margin-top: -12px;
+	margin-right: -2px;
 }
 .english_text #edit_mukeb_data .Select_hover{right: 0;left: auto;}
 #edit_mukeb_data .input label.center {
-    width: calc(100% - 40px);
-    display: inline-block;
+	width: calc(100% - 40px);
+	display: inline-block;
 }
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -669,9 +669,9 @@ ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
 	padding-top:2%;
 }
 #goto_page_mukeb_found_object {
-    padding-top: 1%;
-    padding-bottom: 3%;
-    box-sizing: border-box;
+	padding-top: 1%;
+	padding-bottom: 3%;
+	box-sizing: border-box;
 }
 #goto_page_mukeb_edit_data{
 	/* top: 58%; */
@@ -727,24 +727,24 @@ ul.zaer_service_I_Found_Something li {margin-bottom:10%;}
 	width: 50px;
 }
 div#images_place_holder {
-    text-align: center;
+	text-align: center;
 }
 #images_place_holder div::after {
-    content: "\f00d";
-    display: block;
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    left: 13px;
-    top: 13px;
-    font: normal normal normal 14px/1 FontAwesome;
-    color: red;
-    background: rgba(256,256,256,0.7);
-    border-radius: 50%;
-    box-sizing: border-box;
-    padding-top: 5px;
-    text-align: center;
-    padding-left: 1px;
+	content: "\f00d";
+	display: block;
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	left: 13px;
+	top: 13px;
+	font: normal normal normal 14px/1 FontAwesome;
+	color: red;
+	background: rgba(256,256,256,0.7);
+	border-radius: 50%;
+	box-sizing: border-box;
+	padding-top: 5px;
+	text-align: center;
+	padding-left: 1px;
 }
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -761,7 +761,107 @@ div#images_place_holder {
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* صفحه پیدا شده ها */
 #zaer_service_I_Lost_Something_list_tab .page__content .list.lazy-list{padding-top:0px !important;}
+/* #zaer_service_I_Lost_Something_list_tab .list-item__left{order:2 !important;} */
 
+.persian_text #zaer_service_I_Lost_Something_list_tab .list-item__left,.arabic_text #zaer_service_I_Lost_Something_list_tab .list-item__left
+{
+	background-position: bottom;
+	border-bottom: none;
+	background-size: 100% 1px;
+	background-repeat: no-repeat;
+	
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	margin-left: auto;
+	padding: 12px 12px 12px 0;
+	-webkit-box-ordinal-group: 3;
+	-webkit-order: 2;
+	order: 2;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-align-self: stretch;
+	align-self: stretch;
+	background-image: -webkit-linear-gradient(bottom,#ccc,#ccc 100%);
+	background-image: linear-gradient(0deg,#ccc,#ccc 100%);
+	line-height: 1.2em;
+	min-height: 44px;
+}
+.persian_text #zaer_service_I_Lost_Something_list_tab .list-item__center,.arabic_text #zaer_service_I_Lost_Something_list_tab .list-item__center
+{
+	direction: rtl;
+	text-align: right;
+}
+/*
+.persian_text #zaer_service_I_Lost_Something_list_tab .list-item,.arabic_text #zaer_service_I_Lost_Something_list_tab .list-item
+{
+    padding: 0 14px 0 0 !important;
+}
+*/
+#zaer_service_I_Lost_Something_list_tab .list-item
+{
+    padding: 0 0 0 0 !important;
+}
+.list-item__subtitle_middle {
+    margin-bottom: 4px;
+    margin-top: 5px;
+}
+#zaer_service_I_Lost_Something_list_tab .list-item__thumbnail {
+    width: 60px;
+    height: 60px;
+}
+#dialog-show-card .dialog {
+    width: 80%;
+    height: 80%;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 4px;
+}
+#dialog-show-card .dialog111111111111111111111111111111111111111111111111 {
+    width: 80%;
+    height: 80%;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    transition: unset;
+    transform: unset;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+#dialog-show-card #dialog-text-dialog-alert2 {
+    overflow: auto;
+}
+#dialog-show-card .dialog-container2 {
+    overflow: auto;
+	padding:0px !important;
+}
+#dialog-show-card .dialog-container {
+    overflow: auto;
+	height: 100%;
+}
+.persian_text .list-header{
+    font-size: 12px;
+    direction: rtl;
+    text-align: right;
+    padding: 0 15px 0 0;
+}
+.arabic_text .list-header{
+    font-size: 12px;
+    direction: rtl;
+    text-align: right;
+    padding: 0 15px 0 0;
+}
+.persian_text #dialog-show-card .list-item,.arabic_text #dialog-show-card .list-item{
+	padding: 0 14px 0 0px;
+}
+.persian_text .save_to_mayebe_this_btn,.arabic_text .save_to_mayebe_this_btn{
+	direction:rtl;
+	background-color:#4CAF50;
+}
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */

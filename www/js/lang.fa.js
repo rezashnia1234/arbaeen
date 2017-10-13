@@ -139,6 +139,7 @@ lang_fa = {
 	
 	Found_List : "پیدا شده ها",
 	Maybe_This : "شاید این",
+	Save_in_Maybe_This : '<ons-icon icon="fa-star" class="ons-icon fa-star fa"></ons-icon> ذخیره در  بخش "شاید این"',
 	Nothing_Found : "چیزی پیدا نشد",//Nothing Found
 	filter : "تعیین نوع <ons-icon icon='fa-filter' class='ons-icon fa-filter fa'></ons-icon>",
 	Load_More : "نمایش ادامه لیست <ons-icon icon='fa-cloud-download' class='ons-icon fa-cloud-download fa'></ons-icon>",
