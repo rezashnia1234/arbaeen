@@ -166,6 +166,14 @@ ons-select, .select-input{
 	width: 100%;
 	color:#ffffff;
 }
+ons-select#found_City_Name,#found_City_Name .select-input{
+	width: 100%;
+	color:#000000;
+}
+.ons-select#found_City_Name.selected,#found_City_Name .select-input.selected{
+	width: 100%;
+	color:#000000;
+}
 .text-input--underbar{
 	width: 100%;
 	color:#ffffff;
@@ -793,13 +801,18 @@ div#images_place_holder {
 	direction: rtl;
 	text-align: right;
 }
+.persian_text #zaer_service_I_Lost_Something_favorite_tab .list-item__center,.arabic_text #zaer_service_I_Lost_Something_favorite_tab .list-item__center
+{
+	direction: rtl;
+	text-align: right;
+}
 /*
 .persian_text #zaer_service_I_Lost_Something_list_tab .list-item,.arabic_text #zaer_service_I_Lost_Something_list_tab .list-item
 {
     padding: 0 14px 0 0 !important;
 }
 */
-#zaer_service_I_Lost_Something_list_tab .list-item
+#zaer_service_I_Lost_Something_list_tab .list-item,#zaer_service_I_Lost_Something_favorite_tab .list-item
 {
     padding: 0 0 0 0 !important;
 }
@@ -862,6 +875,8 @@ div#images_place_holder {
 	direction:rtl;
 	background-color:#4CAF50;
 }
+
+.card .title{color:#000000;text-align: center;}
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////// */

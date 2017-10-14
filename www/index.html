@@ -42,7 +42,7 @@
 					if(window.localStorage.getItem("udid")==null)
 						window.localStorage.setItem("udid","test");
 				}, 1500);
-				document.querySelector('#myNavigator').pushPage('zaer_service_I_Lost_Something.html', {animation: "none"});
+				//document.querySelector('#myNavigator').pushPage('zaer_service_I_Lost_Something.html', {animation: "none"});
 			}
 			else
 				FileTransfer_OBJ = new FileTransfer();
@@ -2185,9 +2185,76 @@ alert("An error has occurred: Code = " + error.code);
 			console.log("show_category_list()");
 			app.showFromObject2();
 		}
+		function update_maybe_this_list(){
+			console.log("update_maybe_this_list()");
+			if(window.localStorage.getItem("maybe_this")==null)
+			{
+				var card_template = "";
+				card_template="<ons-card><div class='title'>" + multilang.get("Nothing_Found") + "</div></ons-card>";
+				$("#zaer_service_I_Lost_Something_favorite_container").html(card_template);
+				return true;
+			}
+			json = $.parseJSON(window.localStorage.getItem("maybe_this"));
+			var card_template = "";
+			for (i = 0; i < json.length; ++i) {
+				text = json[i];
+				card_template += '<ons-card>';
+				card_template += '<img src="' + (text.images==""? "images/no-image2.png" : server_url_image + '400x200-' + text.images + '?parameters=@width=600@height=300@cropratio=true@quality=85@image=/uploads_found/' + text.images) + '" alt="" style="width: 100%;border: 1px solid #c2c2c2;border-radius: 5px;box-sizing: border-box;">';
+				card_template += '<div class="title">' + text.Name_of_the_device + '</div>';
+				card_template += '<div class="content">';
+				
+				card_template += '<ons-list>';
+				card_template += '<ons-list-header>' + multilang.get("Finding_Location") + '</ons-list-header>';
+				if(text.City_Name!="")
+				card_template += '<ons-list-item>' + multilang.get("City_Name") + " : " + city_name_list[text.City_Name] + '</ons-list-item>';
+				if(text.Pillar_Number!="")
+				card_template += '<ons-list-item>' + multilang.get("Pillar_Number") + " : " + text.Pillar_Number + '</ons-list-item>';
+				if(text.Tent_Name!="")
+				card_template += '<ons-list-item>' + multilang.get("Tent_Name") + " : " + text.Tent_Name + '</ons-list-item>';
+				card_template += '</ons-list>';
+				
+				card_template += '<ons-list>';
+				card_template += '<ons-list-header>' + multilang.get("Contacts_Info") + '</ons-list-header>';
+				if(text.Phone_number!="")
+				card_template += '<ons-list-item>' + multilang.get("Phone_number") + " : " + text.Phone_number + '</ons-list-item>';
+				if(text.Telegram_ID!="")
+				card_template += '<ons-list-item>' + multilang.get("Telegram_ID") + " : " + text.Telegram_ID + '</ons-list-item>';
+				if(text.WhatsApp_ID!="")
+				card_template += '<ons-list-item>' + multilang.get("WhatsApp_ID") + " : " + text.WhatsApp_ID + '</ons-list-item>';
+				if(text.Line_ID!="")
+				card_template += '<ons-list-item>' + multilang.get("Line_ID") + " : " + text.Line_ID + '</ons-list-item>';
+				if(text.Imo_ID!="")
+				card_template += '<ons-list-item>' + multilang.get("Imo_ID") + " : " + text.Imo_ID + '</ons-list-item>';
+				card_template += '</ons-list>';
+				
+				if(text.description!="")
+				{
+				card_template += '<div>';
+				card_template += '<ons-list-header>' + multilang.get("Description") + '</ons-list-header>';
+				card_template += '<ons-list-item>' + text.description + '</ons-list-item>';
+				card_template += '</div>';
+				}
+				
+				card_template += '</div>';
+				card_template += '</ons-card>';
+			}
+			if(card_template=="")
+				card_template="<ons-card><div class='title'>" + multilang.get("Nothing_Found") + "</div></ons-card>";
+			$("#zaer_service_I_Lost_Something_favorite_container").html(card_template);
+		}
 		function add_to_maybe_this(text){
 			console.log("add_to_maybe_this()");
-			console.log(text);
+			//console.log(text);
+			if(window.localStorage.getItem("maybe_this")!=null)
+				json = $.parseJSON(window.localStorage.getItem("maybe_this"));
+			else
+				json = [];
+			//console.log(json);
+			text = $.parseJSON(text);
+			json.push(text);
+			text = JSON.stringify(json);
+			window.localStorage.setItem("maybe_this",text);
+			update_maybe_this_list();
 		}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2896,8 +2963,8 @@ alert("An error has occurred: Code = " + error.code);
 									//console.log("0000000000000000000000000000000000000000000000000000000");
 									//console.log("0000000000000000000000000000000000000000000000000000000");
 									//console.log("0000000000000000000000000000000000000000000000000000000");
-									console.log(json.list.length);
-									console.log(json.total_count);
+									//console.log(json.list.length);
+									//console.log(json.total_count);
 									
 									//found_list = $.merge(found_list, json.list);
 									if(json.list.length==0)
@@ -2942,6 +3009,7 @@ alert("An error has occurred: Code = " + error.code);
 					setTimeout(function(){
 						check_retina();
 						need_translate();
+						update_maybe_this_list();
 						
 						document.querySelector('#zaer_service_I_Lost_Something ons-toolbar .center').onclick = function() {
 							show_category_list();
@@ -2953,9 +3021,9 @@ alert("An error has occurred: Code = " + error.code);
 							//console.log("0000000000000000000000000000000000000000000000000000000");
 							//console.log("0000000000000000000000000000000000000000000000000000000");
 							//console.log("0000000000000000000000000000000000000000000000000000000");
-							console.log(json.list);
-							console.log(json.list.length);
-							console.log(json.total_count);
+							//console.log(json.list);
+							//console.log(json.list.length);
+							//console.log(json.total_count);
 							found_list = json.list;
 							if(found_list.length<json.total_count)
 							{
@@ -3694,20 +3762,22 @@ alert("An error has occurred: Code = " + error.code);
 			<ons-toolbar>
 				<div class="center"></div>
 			</ons-toolbar>
-			<ons-card>
-				<img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
-				<div class="title">
-					Awesome framework
-				</div>
-				<div class="content">
-					<ons-list>
-						<ons-list-header>Bindings</ons-list-header>
-						<ons-list-item>Vue</ons-list-item>
-						<ons-list-item>Angular</ons-list-item>
-						<ons-list-item>React</ons-list-item>
-					</ons-list>
-				</div>
-			</ons-card>
+			<div id="zaer_service_I_Lost_Something_favorite_container">
+				<ons-card>
+					<img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
+					<div class="title">
+						Awesome framework
+					</div>
+					<div class="content">
+						<ons-list>
+							<ons-list-header>Bindings</ons-list-header>
+							<ons-list-item>Vue</ons-list-item>
+							<ons-list-item>Angular</ons-list-item>
+							<ons-list-item>React</ons-list-item>
+						</ons-list>
+					</div>
+				</ons-card>
+			</div>
 		</ons-page>
 	</template>
 
@@ -4019,7 +4089,15 @@ function update_remaining_capacity(){
 					<span class="need_translate" translate="The_place_you_are_currently_in" style="margin-top: 10px;display: block;"></span>
 				</div>
 				<div id="dialog-text" class="rtl" >
-					<ons-input id="found_City_Name" modifier="underbar" placeholder="City_Name" float class="need_translate_span required" translate="City_Name"></ons-input>
+					<!-- <ons-input id="found_City_Name" modifier="underbar" placeholder="City_Name" float class="need_translate_span required" translate="City_Name"></ons-input> -->
+					<ons-select id="found_City_Name" onchange="editSelect_city_name(event)" modifier="underbar">
+						<option value=""  class="need_translate_just_html" translate="City_Name"></option>
+						<option value="1" class="need_translate_just_html" translate="Karbala" ></option>
+						<option value="2" class="need_translate_just_html" translate="Najaf" ></option>
+						<option value="3" class="need_translate_just_html" translate="Kazemein" ></option>
+						<option value="4" class="need_translate_just_html" translate="From_Najaf_to_Karbala" ></option>
+						<option value="5" class="need_translate_just_html" translate="From_Kazemein_to_Karbala" ></option>
+					</ons-select>
 				</div>
 				<div id="dialog-text" class="rtl">
 					<ons-input id="found_Pillar_Number" modifier="underbar" placeholder="Pillar_Number" float class="need_translate_span" translate="Pillar_Number"></ons-input>
