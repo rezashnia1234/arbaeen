@@ -43,24 +43,24 @@
     <!-- Plugins -->
 
     <!-- Core plugins -->
-	<plugin spec="https://github.com/apache/cordova-plugin-whitelist.git" source="git" />
+	<plugin name="cordova-plugin-whitelist" source="npm" />
 	<!--<plugin spec="https://github.com/apache/cordova-plugin-battery-status.git" source="git" />-->
-	<!--<plugin spec="https://github.com/apache/cordova-plugin-media-capture.git" source="git" />-->
+    <!--<plugin spec="https://github.com/apache/cordova-plugin-media-capture.git" source="git" />-->
 	<plugin spec="https://github.com/apache/cordova-plugin-console.git" source="git" />
-	<plugin spec="https://github.com/apache/cordova-plugin-device.git" source="git" />
+	<plugin name="cordova-plugin-device" source="npm" />
 	<!--<plugin spec="https://github.com/apache/cordova-plugin-device-motion.git" source="git" />-->
-	<!--<plugin spec="https://github.com/apache/cordova-plugin-device-orientation.git" source="git" />-->
-	<plugin spec="https://github.com/apache/cordova-plugin-dialogs.git" source="git" />
-	<plugin spec="https://github.com/apache/cordova-plugin-file.git" source="git" />
-	<plugin spec="https://github.com/apache/cordova-plugin-geolocation.git" source="git" />
+    <!--<plugin spec="https://github.com/apache/cordova-plugin-device-orientation.git" source="git" />-->
+	<plugin name="cordova-plugin-dialogs" source="npm" />
+	<plugin name="cordova-plugin-file" source="npm" />
+    <plugin name="cordova-plugin-file-transfer" source="npm" />
+    <!--<plugin spec="https://github.com/fastrde/cordova-plugin-fastrde-downloader.git" source="git" />-->
+	<plugin name="cordova-plugin-geolocation" source="npm" />
 	<!--<plugin spec="https://github.com/apache/cordova-plugin-globalization.git" source="git" />-->
-	<plugin spec="https://github.com/apache/cordova-plugin-inappbrowser.git" source="git" />
-	<!-- <plugin spec="https://github.com/apache/cordova-plugin-media.git" source="git" /> -->
-	<plugin spec="https://github.com/apache/cordova-plugin-network-information.git" source="git" />
-	<plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git" source="git" />
-	<plugin spec="https://github.com/apache/cordova-plugin-vibration.git" source="git" />
-	
-	<!-- <plugin spec="https://github.com/apache/cordova-plugin-file-transfer.git" source="git" /> -->
+	<plugin name="cordova-plugin-inappbrowser" source="npm" />
+	<plugin name="cordova-plugin-media" source="npm" />
+	<plugin name="cordova-plugin-network-information" source="npm" />
+	<plugin name="cordova-plugin-splashscreen" source="npm" />
+
 	<plugin name="cordova-plugin-file-transfer" source="npm" />
 	<!-- <gap:plugin name="org.apache.cordova.file-transfer" source="npm" /> -->
 	
