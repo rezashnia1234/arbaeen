@@ -136,7 +136,6 @@ lang_fa = {
 	Please_select_the_destination : "لطفا مقصد را انتخاب نمایید",
 	No_location_found : "نقطه ای یافت نشد",
 	Search_among_places : "جستجو در میان نقاط...",
-	
 	Found_List : "پیدا شده ها",
 	Maybe_This : "شاید این",
 	Save_in_Maybe_This : '<ons-icon icon="fa-star" class="ons-icon fa-star fa"></ons-icon> ذخیره در  بخش "شاید این"',
