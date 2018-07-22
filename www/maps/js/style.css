@@ -507,9 +507,12 @@ input[type=checkbox].leaflet-control-layers-selector {
 	bottom:10px;
 	right:10px;
 	left:auto;
+	
+	display:none;
 }
 #location_btn.top_left_smcms_btn.active{
 	background-color:#039d85;
+	display:block;
 }
 
 .leaflet-routing-collapse-btn {

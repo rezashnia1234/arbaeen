@@ -95,7 +95,7 @@ lang_fa = {
 	Images : "تصاویر",
 	Add_Image : "افزودن تصویر جدید",
 	If_you_are_in_tent : "(در صورتی که در موکب هستید)",
-	Features : "امکانات",
+	Features : "خدمات",
 	Food : "غذا",
 	Blanket : "پتو",
 	Internet : "اینترنت",
@@ -107,8 +107,8 @@ lang_fa = {
 	Updating_the_number_of_pilgrims : "بروزرسانی تعداد زائر",
 	found_Objects : "اشیاء پیدا شده",
 	Edit_mukeb_data : "ویرایش اطلاعات موکب",
-	Phone_number_1 : "شماره تماس 1",
-	Phone_number_2 : "شماره تماس 2",
+	Phone_number_1 : "شماره تماس مسئول موکب",
+	Phone_number_2 : "شماره تماس معاون موکب",
 	bad_data : "اطلاعات وارد شده صحیح نمی باشد",
 	Applying_Changes : "درحال اعمال تغییرات",
 	Will_be_active_in_the_next_version : "در نسخه بعد فعال خواهد شد",
@@ -143,13 +143,20 @@ lang_fa = {
 	filter : "تعیین نوع <ons-icon icon='fa-filter' class='ons-icon fa-filter fa'></ons-icon>",
 	Load_More : "نمایش ادامه لیست <ons-icon icon='fa-cloud-download' class='ons-icon fa-cloud-download fa'></ons-icon>",
 	Cancel_Filter : "لغو فیلترها",
+	News : "اخبار",
+	Read_More : "ادامه مطلب",
+	There_no_news_here_yet : "هنوز هیچ خبری در سامانه ثبت نشده است",
+	update_text : "برنامه یک بروزرسانی مهم داشته است و شما برای ادامه استفاده از برنامه، لازم است آن را بروزرسانی نمایید.<br>لینک دانلود آخرین نسخه :",
+	update_link : "دانلود نسخه جدید",
+	Pre_registration_finished : "برای تکمیل فرایند ثبت نام، فرم مشخصات موکب را تکمیل فرمایید",
+	you_will_recive_sms : "لطفا شماره ای که از طریق پیامک برای شما ارسال شده است را وارد نمایید",
+	service_phone_number : "شماره مسئول پاسخگویی",
+	Mukeb_state : "اسم استان",
+	Mukeb_id : "شماره ثبت موکب",
+	Mukeb_type : "نوع موکب",
+	Mukeb_type_service : "خدماتی",
+	Mukeb_type_azae : "عذاء داری",
+	Captcha : "Captcha",
+	Captcha_description : "لطفا عبارت موجود در تصویر بالا را تایپ نمایید",
+	bad_captcha : "لطفا عبارت موجود در تصویر را بادقت تایپ نمایید",
 };
-
-
-
-
-
-
-
-
-

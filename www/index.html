@@ -6,13 +6,14 @@
 	<title>بسم الله الرحمن الرحیم</title>
 
 	<!-- Required libs -->
-	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/console.log.js"></script>
 	<script src="cordova.js"></script>
 	<script src="js/persian_number_to_english.js"></script>
 	<script src="js/notification.js"></script>
 	<script src="js/jquery.md5.js"></script>
-	<script src="onsenui/js/onsenui.min.js"></script>
+	<script src="js/lazyload.min.js"></script>
+	<script src="onsenui/js/onsenui.js"></script>
 	<script src="js/lang.ar.js"></script>
 	<script src="js/lang.fa.js"></script>
 	<script src="js/lang.en.js"></script>
@@ -28,6 +29,9 @@
 	<script>
 		winW = 0;
 		winH = 0;
+		news_id = "";
+		current_page = "";
+		version = "1.01";
 		app = {};
 		Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
 		FileTransfer_OBJ = "";
@@ -958,6 +962,14 @@ alert("An error has occurred: Code = " + error.code);
 				else
 					$("#city_name").removeClass("required_but_empty");
 
+				if($(current_page).find("#Captcha2").val()=="")
+				{
+					$("#Captcha2:visible").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Captcha2:visible").removeClass("required_but_empty");
+
 				if(has_error)
 				{
 					ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
@@ -966,6 +978,7 @@ alert("An error has occurred: Code = " + error.code);
 				params.Mobile_Number			= document.getElementById('Mobile_Number_register').value;
 				params.Mukeb_Name				= document.getElementById('Mukeb_Name').value;
 				params.city_name				= window.localStorage.getItem('city_name');
+				params.captcha					= $(current_page).find("#Captcha2").val();
 				
 				window.sessionStorage.setItem('Mobile_Number_register',document.getElementById('Mobile_Number_register').value);
 				window.sessionStorage.setItem('Mukeb_Name',document.getElementById('Mukeb_Name').value);
@@ -987,12 +1000,18 @@ alert("An error has occurred: Code = " + error.code);
 								hideDialog('dialog_progress_bar');
 								fromTemplate(multilang.get('mukeb_already_exist'));
 							}
+							else if(text=="bad_captcha")
+							{
+								hideDialog('dialog_progress_bar');
+								fromTemplate(multilang.get('bad_captcha'));
+							}
 							else
 							{
 								hideDialog('dialog_progress_bar');
-								fromTemplate(multilang.get('Pre_registration_finished'));
+								//fromTemplate(multilang.get('Pre_registration_finished'));
+								fromTemplate(multilang.get('you_will_recive_sms'));
 								//window.localStorage.setItem('Pre_registration_step','1');
-								document.querySelector('#myNavigator').pushPage('confirm_mukeb_manager.html', {animation: "slid",animationOptions:{delay: 0.4} });
+								document.querySelector('#myNavigator').pushPage('confirm_mukeb_manager.html', {animation: "reversedSlide",animationOptions:{delay: 0.4} });
 							}
 						},
 						error: function(jqXHR, exception) {
@@ -1069,9 +1088,10 @@ alert("An error has occurred: Code = " + error.code);
 			}
 			else{
 				var params = {};
-
+				
 				params.udid = window.localStorage.getItem('udid');
 				params.Mobile_Number			= mobile_number;
+				params.captcha					= $(current_page).find("#Captcha").val();
 				params.language					= window.localStorage.getItem('language');
 				params.act						= "mukeb_forgot_password";
 				//console.log(params);
@@ -1084,27 +1104,35 @@ alert("An error has occurred: Code = " + error.code);
 						//async: true,
 						success : function(text)
 						{
-							try {
-								json = $.parseJSON(text);
-								
-								if(json.answer=="Login_tere_is_not_any_account")
-								{
-									ons.notification.alert(multilang.get("Login_tere_is_not_any_account"));
-								}
-								else if(json.answer=="we_will_send_sms")
-								{
-									document.querySelector('#myNavigator').pushPage('forgot_pasword_mukeb_manager_login.html', {animation: "slid",animationOptions:{delay: 0.4} });
-								}
-								else
-								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
+							if(text=="bad_captcha")
+							{
+								hideDialog('dialog_progress_bar');
+								fromTemplate(multilang.get('bad_captcha'));
+							}
+							else
+							{
+								try {
+									json = $.parseJSON(text);
+									
+									if(json.answer=="Login_tere_is_not_any_account")
+									{
+										ons.notification.alert(multilang.get("Login_tere_is_not_any_account"));
+									}
+									else if(json.answer=="we_will_send_sms")
+									{
+										document.querySelector('#myNavigator').pushPage('forgot_pasword_mukeb_manager_login.html', {animation: "reversedSlide",animationOptions:{delay: 0.4} });
+									}
+									else
+									{
+										$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
+										modal.show({animation: "fade"});
+										setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+									}
+								} catch (e) {
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 									modal.show({animation: "fade"});
 									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 								}
-							} catch (e) {
-								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
-								modal.show({animation: "fade"});
-								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 							}
 							hideDialog('dialog_progress_bar');
 						},
@@ -1290,11 +1318,20 @@ alert("An error has occurred: Code = " + error.code);
 				else
 					$("#Code_in_SMS").removeClass("required_but_empty");
 
+				if($(current_page).find("#Captcha").val()=="")
+				{
+					$("#Captcha:visible").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Captcha:visible").removeClass("required_but_empty");
+
 				if(has_error)
 				{
 					ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
 					return false;
 				}
+				params.captcha					= $(current_page).find("#Captcha").val();
 				params.Code_in_SMS				= document.getElementById('Code_in_SMS').value;
 				params.Mobile_Number			= window.sessionStorage.getItem('mobile_number');
 				params.language					= window.localStorage.getItem('language');
@@ -1309,43 +1346,51 @@ alert("An error has occurred: Code = " + error.code);
 						//async: true,
 						success : function(text)
 						{
-							try {
-								json = $.parseJSON(text);
-								
-								if(json.answer=="Login_Invalid_password")
-								{
-									ons.notification.alert(multilang.get("check_sms_wrong_number"));
-								}
-								else if(json.answer=="Login_tere_is_not_any_account")
-								{
-									ons.notification.alert(multilang.get("Login_tere_is_not_any_account"));
-								}
-								else if(json.answer=="Logined")
-								{
-									ons.notification.alert(multilang.get("Login_successfully"));
-									console.log(json.token);
-									window.localStorage.setItem('token',json.token);
-									window.localStorage.setItem('last_login_result',text);
-									window.sessionStorage.setItem('he_is_logined',"true");
+							if(text=="bad_captcha")
+							{
+								hideDialog('dialog_progress_bar');
+								fromTemplate(multilang.get('bad_captcha'));
+							}
+							else
+							{
+								try {
+									json = $.parseJSON(text);
 									
-									window.localStorage.setItem('capacity_woman',json.mukeb_data.capacity_woman);
-									window.localStorage.setItem('capacity_man',json.mukeb_data.capacity_man);
-									
-									if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
-										document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									if(json.answer=="Login_Invalid_password")
+									{
+										ons.notification.alert(multilang.get("check_sms_wrong_number"));
+									}
+									else if(json.answer=="Login_tere_is_not_any_account")
+									{
+										ons.notification.alert(multilang.get("Login_tere_is_not_any_account"));
+									}
+									else if(json.answer=="Logined")
+									{
+										ons.notification.alert(multilang.get("Login_successfully"));
+										console.log(json.token);
+										window.localStorage.setItem('token',json.token);
+										window.localStorage.setItem('last_login_result',text);
+										window.sessionStorage.setItem('he_is_logined',"true");
+										
+										window.localStorage.setItem('capacity_woman',json.mukeb_data.capacity_woman);
+										window.localStorage.setItem('capacity_man',json.mukeb_data.capacity_man);
+										
+										if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
+											document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
+										else
+											document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									}
 									else
-										document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
-								}
-								else
-								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
+									{
+										$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
+										modal.show({animation: "fade"});
+										setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+									}
+								} catch (e) {
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 									modal.show({animation: "fade"});
 									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 								}
-							} catch (e) {
-								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
-								modal.show({animation: "fade"});
-								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 							}
 							hideDialog('dialog_progress_bar');
 						},
@@ -1390,6 +1435,14 @@ alert("An error has occurred: Code = " + error.code);
 				else
 					$("#Mobile_Number").removeClass("required_but_empty");
 
+				if($(current_page).find("#Captcha").val()=="")
+				{
+					$("#Captcha:visible").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Captcha:visible").removeClass("required_but_empty");
+
 				if(document.getElementById('Password').value=="")
 				{
 					$("#Password").addClass("required_but_empty");
@@ -1403,6 +1456,7 @@ alert("An error has occurred: Code = " + error.code);
 					ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
 					return false;
 				}
+				params.captcha					= $(current_page).find("#Captcha").val();
 				params.Mobile_Number			= document.getElementById('Mobile_Number').value;
 				params.Password					= encrypt_by_date($.md5($.md5(Base64.encode(document.getElementById('Password').value))));
 				params.language					= window.localStorage.getItem('language');
@@ -1418,43 +1472,52 @@ alert("An error has occurred: Code = " + error.code);
 						//async: true,
 						success : function(text)
 						{
-							try {
-								json = $.parseJSON(text);
-								
-								if(json.answer=="Login_Invalid_password")
-								{
-									ons.notification.alert(multilang.get("Login_Invalid_password"));
-								}
-								else if(json.answer=="Login_tere_is_not_any_account")
-								{
-									ons.notification.alert(multilang.get("Login_tere_is_not_any_account"));
-								}
-								else if(json.answer=="Logined")
-								{
-									ons.notification.alert(multilang.get("Login_successfully"));
-									console.log(json.token);
-									window.localStorage.setItem('token',json.token);
-									window.localStorage.setItem('last_login_result',text);
-									window.sessionStorage.setItem('he_is_logined',"true");
+							if(text=="bad_captcha")
+							{
+								hideDialog('dialog_progress_bar');
+								fromTemplate(multilang.get('bad_captcha'));
+							}
+							else
+							{
+								try {
+									json = $.parseJSON(text);
 									
-									window.localStorage.setItem('capacity_woman',json.mukeb_data.capacity_woman);
-									window.localStorage.setItem('capacity_man',json.mukeb_data.capacity_man);
-									
-									if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
-										document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									if(json.answer=="Login_Invalid_password")
+									{
+										ons.notification.alert(multilang.get("Login_Invalid_password"));
+									}
+									else if(json.answer=="Login_tere_is_not_any_account")
+									{
+										ons.notification.alert(multilang.get("Login_tere_is_not_any_account"));
+									}
+									else if(json.answer=="Logined")
+									{
+										ons.notification.alert(multilang.get("Login_successfully"));
+										console.log(json.token);
+										window.localStorage.setItem('token',json.token);
+										window.localStorage.setItem('last_login_result',text);
+										window.sessionStorage.setItem('he_is_logined',"true");
+										
+										window.localStorage.setItem('capacity_woman',json.mukeb_data.capacity_woman);
+										window.localStorage.setItem('capacity_man',json.mukeb_data.capacity_man);
+										window.localStorage.setItem('mukeb_data',JSON.stringify(json.mukeb_data));
+										
+										if(window.localStorage.getItem('capacity_man')=="null" && window.localStorage.getItem('capacity_woman')=="null")
+											document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
+										else
+											document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									}
 									else
-										document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
-								}
-								else
-								{
-									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
+									{
+										$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:3</span>');
+										modal.show({animation: "fade"});
+										setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+									}
+								} catch (e) {
+									$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
 									modal.show({animation: "fade"});
 									setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 								}
-							} catch (e) {
-								$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '<br>code:5</span>');
-								modal.show({animation: "fade"});
-								setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
 							}
 							hideDialog('dialog_progress_bar');
 						},
@@ -1537,6 +1600,7 @@ alert("An error has occurred: Code = " + error.code);
 									window.localStorage.setItem('last_login_result',text);
 									window.localStorage.setItem('capacity_woman',json.mukeb_data.capacity_woman);
 									window.localStorage.setItem('capacity_man',json.mukeb_data.capacity_man);
+									window.localStorage.setItem('mukeb_data',JSON.stringify(json.mukeb_data));
 									
 									window.sessionStorage.setItem('he_is_logined',"true");
 									
@@ -1572,6 +1636,7 @@ alert("An error has occurred: Code = " + error.code);
 			}
 		}
 		function get_mukeb_list_for_map(){
+			console.log("get_mukeb_list_for_map");
 			networkState = navigator.connection.type;
 			if (window.cordova && networkState == Connection.NONE) {
 				/*
@@ -1613,6 +1678,88 @@ alert("An error has occurred: Code = " + error.code);
 								console.log(text);
 								window.localStorage.setItem('json_mukeb_list_for_map',text);
 								window.sessionStorage.setItem('json_mukeb_list_for_map',text);
+							} catch (e) {
+								console.log("is not json");
+								console.log(text);
+							}
+						},
+						error: function(jqXHR, exception) {
+							//$('#modal-text').html('<ons-icon icon="fa-wifi" size="28px"></ons-icon> <span>' + multilang.get('you_must_connect_to_the_internet') + '</span>');
+							//modal.show({animation: "fade"});
+							//setTimeout(function(){ modal.hide({animation: "fade"}); }, 2000);
+							//hideDialog('dialog_progress_bar');
+						},
+				});
+			}
+		}
+		function get_all_data(){
+			console.log("get_all_data");
+			networkState = navigator.connection.type;
+			if (window.cordova && networkState == Connection.NONE) {
+				/*
+				console.log("start_download : NO internet");
+				navigator.notification.alert(
+					multilang.get('you_must_connect_to_the_internet'),  // message
+					alertDismissed,		 // callback
+					multilang.get('warning'),			// title
+					multilang.get('ok')		// buttonName
+				);
+				*/
+			}
+			else{
+				var params = {};
+				if(window.cordova)
+					navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess_without_alert, getCurrentPosition_onError);
+
+				if(window.sessionStorage.getItem('user_longitude') != null)
+					params.longitude			= window.sessionStorage.getItem('user_longitude');
+				if(window.sessionStorage.getItem('user_latitude') != null)
+					params.latitude				= window.sessionStorage.getItem('user_latitude');
+					
+				params.udid			= window.localStorage.getItem('udid');
+				params.language		= window.localStorage.getItem('language');
+				params.act			= "get_all_data";
+				//return console.log(params);
+
+				
+				$.ajax({
+						url: server_url,
+						type: "POST",
+						data: params,
+						//async: true,
+						success : function(text)
+						{
+							try {
+								json = $.parseJSON(text);
+								console.log("json");
+								//console.log(text);
+								window.localStorage.setItem('map_array_ar',JSON.stringify(json.map_array_ar));
+								window.sessionStorage.setItem('map_array_ar',JSON.stringify(json.map_array_ar));
+								window.localStorage.setItem('map_array_en',JSON.stringify(json.map_array_en));
+								window.sessionStorage.setItem('map_array_en',JSON.stringify(json.map_array_en));
+								window.localStorage.setItem('map_array_fa',JSON.stringify(json.map_array_fa));
+								window.sessionStorage.setItem('map_array_fa',JSON.stringify(json.map_array_fa));
+								window.localStorage.setItem('news_ar',JSON.stringify(json.news_ar));
+								window.localStorage.setItem('news_en',JSON.stringify(json.news_en));
+								window.localStorage.setItem('news_fa',JSON.stringify(json.news_fa));
+								
+								window.localStorage.setItem('WIFI_NETWORK_NOTIC_ar',json.WIFI_NETWORK_NOTIC_ar);
+								window.localStorage.setItem('WIFI_NETWORK_NOTIC_en',json.WIFI_NETWORK_NOTIC_en);
+								window.localStorage.setItem('WIFI_NETWORK_NOTIC_fa',json.WIFI_NETWORK_NOTIC_fa);
+								
+								window.localStorage.setItem('contact_support_text_ar',json.contact_text_ar);
+								window.localStorage.setItem('contact_support_text_en',json.contact_text_en);
+								window.localStorage.setItem('contact_support_text_fa',json.contact_text_fa);
+								
+								window.localStorage.setItem('last_valid_version',json.last_valid_version);
+								window.localStorage.setItem('update_link',json.update_link);
+								if(version < json.last_valid_version)
+									document.querySelector('#myNavigator').pushPage('update_link.html', {animation: "slid",animationOptions:{delay: 0.4} });
+								
+								toast_update.toggle();
+								setTimeout(function(){
+									toast_update.hide();
+								}, 1500);
 							} catch (e) {
 								console.log("is not json");
 								console.log(text);
@@ -1785,20 +1932,32 @@ alert("An error has occurred: Code = " + error.code);
 			}
 		}
 		function LogOut(){
-			window.localStorage.clear();
-			window.sessionStorage.clear();
-			document.querySelector('#myNavigator').pushPage('home.html', {animation: "slid",animationOptions:{delay: 0.4} });
+			//window.localStorage.clear();
+			//window.sessionStorage.clear();
+			window.sessionStorage.setItem('he_is_logined',"false");
+			window.localStorage.removeItem('token');
+			window.localStorage.removeItem('udid');
+
+			document.querySelector('#myNavigator').pushPage('home.html', {animation: "reversedSlide",animationOptions:{delay: 0.4} });
 		}
 		function LogOut_and_notif(){
 			ons.notification.alert(multilang.get('Please_Login_Again'));
 			window.sessionStorage.setItem('he_is_logined',"false");
 			window.localStorage.removeItem('token');
-			document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "slid",animationOptions:{delay: 0.4} });
+			document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: "reversedSlide",animationOptions:{delay: 0.4} });
 		}
 		function editSelect_city_name(event){
 			if (event.target.value != '' && event.target.value != null && event.target.value != multilang.get("City_Name")) {
 				window.localStorage.setItem('city_name',event.target.value);
 				window.localStorage.setItem('found_City_Name',event.target.value);
+				$(event.target).addClass("selected");
+			}
+			else
+				$(event.target).removeClass("selected");				
+		}
+		function editSelect_Mukeb_type(event){
+			if (event.target.value != '' && event.target.value != null && event.target.value != multilang.get("Mukeb_type")) {
+				window.localStorage.setItem('Mukeb_type',event.target.value);
 				$(event.target).addClass("selected");
 			}
 			else
@@ -1888,12 +2047,42 @@ alert("An error has occurred: Code = " + error.code);
 				}
 				else
 					$("#Phone_number_1").removeClass("required_but_empty");
+					
+				if(document.getElementById('Mukeb_id').value=="")
+				{
+					$("#Mukeb_id").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Mukeb_id").removeClass("required_but_empty");
+					
+				if(document.getElementById('Mukeb_type').value=="")
+				{
+					$("#Mukeb_type").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Mukeb_type").removeClass("required_but_empty");
+
+				if(document.getElementById('Mukeb_state').value=="")
+				{
+					$("#Mukeb_state").addClass("required_but_empty");
+					has_error = true;
+				}
+				else
+					$("#Mukeb_state").removeClass("required_but_empty");
 
 				if(has_error)
 				{
 					ons.notification.alert(multilang.get("Please_fill_the_required_fields"));
 					return false;
 				}
+				
+				params.Phone_number_3			= document.getElementById('Phone_number_3').value;
+				params.Mukeb_state				= document.getElementById('Mukeb_state').value;
+				params.Mukeb_type				= document.getElementById('Mukeb_type').value;
+				params.Mukeb_id					= document.getElementById('Mukeb_id').value;
+				
 				
 				params.Mukeb_Name				= document.getElementById('Mukeb_Name').value;
 				params.Man_capacity				= document.getElementById('Man_capacity').value;
@@ -1989,7 +2178,7 @@ alert("An error has occurred: Code = " + error.code);
 									//var temp_index = myNavigator.pages.length-1;
 									//myNavigator.removePage(temp_index);
 
-									document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
+									document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "reversedSlide",animationOptions:{delay: 0.4} });
 								}
 								else
 								{
@@ -2052,6 +2241,10 @@ alert("An error has occurred: Code = " + error.code);
 				$("#Line_ID input").val(json.mukeb_data.Line_ID);
 				$("#Imo_ID input").val(json.mukeb_data.Imo_ID);
 				
+				$("#Mukeb_id input").val(json.mukeb_data.mukeb_id);
+				$("#Phone_number_3 input").val(json.mukeb_data.Phone_number_3);
+				$("#Mukeb_state input").val(json.mukeb_data.Mukeb_state);
+				
 				if(json.mukeb_data.food=="1")
 					$('#Food').prop('checked', true);
 				if(json.mukeb_data.blanket=="1")
@@ -2076,6 +2269,18 @@ alert("An error has occurred: Code = " + error.code);
 					$("#city_name_mukeb_manager select").addClass("selected");
 				}
 				
+				
+				$("#Mukeb_type select").val(json.mukeb_data.type);
+				if(json.mukeb_data.type!="")
+				{
+					$("#Mukeb_type select").addClass("selected");
+				}
+				else if(window.localStorage.getItem('type')!=null)
+				{
+					$("#Mukeb_type select").val(window.localStorage.getItem('type'));
+					$("#Mukeb_type select").addClass("selected");
+				}
+				
 				var i;
 				var small_images = json.mukeb_images_small;
 				var id_images	 = json.mukeb_images_id;
@@ -2088,6 +2293,15 @@ alert("An error has occurred: Code = " + error.code);
 				$('#images_place_holder div').click( function(i) {
 					removeImage_from_mukeb($(this).attr('id'));
 				});
+				
+				
+				$("#Phone_number_1 input").attr("disabled","disabled");
+				if(json.mukeb_data.confirmed==1)
+				{
+					$("#Mukeb_id input").attr("disabled","disabled");
+					$("#Mukeb_state input").attr("disabled","disabled");
+					$("#Mukeb_Name input").attr("disabled","disabled");
+				}
 
 			} catch (e) {
 				//LogOut();
@@ -2168,17 +2382,17 @@ alert("An error has occurred: Code = " + error.code);
 			if(window.sessionStorage.getItem("goto_missing_objects_from")=="zaer")
 			{
 				window.sessionStorage.removeItem("goto_missing_objects_from");
-				document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+				document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "reversedSlide",animationOptions:{delay: 0.4} });
 			}
 			else if(window.sessionStorage.getItem("goto_missing_objects_from")=="mukeb")
 			{
 				window.sessionStorage.removeItem("goto_missing_objects_from");
-				document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
+				document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "reversedSlide",animationOptions:{delay: 0.4} });
 			}
 			else
 			{
 				window.sessionStorage.removeItem("goto_missing_objects_from");
-				document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "slid",animationOptions:{delay: 0.4} });
+				document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: "reversedSlide",animationOptions:{delay: 0.4} });
 			}
 		}
 		function show_category_list(){
@@ -2256,6 +2470,11 @@ alert("An error has occurred: Code = " + error.code);
 			window.localStorage.setItem("maybe_this",text);
 			update_maybe_this_list();
 		}
+		function goto_one_news_page(id){
+			console.log("goto_one_news_page()");
+			news_id = id;
+			document.querySelector('#myNavigator').pushPage('news_page.html', {animation: "slid",animationOptions:{delay: 0.4} });
+		}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2265,11 +2484,12 @@ alert("An error has occurred: Code = " + error.code);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		server_url = "http://dlsmgroup.ir/temp/arbaeen/check_net.php";
-		server_url_missing_data = "http://dlsmgroup.ir/temp/arbaeen/submit_found_object.php";
-		server_url_mukeb_image = "http://dlsmgroup.ir/temp/arbaeen/submit_mekeb_image.php";
-		server_url_image = "http://dlsmgroup.ir/temp/arbaeen/image.php/";
-		window.localStorage.setItem("server_url_image","http://dlsmgroup.ir/temp/arbaeen/image.php/");
+		server_url				= "http://127.0.0.1/arbaeen/check_net.php";
+		server_url_main			= "http://127.0.0.1/arbaeen/";
+		server_url_missing_data	= "http://127.0.0.1/arbaeen/submit_found_object.php";
+		server_url_mukeb_image	= "http://127.0.0.1/arbaeen/submit_mekeb_image.php";
+		server_url_image		= "http://127.0.0.1/arbaeen/image.php/";
+		window.localStorage.setItem("server_url_image",server_url_image);
 			
 		//ons.platform.select('android');
 		ons.platform.select('ios');
@@ -2299,16 +2519,37 @@ alert("An error has occurred: Code = " + error.code);
 			
 			/*
 			*/
+			if(window.sessionStorage.getItem('he_is_logined') != "true")
+				auto_login();
 			window.setInterval(function(){
 				if(window.sessionStorage.getItem('he_is_logined') != "true")
 					auto_login();
-				if(window.sessionStorage.getItem('json_mukeb_list_for_map') == null)
-					get_mukeb_list_for_map();
 			}, 1000);
+			
+			if(window.sessionStorage.getItem('map_array_ar') == null)
+				get_all_data();
+			window.setInterval(function(){
+				if(window.sessionStorage.getItem('map_array_ar') == null)
+					get_all_data();
+			}, 4000);
+			
+			setTimeout(function(){
+				if(window.localStorage.getItem('last_valid_version')!=null)
+				{
+					if(version < window.localStorage.getItem('last_valid_version'))
+					{
+						get_all_data();
+						document.querySelector('#myNavigator').pushPage('update_link.html', {animation: "lift",animationOptions:{delay: 0.4} });
+					}
+				}
+			}, 900);
 		});
 		
 		document.addEventListener('prechange', function(event) {
 			//console.log(event);
+			var page = event.target;
+			current_page = page;
+			
 			if(event.tabItem.getAttribute('label')=="filter")
 			{
 				document.querySelector('ons-toolbar .center').innerHTML = multilang.get("filter");
@@ -2330,6 +2571,8 @@ alert("An error has occurred: Code = " + error.code);
 			//console.log("document.addEventListener init");
 			//StatusBar.hide;
 			var page = event.target;
+			current_page = page;
+			
 			modal = document.querySelector('ons-modal');
 			
 		
@@ -2427,6 +2670,26 @@ alert("An error has occurred: Code = " + error.code);
 			{
 					check_retina();
 					need_translate();
+					
+					if(window.localStorage.getItem('contact_support_text_fa') != null && window.localStorage.getItem('language') == "lang_fa")
+						arr = window.localStorage.getItem('contact_support_text_fa');
+					else if(window.localStorage.getItem('contact_support_text_en') != null && window.localStorage.getItem('language') == "lang_en")
+						arr = window.localStorage.getItem('contact_support_text_en');
+					else if(window.localStorage.getItem('contact_support_text_ar') != null)
+						arr = window.localStorage.getItem('contact_support_text_ar');
+					console.log(arr);
+					$(".contact_support_text article").html(arr);
+			}
+			else if (page.id === 'update_link')
+			{
+					check_retina();
+					need_translate();
+					
+
+					//$("").html(arr);
+					page.querySelector('.click_here_to_update').onclick = function() {
+						window.open(window.localStorage.getItem('update_link'), '_system', 'location=yes');
+					};
 			}
 			else if (page.id === 'zaer_services')
 			{
@@ -2483,6 +2746,7 @@ alert("An error has occurred: Code = " + error.code);
 					page.querySelector('#goto_page_zaer_service_missing_objects').onclick = function() {
 						document.querySelector('#myNavigator').pushPage('zaer_service_missing_objects.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
+					/*
 					page.querySelector('#goto_page_zaer_service_weather').onclick = function() {
 						navigator.notification.alert(
 							multilang.get('Will_be_active_in_the_next_version'),  // message
@@ -2490,6 +2754,10 @@ alert("An error has occurred: Code = " + error.code);
 							multilang.get('notice'),			// title
 							multilang.get('ok')		// buttonName
 						);
+					};
+					*/
+					page.querySelector('#goto_page_zaer_service_news').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('news_list.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 			else if (page.id === 'zaer_service_map_mavakeb')
@@ -2597,10 +2865,18 @@ alert("An error has occurred: Code = " + error.code);
 					*/
 					
 					page.querySelector('#goto_page_zaer_service_missing_objects_lost').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_service_I_Lost_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						var networkState = navigator.connection.type;
+						if (networkState == Connection.NONE)
+							need_internet();
+						else
+							document.querySelector('#myNavigator').pushPage('zaer_service_I_Lost_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 					page.querySelector('#goto_page_zaer_service_missing_objects_found').onclick = function() {
-						document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
+						var networkState = navigator.connection.type;
+						if (networkState == Connection.NONE)
+							need_internet();
+						else
+							document.querySelector('#myNavigator').pushPage('zaer_service_I_Found_Something.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 			else if (page.id === 'zaer_service_I_Found_Something')
@@ -2738,7 +3014,7 @@ alert("An error has occurred: Code = " + error.code);
 			{
 					check_retina();
 					need_translate();
-					center_the_box_vertical(44+6+49);
+					center_the_box_vertical(100);
 					
 					//if(window.sessionStorage.getItem('he_is_logined') == "true")
 					if(window.localStorage.getItem('token') != null)
@@ -2751,7 +3027,11 @@ alert("An error has occurred: Code = " + error.code);
 					else
 						auto_login("change_page");
 
-					
+					setTimeout(function(){
+						$(".captcha_image").attr("src",server_url_main + "/captcha/captcha.php");
+						$(".captcha2_image").attr("src",server_url_main + "/captcha/captcha2.php");
+					}, 350);
+
 					setTimeout(function(){
 						check_retina();
 						need_translate();
@@ -2766,6 +3046,16 @@ alert("An error has occurred: Code = " + error.code);
 						};
 						page.querySelector('#forgot_pasword_mukeb_manager_login_btn').onclick = function()
 						{
+							//if($(current_page).find("#Captcha").val()=="")
+							if($(current_page).find("#Captcha").val()=="")
+							{
+								options = {};
+								options.message = multilang.get("Captcha_description");
+								ons.notification.alert(options);
+								return true;
+							}
+
+							
 							options = {};
 							options.message = multilang.get("Enter_your_mobile_number");
 							options.callback = forgot_pasword_mukeb_manager_login_get_number;
@@ -2904,6 +3194,7 @@ alert("An error has occurred: Code = " + error.code);
 					page.querySelector('#goto_page_mukeb_edit_data').onclick = function() {
 						document.querySelector('#myNavigator').pushPage('edit_mukeb_data.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
+					/*
 					page.querySelector('#goto_page_mukeb_service_weather').onclick = function() {
 						//document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: "slid",animationOptions:{delay: 0.4} });
 						navigator.notification.alert(
@@ -2912,6 +3203,10 @@ alert("An error has occurred: Code = " + error.code);
 							multilang.get('notice'),			// title
 							multilang.get('ok')		// buttonName
 						);
+					};
+					*/
+					page.querySelector('#goto_page_mukeb_news').onclick = function() {
+						document.querySelector('#myNavigator').pushPage('news_list_Mukeb.html', {animation: "slid",animationOptions:{delay: 0.4} });
 					};
 			}
 			else if (page.id === 'zaer_service_I_Lost_Something')
@@ -3054,6 +3349,142 @@ alert("An error has occurred: Code = " + error.code);
 						
 					}, 300);
 			}
+			else if (page.id === 'news_list')
+			{
+					check_retina();
+					need_translate();
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					setTimeout(function(){
+						check_retina();
+						need_translate();
+
+						if(window.localStorage.getItem('news_fa') != null && window.localStorage.getItem('language') == "lang_fa")
+							arr = $.parseJSON(window.localStorage.getItem('news_fa'));
+						else if(window.localStorage.getItem('news_en') != null && window.localStorage.getItem('language') == "lang_en")
+							arr = $.parseJSON(window.localStorage.getItem('news_en'));
+						else if(window.localStorage.getItem('news_ar') != null)
+							arr = $.parseJSON(window.localStorage.getItem('news_ar'));
+						//console.log(arr);
+						
+						var html_temp = "";
+						for(var i=0;i<arr.length;i++)
+						{
+							html_temp = html_temp  +
+												'<article class="' + window.localStorage.getItem('language') + '" >' +
+												'<div class="list-block media-list">' +
+												// '<img class="article" src="img/no-image-t.png" style="background-image:url(\'' + server_url + arr[i].image + '\'),url(\'images/no-image.png\');">' +
+												// '<img class="article lazyload" src="images/no-image.png" data-src="' + server_url + arr[i].image + '">' +
+												// '<div class="article lazyload" style="url(\'images/no-image.png\');" data-src2="background-image:url(\'' + server_url + arr[i].image + '\'),url(\'images/no-image.png\');"></div>' +
+												'<div class="article lazyload" style="background-image:url(\'images/no-image.png\');" data-src="' + server_url_image + arr[i].image + '"></div>' +
+												'<div class="content-block"><h2 onclick="goto_one_news_page(' + i + ')">' + arr[i].title + '</h2>' +
+												'<p>' + (arr[i].introtext!=''?arr[i].introtext:'-----') + '</p>' +
+												'<div style="width:100%;">' +
+												'<a class="button " href="javascript:goto_one_news_page(' + i + ')"><span class="btn_text">' + multilang.get("Read_More") + '</span></a>' +
+												'<span class="btn_date">' + arr[i].date + '</span>' +
+												'</div>' +
+												// '<a class="button " href="blogDetail.html?id=' + arr[i].id + '">ادامه مطلب</a></div>' +
+												'</div><div class="separator"></div>' +
+												'</div>' +
+												'</article>';			
+						}
+						//console.log(html_temp);
+						if(html_temp!="")
+							$(".news_placeholder").html(html_temp);
+						lazyload();
+					}, 300);
+			}
+			else if (page.id === 'news_list_Mukeb')
+			{
+					check_retina();
+					need_translate();
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					setTimeout(function(){
+						check_retina();
+						need_translate();
+
+						if(window.localStorage.getItem('news_fa') != null && window.localStorage.getItem('language') == "lang_fa")
+							arr = $.parseJSON(window.localStorage.getItem('news_fa'));
+						else if(window.localStorage.getItem('news_en') != null && window.localStorage.getItem('language') == "lang_en")
+							arr = $.parseJSON(window.localStorage.getItem('news_en'));
+						else if(window.localStorage.getItem('news_ar') != null)
+							arr = $.parseJSON(window.localStorage.getItem('news_ar'));
+						//console.log(arr);
+						
+						var html_temp = "";
+						for(var i=0;i<arr.length;i++)
+						{
+							html_temp = html_temp  +
+												'<article class="' + window.localStorage.getItem('language') + '" >' +
+												'<div class="list-block media-list">' +
+												// '<img class="article" src="img/no-image-t.png" style="background-image:url(\'' + server_url + arr[i].image + '\'),url(\'images/no-image.png\');">' +
+												// '<img class="article lazyload" src="images/no-image.png" data-src="' + server_url + arr[i].image + '">' +
+												// '<div class="article lazyload" style="url(\'images/no-image.png\');" data-src2="background-image:url(\'' + server_url + arr[i].image + '\'),url(\'images/no-image.png\');"></div>' +
+												'<div class="article lazyload" style="background-image:url(\'images/no-image.png\');" data-src="' + server_url_image + arr[i].image + '"></div>' +
+												'<div class="content-block"><h2 onclick="goto_one_news_page(' + i + ')">' + arr[i].title + '</h2>' +
+												'<p>' + (arr[i].introtext!=''?arr[i].introtext:'-----') + '</p>' +
+												'<div style="width:100%;">' +
+												'<a class="button " href="javascript:goto_one_news_page(' + i + ')"><span class="btn_text">' + multilang.get("Read_More") + '</span></a>' +
+												'<span class="btn_date">' + arr[i].date + '</span>' +
+												'</div>' +
+												// '<a class="button " href="blogDetail.html?id=' + arr[i].id + '">ادامه مطلب</a></div>' +
+												'</div><div class="separator"></div>' +
+												'</div>' +
+												'</article>';			
+						}
+						//console.log(html_temp);
+						if(html_temp!="")
+							$(".news_placeholder").html(html_temp);
+						lazyload();
+					}, 300);
+			}
+			else if (page.id === 'news_page')
+			{
+					check_retina();
+					need_translate();
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					///////////////////////////////////////////////////////////
+					setTimeout(function(){
+						check_retina();
+						need_translate();
+
+						if(window.localStorage.getItem('news_fa') != null && window.localStorage.getItem('language') == "lang_fa")
+							arr = $.parseJSON(window.localStorage.getItem('news_fa'));
+						else if(window.localStorage.getItem('news_en') != null && window.localStorage.getItem('language') == "lang_en")
+							arr = $.parseJSON(window.localStorage.getItem('news_en'));
+						else if(window.localStorage.getItem('news_ar') != null)
+							arr = $.parseJSON(window.localStorage.getItem('news_ar'));
+						//console.log(arr);
+						
+						var html_temp = "";
+						i = news_id;
+							html_temp = html_temp  +
+												'<article class="' + window.localStorage.getItem('language') + '" >' +
+												'<div class="list-block media-list">' +
+												// '<img class="article" src="img/no-image-t.png" style="background-image:url(\'' + server_url + arr[i].image + '\'),url(\'images/no-image.png\');">' +
+												// '<img class="article lazyload" src="images/no-image.png" data-src="' + server_url + arr[i].image + '">' +
+												// '<div class="article lazyload" style="url(\'images/no-image.png\');" data-src2="background-image:url(\'' + server_url + arr[i].image + '\'),url(\'images/no-image.png\');"></div>' +
+												'<div class="article lazyload" style="background-image:url(\'images/no-image.png\');" data-src="' + server_url_image + arr[i].image + '"></div>' +
+												'<div class="content-block"><h2 onclick="goto_one_news_page(' + arr[i].id + ')">' + arr[i].title + '</h2>' +
+												'<p>' + (arr[i].introtext!=''?arr[i].text_readmore:'-----') + '</p>' +
+												//'<div style="width:100%;">' +
+												//'<a class="button " href="javascript:goto_one_news_page(' + arr[i].id + ')"><span class="btn_text">' + multilang.get("Read_More") + '</span></a>' +
+												//'<span class="btn_date">' + arr[i].date + '</span>' +
+												//'</div>' +
+												// '<a class="button " href="blogDetail.html?id=' + arr[i].id + '">ادامه مطلب</a></div>' +
+												'</div><div class="separator"></div>' +
+												'</div>' +
+												'</article>';			
+						//console.log(html_temp);
+						if(html_temp!="")
+							$(".news_placeholder_single").html(html_temp);
+						lazyload();
+					}, 300);
+			}
 
 		});
 	</script>
@@ -3173,8 +3604,31 @@ alert("An error has occurred: Code = " + error.code);
 				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
 			</ons-toolbar>
 			
-			<div class="text-65" style="margin-top: 25%;margin-bottom: 10%;" >
-				<span class="need_translate" translate="Contact_support_text"></span>
+			<div class="text-100 contact_support_text" style="margin-bottom: 10%;">
+				<article></article>
+			</div>			
+		</ons-page>
+	</template>
+	
+	<template id="update_link.html">
+		<ons-page id="update_link" >
+			<div class="page_bg retina" ></div>
+			
+			<ons-toolbar inline modifier="transparent22">
+				<!--
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				-->
+				<div class="center need_translate" translate="notice"></div>
+				<!-- <div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div> -->
+			</ons-toolbar>
+			
+			<div class="text-65 need_translate"  translate="update_text" style="margin-bottom: 5%;margin-top:  10%;text-align:  justify;width:  80%;"></div>			
+			<div class="text-65" style="margin-bottom: 10%;text-align:  center;">
+				<button class="center need_translate btn-success click_here_to_update" translate="update_link" ></button>
 			</div>			
 		</ons-page>
 	</template>
@@ -3188,9 +3642,9 @@ alert("An error has occurred: Code = " + error.code);
 							<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 						</ons-toolbar-button>
 					</div>
-					<div class="center need_translate" translate="mukeb_information"></div>
+					<div class="center need_translate" translate=""></div>
 					<div class="left">
-						<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
+						<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: 'reversedSlide',animationOptions:{delay: 0.4} });">
 							<span class="back-button__icon">
 								<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
 							</span>
@@ -3206,7 +3660,7 @@ alert("An error has occurred: Code = " + error.code);
 					<div id="goto_page_zaer_service_map" class="select_service_type_btn" ><div class="need_translate" translate="Trip_Map">Trip Map</div></div>
 					<div id="goto_page_zaer_service_map_mavakeb" class="select_service_type_btn" ><div class="need_translate" translate="Tents_Positions">Tents Positions</div></div>
 					<div id="goto_page_zaer_service_missing_objects" class="select_service_type_btn" ><div class="need_translate" translate="Missing_objects">Missing Objects</div></div>
-					<div id="goto_page_zaer_service_weather" class="select_service_type_btn" ><div class="need_translate" translate="Weather">Weather</div></div>
+					<div id="goto_page_zaer_service_news" class="select_service_type_btn" ><div class="need_translate" translate="News">News</div></div>
 				</div>
 			</div>
 		</ons-page>
@@ -3224,7 +3678,7 @@ alert("An error has occurred: Code = " + error.code);
 				</div>
 				<div class="center need_translate" translate="Tents_Positions"></div>
 				<div class="left">
-					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
+					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: 'reversedSlide',animationOptions:{delay: 0.4} });">
 						<span class="back-button__icon">
 							<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
 						</span>
@@ -3263,7 +3717,7 @@ alert("An error has occurred: Code = " + error.code);
 				</div>
 				<div class="center need_translate" translate="Tents_Positions"></div>
 				<div class="left">
-					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
+					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: 'reversedSlide',animationOptions:{delay: 0.4} });">
 						<span class="back-button__icon">
 							<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
 						</span>
@@ -3412,7 +3866,7 @@ alert("An error has occurred: Code = " + error.code);
 	<template id="register_mukeb.html">
 		<ons-page id="register_mukeb" >
 			<div class="page_bg retina" ></div>
-			<ons-toolbar inline modifier="transparent22">
+			<ons-toolbar inline modifier="transparent22" style="background-color:  rgba(38,119,149,1);">
 				<div class="right">
 					<ons-toolbar-button onclick="fn.open()">
 						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
@@ -3423,29 +3877,10 @@ alert("An error has occurred: Code = " + error.code);
 			</ons-toolbar>
 
 			<ons-tabbar swipeable position="auto" >
-				<ons-tab page="Login_tab.html" label="Login" icon="fa-user" class="need_translate_tab" translate="Login" active></ons-tab>
 				<ons-tab page="Register_tab.html" label="Register_Tent_manager" icon="fa-user-plus" class="need_translate_tab" translate="Register" ></ons-tab>
+				<ons-tab page="Login_tab.html" label="Login" icon="fa-user" class="need_translate_tab" translate="Login" active></ons-tab>
 			</ons-tabbar>
 			
-		</ons-page>
-	</template>
-	
-	<template id="Login_tab.html">
-		<ons-page id="Register_tab">
-			<div class="text-65 center_the_box_vertical" >
-				<img src="images/pages/mukeb_icon.png" style="max-width:100%;margin:0 auto 10% auto;width:70px;width:33%;display: block;">
-				<div class="input">
-					<ons-input id="Mobile_Number" pattern="\d*" modifier="underbar" placeholder="Mobile_Number" float class="need_translate_val" translate="Mobile_Number"></ons-input>
-				</div>
-
-				<div class="input" style="margin-bottom: 20%;">
-					<ons-input id="Password" pattern="\d*" modifier="underbar" type="password" placeholder="Password" float class="need_translate_val" translate="Password"></ons-input>
-				</div>
-				
-				<div id="login_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Login" ></div></div></div>
-				<br>
-				<div id="forgot_pasword_mukeb_manager_login_btn" class="center-text" ><div class="Submit_Information2" ><div class="need_translate" translate="forgot_my_password" style="color: #ccc;font-size: 11px;margin-top: -3%;" ></div></div></div>
-			</div>
 		</ons-page>
 	</template>
 
@@ -3460,7 +3895,7 @@ alert("An error has occurred: Code = " + error.code);
 				<div class="input" >
 					<ons-input id="Mukeb_Name" modifier="underbar" placeholder="Mukeb_Name" float class="need_translate_val" translate="Mukeb_Name"></ons-input>
 				</div>
-				<div class="input" style="margin-bottom: 20%;">
+				<div class="input" style="margin-bottom: 10%;">
 					<ons-select id="city_name" onchange="editSelect_city_name(event)" modifier="underbar">
 						<option value=""  class="need_translate_just_html" translate="City_Name"></option>
 						<option value="1" class="need_translate_just_html" translate="Karbala" ></option>
@@ -3470,7 +3905,44 @@ alert("An error has occurred: Code = " + error.code);
 						<option value="5" class="need_translate_just_html" translate="From_Kazemein_to_Karbala" ></option>
 					</ons-select>
 				</div>
+				
+				
+				<div class="input" style="direction:ltr;">
+					<ons-input id="Captcha2" modifier="underbar" placeholder="Captcha" float class="need_translate_val" translate="Captcha"></ons-input>
+				</div>
+				<div style="width:100%;text-align:center;" ><img src="" class="captcha2_image" style="max-width: max-content;width:  100%;" onclick="$('.captcha2_image').attr('src', server_url_main + 'captcha/captcha2.php?rand' + Math.random())" /></div>
+				<span class="need_translate" translate="Captcha_description" style="font-size: 11px;margin-bottom: 18px;display:  block;margin-top: 0px;color:  #ccc;text-align:  center;"></span>
+				
 				<div id="register_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="pre_registration"></div></div></div>
+				<br/><br/>
+			</div>
+		</ons-page>
+	</template>
+	
+	<template id="Login_tab.html">
+		<ons-page id="Register_tab">
+			<div class="text-65 center_the_box_vertical" >
+				<img src="images/pages/mukeb_icon.png" style="max-width:100%;margin:0 auto 10% auto;width:70px;width:33%;display: block;">
+				<div class="input">
+					<ons-input id="Mobile_Number" pattern="\d*" modifier="underbar" placeholder="Mobile_Number" float class="need_translate_val" translate="Mobile_Number"></ons-input>
+				</div>
+
+				<div class="input" style="margin-bottom: 10%;">
+					<ons-input id="Password" pattern="\d*" modifier="underbar" type="password" placeholder="Password" float class="need_translate_val" translate="Password"></ons-input>
+				</div>
+				
+				<div class="input" style="direction:ltr;" >
+					<ons-input id="Captcha" modifier="underbar" placeholder="Captcha" float class="need_translate_val" translate="Captcha"></ons-input>
+				</div>
+				<div style="width:100%;text-align:center;" ><img src="" class="captcha_image" style="max-width: max-content;width:  100%;" onclick="$('.captcha_image').attr('src', server_url_main + 'captcha/captcha.php?rand' + Math.random())" /></div>
+				<span class="need_translate" translate="Captcha_description" style="font-size: 11px;margin-bottom: 18px;display:  block;margin-top: 0px;color:  #ccc;text-align:  center;"></span>
+				
+				<div id="login_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Login" ></div></div></div>
+				
+
+				<br>
+				<div id="forgot_pasword_mukeb_manager_login_btn" class="center-text" ><div class="Submit_Information2" ><div class="need_translate" translate="forgot_my_password" style="color: #ccc;font-size: 11px;margin-top: -3%;" ></div></div></div>
+				<br/><br/>
 			</div>
 		</ons-page>
 	</template>
@@ -3558,7 +4030,7 @@ alert("An error has occurred: Code = " + error.code);
 				<div class="center need_translate" translate="mukeb_information"></div>
 				<div class="left">
 					<!--<ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button>-->
-					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
+					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: 'reversedSlide',animationOptions:{delay: 0.4} });">
 						<span class="back-button__icon">
 							<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
 						</span>
@@ -3573,6 +4045,20 @@ alert("An error has occurred: Code = " + error.code);
 						<legend class="need_translate" translate="General_Information"></legend>
 							<div class="input">
 								<ons-input id="Mukeb_Name" modifier="underbar" placeholder="Mukeb_Name" float class="need_translate_val" translate="Mukeb_Name"></ons-input>
+							</div>
+							<div class="input">
+								<ons-input id="Mukeb_state" modifier="underbar" placeholder="Mukeb_state" float class="need_translate_val" translate="Mukeb_state"></ons-input>
+							</div>
+							<div class="input">
+								<ons-input id="Mukeb_id" modifier="underbar" placeholder="Mukeb_id" float class="need_translate_val" translate="Mukeb_id"></ons-input>
+							</div>
+							<legend class="need_translate" translate="Mukeb_type"></legend>
+							<div class="input" >
+								<ons-select id="Mukeb_type" onchange="editSelect_Mukeb_type(event)" modifier="underbar">
+									<option value=""  class="need_translate_just_html" translate="Mukeb_type"></option>
+									<option value="0" class="need_translate_just_html" translate="Mukeb_type_service" ></option>
+									<option value="1" class="need_translate_just_html" translate="Mukeb_type_azae" ></option>
+								</ons-select>
 							</div>
 							<div  class="input" style="position:relative;">
 								<div class="Select_hover man_image" style="width: 51px;">
@@ -3615,6 +4101,9 @@ alert("An error has occurred: Code = " + error.code);
 						</div>
 						<div class="input">
 							<ons-input id="Phone_number_2" modifier="underbar" placeholder="Phone_number_2" float class="need_translate_span required" translate="Phone_number_2"></ons-input>
+						</div>
+						<div class="input">
+							<ons-input id="Phone_number_3" modifier="underbar" placeholder="Phone_number_3" float class="need_translate_span required" translate="service_phone_number"></ons-input>
 						</div>
 						<div class="input">
 							<ons-input id="Telegram_ID" modifier="underbar" placeholder="Telegram_ID" float class="need_translate_span" translate="Telegram_ID"></ons-input>
@@ -3696,7 +4185,7 @@ alert("An error has occurred: Code = " + error.code);
 					</div>
 					<div class="center need_translate" translate="mukeb_information"></div>
 					<div class="left">
-						<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: 'slid',animationOptions:{delay: 0.4} });">
+						<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('select_user_type.html', {animation: 'reversedSlide',animationOptions:{delay: 0.4} });">
 							<span class="back-button__icon">
 								<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
 							</span>
@@ -3713,7 +4202,8 @@ alert("An error has occurred: Code = " + error.code);
 					<div id="goto_page_mukeb_update_zaer_count" class="select_mukeb_manager_service_type_btn" ><div class="need_translate" translate="Updating_the_number_of_pilgrims"></div></div>
 					<div id="goto_page_mukeb_found_object" class="select_mukeb_manager_service_type_btn" ><div class="need_translate" translate="found_Objects"></div></div>
 					<div id="goto_page_mukeb_edit_data" class="select_mukeb_manager_service_type_btn" ><div class="need_translate" translate="Edit_mukeb_data"></div></div>
-					<div id="goto_page_mukeb_service_weather" class="select_mukeb_manager_service_type_btn" ><div class="need_translate" translate="Weather"></div></div>
+					<!-- <div id="goto_page_mukeb_service_weather" class="select_mukeb_manager_service_type_btn" ><div class="need_translate" translate="Weather"></div></div> -->
+					<div id="goto_page_mukeb_news" class="select_mukeb_manager_service_type_btn" ><div class="need_translate" translate="News">News</div></div>
 				</div>
 			</div>
 		</ons-page>
@@ -3781,8 +4271,80 @@ alert("An error has occurred: Code = " + error.code);
 		</ons-page>
 	</template>
 
+	<template id="news_list.html">
+		<ons-page id="news_list" >
+			<ons-toolbar inline modifier="transparent22" style="background-color:  rgba(38,119,149,1);">
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="center need_translate" translate="News"></div>
+				<div class="left">
+					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: 'reversedSlide',animationOptions:{delay: 0.4} });">
+						<span class="back-button__icon">
+							<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
+						</span>
+						<span class="back-button__label mukeb_edit_page need_translate" translate="Back">بازگشت</span>
+					</ons-button>
+				</div>
+			</ons-toolbar>
+			<div class="page_bg_overflow retina" >
+				<!-- <div class="page_bg retina" ></div> -->
+				<div class="news_placeholder text-100" style="margin-bottom: 10%;margin-top:65px;">
+					<div class="need_translate" translate="There_no_news_here_yet" style="text-align:  center;font-weight:  bold;padding-top: 24px;"></div>
+				</div>
+			</div>
+		</ons-page>
+	</template>
 
+	<template id="news_list_Mukeb.html">
+		<ons-page id="news_list" >
+			<ons-toolbar inline modifier="transparent22" style="background-color:  rgba(38,119,149,1);">
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="center need_translate" translate="News"></div>
+				<div class="left">
+					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('mukeb_manager_menu.html', {animation: 'reversedSlide',animationOptions:{delay: 0.4} });">
+						<span class="back-button__icon">
+							<svg width="13px" height="21px" viewBox="0 0 13 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>ios-back-button-icon</title><desc>Created with Sketch.</desc><defs></defs><g id="__3_inCE7__toolbar-back-button" stroke="none" stroke-width="1" fill-rule="evenodd"><g id="__3_inCE7__ios" transform="translate(-34.000000, -30.000000)"><polygon id="__3_inCE7__ios-back-button-icon" points="34 40.5 44.5 30 46.5 32 38 40.5 46.5 49 44.5 51"></polygon></g></g></svg>
+						</span>
+						<span class="back-button__label mukeb_edit_page need_translate" translate="Back">بازگشت</span>
+					</ons-button>
+				</div>
+			</ons-toolbar>
+			<div class="page_bg_overflow retina" >
+				<!-- <div class="page_bg retina" ></div> -->
+				<div class="news_placeholder text-100" style="margin-bottom: 10%;margin-top:65px;">
+					<div class="need_translate" translate="There_no_news_here_yet" style="text-align:  center;font-weight:  bold;padding-top: 24px;"></div>
+				</div>
+			</div>
+		</ons-page>
+	</template>
 
+	<template id="news_page.html">
+		<ons-page id="news_page" >
+			<ons-toolbar inline modifier="transparent22" style="background-color:  rgba(38,119,149,1);">
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="center need_translate" translate="News"></div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+			</ons-toolbar>
+
+			<div class="page_bg_overflow retina" >
+				<!-- <div class="page_bg retina" ></div> -->
+				<div class="news_placeholder_single text-100" style="margin-bottom: 10%;margin-top:65px;">
+					<div class="need_translate" translate="There_no_news_here_yet" style="text-align:  center;font-weight:  bold;padding-top: 24px;"></div>
+				</div>
+			</div>
+		</ons-page>
+	</template>
 
 
 
@@ -4160,6 +4722,11 @@ function update_remaining_capacity(){
 		<div style="z-index: 1011; position: fixed; padding: 0px; margin: 0px; width: 100%; top: 28%; left: 0%; text-align: center;border: medium none;overflow:visible;" class="blockUI blockMsg blockPage"><img src="images/preloader.gif"></div>
 		<div style="z-index: 1012; position: fixed; padding: 0px; margin: 0px; width: 100%; top: 50%; left: 0%; text-align: center;border: medium none;overflow:visible;height:500px;" class="blockUI blockMsg blockPage"><img src="images/loading.png" width="70%"></div>
 	</div>
+	<ons-toast id="toast_update" animation="ascend">
+	  Map points is updated!
+	  <!-- <button onclick="toast_update.hide()">ok</button> -->
+	</ons-toast>
+
 </body>
 </html>
   

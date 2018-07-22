@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, height=device-height, viewport-fit=cover">
+    <title>بسم الله الرحمن الرحيم</title>
+    <link rel="stylesheet" type="text/css" href="css/arabic_font.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/progress.bar.css">
+
+    <link rel="stylesheet" type="text/css" href="css/template.css">
+
+	<script src="js/jquery-3.0.0.min.js"></script>
+	<!-- <script src="js/console.log.js"></script> -->
+    <script src="cordova.js"></script>
+    <script src="js/jquery.md5.js"></script>
+    <!-- <script src="js/fastclick.js"></script> -->
+    <script src="js/hammer.min.js"></script>
+    <script src="js/back_btn.js"></script>
+	<script>
+		var server_url="http://dlsmgroup.ir/temp/arbaeen/";
+
+		function init() {		
+			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start init()');
+			document.addEventListener("deviceready", onDeviceReady, false);
+			/**** added by mahdi *********/
+			if(isRetina())
+			{
+				$('.retina').each( function(i) {
+					var back = $(this).css('background-image');
+					back = back.replace("/low", "/high");
+					$(this).css('background-image',back);
+				});
+				$('.retina:before').each( function(i) {
+					var back = $(this).css('background-image');
+					back = back.replace("/low", "/high");
+					$(this).css('background-image',back);
+				});
+			}
+			var mc = new Hammer(document.body);
+			mc.on("swiperight", function(ev) {
+				brightness.setKeepScreenOn(false);
+				goto_menu();
+			});
+
+		}
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		function check_server_local(handle_check_server) {
+			var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
+			$.ajax({
+					url: server_url2 + 'panos.php',
+					type: "POST",
+					data: {
+						act: "check_net",//timeStampInMs
+					},
+					//async: true,
+					success : function(text)
+					{
+						handle_check_server(text);
+					},
+					error: function(jqXHR, exception) {
+						handle_check_server("0");
+						/*
+						window.sessionStorage.setItem("do_loop","1");
+						navigator.notification.alert(
+							'You need an Internet connection to use this software!',  // message
+							alertDismissed_check_net,         // callback
+							'Warning',            // title
+							'Ok'                  // buttonName
+						);
+						*/
+					},
+			});
+		}
+		function check_server(handle_check_server) {
+			var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
+			$.ajax({
+					url: server_url + 'panos.php',
+					type: "POST",
+					data: {
+						act: "check_net",//timeStampInMs
+					},
+					//async: true,
+					success : function(text)
+					{
+						handle_check_server(text);
+					},
+					error: function(jqXHR, exception) {
+						window.sessionStorage.setItem("do_loop","1");
+						navigator.notification.alert(
+							'You need an Internet connection to use this software!',  // message
+							alertDismissed_check_net,         // callback
+							'Warning',            // title
+							'Ok'                  // buttonName
+						);
+					},
+			});
+		}
+		function check_net(show_alert,do_loop,reload){
+			if(navigator.connection.type)
+				networkState = navigator.connection.type;
+			else
+				networkState = navigator.connection.effectiveType;
+			console.log(networkState);
+			//alert("check_net() strat");
+			if (networkState == Connection.NONE) {
+				if(show_alert)
+				{
+					if(do_loop)
+						window.sessionStorage.setItem("do_loop","1");
+					else
+						window.sessionStorage.setItem("do_loop","0");
+					
+					navigator.notification.alert(
+						'You need an Internet connection to use this software!',  // message
+						alertDismissed_check_net,         // callback
+						'Warning',            // title
+						'Ok'                  // buttonName
+					);
+				}
+				return false;
+			}
+			check_server_local(function(text){
+				console.log(text);
+				if(text!="1")
+				{
+					check_server(function(text){
+						console.log(text);
+						if(text!="1")
+						{
+							window.sessionStorage.setItem("do_loop","1");
+							navigator.notification.alert(
+								'You need an Internet connection to use this software!',  // message
+								alertDismissed_check_net,         // callback
+								'Warning',            // title
+								'Ok'                  // buttonName
+							);
+							return false;
+						}
+						else
+							download_file(server_url + 'panos.zip','panos');
+					});
+				}
+				else
+					download_file(server_url2 + 'panos.zip','panos');
+			});
+			return true;
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		function onDeviceReady() {
+			setTimeout(function(){
+				window.brightness = cordova.require("cordova.plugin.Brightness.Brightness");
+				brightness.setKeepScreenOn(true);
+			}, 1000);
+			
+			//FastClick.attach(document.body);
+			if ( device.platform == 'Android' ){//Android,iOS,win7=WinCE,win8=Win32NT
+				document.addEventListener("backbutton", goto_menu, false);
+			}
+			
+			check_net(true,true,false);
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+/////START DOWNLOAD//////////////////////////////////////////////////////////////////////
+	
+		
+			if(window.localStorage.getItem('downloaded_files') == null){
+				window.localStorage.setItem('downloaded_files',JSON.stringify(["786","110"]));	
+			}
+			
+			
+			if(window.localStorage.getItem('download_address') == null){
+				window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, 
+					function(fs) {
+						window.localStorage.setItem('download_address',fs.root.toURL());
+					}, function(e) {
+						alert('failed to get fs');
+						alert(JSON.stringify(e));
+					}
+				);
+			}
+
+			console.log("window.localStorage.getItem('download_address'):" + window.localStorage.getItem('download_address'));
+			console.log("window.localStorage.getItem('downloaded_files'):" + window.localStorage.getItem('downloaded_files'));
+			
+			
+			var networkState = navigator.connection.type;
+			if(networkState == Connection.NONE) {
+				navigator.notification.alert(
+					'You need an Internet connection to use this software',  // message
+					alertDismissed,         // callback
+					'Warning',            // title
+					'Ok'                  // buttonName
+				);
+				function alertDismissed(){};
+			}
+			else
+			{
+				download_file(server_url + 'panos.zip','panos');
+			}
+
+		}
+/**/
+	function download_file(URL,Folder) {//, type:'merge'
+		var sync = ContentSync.sync({ src: URL, id: Folder, type:'merge', timeout:144000000 });
+		sync.on('progress', function(data) {
+			// data.progress
+			var perc = data.progress;
+			//$('#status').html(perc + "% --" + data.status);
+			$('#status').html(perc + "%");
+			$('.progress-bar-percent').css('width',perc + "%");
+		});
+
+		sync.on('complete', function(data) {
+			// data.localPath
+			window.localStorage.setItem('pano_localPath',data.localPath);
+			//alert("complete : " + data.localPath);
+			//alert("complete cached : " + data.cached);
+			navigator.notification.alert(
+				'The download process has been successfully completed.',  // message
+				goto_menu,         // callback
+				'Warning',            // title
+				'Ok'                  // buttonName
+			);
+		});
+
+		sync.on('error', function(e) {
+			// e.message
+			console.log(e);
+			console.log(e.message);
+			alert("error : " + e.message);
+		});
+
+		sync.on('cancel', function() {
+			// triggered if event is cancelled
+			//alert("cancel");
+		});
+		$("#abort").click( function(i) {
+			//sync.abort();
+			//$('.progress-bar-parent').find('span').css('width','2%');
+			//$('.progress-bar-percent').css('width',"");
+			//$('.progress-bar-parent').css("display","none");
+			brightness.setKeepScreenOn(false);
+			navigator.notification.alert(
+				'Cancel?',  // message
+				goto_menu,         // callback
+				'Warning',            // title
+				'Ok'                  // buttonName
+			);
+		});
+
+	}
+
+
+/////END DOWNLOAD////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+			
+			
+			
+			
+			
+
+		function isHighDensity(){
+			return ((window.matchMedia && (window.matchMedia('only screen and (min-resolution: 124dpi), only screen and (min-resolution: 1.3dppx), only screen and (min-resolution: 48.8dpcm)').matches || window.matchMedia('only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen and (-o-min-device-pixel-ratio: 2.6/2), only screen and (min--moz-device-pixel-ratio: 1.3), only screen and (min-device-pixel-ratio: 1.3)').matches)) || (window.devicePixelRatio && window.devicePixelRatio > 1.3));
+		}
+		function isRetina(){
+			return ((window.matchMedia && (window.matchMedia('only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx), only screen and (min-resolution: 75.6dpcm)').matches || window.matchMedia('only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min--moz-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)').matches)) || (window.devicePixelRatio && window.devicePixelRatio >= 2)) && /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+		}
+		$(document).ready(function(){
+			setTimeout(function(){
+				$(".mypreload").html("");
+			}, 800);
+		});
+	</script>	
+
+		
+		
+		
+<style>
+
+
+</style>	
+</head>
+<body onload="init();" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" id="body" class="smm_ziarat_body">
+	<div class="bg" ></div>
+	<div id="ajax" class="mypreload">
+		<div style="z-index: 1000; border: medium none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background-color: #236586; opacity: 1; cursor: default; position: fixed;overflow:visible;" class="blockUI blockOverlay"></div>
+		<div style="z-index: 1011; position: fixed; padding: 0px; margin: 0px; width: 100%; top: 28%; left: 0%; text-align: center;border: medium none;overflow:visible;" class="blockUI blockMsg blockPage"><img src="images/preloader.gif"></div>
+		<div style="z-index: 1012; position: fixed; padding: 0px; margin: 0px; width: 100%; top: 50%; left: 0%; text-align: center;border: medium none;overflow:visible;height:500px;" class="blockUI blockMsg blockPage"><img src="images/loading.png" width="70%"></div>
+	</div>
+	<div class="bg" ></div>
+	<div class="progress-bar-parent">
+		<div class="progress-bar green glow">
+			<div id="status"></div>
+			<span class="progress-bar-percent" style="width: 2%"></span>
+			<div id="descripion">
+				<div class="first">Download</div> <div class="hajm">36 mb</div>
+			</div>
+			<div id="abort_box"><input type="button" id="abort" value="Cancel" /></div>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" type="text/css" href="css/reset.css">
-<link rel="stylesheet" type="text/css" href="css/fontiran.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/fontiran.css"> -->
 <link rel="stylesheet" type="text/css" href="css/arabic_font.css">
 <link rel="stylesheet" type="text/css" href="css/magnific-popup.css">
 
@@ -14,7 +14,8 @@
 <link rel="stylesheet" href="maps/js/leaflet-routing-machine.css" />
 <link rel="stylesheet" href="maps/js/style.css" />
 
-<script src="js/jquery-3.0.0.min.js"></script>
+<script src="cordova.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/fastclick.js"></script>
 <script src="js/back_btn.js"></script>
 <script src="js/persian_number_to_english.js"></script>
@@ -25,15 +26,23 @@
 <script src="js/jquery.magnific-popup.js"></script>
 <script src="js/jquery.slides.min.js"></script>
 <!--<script src="js/console.log.js"></script>-->
-<script src="cordova.js"></script>
 <style>
 .show_date{display:inline-block;direction:ltr;}
 .show_date_dec{display:inline-block;/*direction:ltr;*/}
 .clickable{text-decoration:underline;color:#3F51B5;}
+.leaflet-top.leaflet-left .leaflet-control.leaflet-control-layers {
+    border: 0px solid transparent;
+    right: 5px;
+    top: 12px;
+}
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+    margin-left: 2px;
+}
 </style>
 <script>
-
+	var is_it_first_location = true;
 	city_name_list = [];
+	mukeb_type_list = [];
 	if(true)
 	{
 		if(window.localStorage.getItem('language') == "lang_fa")
@@ -227,23 +236,33 @@
 			multilang.get("From_Najaf_to_Karbala"),
 			multilang.get("From_Kazemein_to_Karbala")
 		];
+		mukeb_type_list = [
+			multilang.get("Mukeb_type_service"),
+			multilang.get("Mukeb_type_azae"),
+		];
     });
 	function init() {		
 		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start init()');
+		alert("init()");
+		
 		document.addEventListener("deviceready", onDeviceReady, false);
 		radius = 0;
-		my_location_marker = L.marker([36.2879,59.6157], {icon: user_location_icon,zIndexOffset: 999}).addTo(map);
-		my_location_circle = L.circle([36.2879,59.6157], radius).addTo(map);
+		my_location_marker = L.marker([32.6163,44.0322], {icon: user_location_icon,zIndexOffset: 999,opacity: 0}).addTo(map);
+		my_location_circle = L.circle([32.6163,44.0322], radius).addTo(map);
 	}
 	
 	function onDeviceReady() {
-		
+		alert("start onDeviceReady()");
 		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start onDeviceReady()');
 		//FastClick.attach(document.getElementById('button'));
 		/**/
+		navigator.geolocation.getCurrentPosition(onSuccess, onError);
 		(function(){
-			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start getCurrentPosition()');
-			navigator.geolocation.getCurrentPosition(onSuccess, onError);
+			if(!is_it_first_location)
+			{
+				console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start getCurrentPosition()');
+				navigator.geolocation.getCurrentPosition(onSuccess, onError);
+			}
 			//console.log("11");
 			setTimeout(arguments.callee, 10000);
 		})();
@@ -254,6 +273,7 @@
 		register_notification();
 	}
 	function onSuccess(position) {
+		alert("start onSuccess()");
 		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start onSuccess()');
 		//alert("longitude : " + position.coords.longitude);
 		//alert("latitude  : " + position.coords.latitude );
@@ -262,6 +282,11 @@
 		radius = (position.coords.accuracy / 2) * 1;
 		//my_location_marker = L.marker([position.coords.latitude,position.coords.longitude], {icon: user_location_icon}).addTo(map).bindPopup("شما در شعاع " + radius + " متری این نقطه هستید");//.openPopup();
 		//my_location_circle = L.circle([position.coords.latitude,position.coords.longitude], radius).addTo(map);
+		if(is_it_first_location)
+		{
+			my_location_marker.setOpacity(1);
+			is_it_first_location = false;
+		}
 		my_location_marker.setLatLng([position.coords.latitude,position.coords.longitude]);
 		my_location_marker.bindPopup("");//"شما در شعاع " + radius + " متری این نقطه هستید"
 		my_location_circle.setLatLng([position.coords.latitude,position.coords.longitude]);
@@ -279,6 +304,9 @@
 </head>
 
 <body onload="init();">
+<div class="preloader"></div>
+<style>.preloader{opacity:1;position:absolute !important;width:100% !important;height:100% !important;background-color:#236586;background-position: center;background-repeat: no-repeat;background-size: cover;background-image2:url('images/pages/bg.png');z-index:214748001 !important;transition:all .7s cubic-bezier(.175,.885,.32,1.275) 0s  !important;animation: unset !important;}.preloader.display_none{display:none  !important;}</style>
+
 	<div id="favorites_btn" class="top_left_smcms_btn" ></div>
 	<div id="wifi_btn" class="top_left_smcms_btn" ></div>
 	<div id="location_btn" class="top_left_smcms_btn" ></div>
@@ -336,6 +364,14 @@ else if(window.localStorage.getItem('language') == "lang_en")
 	restaurant500 = restaurant500_en;
 else
 	restaurant500 = restaurant500_ar;
+	
+if(window.sessionStorage.getItem('map_array_fa') != null && window.localStorage.getItem('language') == "lang_fa")
+	restaurant500 = $.parseJSON(window.localStorage.getItem('map_array_fa'));
+else if(window.sessionStorage.getItem('map_array_en') != null && window.localStorage.getItem('language') == "lang_en")
+	restaurant500 = $.parseJSON(window.localStorage.getItem('map_array_en'));
+if(window.sessionStorage.getItem('map_array_ar') != null)
+	restaurant500 = $.parseJSON(window.localStorage.getItem('map_array_ar'));
+
 //console.log("**************************************************************************************");
 //console.log("**************************************************************************************");
 //console.log("**************************************************************************************");
@@ -344,6 +380,7 @@ else
 //console.log("**************************************************************************************");
 //console.log("**************************************************************************************");
 //console.log("**************************************************************************************");
+	/*
 	if(window.localStorage.getItem('json_mukeb_list_for_map') != null)
 	{
 		try {
@@ -360,11 +397,12 @@ else
 			console.log("NOT JSON");
 		}
 	}
+	*/
 	function show_mukeb_info(counter)
 	{
 		console.log(counter);
 		//try {
-			var mukeb_item = $.parseJSON(window.localStorage.getItem('json_mukeb_list_for_map'));
+			var mukeb_item = restaurant500.features;//$.parseJSON(window.localStorage.getItem('json_mukeb_list_for_map'));
 			//console.log(mukeb_item[counter]);
 			
 			if(mukeb_item[counter].properties.capacity_last_update	!= "")
@@ -385,18 +423,31 @@ else
 				text += "</div>";
 				text += "<script>$(function(){$('#slides').slidesjs({width: 640,height: 480,play: {active: true,auto: true,interval: 4000,swap: true}});});<\/script>";
 			}
+			
+			if(window.localStorage.getItem('language') == "lang_fa")
+				WIFI_NETWORK_NOTIC = window.localStorage.getItem('WIFI_NETWORK_NOTIC_fa');
+			else if(window.localStorage.getItem('language') == "lang_en")
+				WIFI_NETWORK_NOTIC = window.localStorage.getItem('WIFI_NETWORK_NOTIC_en');
+			else
+				WIFI_NETWORK_NOTIC = window.localStorage.getItem('WIFI_NETWORK_NOTIC_ar');
+
 			text += multilang.get("Mukeb_Name") + " : " + mukeb_item[counter].properties.name + "<br>";
+			text += multilang.get("Tent_manager") + " : " + mukeb_item[counter].properties.mukeb_manager + "<br>";
+			text += ((mukeb_item[counter].properties.capacity_man				== "")  ? WIFI_NETWORK_NOTIC : "");
 			text += ((mukeb_item[counter].properties.capacity_man				!= "")  ? multilang.get("Total_Man_capacity") + " : " + mukeb_item[counter].properties.capacity_man + "<br>" : "");
 			text += ((mukeb_item[counter].properties.capacity_woman				!= "")  ? multilang.get("Total_Woman_capacity") + " : " + mukeb_item[counter].properties.capacity_woman + "<br>" : "");
 			text += ((mukeb_item[counter].properties.capacity_man_remaining		!= "")  ? multilang.get("Remaining_Man_capacity") + " : " + mukeb_item[counter].properties.capacity_man_remaining + "<br>" : "");
 			text += ((mukeb_item[counter].properties.capacity_woman_remaining	!= "")  ? multilang.get("Remaining_Woman_capacity") + " : " + mukeb_item[counter].properties.capacity_woman_remaining + "<br>" : "");
 			text += ((mukeb_item[counter].properties.capacity_last_update		!= "")  ? multilang.get("Last_update_time") + " : " + capacity_last_update + "<br>" : "");
 			text +=  "<hr>";
+			text += ((mukeb_item[counter].properties.Mukeb_type					!= "")  ? multilang.get("Mukeb_type") + " : " + mukeb_type_list[mukeb_item[counter].properties.Mukeb_type] + "<br>" : "");
+			text += ((mukeb_item[counter].properties.Mukeb_state				!= "")  ? multilang.get("Mukeb_state") + " : " + mukeb_item[counter].properties.Mukeb_state + "<br>" : "");
 			text += ((mukeb_item[counter].properties.city_name					!= "")  ? multilang.get("City_Name") + " : " + city_name_list[mukeb_item[counter].properties.city_name] + "<br>" : "");
 			text += ((mukeb_item[counter].properties.address					!= "")  ? multilang.get("Address") + " : " + mukeb_item[counter].properties.address + "<br>" : "");
 			text += ((mukeb_item[counter].properties.amud						!= "")  ? multilang.get("Pillar_Number") + " : " + mukeb_item[counter].properties.amud + "<br>" : "");
 			text += ((mukeb_item[counter].properties.Phone_number_1				!= "")  ? multilang.get("Phone_number_1") + " : " + mukeb_item[counter].properties.Phone_number_2 + "<br>" : "");
 			text += ((mukeb_item[counter].properties.Phone_number_2				!= "")  ? multilang.get("Phone_number_2") + " : " + mukeb_item[counter].properties.Phone_number_2 + "<br>" : "");
+			text += ((mukeb_item[counter].properties.Phone_number_3				!= "")  ? multilang.get("service_phone_number") + " : " + mukeb_item[counter].properties.Phone_number_3 + "<br>" : "");
 			text += ((mukeb_item[counter].properties.Telegram_ID				!= "")  ? multilang.get("Telegram_ID") + " : " + mukeb_item[counter].properties.Telegram_ID + "<br>" : "");
 			text += ((mukeb_item[counter].properties.WhatsApp_ID				!= "")  ? multilang.get("WhatsApp_ID") + " : " + mukeb_item[counter].properties.WhatsApp_ID + "<br>" : "");
 			text += ((mukeb_item[counter].properties.Line_ID					!= "")  ? multilang.get("Line_ID") + " : " + mukeb_item[counter].properties.Line_ID + "<br>" : "");
@@ -515,14 +566,14 @@ else
 	if(long_center=="")
 		long_center=44.3298;
 	if(zoom=="")
-		long_center=14;
+		zoom=14;
 	var map_center = new L.latLng(lat_center,long_center);
 	var map = L.map('map', {
 		zoom: zoom,
 		maxZoom: 17,//17
 		minZoom:1,
 		center: map_center,
-		layers: online_map,//offline_map,//online_map,//L.tileLayer('maps/mapquest/{z}/{x}/{y}.png'),
+		layers: offline_map,//offline_map,//online_map,//L.tileLayer('maps/mapquest/{z}/{x}/{y}.png'),
 		zoomControl:false
 	});
 
@@ -753,6 +804,9 @@ else
 			$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').slice(2).prop('checked', false);
 			
 		$('.leaflet-control-layers-list .leaflet-control-layers-overlays .leaflet-control-layers-selector').trigger('click');
+		
+		setTimeout(function(){ jQuery('.preloader').css("opacity","0"); }, 10);
+		setTimeout(function(){ jQuery('.preloader').addClass("display_none"); }, 900);
 	}, 1000);
 	
 
@@ -863,6 +917,7 @@ else
 			map.options.maxZoom = 18;
 			
 			$("#wifi_btn").css("background-color","#039d85");
+			//$("#routing_btn").css("display","block");
 		}
 		function change_map_offline_function() {
 			map.removeLayer(online_map);
@@ -870,6 +925,7 @@ else
 			map.options.maxZoom = 17;
 			
 			$("#wifi_btn").css("background-color","#c1c1c1");
+			$("#routing_btn").css("display","none");
 		}
 		$("#wifi_btn").clickToggle(change_map_online_function,change_map_offline_function);
 		
@@ -1136,7 +1192,7 @@ a:hover.slidesjs-stop {
 
 .slidesjs-pagination li a.active,
 .slidesjs-pagination li a:hover.active {
-	background-position: 0 -13px
+	background-position: 0 -13px;
 }
 
 .slidesjs-pagination li a:hover {
@@ -1185,6 +1241,7 @@ textarea, input, textarea, button, select, a, img { outline: none; }
 	font-family:Tahoma !important;
 	font-size:14px;
 }
+#routing_btn{display:none;}
 </style>
 </body>
 </html>
