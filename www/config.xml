@@ -60,13 +60,13 @@
 		<param name="SENDER_ID" value="804625540618" />
 	</plugin>
 
-	<!--
 	<plugin spec="https://github.com/wymsee/cordova-imagePicker" source="git" />
 
 	<plugin spec="https://github.com/Paldom/UniqueDeviceID.git" source="git" />
 	
 	<plugin spec="https://github.com/fiscal-cliff/phonegap-plugin-brightness.git" source="git" />
 	<plugin spec="https://github.com/phonegap/phonegap-plugin-contentsync" source="git" />
+	<!--
 	
 	-->
 	<plugin spec="https://github.com/apache/cordova-plugin-statusbar.git " source="git" />
@@ -84,8 +84,9 @@
 	</gap:config-file>
 	<!--
 	<plugin name="cordova-build-architecture" spec="https://github.com/MBuchalik/cordova-build-architecture.git#v1.0.2" source="git" platform="android" />
-	-->
+	<plugin name="cordova-android-support-gradle-release" />
 	<plugin spec="https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview.git" source="git" platform="android" />
+	-->
     <!-- Define app icon      -->
     <icon src="images/splash/icon.png" />
     <icon src="images/splash.png" platform="ios" />
