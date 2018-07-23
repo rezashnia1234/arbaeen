@@ -67,7 +67,7 @@
 	<!-- <plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git" source="git" /> -->
 	<plugin spec="https://github.com/wymsee/cordova-imagePicker" source="git" />
 
-	<plugin spec="https://github.com/Paldom/UniqueDeviceID.git" source="git" />
+	<!-- <plugin spec="https://github.com/Paldom/UniqueDeviceID.git" source="git" /> -->
 	
 	<plugin spec="https://github.com/apache/cordova-plugin-statusbar.git " source="git" />
 	<gap:config-file platform="ios" parent="UIStatusBarHidden">
