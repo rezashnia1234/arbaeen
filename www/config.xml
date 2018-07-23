@@ -84,8 +84,8 @@
 	</gap:config-file>
 	<!--
 	<plugin name="cordova-build-architecture" spec="https://github.com/MBuchalik/cordova-build-architecture.git#v1.0.2" source="git" platform="android" />
-	<plugin spec="https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview.git" source="git" platform="android" />
 	-->
+	<plugin spec="https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview.git" source="git" platform="android" />
     <!-- Define app icon      -->
     <icon src="images/splash/icon.png" />
     <icon src="images/splash.png" platform="ios" />
