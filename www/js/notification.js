@@ -1,6 +1,6 @@
 
 function register_notification_home() {
-	// alert("before register_notification_home");
+	alert("before register_notification_home");
 	
 	var networkState = navigator.connection.type;
 	if (networkState == Connection.NONE) {
@@ -22,7 +22,7 @@ function register_notification_home() {
 
 		push.on('registration', function(data) {
 			// data.registrationId
-			// alert("registration event: " + data.registrationId);
+			alert("registration event: " + data.registrationId);
 			// alert("registration udid: " + window.localStorage.getItem('udid'));
 			// alert("registration udid: " + window.localStorage.getItem('udid'));
 			// alert("registration platform: " + device.platform);

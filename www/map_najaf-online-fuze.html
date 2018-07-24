@@ -243,7 +243,7 @@
     });
 	function init() {		
 		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start init()');
-		alert("init()");
+		//alert("init()");
 		
 		document.addEventListener("deviceready", onDeviceReady, false);
 		radius = 0;
@@ -252,10 +252,10 @@
 	}
 	
 	function onDeviceReady() {
-		alert("start onDeviceReady()");
+		//alert("start onDeviceReady()");
 		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start onDeviceReady()');
 		//FastClick.attach(document.getElementById('button'));
-		/**/
+		/*
 		navigator.geolocation.getCurrentPosition(onSuccess, onError);
 		(function(){
 			if(!is_it_first_location)
@@ -266,6 +266,11 @@
 			//console.log("11");
 			setTimeout(arguments.callee, 10000);
 		})();
+		*/
+        var options = { timeout: 30000 };
+        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+		
+		
 		
 		if ( device.platform == 'Android' ){//Android,iOS,win7=WinCE,win8=Win32NT
 			document.addEventListener("backbutton", go_back_from_map, false);
@@ -273,7 +278,7 @@
 		register_notification();
 	}
 	function onSuccess(position) {
-		alert("start onSuccess()");
+		//alert("start onSuccess()");
 		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start onSuccess()');
 		//alert("longitude : " + position.coords.longitude);
 		//alert("latitude  : " + position.coords.latitude );
