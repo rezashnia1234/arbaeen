@@ -293,7 +293,7 @@
 			is_it_first_location = false;
 		}
 		my_location_marker.setLatLng([position.coords.latitude,position.coords.longitude]);
-		my_location_marker.bindPopup("");//"شما در شعاع " + radius + " متری این نقطه هستید"
+		//my_location_marker.bindPopup("");//"شما در شعاع " + radius + " متری این نقطه هستید"
 		my_location_circle.setLatLng([position.coords.latitude,position.coords.longitude]);
 		my_location_circle.setRadius(radius);
 		//console.log("00000:" + position.coords);
@@ -558,7 +558,7 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 
 
 
-	var offline_map = L.tileLayer('maps/mapquest/{z}/{x}/{y}.png', {maxZoom: 17}),
+	var offline_map = L.tileLayer('maps/mapquest/{z}/{x}/{y}.png', {maxZoom: 15}),
 		online_map  = L.tileLayer('http://imamali.net/app-json/map/{z}/{x}/{y}.png', {maxZoom: 18});
 	
 	//najaf//lat=32.0192&long=44.3298
@@ -575,10 +575,10 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 	var map_center = new L.latLng(lat_center,long_center);
 	var map = L.map('map', {
 		zoom: zoom,
-		maxZoom: 17,//17
+		maxZoom: 18,//17
 		minZoom:1,
 		center: map_center,
-		layers: offline_map,//offline_map,//online_map,//L.tileLayer('maps/mapquest/{z}/{x}/{y}.png'),
+		layers: online_map,//offline_map,//online_map,//L.tileLayer('maps/mapquest/{z}/{x}/{y}.png'),
 		zoomControl:false
 	});
 
