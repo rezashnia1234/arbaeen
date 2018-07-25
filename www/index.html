@@ -2484,41 +2484,43 @@ alert("An error has occurred: Code = " + error.code);
 		function check_net_for_map_and_recommend_download(){
 				if(window.localStorage.getItem('download_localPath')!=null)
 					eval(window.localStorage.getItem("command"));
-					
-				networkState = navigator.connection.type;
-				if (networkState == Connection.NONE) {
-					navigator.notification.alert(
-						multilang.get('you_must_connect_to_the_internet'),  // message
-						alertDismissed,		 // callback
-						multilang.get('warning'),			// title
-						multilang.get('ok')		// buttonName
-					);
-					return false;
-				}
-				else{
-					function onConfirm_download_map(buttonIndex) {
-						alert(buttonIndex);
-						if(buttonIndex==1)
-						{
-							window.location.href = "download.html";
+				else
+				{
+					networkState = navigator.connection.type;
+					if (networkState == Connection.NONE) {
+						navigator.notification.alert(
+							multilang.get('you_must_connect_to_the_internet'),  // message
+							alertDismissed,		 // callback
+							multilang.get('warning'),			// title
+							multilang.get('ok')		// buttonName
+						);
+						return false;
+					}
+					else{
+						function onConfirm_download_map(buttonIndex) {
+							//alert(buttonIndex);
+							if(buttonIndex==1)
+							{
+								window.location.href = "download.html";
+							}
+							else
+							{
+								//alert(window.localStorage.getItem("command"));
+								eval(window.localStorage.getItem("command"));
+							}
+							return true;
 						}
-						else
-						{
-							alert(window.localStorage.getItem("command"));
-							eval(window.localStorage.getItem("command"));
+						function show_map_download_Confirm() {
+							navigator.notification.confirm(
+								multilang.get("Download_offline_map"),		// message
+								onConfirm_download_map,     				// callback to invoke with index of button pressed
+								multilang.get("notice"),					// title
+								'Download,Later'							// buttonLabels
+							);
 						}
+						show_map_download_Confirm();
 						return true;
 					}
-					function show_map_download_Confirm() {
-						navigator.notification.confirm(
-							multilang.get("Download_offline_map"),		// message
-							onConfirm_download_map,     				// callback to invoke with index of button pressed
-							multilang.get("notice"),					// title
-							'Download,Later'							// buttonLabels
-						);
-					}
-					show_map_download_Confirm();
-					return true;
 				}
 		}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2536,6 +2538,7 @@ alert("An error has occurred: Code = " + error.code);
 		server_url_mukeb_image	= server_url_main + "submit_mekeb_image.php";
 		server_url_image		= server_url_main + "image.php/";
 		window.localStorage.setItem("server_url_image",server_url_image);
+		window.localStorage.setItem("server_url_main",server_url_main);
 			
 		//ons.platform.select('android');
 		ons.platform.select('ios');

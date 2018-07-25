@@ -25,7 +25,9 @@
 	<script src="js/lang.en.js"></script>
 
 	<script>
-		var server_url="http://dlsmgroup.ir/temp/arbaeen/";
+		//var server_url="http://dlsmgroup.ir/temp/arbaeen/";
+		var server_url=window.localStorage.getItem("server_url_main");
+		
 		if(window.localStorage.getItem('language') == null)
 		{
 			text_direction = "english_text";
@@ -36,10 +38,12 @@
 			text_direction = window.localStorage.getItem('text_direction');
 			lang = window[window.localStorage.getItem('language')];
 		}
-		
+		function go_back_from_download() {
+			window.location.href = "index.html";
+		}
 		
  
-		function init() {		
+		function init() {	
 			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start init()');
 			document.addEventListener("deviceready", onDeviceReady, false);
 			/**** added by mahdi *********/
@@ -59,9 +63,8 @@
 			var mc = new Hammer(document.body);
 			mc.on("swiperight", function(ev) {
 				brightness.setKeepScreenOn(false);
-				go_back_from_map();
+				go_back_from_download();
 			});
-
 		}
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -106,7 +109,7 @@
 			
 			//FastClick.attach(document.body);
 			if ( device.platform == 'Android' ){//Android,iOS,win7=WinCE,win8=Win32NT
-				document.addEventListener("backbutton", go_back_from_map, false);
+				document.addEventListener("backbutton", go_back_from_download, false);
 			}
 			
 			check_net(true,true,false);
@@ -169,7 +172,7 @@
 			//alert("complete cached : " + data.cached);
 			navigator.notification.alert(
 				multilang.get('Download_completed'),  // message
-				go_back_from_map,         					// callback
+				go_back_from_download,         			// callback
 				multilang.get('notice'),            // title
 				multilang.get('ok')                  // buttonName
 			);
@@ -194,7 +197,7 @@
 			brightness.setKeepScreenOn(false);
 			navigator.notification.alert(
 				multilang.get('Cancel?'),  // message
-				go_back_from_map,         // callback
+				go_back_from_download,         // callback
 				multilang.get('warning'),            // title
 				multilang.get('ok')                  // buttonName
 			);
