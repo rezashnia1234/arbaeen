@@ -931,7 +931,7 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 			}
 		});
 
-		
+		/*
 		function onConfirm_download_map(buttonIndex) {
 			if(buttonIndex==1)
 			{
@@ -940,7 +940,7 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 			return true;
 		}
 		function show_map_download_Confirm() {
-			alert("how_map_download_Confirm()");
+			alert("show_map_download_Confirm()");
 			navigator.notification.confirm(
 				multilang.get("Download_offline_map"),		// message
 				onConfirm_download_map,     				// callback to invoke with index of button pressed
@@ -948,7 +948,7 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 				'Download,Cancel'							// buttonLabels
 			);
 		}
-
+		*/
 		function change_map_online_function() {
 			map.removeLayer(offline_map);
 			map.addLayer(online_map);
@@ -960,8 +960,9 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 		function change_map_offline_function() {
 			if(window.localStorage.getItem('download_localPath')==null)
 			{
-				alert("change_map_offline_function()");
-				show_map_download_Confirm();
+				window.location.href = "download.html";
+				//alert("change_map_offline_function()");
+				//show_map_download_Confirm();
 				$("#wifi_btn").trigger("click");
 				return true;
 			}

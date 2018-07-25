@@ -161,4 +161,5 @@ lang_en = {
 	bad_captcha : "Please type the phrase in the image carefully",
 	Download : "Download",
 	Download_offline_map : "To activate the offline map, you need to download the map file. Can it be downloaded right now?",
+	Later : "Later",
 };

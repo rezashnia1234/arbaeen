@@ -2502,6 +2502,8 @@ alert("An error has occurred: Code = " + error.code);
 						{
 							window.location.href = "download.html";
 						}
+						else
+							eval(window.localStorage.getItem("command"));
 						return true;
 					}
 					function show_map_download_Confirm() {
@@ -2509,7 +2511,7 @@ alert("An error has occurred: Code = " + error.code);
 							multilang.get("Download_offline_map"),		// message
 							onConfirm_download_map,     				// callback to invoke with index of button pressed
 							multilang.get("notice"),					// title
-							'Download,Cancel'							// buttonLabels
+							'Download,Later'							// buttonLabels
 						);
 					}
 					show_map_download_Confirm();
@@ -2828,32 +2830,39 @@ alert("An error has occurred: Code = " + error.code);
 					}, 650);
 
 					page.querySelector('#goto_page_mukeb_map_najaf').onclick = function() {
+						var command = "";
+						command +='window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");';
+						command +='window.location.href = "map_najaf-online-fuze.html?show_mukeb=yes&show_amud=no&zoom=14";';
+						window.localStorage.setItem("command",command);
+						
 						if(check_net_for_map_and_recommend_download()==false)
 							return false;
-							
-						window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");
-						window.location.href = "map_najaf-online-fuze.html?show_mukeb=yes&show_amud=no&zoom=14";
 					};
 					page.querySelector('#goto_page_mukeb_map_karbala').onclick = function() {
+						var command = "";
+						command +='window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");';
+						command +='window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=14&show_mukeb=yes&show_amud=no";';
+						window.localStorage.setItem("command",command);
+						
 						if(check_net_for_map_and_recommend_download()==false)
 							return false;
-
-						window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");
-						window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=14&show_mukeb=yes&show_amud=no";
 					};
 					page.querySelector('#goto_page_mukeb_map_kazemein').onclick = function() {
+						var command = "";
+						command +='window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");';
+						command +='window.location.href = "map_najaf-online-fuze.html?lat=33.3802&long=44.33819&zoom=13&show_mukeb=yes&show_amud=no";';
+						window.localStorage.setItem("command",command);
+						
 						if(check_net_for_map_and_recommend_download()==false)
 							return false;
-
-						window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");
-						window.location.href = "map_najaf-online-fuze.html?lat=33.3802&long=44.33819&zoom=13&show_mukeb=yes&show_amud=no";
 					};
 					page.querySelector('#goto_page_mukeb_map_from_najaf_to_karbala').onclick = function() {
+						var command = "";
+						command +='window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");';
+						command +='window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=11&show_mukeb=yes&show_amud=yes";';
+						
 						if(check_net_for_map_and_recommend_download()==false)
-							return false;
-
-						window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");
-						window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=11&show_mukeb=yes&show_amud=yes";
+							return false;	
 					};
 			}
 			else if (page.id === 'zaer_service_map')
@@ -2880,32 +2889,36 @@ alert("An error has occurred: Code = " + error.code);
 					}, 650);
 
 					page.querySelector('#goto_page_mukeb_map_najaf').onclick = function() {
+						var command = "";
+						command += 'window.sessionStorage.setItem("come_from_which_page","zaer_service_map");';
+						command +='window.location.href = "map_najaf-online-fuze.html?show_mukeb=no&show_amud=no&zoom=14";';
+						
 						if(check_net_for_map_and_recommend_download()==false)
-							return false;
-
-						window.sessionStorage.setItem("come_from_which_page","zaer_service_map");
-						window.location.href = "map_najaf-online-fuze.html?show_mukeb=no&show_amud=no&zoom=14";
+							return false;	
 					};
 					page.querySelector('#goto_page_mukeb_map_karbala').onclick = function() {
+						var command = "";
+						command +='window.sessionStorage.setItem("come_from_which_page","zaer_service_map");';
+						command +='window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=14&show_mukeb=no&show_amud=no";';
+						
 						if(check_net_for_map_and_recommend_download()==false)
-							return false;
-
-						window.sessionStorage.setItem("come_from_which_page","zaer_service_map");
-						window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=14&show_mukeb=no&show_amud=no";
+							return false;	
 					};
 					page.querySelector('#goto_page_mukeb_map_kazemein').onclick = function() {
+						var command = "";
+						command +='window.sessionStorage.setItem("come_from_which_page","zaer_service_map");';
+						command +='window.location.href = "map_najaf-online-fuze.html?lat=33.3802&long=44.33819&zoom=13&show_mukeb=no&show_amud=no";';
+						
 						if(check_net_for_map_and_recommend_download()==false)
 							return false;
-
-						window.sessionStorage.setItem("come_from_which_page","zaer_service_map");
-						window.location.href = "map_najaf-online-fuze.html?lat=33.3802&long=44.33819&zoom=13&show_mukeb=no&show_amud=no";
 					};
 					page.querySelector('#goto_page_mukeb_map_from_najaf_to_karbala').onclick = function() {
+						var command = "";
+						command +='window.sessionStorage.setItem("come_from_which_page","zaer_service_map");';
+						command +='window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=11&show_mukeb=no&show_amud=yes";';
+						
 						if(check_net_for_map_and_recommend_download()==false)
-							return false;
-
-						window.sessionStorage.setItem("come_from_which_page","zaer_service_map");
-						window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=11&show_mukeb=no&show_amud=yes";
+							return false;	
 					};
 			}
 			else if (page.id === 'zaer_service_missing_objects')
