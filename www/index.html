@@ -1765,7 +1765,7 @@ alert("An error has occurred: Code = " + error.code);
 								}, 4000);
 								setTimeout(function(){
 									toast_update.hide();
-								}, 4500);
+								}, 5500);
 							} catch (e) {
 								console.log("is not json");
 								console.log(text);
@@ -2481,6 +2481,40 @@ alert("An error has occurred: Code = " + error.code);
 			news_id = id;
 			document.querySelector('#myNavigator').pushPage('news_page.html', {animation: "slid",animationOptions:{delay: 0.4} });
 		}
+		function check_net_for_map_and_recommend_download(){
+				if(window.localStorage.getItem('download_localPath')!=null)
+					return true;
+					
+				networkState = navigator.connection.type;
+				if (networkState == Connection.NONE) {
+					navigator.notification.alert(
+						multilang.get('you_must_connect_to_the_internet'),  // message
+						alertDismissed,		 // callback
+						multilang.get('warning'),			// title
+						multilang.get('ok')		// buttonName
+					);
+					return false;
+				}
+				else{
+					function onConfirm_download_map(buttonIndex) {
+						if(buttonIndex==1)
+						{
+							window.location.href = "download.html";
+						}
+						return true;
+					}
+					function show_map_download_Confirm() {
+						navigator.notification.confirm(
+							multilang.get("Download_offline_map"),		// message
+							onConfirm_download_map,     				// callback to invoke with index of button pressed
+							multilang.get("notice"),					// title
+							'Download,Cancel'							// buttonLabels
+						);
+					}
+					show_map_download_Confirm();
+					return true;
+				}
+		}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2534,11 +2568,14 @@ alert("An error has occurred: Code = " + error.code);
 			
 			if(window.sessionStorage.getItem('map_array_ar') == null)
 				get_all_data();
-			window.setInterval(function(){
-				if(window.sessionStorage.getItem('map_array_ar') == null)
-					get_all_data();
+				
+			setTimeout(function(){
+				window.setInterval(function(){
+					if(window.sessionStorage.getItem('map_array_ar') == null)
+						get_all_data();
+				}, 4000);
 			}, 4000);
-			
+
 			setTimeout(function(){
 				if(window.localStorage.getItem('last_valid_version')!=null)
 				{
@@ -2790,18 +2827,30 @@ alert("An error has occurred: Code = " + error.code);
 					}, 650);
 
 					page.querySelector('#goto_page_mukeb_map_najaf').onclick = function() {
+						if(check_net_for_map_and_recommend_download()==false)
+							return false;
+							
 						window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");
 						window.location.href = "map_najaf-online-fuze.html?show_mukeb=yes&show_amud=no&zoom=14";
 					};
 					page.querySelector('#goto_page_mukeb_map_karbala').onclick = function() {
+						if(check_net_for_map_and_recommend_download()==false)
+							return false;
+
 						window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");
 						window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=14&show_mukeb=yes&show_amud=no";
 					};
 					page.querySelector('#goto_page_mukeb_map_kazemein').onclick = function() {
+						if(check_net_for_map_and_recommend_download()==false)
+							return false;
+
 						window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");
 						window.location.href = "map_najaf-online-fuze.html?lat=33.3802&long=44.33819&zoom=13&show_mukeb=yes&show_amud=no";
 					};
 					page.querySelector('#goto_page_mukeb_map_from_najaf_to_karbala').onclick = function() {
+						if(check_net_for_map_and_recommend_download()==false)
+							return false;
+
 						window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");
 						window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=11&show_mukeb=yes&show_amud=yes";
 					};
@@ -2830,18 +2879,30 @@ alert("An error has occurred: Code = " + error.code);
 					}, 650);
 
 					page.querySelector('#goto_page_mukeb_map_najaf').onclick = function() {
+						if(check_net_for_map_and_recommend_download()==false)
+							return false;
+
 						window.sessionStorage.setItem("come_from_which_page","zaer_service_map");
 						window.location.href = "map_najaf-online-fuze.html?show_mukeb=no&show_amud=no&zoom=14";
 					};
 					page.querySelector('#goto_page_mukeb_map_karbala').onclick = function() {
+						if(check_net_for_map_and_recommend_download()==false)
+							return false;
+
 						window.sessionStorage.setItem("come_from_which_page","zaer_service_map");
 						window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=14&show_mukeb=no&show_amud=no";
 					};
 					page.querySelector('#goto_page_mukeb_map_kazemein').onclick = function() {
+						if(check_net_for_map_and_recommend_download()==false)
+							return false;
+
 						window.sessionStorage.setItem("come_from_which_page","zaer_service_map");
 						window.location.href = "map_najaf-online-fuze.html?lat=33.3802&long=44.33819&zoom=13&show_mukeb=no&show_amud=no";
 					};
 					page.querySelector('#goto_page_mukeb_map_from_najaf_to_karbala').onclick = function() {
+						if(check_net_for_map_and_recommend_download()==false)
+							return false;
+
 						window.sessionStorage.setItem("come_from_which_page","zaer_service_map");
 						window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=11&show_mukeb=no&show_amud=yes";
 					};

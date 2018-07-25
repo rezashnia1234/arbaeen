@@ -256,7 +256,6 @@
 		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start onDeviceReady()');
 		//FastClick.attach(document.getElementById('button'));
 		/*
-		navigator.geolocation.getCurrentPosition(onSuccess, onError);
 		(function(){
 			if(!is_it_first_location)
 			{
@@ -267,8 +266,10 @@
 			setTimeout(arguments.callee, 10000);
 		})();
 		*/
-        var options = { timeout: 30000 };
-        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        //var options = { timeout: 30000 };
+        //watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+        watchID = navigator.geolocation.watchPosition(onSuccess, onError);
 		
 		
 		
@@ -561,6 +562,19 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 	var offline_map = L.tileLayer('maps/mapquest/{z}/{x}/{y}.png', {maxZoom: 15}),
 		online_map  = L.tileLayer('http://imamali.net/app-json/map/{z}/{x}/{y}.png', {maxZoom: 18});
 	
+	if(window.localStorage.getItem('download_localPath')==null)
+	{
+		var start_map  = online_map;
+		var start_zoom = 18;
+		$("#wifi_btn").css("background-color","#039d85");
+	}
+	else
+	{
+		var start_map  = offline_map;
+		var start_zoom = 15;
+		$("#wifi_btn").css("background-color","#c1c1c1");
+	}
+	
 	//najaf//lat=32.0192&long=44.3298
 	//karbala//lat=32.6073&long=44.0115
 	var lat_center = getParameterByName('lat');
@@ -574,11 +588,11 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 		zoom=14;
 	var map_center = new L.latLng(lat_center,long_center);
 	var map = L.map('map', {
-		zoom: zoom,
+		zoom: start_zoom,
 		maxZoom: 18,//17
 		minZoom:1,
 		center: map_center,
-		layers: online_map,//offline_map,//online_map,//L.tileLayer('maps/mapquest/{z}/{x}/{y}.png'),
+		layers: start_map,//offline_map,//online_map,//L.tileLayer('maps/mapquest/{z}/{x}/{y}.png'),
 		zoomControl:false
 	});
 
@@ -916,6 +930,23 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 			}
 		});
 
+		
+		function onConfirm_download_map(buttonIndex) {
+			if(buttonIndex==1)
+			{
+				window.location.href = "download.html";
+			}
+			return true;
+		}
+		function show_map_download_Confirm() {
+			navigator.notification.confirm(
+				multilang.get("Download_offline_map"),		// message
+				onConfirm_download_map,     				// callback to invoke with index of button pressed
+				multilang.get("notice"),					// title
+				'Download,Cancel'							// buttonLabels
+			);
+		}
+
 		function change_map_online_function() {
 			map.removeLayer(offline_map);
 			map.addLayer(online_map);
@@ -925,16 +956,28 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 			//$("#routing_btn").css("display","block");
 		}
 		function change_map_offline_function() {
+			if(window.localStorage.getItem('download_localPath')==null)
+			{
+				$("#wifi_btn").trigger("click");
+				show_map_download_Confirm();
+				return true;
+			}
 			map.removeLayer(online_map);
 			map.addLayer(offline_map);
-			map.options.maxZoom = 17;
+			map.options.maxZoom = 15;
 			
 			$("#wifi_btn").css("background-color","#c1c1c1");
 			$("#routing_btn").css("display","none");
 		}
-		$("#wifi_btn").clickToggle(change_map_online_function,change_map_offline_function);
-		
-		
+		//$("#wifi_btn").clickToggle(change_map_online_function,change_map_offline_function);
+		if(window.localStorage.getItem('download_localPath')==null)
+		{
+			$("#wifi_btn").clickToggle(change_map_offline_function,change_map_online_function);
+		}
+		else
+		{
+			$("#wifi_btn").clickToggle(change_map_online_function,change_map_offline_function);
+		}
 	});
 	
 	function routing_open() {

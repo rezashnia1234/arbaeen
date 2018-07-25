@@ -159,4 +159,6 @@ lang_en = {
 	Captcha : "Captcha",
 	Captcha_description : "Please type the letters of the image",
 	bad_captcha : "Please type the phrase in the image carefully",
+	Download : "Download",
+	Download_offline_map : "To activate the offline map, you need to download the map file. Can it be downloaded right now?",
 };
