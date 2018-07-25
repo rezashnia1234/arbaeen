@@ -2483,7 +2483,7 @@ alert("An error has occurred: Code = " + error.code);
 		}
 		function check_net_for_map_and_recommend_download(){
 				if(window.localStorage.getItem('download_localPath')!=null)
-					return true;
+					eval(window.localStorage.getItem("command"));
 					
 				networkState = navigator.connection.type;
 				if (networkState == Connection.NONE) {
@@ -2503,7 +2503,10 @@ alert("An error has occurred: Code = " + error.code);
 							window.location.href = "download.html";
 						}
 						else
+						{
+							alert(window.localStorage.getItem("command"));
 							eval(window.localStorage.getItem("command"));
+						}
 						return true;
 					}
 					function show_map_download_Confirm() {
@@ -2860,6 +2863,7 @@ alert("An error has occurred: Code = " + error.code);
 						var command = "";
 						command +='window.sessionStorage.setItem("come_from_which_page","zaer_service_map_mavakeb");';
 						command +='window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=11&show_mukeb=yes&show_amud=yes";';
+						window.localStorage.setItem("command",command);
 						
 						if(check_net_for_map_and_recommend_download()==false)
 							return false;	
@@ -2892,6 +2896,7 @@ alert("An error has occurred: Code = " + error.code);
 						var command = "";
 						command += 'window.sessionStorage.setItem("come_from_which_page","zaer_service_map");';
 						command +='window.location.href = "map_najaf-online-fuze.html?show_mukeb=no&show_amud=no&zoom=14";';
+						window.localStorage.setItem("command",command);
 						
 						if(check_net_for_map_and_recommend_download()==false)
 							return false;	
@@ -2900,6 +2905,7 @@ alert("An error has occurred: Code = " + error.code);
 						var command = "";
 						command +='window.sessionStorage.setItem("come_from_which_page","zaer_service_map");';
 						command +='window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=14&show_mukeb=no&show_amud=no";';
+						window.localStorage.setItem("command",command);
 						
 						if(check_net_for_map_and_recommend_download()==false)
 							return false;	
@@ -2908,6 +2914,7 @@ alert("An error has occurred: Code = " + error.code);
 						var command = "";
 						command +='window.sessionStorage.setItem("come_from_which_page","zaer_service_map");';
 						command +='window.location.href = "map_najaf-online-fuze.html?lat=33.3802&long=44.33819&zoom=13&show_mukeb=no&show_amud=no";';
+						window.localStorage.setItem("command",command);
 						
 						if(check_net_for_map_and_recommend_download()==false)
 							return false;
@@ -2916,6 +2923,7 @@ alert("An error has occurred: Code = " + error.code);
 						var command = "";
 						command +='window.sessionStorage.setItem("come_from_which_page","zaer_service_map");';
 						command +='window.location.href = "map_najaf-online-fuze.html?lat=32.6073&long=44.0115&zoom=11&show_mukeb=no&show_amud=yes";';
+						window.localStorage.setItem("command",command);
 						
 						if(check_net_for_map_and_recommend_download()==false)
 							return false;	

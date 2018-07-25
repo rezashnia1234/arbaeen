@@ -162,4 +162,5 @@ lang_en = {
 	Download : "Download",
 	Download_offline_map : "To activate the offline map, you need to download the map file. Can it be downloaded right now?",
 	Later : "Later",
+	Download_completed : "The download process has been successfully completed.",
 };

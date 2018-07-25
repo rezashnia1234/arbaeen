@@ -38,6 +38,7 @@
 		}
 		
 		
+ 
 		function init() {		
 			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start init()');
 			document.addEventListener("deviceready", onDeviceReady, false);
@@ -58,7 +59,7 @@
 			var mc = new Hammer(document.body);
 			mc.on("swiperight", function(ev) {
 				brightness.setKeepScreenOn(false);
-				goto_menu();
+				go_back_from_map();
 			});
 
 		}
@@ -82,10 +83,11 @@
 					
 					navigator.notification.alert(
 						multilang.get('you_must_connect_to_the_internet'),  // message
-						alertDismissed,		 // callback
+						alertDismissed2,		 // callback
 						multilang.get('warning'),			// title
 						multilang.get('ok')		// buttonName
 					);
+					function alertDismissed2(){};
 				}
 				return false;
 			}
@@ -104,7 +106,7 @@
 			
 			//FastClick.attach(document.body);
 			if ( device.platform == 'Android' ){//Android,iOS,win7=WinCE,win8=Win32NT
-				document.addEventListener("backbutton", goto_menu, false);
+				document.addEventListener("backbutton", go_back_from_map, false);
 			}
 			
 			check_net(true,true,false);
@@ -166,9 +168,9 @@
 			//alert("complete : " + data.localPath);
 			//alert("complete cached : " + data.cached);
 			navigator.notification.alert(
-				multilang.get('you_must_connect_to_the_internet'),  // message
-				goto_menu,         // callback
-				multilang.get('warning'),            // title
+				multilang.get('Download_completed'),  // message
+				go_back_from_map,         					// callback
+				multilang.get('notice'),            // title
 				multilang.get('ok')                  // buttonName
 			);
 		});
@@ -192,7 +194,7 @@
 			brightness.setKeepScreenOn(false);
 			navigator.notification.alert(
 				multilang.get('Cancel?'),  // message
-				goto_menu,         // callback
+				go_back_from_map,         // callback
 				multilang.get('warning'),            // title
 				multilang.get('ok')                  // buttonName
 			);
