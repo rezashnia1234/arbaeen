@@ -570,6 +570,7 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 	}
 	else
 	{
+		offline_map = L.tileLayer(window.localStorage.getItem('download_localPath') + '/mapquest/{z}/{x}/{y}.png', {maxZoom: 15})
 		var start_map  = offline_map;
 		var start_zoom = 15;
 		$("#wifi_btn").css("background-color","#c1c1c1");
