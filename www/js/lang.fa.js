@@ -165,4 +165,5 @@ lang_fa = {
 	Download_completed : "روند دانلود با موفقیت پایان یافت",
 	Downloading_offline_map : "در حال دانلود نقشه آفلاین",
 	download_aborted : "فرایند دانلود متوقف شد",
+	download_error : "در فرایند دانلود مشکلی به وجود آماده است، باید مجددا تلاش کنید",
 };

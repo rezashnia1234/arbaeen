@@ -41,6 +41,13 @@
 		function go_back_from_download() {
 			window.location.href = "index.html";
 		}
+		function download_error() {
+			var networkState = navigator.connection.type;
+			if(networkState == Connection.NONE) {
+				window.location.href = "index.html";
+			else
+				location.reload();
+		}
 		
  
 		function init() {	
@@ -166,6 +173,9 @@
 			else
 				perc = Math.round(((parseInt(perc) - 50)*0.4)+80).toString();
 			
+			if(perc>100)
+				perc = 100;
+			
 			$('#status').html( perc + "%");
 			$('.progress-bar-percent').css('width',perc + "%");
 		});
@@ -185,9 +195,15 @@
 
 		sync.on('error', function(e) {
 			// e.message
-			console.log(e);
-			console.log(e.message);
-			alert("error : " + e.message);
+			//console.log(e);
+			//console.log(e.message);
+			//alert("error : " + e.message);
+			navigator.notification.alert(
+				multilang.get('download_error'),		// message
+				download_error,		         			// callback
+				multilang.get('notice'),				// title
+				multilang.get('ok')						// buttonName
+			);
 		});
 
 		sync.on('cancel', function() {

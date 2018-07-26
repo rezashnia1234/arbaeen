@@ -165,4 +165,5 @@ lang_ar = {
 	Download_completed : "اكتملت عملية التنزيل بنجاح",
 	Downloading_offline_map : "تنزيل خريطة غير متصلة بالإنترنت",
 	download_aborted : "تم إحباط عملية التنزيل",
+	download_error : "هناك مشكلة في عملية التنزيل ، يجب إعادة المحاولة",
 };
