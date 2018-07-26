@@ -161,7 +161,12 @@
 			// data.progress
 			var perc = data.progress;
 			//$('#status').html(perc + "% --" + data.status);
-			$('#status').html(perc + "%");
+			if(perc<50)
+				perc = Math.round(parseInt(perc) * 1.6).toString();
+			else
+				perc = Math.round(((parseInt(perc) - 50)*0.4)+80).toString();
+			
+			$('#status').html( perc + "%");
 			$('.progress-bar-percent').css('width',perc + "%");
 		});
 
@@ -196,7 +201,7 @@
 			//$('.progress-bar-parent').css("display","none");
 			brightness.setKeepScreenOn(false);
 			navigator.notification.alert(
-				multilang.get('Cancel?'),  // message
+				multilang.get('download_aborted'),  // message
 				go_back_from_download,         // callback
 				multilang.get('warning'),            // title
 				multilang.get('ok')                  // buttonName
@@ -221,8 +226,29 @@
 		function isRetina(){
 			return ((window.matchMedia && (window.matchMedia('only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx), only screen and (min-resolution: 75.6dpcm)').matches || window.matchMedia('only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min--moz-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)').matches)) || (window.devicePixelRatio && window.devicePixelRatio >= 2)) && /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
 		}
+		function check_retina() {
+			if(isHighDensity() || isRetina())
+			{
+				$('.retina').each( function(i) {
+					$(this).removeClass("retina");
+					if($(this).attr("src"))
+					{
+						var temp_src_image = $(this).attr("src");
+						if(temp_src_image.indexOf('-xx.png') === -1 && temp_src_image.indexOf('-xx.png') === -1)
+							$(this).attr('src', temp_src_image.replace('.png' , '-xx.png').replace('.jpg' , '-xx.jpg') );
+					}
+					else
+					{
+						var temp_baclground_image = $(this).css('background-image');
+						if(temp_baclground_image!="" && temp_baclground_image!="none" && temp_baclground_image.indexOf('-xx.png') === -1 && temp_baclground_image.indexOf('-xx.png') === -1)
+							$(this).css('background-image', temp_baclground_image.replace('.png' , '-xx.png').replace('.jpg' , '-xx.jpg'));
+					}
+				});
+			}
+		}
 		$(document).ready(function(){
 			need_translate();
+			check_retina();
 			setTimeout(function(){
 				$(".mypreload").html("");
 			}, 800);
@@ -237,7 +263,7 @@
 
 </style>	
 </head>
-<body onload="init();" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" id="body" class="smm_ziarat_body">
+<body onload="init();" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" id="body" class="retina smm_ziarat_body" style="background-image:url('images/pages/bg.png');background-size: cover;">
 	<div class="bg" ></div>
 	<div id="ajax" class="mypreload">
 		<div style="z-index: 1000; border: medium none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background-color: #1e92c4; opacity: 1; cursor: default; position: fixed;overflow:visible;" class="blockUI blockOverlay"></div>
@@ -248,7 +274,7 @@
 	<div class="bg" ></div>
 	<div class="progress-bar-parent">
 		<div class="progress-bar green glow">
-			<div id="status"></div>
+			<div id="status" class="first need_translate" translate="Downloading_offline_map"></div>
 			<span class="progress-bar-percent" style="width: 0%"></span>
 			<div id="descripion">
 				<div class="first need_translate22" translate="Download">Download</div> <div class="hajm">36 mb</div>

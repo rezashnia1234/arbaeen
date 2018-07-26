@@ -195,7 +195,7 @@
 //alert("7");
 			setTimeout(function(){
 				register_notification_home();
-			}, 1000);
+			}, 3000);
 //alert("register_notification_home_after()");
 //alert("8");
 		
@@ -2533,12 +2533,14 @@ alert("An error has occurred: Code = " + error.code);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		server_url_main			= "http://dlsmgroup.ir/temp/arbaeen/";
+		map_server_url			= "http://imamali.net/app-json/map/";
 		server_url				= server_url_main + "check_net.php";
 		server_url_missing_data	= server_url_main + "submit_found_object.php";
 		server_url_mukeb_image	= server_url_main + "submit_mekeb_image.php";
 		server_url_image		= server_url_main + "image.php/";
 		window.localStorage.setItem("server_url_image",server_url_image);
 		window.localStorage.setItem("server_url_main",server_url_main);
+		window.localStorage.setItem("map_server_url",map_server_url);
 			
 		//ons.platform.select('android');
 		ons.platform.select('ios');

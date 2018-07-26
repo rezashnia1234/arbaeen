@@ -163,4 +163,6 @@ lang_ar = {
 	Download_offline_map : "لتنشيط الخريطة بلا اتصال ، تحتاج إلى تنزيل ملف الخريطة. هل يمكن تنزيله الآن؟",
 	Later : "بعدً",
 	Download_completed : "اكتملت عملية التنزيل بنجاح",
+	Downloading_offline_map : "تنزيل خريطة غير متصلة بالإنترنت",
+	download_aborted : "تم إحباط عملية التنزيل",
 };

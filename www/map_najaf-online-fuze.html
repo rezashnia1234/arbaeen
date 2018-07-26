@@ -560,7 +560,7 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 
 
 	var offline_map = L.tileLayer('maps/mapquest/{z}/{x}/{y}.png', {maxZoom: 15}),
-		online_map  = L.tileLayer('http://imamali.net/app-json/map/{z}/{x}/{y}.png', {maxZoom: 18});
+		online_map  = L.tileLayer(window.localStorage.getItem("map_server_url") + '/{z}/{x}/{y}.png', {maxZoom: 18});
 	
 	if(window.localStorage.getItem('download_localPath')==null)
 	{

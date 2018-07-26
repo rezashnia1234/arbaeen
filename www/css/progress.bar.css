@@ -19,7 +19,7 @@
 	margin:auto;
 	direction:ltr;
 	text-align: right;
-	background-color: rgba(63, 77, 85, 0.5);
+	background-color: rgba(176, 226, 255, 0.5);
 	height: 8vh;
 	padding: 0px;
 	width: 85%;
@@ -51,7 +51,7 @@
 .progress-bar #status{color:#ffffff;min-height:19px;direction:rtl;}
 .progress-bar #abort {
     color: #fff;
-    background-color: rgba(63, 77, 85, 0.5);
+    background-color: rgba(176, 226, 255, 0.5);
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -76,7 +76,7 @@
     background-position: center right;
     /* padding-right: 9vh; */
     font-size: 3vh;
-    color: rgba(63, 77, 85, 1);
+    color: rgb(237, 249, 255);;
 	text-align:center;
 }
 .progress-bar #descripion .hajm{color:#e14612;display:inline-block;font-size: 3vh;direction:ltr;}
@@ -102,11 +102,11 @@
     min-height: 19px;
     direction: rtl;
     position: absolute;
-    top: -10vh;
+    top: -8vh;
     text-align: center;
     width: 100%;
-    color: #167bb0;
-	font-size: 6vh;
+    /* color: #167bb0; */
+    font-size: 3vh;
 }
 /*---------------------------*/			
 
