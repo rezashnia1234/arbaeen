@@ -27,7 +27,7 @@
 	<script>
 		//var server_url="http://dlsmgroup.ir/temp/arbaeen/";
 		var server_url = window.localStorage.getItem("server_url_main");
-alert("start()");
+//alert("start()");
 
 		if(window.localStorage.getItem('language') == null)
 		{
@@ -44,17 +44,17 @@ alert("start()");
 		}
 		function download_error() {
 			var networkState = navigator.connection.type;
-			if(networkState == Connection.NONE) {
+			if(networkState == Connection.NONE)
 				window.location.href = "index.html";
 			else
 				location.reload();
 		}
-alert("start() 2");
+//alert("start() 2");
 
  
 		function init() {	
 			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start init()');
-alert("init()");
+//alert("init()");
 			document.addEventListener("deviceready", onDeviceReady, false);
 			/**** added by mahdi *********/
 			if(isRetina())
@@ -75,7 +75,7 @@ alert("init()");
 				brightness.setKeepScreenOn(false);
 				go_back_from_download();
 			});
-alert("start() 3");
+//alert("start() 3");
 
 		}
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -114,7 +114,7 @@ alert("start() 3");
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		function onDeviceReady() {
-alert("onDeviceReady() 1");
+//alert("onDeviceReady() 1");
 			setTimeout(function(){
 				window.brightness = cordova.require("cordova.plugin.Brightness.Brightness");
 				brightness.setKeepScreenOn(true);
@@ -169,7 +169,7 @@ alert("onDeviceReady() 1");
 		}
 /**/
 	function download_file(URL,Folder) {//, type:'merge'
-alert("download_file() 1");
+//alert("download_file() 1");
 
 		var sync = ContentSync.sync({ src: URL, id: Folder, type:'merge', timeout:144000000 });
 		sync.on('progress', function(data) {
@@ -271,14 +271,14 @@ alert("download_file() 1");
 			}
 		}
 		$(document).ready(function(){
-alert("document ready() 1");
+//alert("document ready() 1");
 
 			need_translate();
 			check_retina();
 			setTimeout(function(){
 				$(".mypreload").html("");
 			}, 800);
-alert("document ready() 2");
+//alert("document ready() 2");
 		});
 	</script>	
 
