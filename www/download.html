@@ -26,8 +26,9 @@
 
 	<script>
 		//var server_url="http://dlsmgroup.ir/temp/arbaeen/";
-		var server_url=window.localStorage.getItem("server_url_main");
-		
+		var server_url = window.localStorage.getItem("server_url_main");
+alert("start()");
+
 		if(window.localStorage.getItem('language') == null)
 		{
 			text_direction = "english_text";
@@ -48,10 +49,12 @@
 			else
 				location.reload();
 		}
-		
+alert("start() 2");
+
  
 		function init() {	
 			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start init()');
+alert("init()");
 			document.addEventListener("deviceready", onDeviceReady, false);
 			/**** added by mahdi *********/
 			if(isRetina())
@@ -72,6 +75,8 @@
 				brightness.setKeepScreenOn(false);
 				go_back_from_download();
 			});
+alert("start() 3");
+
 		}
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,6 +114,7 @@
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		function onDeviceReady() {
+alert("onDeviceReady() 1");
 			setTimeout(function(){
 				window.brightness = cordova.require("cordova.plugin.Brightness.Brightness");
 				brightness.setKeepScreenOn(true);
@@ -163,6 +169,8 @@
 		}
 /**/
 	function download_file(URL,Folder) {//, type:'merge'
+alert("download_file() 1");
+
 		var sync = ContentSync.sync({ src: URL, id: Folder, type:'merge', timeout:144000000 });
 		sync.on('progress', function(data) {
 			// data.progress
@@ -263,11 +271,14 @@
 			}
 		}
 		$(document).ready(function(){
+alert("document ready() 1");
+
 			need_translate();
 			check_retina();
 			setTimeout(function(){
 				$(".mypreload").html("");
 			}, 800);
+alert("document ready() 2");
 		});
 	</script>	
 
