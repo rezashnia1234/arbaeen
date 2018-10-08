@@ -247,6 +247,7 @@
 		
 		document.addEventListener("deviceready", onDeviceReady, false);
 		radius = 0;
+		my_location_marker = L.marker([32.6163,44.0322], {icon: user_location_icon,zIndexOffset: -100,opacity: 0}).addTo(map);
 		my_location_circle = L.circle([32.6163,44.0322], radius).addTo(map);
 	}
 	
