@@ -155,7 +155,7 @@ lang_ar = {
 	Mukeb_id : "رقم معرف موکب",
 	Mukeb_type : "نوع الموکب",
 	Mukeb_type_service : "خدمي",
-	Mukeb_type_azae : "عذاء",
+	Mukeb_type_azae : "عزاء",
 	Captcha : "Captcha",
 	Captcha_description : "الرجاء ادخال رمز التحقق المكتوب في الصورة",
 	bad_captcha : "يرجى كتابة العبارة في الصورة بعناية",
