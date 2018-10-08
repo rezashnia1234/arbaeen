@@ -247,7 +247,6 @@
 		
 		document.addEventListener("deviceready", onDeviceReady, false);
 		radius = 0;
-		my_location_marker = L.marker([32.6163,44.0322], {icon: user_location_icon,zIndexOffset: 0,opacity: 0}).addTo(map);
 		my_location_circle = L.circle([32.6163,44.0322], radius).addTo(map);
 	}
 	
@@ -489,17 +488,17 @@ if(window.sessionStorage.getItem('map_array_ar') != null)
 //console.log("**************************************************************************************");
 
 	var categories = {
-		101 : {desc: multilang.get("Holy_places"), icon:"zearati"},/////////////
-		102 : {desc: multilang.get("Points_of_interest"), icon:"fav"},
-		103 : {desc: multilang.get("Health_centers"), icon:"hospetal"},///////////////////////////////
+		101 : {desc: multilang.get("Holy_places"), icon:"zearati",zIndexOffset: 5},/////////////
+		102 : {desc: multilang.get("Points_of_interest"), icon:"fav",zIndexOffset: 5},
+		103 : {desc: multilang.get("Health_centers"), icon:"hospetal",zIndexOffset: 5},///////////////////////////////
 		//104 : {desc: multilang.get("Health_centers"), icon:"hospetal"},///////////////////////////////
-		106 : {desc: multilang.get("Hotels"), icon:"hotel"},///////////////////////////////
-		107 : {desc: multilang.get("Pillars"), icon:"mil"},//////////////////////////////////
-		108 : {desc: multilang.get("Transportation"), icon:"hamlonaghl"},/////////////////////////////
-		109 : {desc: multilang.get("Lost_Found"), icon:"gomshodeghan"},
-		110 : {desc: multilang.get("Consular_Services"), icon:"consular"},
-		111 : {desc: multilang.get("Official_Services"), icon:"edari"},
-		112 : {desc: multilang.get("Tents"), icon:"mukeb"},
+		106 : {desc: multilang.get("Hotels"), icon:"hotel",zIndexOffset: 5},///////////////////////////////
+		107 : {desc: multilang.get("Pillars"), icon:"mil",zIndexOffset: 5},//////////////////////////////////
+		108 : {desc: multilang.get("Transportation"), icon:"hamlonaghl",zIndexOffset: 5},/////////////////////////////
+		109 : {desc: multilang.get("Lost_Found"), icon:"gomshodeghan",zIndexOffset: 5},
+		110 : {desc: multilang.get("Consular_Services"), icon:"consular",zIndexOffset: 5},
+		111 : {desc: multilang.get("Official_Services"), icon:"edari",zIndexOffset: 5},
+		112 : {desc: multilang.get("Tents"), icon:"mukeb",zIndexOffset: 5},
 	};
 
 	

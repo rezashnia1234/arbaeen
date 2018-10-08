@@ -383,7 +383,6 @@ var restaurant500_en = {
 
 { "type": "Feature", "id": 619 , "properties": { "gid": 619, "___idobj": 3.0, "name": "1",				"theme": 1.0, "libtheme": "CULTURE", "categorie": 107.0}, "geometry": { "type": "Point", "coordinates": [	44.31901018 , 32.06145077 ]}},
 { "type": "Feature", "id": 620 , "properties": { "gid": 620, "___idobj": 3.0, "name": "10",				"theme": 1.0, "libtheme": "CULTURE", "categorie": 107.0}, "geometry": { "type": "Point", "coordinates": [	44.31917002 , 32.06572127 ]}},
-{ "type": "Feature", "id": 621 , "properties": { "gid": 621, "___idobj": 3.0, "name": "17",				"theme": 1.0, "libtheme": "CULTURE", "categorie": 107.0}, "geometry": { "type": "Point", "coordinates": [	44.05813443 , 32.56602625 ]}},
 { "type": "Feature", "id": 622 , "properties": { "gid": 622, "___idobj": 3.0, "name": "18",				"theme": 1.0, "libtheme": "CULTURE", "categorie": 107.0}, "geometry": { "type": "Point", "coordinates": [	44.06516299 , 32.56181929 ]}},
 { "type": "Feature", "id": 623 , "properties": { "gid": 623, "___idobj": 3.0, "name": "20",				"theme": 1.0, "libtheme": "CULTURE", "categorie": 107.0}, "geometry": { "type": "Point", "coordinates": [	44.31957127 , 32.07007835 ]}},
 { "type": "Feature", "id": 624 , "properties": { "gid": 624, "___idobj": 3.0, "name": "30",				"theme": 1.0, "libtheme": "CULTURE", "categorie": 107.0}, "geometry": { "type": "Point", "coordinates": [	44.32001098 , 32.07448689 ]}},

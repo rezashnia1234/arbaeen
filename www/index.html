@@ -51,16 +51,6 @@
 			}
 			else
 				FileTransfer_OBJ = new FileTransfer();
-			
-			if(getParameterByName('target_page')!="")
-			{
-				console.log("we have target_page");
-				//http://localhost:55769/index.html?target_page=register_mukeb.html
-				document.querySelector('#myNavigator').bringPageTop(getParameterByName('target_page'), {animation: "none"});
-				setTimeout(function(){
-					$("#mypreload").css("display","none");
-				}, 500);
-			}
 		}, 500);
 		
 		if(window.localStorage.getItem('language') == null)
@@ -2549,9 +2539,19 @@ alert("An error has occurred: Code = " + error.code);
 		ons.disableAutoStyling();
 			
 		ons.ready(function(){
-			if(getParameterByName('target_page')=="")
-				$("#mypreload").css("display","none");
-				
+			//if(getParameterByName('target_page')=="")
+			//	$("#mypreload").css("display","none");
+			if(getParameterByName('target_page')!="")
+			{
+				alert("come from : " + getParameterByName('target_page'));
+				console.log("we have target_page");
+				//http://localhost:55769/index.html?target_page=register_mukeb.html
+				document.querySelector('#myNavigator').bringPageTop(getParameterByName('target_page'), {animation: "none"});
+				setTimeout(function(){
+					$("#mypreload").css("display","none");
+				}, 500);
+			}
+			
 			if(window.cordova)
 			{
 				if(window.localStorage.getItem('language') != null)
