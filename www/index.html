@@ -2539,8 +2539,12 @@ alert("An error has occurred: Code = " + error.code);
 		ons.disableAutoStyling();
 			
 		ons.ready(function(){
-			//if(getParameterByName('target_page')=="")
-			//	$("#mypreload").css("display","none");
+			if(getParameterByName('target_page')=="")
+			{
+				setTimeout(function(){
+					$("#mypreload").css("display","none");
+				}, 500);
+			}
 			if(getParameterByName('target_page')!="")
 			{
 				alert("come from : " + getParameterByName('target_page'));
@@ -2549,7 +2553,7 @@ alert("An error has occurred: Code = " + error.code);
 				document.querySelector('#myNavigator').bringPageTop(getParameterByName('target_page'), {animation: "none"});
 				setTimeout(function(){
 					$("#mypreload").css("display","none");
-				}, 500);
+				}, 800);
 			}
 			
 			if(window.cordova)
