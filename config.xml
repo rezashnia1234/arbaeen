@@ -64,7 +64,8 @@
 		<param name="SENDER_ID" value="804625540618" />
 	</plugin>
 
-	<plugin spec="https://github.com/wymsee/cordova-imagePicker" source="git" />
+	<!-- <plugin spec="https://github.com/wymsee/cordova-imagePicker" source="git" /> -->
+	<plugin spec="https://github.com/Telerik-Verified-Plugins/ImagePicker.git" source="git" />
 
 	<plugin spec="https://github.com/Paldom/UniqueDeviceID.git" source="git" />
 	
@@ -93,8 +94,8 @@
 	<plugin spec="https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview.git" source="git" platform="android" />
 	-->
     <!-- Define app icon      -->
-    <icon src="images/icon.png" />
-    <icon src="images/splash.png" />
+    <icon src="res/icon.png" />
+    <icon src="res/splash.png" />
 
     <platform name="android">
         <preference name="SplashMaintainAspectRatio" value="true"/>
