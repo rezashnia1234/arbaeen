@@ -2531,6 +2531,7 @@ alert("An error has occurred: Code = " + error.code);
 		window.localStorage.setItem("server_url_image",server_url_image);
 		window.localStorage.setItem("server_url_main",server_url_main);
 		window.localStorage.setItem("map_server_url",map_server_url);
+		does_we_ready_target_page = false;
 			
 		//ons.platform.select('android');
 		ons.platform.select('ios');
@@ -2544,21 +2545,6 @@ alert("An error has occurred: Code = " + error.code);
 				setTimeout(function(){
 					$("#mypreload").css("display","none");
 				}, 500);
-			}
-			if(getParameterByName('target_page')!="")
-			{
-				alert("come from : " + getParameterByName('target_page'));
-				console.log("we have target_page");
-				//http://localhost:55769/index.html?target_page=register_mukeb.html
-				setTimeout(function(){
-					alert("a1 : " + getParameterByName('target_page'));
-					document.querySelector('#myNavigator').bringPageTop(getParameterByName('target_page'), {animation: "none"});
-					alert("a2 : " + getParameterByName('target_page'));
-				}, 400);
-				setTimeout(function(){
-					$("#mypreload").css("display","none");
-				}, 900);
-				alert("come from : " + getParameterByName('target_page'));
 			}
 			
 			if(window.cordova)
@@ -2638,7 +2624,22 @@ alert("An error has occurred: Code = " + error.code);
 			
 			modal = document.querySelector('ons-modal');
 			
-		
+			if(does_we_ready_target_page == false && getParameterByName('target_page')!="")
+			{
+				//alert("come from : " + getParameterByName('target_page'));
+				console.log("we have target_page");
+				//http://localhost:55769/index.html?target_page=register_mukeb.html
+				setTimeout(function(){
+					//alert("a1 : " + getParameterByName('target_page'));
+					document.querySelector('#myNavigator').bringPageTop(getParameterByName('target_page'), {animation: "none"});
+					//alert("a2 : " + getParameterByName('target_page'));
+				}, 400);
+				setTimeout(function(){
+					$("#mypreload").css("display","none");
+				}, 900);
+				//alert("come from : " + getParameterByName('target_page'));
+				does_we_ready_target_page = true;
+			}
 			//////////////////////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////////////////////////////////////////////////
 			//////////////////////////////////////////////////////////////////////////////////////////
@@ -3818,7 +3819,7 @@ alert("An error has occurred: Code = " + error.code);
 						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="center need_translate" translate="Tents_Positions"></div>
+				<div class="center need_translate" translate="Trip_Map"></div>
 				<div class="left">
 					<ons-toolbar-button onclick="document.querySelector('#myNavigator').pushPage('zaer_services.html', {animation: 'reversedSlide',animationOptions:{delay: 0.4} });">
 						<span class="back-button__icon">
