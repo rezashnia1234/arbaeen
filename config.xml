@@ -89,17 +89,14 @@
 			<string>audio</string>
 		</array>
 	</gap:config-file>
-	<!--
-	<plugin name="cordova-build-architecture" spec="https://github.com/MBuchalik/cordova-build-architecture.git#v1.0.2" source="git" platform="android" />
-	<plugin name="cordova-android-support-gradle-release" />
-	<plugin spec="https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview.git" source="git" platform="android" />
-	-->
+
 	<!-- <plugin name="cordova-build-architecture" spec="https://github.com/MBuchalik/cordova-build-architecture.git" source="git" platform="android" /> -->
+	<!--
 	<plugin name="cordova-android-support-gradle-release" platform="android" >
 		<variable name="ANDROID_SUPPORT_VERSION" value="26.0.0"/>
 	</plugin>
 	<plugin spec="https://github.com/Telerik-Verified-Plugins/Crosswalk.git" source="git" platform="android" />
-
+	-->
 	
     <!-- Define app icon      -->
     <icon src="res/icon.png" />
