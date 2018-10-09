@@ -43,6 +43,9 @@
 			window.location.href = "index.html";
 		}
 		function download_error() {
+			window.location.href = "index.html";
+			return true;
+			
 			var networkState = navigator.connection.type;
 			if(networkState == Connection.NONE)
 				window.location.href = "index.html";
@@ -205,7 +208,7 @@
 			// e.message
 			//console.log(e);
 			//console.log(e.message);
-			//alert("error : " + e.message);
+			alert("error : " + e.message);
 			navigator.notification.alert(
 				multilang.get('download_error'),		// message
 				download_error,		         			// callback
