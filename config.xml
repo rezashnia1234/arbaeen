@@ -93,6 +93,10 @@
 	<plugin name="cordova-android-support-gradle-release" />
 	<plugin spec="https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview.git" source="git" platform="android" />
 	-->
+	<plugin name="cordova-build-architecture" spec="https://github.com/MBuchalik/cordova-build-architecture.git" source="git" platform="android" />
+	<plugin spec="https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview.git" source="git" platform="android" />
+
+	
     <!-- Define app icon      -->
     <icon src="res/icon.png" />
     <icon src="res/splash.png" />
