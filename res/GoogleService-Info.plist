@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>36595517682-o00pc4chn19fvgee3avfjdnihar7e0mj.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.36595517682-o00pc4chn19fvgee3avfjdnihar7e0mj</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAoLkHHBiK60sdtSYuKK8Lhlh7eeBYXh3s</string>
+	<key>GCM_SENDER_ID</key>
+	<string>36595517682</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.imamhossein.arbaein</string>
+	<key>PROJECT_ID</key>
+	<string>arbaeen-1532433571832</string>
+	<key>STORAGE_BUCKET</key>
+	<string>arbaeen-1532433571832.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:36595517682:ios:27f762e72b754003</string>
+	<key>DATABASE_URL</key>
+	<string>https://arbaeen-1532433571832.firebaseio.com</string>
+</dict>
+</plist>

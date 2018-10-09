@@ -62,8 +62,15 @@
     <!-- Third party plugins -->
 	<preference name="android-build-tool" value="gradle" />
 	<plugin name="phonegap-plugin-push" spec="2.2.3" source="npm">
-		<param name="SENDER_ID" value="804625540618" />
+		<!-- <param name="SENDER_ID" value="804625540618" /> -->
 	</plugin>
+	<platform name="android">
+		<resource-file src="res/google-services.json" target="res/google-services.json" />
+	</platform>
+	<platform name="ios">
+		<resource-file src="res/GoogleService-Info.plist" />
+	</platform>
+
 
 	<!-- <plugin spec="https://github.com/wymsee/cordova-imagePicker" source="git" /> -->
 	<plugin spec="https://github.com/Telerik-Verified-Plugins/ImagePicker.git" source="git" />
