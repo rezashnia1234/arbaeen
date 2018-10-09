@@ -224,7 +224,8 @@
 				multilang.get('ok')		// buttonName
 			);
 		}
-		function alertDismissed() {
+		function alertDismissed(data) {
+			alert(JSON.stringify(data));
 		}
 		function goto_page(page_name) {
 			document.querySelector('#myNavigator').pushPage(page_name, {animation: "slid",animationOptions:{delay: 0.4} });
@@ -236,6 +237,7 @@
 			document.querySelector('#myNavigator').pushPage("select_user_type.html", {animation: "slid",animationOptions:{delay: 0.4} });
 		}
 		function uniqueDeviceIDsuccess_index(udid){
+			alert(udid);
 			window.localStorage.setItem('udid',udid);
 		}
 		function fromTemplate(text) {
