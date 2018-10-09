@@ -98,7 +98,7 @@
 	<plugin name="cordova-android-support-gradle-release" platform="android" >
 		<variable name="ANDROID_SUPPORT_VERSION" value="26.0.0"/>
 	</plugin>
-	<plugin spec="https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview.git" source="git" platform="android" />
+	<plugin spec="https://github.com/Telerik-Verified-Plugins/Crosswalk.git" source="git" platform="android" />
 
 	
     <!-- Define app icon      -->
