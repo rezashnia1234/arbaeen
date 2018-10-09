@@ -63,7 +63,7 @@ lang_ar = {
 	WhatsApp_ID : "حساب واتساب",
 	Line_ID : " حساب لاين",
 	Imo_ID : "  حساب إيمو ",
-	Register : "التسجيل",
+	Register : "التسجيل الجدید",
 	Register_Tent_manager : "تسجيل  اسم مسؤول الموكب",
 	Login : "تسجيل الدخول",
 	Register_New_User : "تسجيل مستخدم جديد",
