@@ -806,8 +806,8 @@ alert("An error has occurred: Code = " + error.code);
 				};
 				//alert("2");
 				var uri = encodeURI(server_url_mukeb_image);
-				alert("server_url_mukeb_image : " + server_url_mukeb_image);
-				alert("uri : " + uri);
+				//alert("server_url_mukeb_image : " + server_url_mukeb_image);
+				//alert("uri : " + uri);
 				function win(r) {
 					console.log("Code = " + r.responseCode);
 					console.log("Response = " + r.response);
@@ -892,7 +892,7 @@ alert("An error has occurred: Code = " + error.code);
 				//////////////////////////////////////////////////////////////////////////////////////////
 				//////////////////////////////////////////////////////////////////////////////////////////
 				*/
-				alert(window.localStorage.getItem('udid'));
+				//alert(window.localStorage.getItem('udid'));
 				params.udid						= window.localStorage.getItem('udid');			
 				params.token					= encrypt_by_date(window.localStorage.getItem('token'));
 				params.token2					= window.localStorage.getItem('token');
@@ -904,13 +904,13 @@ alert("An error has occurred: Code = " + error.code);
 				if(device.platform == 'Android')
 					options.chunkedMode = false;
 					
-				alert(JSON.stringify(params));
-				alert(JSON.stringify(options));
-				alert(uri);
-				alert(file);
+				//alert(JSON.stringify(params));
+				//alert(JSON.stringify(options));
+				//alert(uri);
+				//alert(file);
 				
 				FileTransfer_OBJ.upload(file, uri, win, fail, options);
-				alert("5");		
+				//alert("5");		
 				/*
 				$("#abort").click( function(i) {
 					FileTransfer_OBJ.abort();
