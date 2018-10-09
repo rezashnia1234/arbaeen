@@ -182,12 +182,11 @@
 //alert("onDeviceReady()");
 			if(window.localStorage.getItem('udid') == null)
 			{
-				setTimeout(function(){
-					window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
-				}, 10);
+				alert("window.localStorage.getItem('udid')");
+				window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
 			}
-			//else
-			//	alert("window.localStorage.getItem('udid') : " + window.localStorage.getItem('udid'));
+			else
+				alert("window.localStorage.getItem('udid') : " + window.localStorage.getItem('udid'));
 //alert("7");
 			setTimeout(function(){
 				register_notification_home();
@@ -226,7 +225,7 @@
 			);
 		}
 		function alertDismissed(data) {
-			//alert(JSON.stringify(data));
+			alert(JSON.stringify(data));
 		}
 		function goto_page(page_name) {
 			document.querySelector('#myNavigator').pushPage(page_name, {animation: "slid",animationOptions:{delay: 0.4} });
@@ -238,6 +237,7 @@
 			document.querySelector('#myNavigator').pushPage("select_user_type.html", {animation: "slid",animationOptions:{delay: 0.4} });
 		}
 		function uniqueDeviceIDsuccess_index(udid){
+			alert(udid);
 			window.localStorage.setItem('udid',udid);
 		}
 		function fromTemplate(text) {
