@@ -64,7 +64,7 @@ function register_notification_home() {
 
 		push.on('error', function(e) {
 			// e.message
-			// alert("push error = " + e.message);
+			alert("push error = " + e.message);
 		});
 	}
 
@@ -111,7 +111,7 @@ function register_notification() {
 
 		push.on('error', function(e) {
 			// e.message
-			// alert("push error = " + e.message);
+			alert("push error = " + e.message);
 		});
 	}
 
