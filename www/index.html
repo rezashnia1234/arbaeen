@@ -180,12 +180,20 @@
 		function onDeviceReady() {
 			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::	start onDeviceReady()');
 //alert("onDeviceReady()");
+
+
+
 			if(window.localStorage.getItem('udid') == null)
-			{
-				setTimeout(function(){
-					window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
-				}, 10);
-			}
+				window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
+				
+			setTimeout(function(){
+				window.setInterval(function(){
+					if(window.localStorage.getItem('udid') == null)
+						window.plugins.uniqueDeviceID.get(uniqueDeviceIDsuccess_index, alertDismissed);
+				}, 500);
+			}, 500);
+
+
 			//else
 			//	alert("window.localStorage.getItem('udid') : " + window.localStorage.getItem('udid'));
 //alert("7");
