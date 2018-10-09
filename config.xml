@@ -65,10 +65,10 @@
 		<!-- <param name="SENDER_ID" value="804625540618" /> -->
 	</plugin>
 	<platform name="android">
-		<resource-file src="res/google-services.json" target="res/google-services.json" />
+		<resource-file src="google-services.json" target="app/google-services.json" />
 	</platform>
 	<platform name="ios">
-		<resource-file src="res/GoogleService-Info.plist" />
+		<resource-file src="GoogleService-Info.plist" />
 	</platform>
 
 

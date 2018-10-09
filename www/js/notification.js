@@ -10,7 +10,7 @@ function register_notification_home() {
 	{
 		var push = PushNotification.init({
 			android: {
-				senderID: "804625540618"
+				// senderID: "804625540618"
 			},
 			ios: {
 				alert: "true",
