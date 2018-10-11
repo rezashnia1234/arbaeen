@@ -166,4 +166,6 @@ lang_fa = {
 	Downloading_offline_map : "در حال دانلود نقشه آفلاین",
 	download_aborted : "فرایند دانلود متوقف شد",
 	download_error : "در فرایند دانلود مشکلی به وجود آماده است، باید مجددا تلاش کنید",
+	developers : "توسعه دهندگان",
+	developer_text : "",
 };

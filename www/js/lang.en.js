@@ -166,4 +166,6 @@ lang_en = {
 	Downloading_offline_map : "Downloading offline map",
 	download_aborted : "Download process aborted",
 	download_error : "There is a problem with the download process, you must try again",
+	developers : "Developers",
+	developer_text : "",
 };

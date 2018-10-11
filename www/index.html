@@ -2542,7 +2542,9 @@ alert("An error has occurred: Code = " + error.code);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		server_url_main			= "http://camsechussain.com/";
+		//server_url_main			= "http://192.168.100.110/";
+		server_url_main			= "http://camsechussain.com:8050/";
+		map_server_url			= server_url_main + "mapquest/";
 		map_server_url			= "http://imamali.net/app-json/map/";
 		server_url				= server_url_main + "check_net.php";
 		server_url_missing_data	= server_url_main + "submit_found_object.php";
@@ -2763,6 +2765,12 @@ alert("An error has occurred: Code = " + error.code);
 						arr = window.localStorage.getItem('contact_support_text_ar');
 					console.log(arr);
 					$(".contact_support_text article").html(arr);
+			}
+			else if (page.id === 'developer')
+			{
+					check_retina();
+					need_translate();
+					// $(".contact_support_text article").html(arr);
 			}
 			else if (page.id === 'update_link')
 			{
@@ -3637,6 +3645,9 @@ alert("An error has occurred: Code = " + error.code);
 						<ons-list-item tappable onclick="LogOut()" class="just_arabic">
 							الخروج من الحساب
 						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('developer.html')" class="just_arabic">
+							المطورون
+						</ons-list-item>
 						<ons-list-item tappable onclick="fn.load('home.html')" class="just_arabic">
 							Change language
 						</ons-list-item>						
@@ -3650,6 +3661,9 @@ alert("An error has occurred: Code = " + error.code);
 						</ons-list-item>
 						<ons-list-item tappable onclick="fn.load('zaer_services.html')" class="just_english">
 							List of User Options
+						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('developer.html')" class="just_english">
+							Developers
 						</ons-list-item>
 						<ons-list-item tappable onclick="LogOut()" class="just_english">
 							Log Out
@@ -3670,6 +3684,9 @@ alert("An error has occurred: Code = " + error.code);
 						</ons-list-item>
 						<ons-list-item tappable onclick="fn.load('contact_support.html')" class="just_persian">
 							تماس با پشتیبانی
+						</ons-list-item>
+						<ons-list-item tappable onclick="fn.load('developer.html')" class="just_persian">
+							تهیه کنندگان
 						</ons-list-item>
 						<ons-list-item tappable onclick="LogOut()" class="just_persian">
 							خروج از سیستم
@@ -3710,7 +3727,9 @@ alert("An error has occurred: Code = " + error.code);
 				<div id="top_text" class="need_translate" translate="Please_Select_Your_Login_Type" >Please Select Your Login Type</div>
 				<div id="goto_page_user_type_zaer" class="select_user_type_btn"  ><div class="need_translate" translate="The_pilgrim">The pilgrim</div></div>
 				<div id="goto_page_user_type_mukeb" class="select_user_type_btn" ><div class="need_translate" translate="Tent_manager">Tent manager</div></div>
-				<div id="power_by" class="english_text" >Developed by Fadak al-Fatimiya Organization</div>
+				
+				<div id="power_by_img" ><img src="images/atabe-logo.png" /></div>
+				<!-- <div id="power_by" class="english_text" >Developed by Fadak al-Fatimiya Organization</div> -->
 			</div>
 		</ons-page>
 	</template>
@@ -3731,6 +3750,27 @@ alert("An error has occurred: Code = " + error.code);
 			
 			<div class="text-100 contact_support_text" style="margin-bottom: 10%;">
 				<article></article>
+			</div>			
+		</ons-page>
+	</template>
+
+	<template id="developer.html">
+		<ons-page id="developer" >
+			<div class="page_bg retina" ></div>
+			
+			<ons-toolbar inline modifier="transparent22">
+				<div class="right">
+					<ons-toolbar-button onclick="fn.open()">
+						<ons-icon icon="ion-navicon, material:md-menu" style="color:#ffffff;"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="center need_translate" translate="developers"></div>
+				<div class="left"><ons-back-button class="need_translate_toolbar_btn" translate="Back" >Back</ons-back-button></div>
+			</ons-toolbar>
+			
+			<div class="text-100 contact_support_text" style="margin-bottom: 10%;">
+				<article style="direction: rtl;margin-top: 3%;">مؤسسة فدك الزهراء الثقافية الخيرية بالتعاون مع العتبتين المقدستين الحسينية والعباسية</article>
+				<div id="developer_power_by_img" ><img src="images/atabe-logo2.png" /></div>
 			</div>			
 		</ons-page>
 	</template>
@@ -4263,7 +4303,7 @@ alert("An error has occurred: Code = " + error.code);
 							</label>
 							<label for="Internet" class="center need_translate" translate="Internet">Internet</label>
 						</div>
-						<div class="input">
+						<div class="input" style="display:none;">
 							<label class="left">
 								<ons-checkbox input-id="WC"></ons-checkbox>
 							</label>
