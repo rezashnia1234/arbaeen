@@ -167,5 +167,5 @@ lang_en = {
 	download_aborted : "Download process aborted",
 	download_error : "There is a problem with the download process, you must try again",
 	developers : "Developers",
-	developer_text : "",
+	developer_text : "مؤسسة فدك الفاطمية بالتعاون مع العتبتين الحسينية و العباسية المقدستين",
 };

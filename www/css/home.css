@@ -958,9 +958,19 @@ article.lang_en span.btn_date{
     max-width: 580px;
     margin-top: 5%;
 }
-
-
-
+.jconfirm.jconfirm-white .jconfirm-box, .jconfirm.jconfirm-light .jconfirm-box {
+    direction: rtl;
+}
+.jconfirm-content label {
+    display: block;
+}
+.jconfirm-content input[type=text] {
+    width: 80%;
+    border-left: 0px;
+    border-right: 0;
+    border-top: 0;
+    padding: 10px 5px 5px;
+}
 
 
 
