@@ -375,7 +375,7 @@ if(window.sessionStorage.getItem('map_array_fa') != null && window.localStorage.
 	restaurant500 = $.parseJSON(window.localStorage.getItem('map_array_fa'));
 else if(window.sessionStorage.getItem('map_array_en') != null && window.localStorage.getItem('language') == "lang_en")
 	restaurant500 = $.parseJSON(window.localStorage.getItem('map_array_en'));
-if(window.sessionStorage.getItem('map_array_ar') != null)
+else if(window.sessionStorage.getItem('map_array_ar') != null)
 	restaurant500 = $.parseJSON(window.localStorage.getItem('map_array_ar'));
 
 //console.log("**************************************************************************************");

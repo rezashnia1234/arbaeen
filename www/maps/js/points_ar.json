@@ -553,19 +553,6 @@ var restaurant500_ar = {
 { "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "القنصلية الايرانية",				"theme": 1.0, "libtheme": "CULTURE", "categorie":110.0 }, "geometry": { "type": "Point", "coordinates": [44.336904,32.000453]}},
 
 
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "توزيع بطاقات المضيف باب الطوسي",				"theme": 1.0, "libtheme": "CULTURE", "categorie":111.0 }, "geometry": { "type": "Point", "coordinates": [44.314355,31.996974]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "معرض بيع زهور وعسل ونباتات الزينة باب الطوسي",				"theme": 1.0, "libtheme": "CULTURE", "categorie":111.0 }, "geometry": { "type": "Point", "coordinates": [44.314445,31.996983]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "مضيف الحسن المجتبى للزائرين",				"theme": 1.0, "libtheme": "CULTURE", "categorie":111.0 }, "geometry": { "type": "Point", "coordinates": [44.313112,31.994491]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "المرافق الصحية خلف مضيف الامام الحسن ع",				"theme": 1.0, "libtheme": "CULTURE", "categorie":111.0 }, "geometry": { "type": "Point", "coordinates": [44.313093,31.994304]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "معرض الكتاب الدائم باب القبلة",				"theme": 1.0, "libtheme": "CULTURE", "categorie":111.0 }, "geometry": { "type": "Point", "coordinates": [44.314365,31.995002]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "المرافق الصحية شارع الطوسي",				"theme": 1.0, "libtheme": "CULTURE", "categorie":111.0 }, "geometry": { "type": "Point", "coordinates": [44.315252,31.996888]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "المرافق الصحية في الحولي",				"theme": 1.0, "libtheme": "CULTURE", "categorie":111.0 }, "geometry": { "type": "Point", "coordinates": [44.30538,31.996425]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "كراج المتعدد الطوابق",				"theme": 1.0, "libtheme": "CULTURE", "categorie":111.0 }, "geometry": { "type": "Point", "coordinates": [44.311625,31.998344]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "المرافقات الصحية في شارع الرسول",				"theme": 1.0, "libtheme": "CULTURE", "categorie":111.0 }, "geometry": { "type": "Point", "coordinates": [44.315092,31.99459]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "مركز ارشاد  التائهين",				"theme": 1.0, "libtheme": "CULTURE", "categorie":111.0 }, "geometry": { "type": "Point", "coordinates": [44.315776,31.996957]}},
-{ "type": "Feature", "id": 801 , "properties": { "gid": 801, "___idobj": 3.0, "name": "مركز ارشاد التائهين",				"theme": 1.0, "libtheme": "CULTURE", "categorie":109.0 }, "geometry": { "type": "Point", "coordinates": [44.315776,31.996957]}},
-
-
 
 
 
