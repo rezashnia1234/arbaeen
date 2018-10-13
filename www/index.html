@@ -3182,8 +3182,10 @@ alert("An error has occurred: Code = " + error.code);
 						auto_login("change_page");
 
 					setTimeout(function(){
-						$(".captcha_image").attr("src",server_url_main + "/captcha/captcha.php");
-						$(".captcha2_image").attr("src",server_url_main + "/captcha/captcha2.php");
+						//$(".captcha_image").css("background-image","url(images/captcha.png),url(" + server_url_main + "/captcha/captcha.php)");
+						//$(".captcha2_image").css("background-image","url(images/captcha.png),url(" + server_url_main + "/captcha/captcha2.php)");
+						$(".captcha_image").css("background-image","url(" + server_url_main + "/captcha/captcha.php),url(images/captcha.png)");
+						$(".captcha2_image").css("background-image","url(" + server_url_main + "/captcha/captcha.php),url(images/captcha.png)");
 					}, 350);
 
 					setTimeout(function(){
@@ -4150,7 +4152,9 @@ alert("An error has occurred: Code = " + error.code);
 				<div class="input" style="direction:ltr;">
 					<ons-input id="Captcha2" modifier="underbar" placeholder="Captcha" float class="need_translate_val" translate="Captcha"></ons-input>
 				</div>
-				<div style="width:100%;text-align:center;" ><img src="" class="captcha2_image" style="max-width: max-content;width:  100%;" onclick="$('.captcha2_image').attr('src', server_url_main + 'captcha/captcha2.php?rand' + Math.random())" /></div>
+				<div style="width:100%;text-align:center;" >
+					<img src="images/captcha_transparent.png" class="captcha2_image" style="max-width: max-content;width:  100%;border-radius: 5px;" onclick='$(".captcha2_image").css("background-image","url(" + server_url_main + "/captcha/captcha.php?rand" + Math.random() + "),url(images/captcha.png)"); ' />
+				</div>
 				<span class="need_translate" translate="Captcha_description" style="font-size: 11px;margin-bottom: 18px;display:  block;margin-top: 0px;color:  #ccc;text-align:  center;"></span>
 				
 				<div id="register_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="pre_registration"></div></div></div>
@@ -4174,7 +4178,9 @@ alert("An error has occurred: Code = " + error.code);
 				<div class="input" style="direction:ltr;" >
 					<ons-input id="Captcha" modifier="underbar" placeholder="Captcha" float class="need_translate_val" translate="Captcha"></ons-input>
 				</div>
-				<div style="width:100%;text-align:center;" ><img src="" class="captcha_image" style="max-width: max-content;width:  100%;" onclick="$('.captcha_image').attr('src', server_url_main + 'captcha/captcha.php?rand' + Math.random())" /></div>
+				<div style="width:100%;text-align:center;" >
+					<img src="images/captcha_transparent.png" class="captcha_image" style="max-width: max-content;width:  100%;border-radius: 5px;" onclick='$(".captcha_image").css("background-image","url(" + server_url_main + "/captcha/captcha.php?rand" + Math.random() + "),url(images/captcha.png)"); ' />
+				</div>
 				<span class="need_translate" translate="Captcha_description" style="font-size: 11px;margin-bottom: 18px;display:  block;margin-top: 0px;color:  #ccc;text-align:  center;"></span>
 				
 				<div id="login_mukeb_manager_submit_data" class="center-text" ><div class="Submit_Information" ><div class="need_translate" translate="Login" ></div></div></div>
