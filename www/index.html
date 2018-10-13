@@ -27,7 +27,9 @@
 	<link rel="stylesheet" href="css/home.css">
 	
 	<style>
-		
+		/*
+		.display_none_on_android_v4{display:none !important;}
+		*/
 	</style>
 	<script>
 		winW = 0;
@@ -1771,6 +1773,10 @@ alert("An error has occurred: Code = " + error.code);
 								window.localStorage.setItem('update_link',json.update_link);
 								if(version < json.last_valid_version)
 									document.querySelector('#myNavigator').pushPage('update_link.html', {animation: "slid",animationOptions:{delay: 0.4} });
+
+								window.localStorage.setItem('activation_text_ar',json.activation_text_ar);
+								window.localStorage.setItem('activation_text_en',json.activation_text_en);
+								window.localStorage.setItem('activation_text_fa',json.activation_text_fa);
 								
 								setTimeout(function(){
 									toast_update.toggle();
@@ -3210,12 +3216,20 @@ alert("An error has occurred: Code = " + error.code);
 								}
 							}
 							*/
+							arr = "";
+							if(window.localStorage.getItem('activation_text_fa') != null && window.localStorage.getItem('language') == "lang_fa")
+								arr = window.localStorage.getItem('activation_text_fa');
+							else if(window.localStorage.getItem('activation_text_en') != null && window.localStorage.getItem('language') == "lang_en")
+								arr = window.localStorage.getItem('activation_text_en');
+							else if(window.localStorage.getItem('activation_text_ar') != null)
+								arr = window.localStorage.getItem('activation_text_ar');
+								
 							$.confirm({
 								title: multilang.get("notice"),
 								content: '' +
 								'<form action="" class="get_number_form_for_otp">' +
 								'<div class="form-group">' +
-								'<label>' + multilang.get("Enter_your_mobile_number") + '</label>' +
+								'<label>' + arr + '</label>' +
 								'<input type="text" placeholder="Your Number" class="my_number form-control" required />' +
 								'</div>' +
 								'</form>',
@@ -4064,7 +4078,7 @@ alert("An error has occurred: Code = " + error.code);
 					<div  class="input" style="position:relative;">
 						<ons-input id="Description" modifier="underbar" placeholder="Description" float class="need_translate_val" translate="Description"></ons-input>
 					</div>
-					<div  class="input" style="position:relative;">
+					<div  class="input display_none_on_android_v4" style="position:relative;">
 						<div class="Select_hover" onclick="get_image()" ></div>
 						<div class="Select_hover camera_image" onclick="get_image()">
 							<img src="images/camera.svg" >
@@ -4373,7 +4387,7 @@ alert("An error has occurred: Code = " + error.code);
 						</div>
 					</fieldset>
 					
-					<fieldset id="fieldset_for_upload_images">
+					<fieldset id="fieldset_for_upload_images" class="display_none_on_android_v4">
 						<legend class="need_translate" translate="Images"></legend>
 						<div id="images_place_holder"></div>
 						<ons-button onclick="get_image_for_mukeb()" class="need_translate" translate="Add_Image" style="background-color: #4CAF50; color: #ffffff;width:100%;text-align:center;"></ons-button>
