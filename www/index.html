@@ -1027,7 +1027,15 @@ alert("An error has occurred: Code = " + error.code);
 							{
 								hideDialog('dialog_progress_bar');
 								//fromTemplate(multilang.get('Pre_registration_finished'));
-								fromTemplate(multilang.get('you_will_recive_sms'));
+								arr = "";
+								if(window.localStorage.getItem('activation_text_fa') != null && window.localStorage.getItem('language') == "lang_fa")
+									arr = window.localStorage.getItem('activation_text_fa');
+								else if(window.localStorage.getItem('activation_text_en') != null && window.localStorage.getItem('language') == "lang_en")
+									arr = window.localStorage.getItem('activation_text_en');
+								else if(window.localStorage.getItem('activation_text_ar') != null)
+									arr = window.localStorage.getItem('activation_text_ar');
+								//fromTemplate(multilang.get('you_will_recive_sms'));
+								fromTemplate(arr);
 								//window.localStorage.setItem('Pre_registration_step','1');
 								document.querySelector('#myNavigator').pushPage('confirm_mukeb_manager.html', {animation: "reversedSlide",animationOptions:{delay: 0.4} });
 							}
